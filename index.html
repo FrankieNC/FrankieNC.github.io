@@ -162,5 +162,17 @@
         <h2>Contact</h2>
         <p>If you would like to get in touch, please reach out via my university email: <a href="mailto:fnc24@ic.ac.uk">fnc24@ic.ac.uk</a></p>
     </section>
+
+    <footer>
+        <p>Based on a design by <a href="https://github.com/LeNPaul/academic?tab=readme-ov-file" target="_blank">LeNPaul</a>.</p>
+        <p>Website last updated on <span id="last-updated"></span>.</p>
+    </footer>
+    
+    <script>
+        // JavaScript to dynamically display today's date
+        const lastUpdated = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('last-updated').textContent = lastUpdated.toLocaleDateString(undefined, options);
+    </script>
 </body>
 </html>
