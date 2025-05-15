@@ -405,6 +405,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/Inferno/";
+            },},{id: "books-meditations",
+          title: 'Meditations',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/Meditations/";
             },},{id: "books-paradiso",
           title: 'Paradiso',
           description: "",
