@@ -400,11 +400,21 @@ ninja.data = [{
             window.location.href = "/blog/2015/formatting-and-links/";
           
         },
-      },{id: "books-the-godfather",
-          title: 'The Godfather',
+      },{id: "books-inferno",
+          title: 'Inferno',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/the_godfather/";
+              window.location.href = "/books/Inferno/";
+            },},{id: "books-paradiso",
+          title: 'Paradiso',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/paradiso/";
+            },},{id: "books-purgatorio",
+          title: 'Purgatorio',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/purgatorio/";
             },},{id: "news-a-simple-inline-announcement",
           title: 'A simple inline announcement.',
           description: "",
