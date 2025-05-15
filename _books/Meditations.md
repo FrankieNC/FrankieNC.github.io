@@ -2,7 +2,7 @@
 layout: book-review
 title: Meditations
 author: Marcus Aurelius
-cover: assets/img/book_covers/Meditations.jpg
+cover: assets/img/book_covers/Meditations.jpeg
 olid: 
 isbn: 
 categories: classics historical-fiction novels
