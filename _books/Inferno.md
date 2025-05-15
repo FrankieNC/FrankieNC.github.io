@@ -3,16 +3,11 @@ layout: book-review
 title: Inferno
 author: Dante Alighieri
 cover: assets/img/book_covers/Inferno.jpg
-olid: 
-isbn: 9780140440065
 categories: classics historical-fiction novels
 tags: dante, divine-comedy, medieval-literature, theology, epic-poetry
 buy_link: https://www.penguin.co.uk/books/62039/the-divine-comedy-by-dante-alighieri-trans-with-comm-mark-musa-intro-and-notes-mark-musa/9780142437223
-started: 
-finished: 
 released: 1320
 stars: 5
-goodreads_review: 
 status: Finished
 ---
 
