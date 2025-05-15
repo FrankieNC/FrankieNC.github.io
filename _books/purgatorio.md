@@ -7,12 +7,9 @@ olid:
 isbn: 9780140440461
 categories: classics historical-fiction novels
 tags: dante, divine-comedy, purgatory, medieval-literature, spiritual-growth
-buy_link: https://www.penguin.co.uk/books/35453/purgatorio-by-dante-translated-and-edited-by-robin-kirkpatrick/9780140448962
-started: 
-finished: 
+buy_link: https://www.penguin.co.uk/books/35453/purgatorio-by-dante-translated-and-edited-by-robin-kirkpatrick/9780140448962 
 released: 1320
-stars: 
-goodreads_review: 
+stars: 5
 status: Finished
 ---
 
