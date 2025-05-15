@@ -171,9 +171,12 @@ kramdown:
       start_line: 1
 
 # Includes & excludes
-include: ["_pages", "_scripts"]
+include: 
+ - ["_pages", "_scripts"]
+ - books.md
 exclude:
   - _pages/cv.md
+  - _pages/dropdown.md
   - _pages/profiles.md
   - _pages/publications.md
   - _pages/repositories.md
