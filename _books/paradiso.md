@@ -2,12 +2,12 @@
 layout: book-review
 title: Paradiso
 author: Dante Alighieri
-cover: 
+cover: assets/img/book_covers/Paradiso.jpg
 olid: 
 isbn: 9780140441055
 categories: classics historical-fiction novels
 tags: dante, divine-comedy, heaven, medieval-literature, metaphysics
-buy_link: 
+buy_link: https://www.penguin.co.uk/books/35454/paradiso-by-dante-translated-and-edited-by-robin-kirkpatrick/9780140448979
 started: 
 finished: 
 released: 1320
