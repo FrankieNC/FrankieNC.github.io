@@ -1,0 +1,632 @@
+\documentclass[12pt, a4paper]{article}   	
+\usepackage{geometry}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage{color}   
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usepackage{multicol}
+\usepackage[thinc]{esdiff}
+\usepackage{physics}
+\usepackage{bm}
+\usepackage{pdfpages}
+\usepackage{pdflscape}
+\usepackage{listings}
+\usepackage{float}
+
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true, linktoc=all, linkcolor=black,}
+
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\f}[2]{\frac{#1}{#2}}
+\newcommand{\imply}{\Rightarrow}
+\newcommand{\Cal}[1]{\mathcal{#1}}
+\newcommand{\mb}[1]{\mathbf{#1}}
+
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{example}{Example}
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{plain}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{Sequences and Series Notes}
+\date{}
+\author{Francesco Chotuck}
+\begin{document} 
+\maketitle 
+
+\tableofcontents
+
+\pagebreak
+
+\section*{Notation}
+
+The notation $\#(A)$ for a set $A$ denotes the cardinality i.e. the size of the set.
+
+\section{Set Theory}
+
+\subsection{Operation with sets}
+
+\begin{definition}
+The \textbf{union} of two sets $A$ and $B,$ denotes $A\cup B,$ is the set of all elements which are either in A \textbf{or} B (or both).
+\end{definition}
+
+\begin{definition}
+The \textbf{intersection,} $A\cap B,$ is the set of those elements that are both in $A$ and in $B.$  
+\end{definition}
+
+\begin{definition}
+The notation $A\backslash B$ stands for the \textbf{complement} of $B$ in $A,$ i.e. the set of all elements of $A$ which are not in $B.$ 
+\end{definition}
+
+\begin{example}
+Within the natural numbers $\bb{N}$ suppose $A=\{1,2,3,4\}$ and $B=\{1,2,5\}.$ Then $$A\backslash B=\{3,4\}.$$
+\end{example}
+
+\subsection{Intervals}
+	
+\begin{definition}
+The following subsets of $\bb{R}$ are called \textbf{intervals:}
+\begin{enumerate}
+	
+	\item[(i)] $[a,b]=\{x\in \bb{R} : a\leq x \leq b\}.$
+
+	\item[(ii)] $(a,b)= \{x\in \bb{R} : a< x <b\}.$
+
+	\item[(iii)] $(a,b]=\{x\in \bb{R} : a< x \leq b\}.$
+
+	\item[(iv)] $(-\infty,b]=\{x\in \bb{R} : x \leq b\}.$
+
+	\item[(v)] $(a,\infty)= \{x\in \bb{R} : a < x\}.$
+
+	\item[(vi)] $(-\infty, \infty)=\bb{R}.$
+
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+To make operations with intervals easier draw the intervals on the number line to visualise the operation.
+\end{remark}
+
+\begin{tcolorbox}
+Note that the symbol $\infty$ is only used as part of the notation.
+$\mb{\infty}$ \textbf{is not a real number! There is no such real number as} $\mb{\infty}.$
+\end{tcolorbox}
+
+\subsection{Multiple and infinite unions and intersections}
+
+
+
+
+\section{Functions}
+
+\includepdf[pages=-]{./Resources/Functions.pdf}
+
+\section{Logic}
+
+\subsection{Propositions}
+
+\begin{definition}
+For our purposes it will be sufficient to define a \textbf{proposition} to be ‘a statement which is either \textbf{true or false}’. The word statement is often used as a synonym to proposition.
+\end{definition}
+
+If $A$ and $B$ are propositions, one can form new propositions as follows:
+
+\begin{itemize}
+
+	\item $A$ AND $B$ - is true if and only if both $A$ and $B$ are true;
+
+	\item $A$ OR $B$ - is true if and only if either ($A$ is true) or ($B$ is true) or (both $A$ and $B$ are true);
+
+	\item NOT $A$ - is true if and only if $A$ is false.
+
+\end{itemize}
+
+\subsection{Quantifiers}
+
+From propositions with variables one can form new propositions by using the quantifiers $\exists$ ‘there exists’ and $\forall$ ‘for all’.
+
+\begin{tcolorbox}
+\textbf{If a proposition contains a variable, then without a quantifier one cannot establish whether it is true or false!}
+\end{tcolorbox}
+
+\subsection{Negating propositions}
+
+The process to negate propositions is as follows: 
+
+\begin{enumerate}
+	
+	\item Negate the quantifiers, i.e. the negation of $\forall$ is $\exists$ and the negation of $\exists$ is $\forall.$
+
+	\item Negate the statement. For example:
+	$$"\forall x \in \bb{R}, \text{ one has } x>0"$$ the negation is $$"\exists x \in \bb{R}, \text{ one has } x\leq0".$$
+
+\end{enumerate}
+
+\begin{remark}
+When negating propositions containing operations AND, OR, one should replace AND by OR and vice versa.
+\end{remark}
+
+\begin{example}
+Proposition: $\forall a>0$ one has $(a\geq 1)$ OR $(1/a\geq 1).$
+Negation: $\exists a>0$ such that $(a<1)$ AND $(1/a <1).$
+\end{example}
+
+\subsection{Converse and contrapositive}
+
+\begin{definition}
+Let $A$ and $B$ be propositions depending on a variable. For a statement $A \imply B,$ the \textbf{contrapositive} is the statement $(\text{NOT } B) \imply (\text{NOT } A).$ A contrapositive is true if and only if the original statement is true.
+\end{definition}
+
+\begin{definition}
+For a statement $A \imply B,$ the \textbf{converse} is the statement $B \imply A.$ A converse may or may not be true regardless of whether the original statement is true or not.
+\end{definition}
+
+\section{Proofs}
+
+\subsection{Proving two sets are equal}
+
+\begin{theorem}
+Let $A$ and $B$ be two sets. Then $A=B$ if and only if both $A \subset B$ and $B \subset A.$
+\end{theorem}
+
+\begin{theorem}
+For any sets $A,B$ and $C,$ we have: 
+\begin{enumerate}
+
+	\item[(i)] $A\cup(B\cap C)= (A\cup B)\cap (A\cup C);$
+
+	\item[(ii)]$A\cap(B\cup C)= (A\cap B)\cup (A\cap C);$
+
+\end{enumerate}
+\end{theorem}
+
+\subsection{Proof by contradictions}
+
+In this type of proof instead of proving $A\imply B$ we prove the contrapositive (which may be easier to prove) $\text{NOT }A \imply \text{NOT }B.$
+
+\subsection{Proof by counterexample}
+
+It is enough to find an example in which the proposition proposed does not hold true.
+
+\section{Boundedness; supremum and infimum}
+
+\subsection{Boundedness}
+
+\begin{definition}
+A subset $S$ of $\bb{R}$ is said to be \textbf{bounded above} if there is a real number $M$ such that $x \leq M$ for all $x \in S.$
+
+Alternatively: $S$ is bounded above if $S \subset (-\infty,M]$ for some $M \in \bb{R}.$ Such a number $M$ is called an \textbf{upper bound} for $S.$
+\end{definition}
+
+\begin{definition}
+A subset $S$ of $\bb{R}$ is said to be \textbf{bounded below} if there is a real number m such that $x \geq m$ for all $x \in S.$
+
+Alternatively: $S$ is bounded below if $S \subset [m,\infty)$ for some $m \in \bb{R}$. Such a number $m$ is called a \textbf{lower bound} for $S.$
+\end{definition}
+
+\begin{definition}
+A subset $S$ of $\bb{R}$ is said to be \textbf{bounded} if it is both bounded above and bounded below. 
+
+Alternatively: $S$ is bounded if $S \subset [m,M]$ for some real numbers $m, M.$
+
+If $S$ is not bounded, it is called \textbf{unbounded}.
+\end{definition}
+
+\subsection{Maximum and minimum}
+
+\begin{definition}
+Let $S$ be bounded above and suppose that there exists an upper bound $M$ of $S$ such that $M \in S.$ Then $M$ is called the \textbf{maximum} of $S$ (or the maximal element of $S$): $M = \max(S).$
+\end{definition}
+
+\begin{definition}
+Let $S$ be bounded below and suppose that there exists a lower bound $m$ of $S$ such that $m \in S.$ Then $m$ is called the minimum of $S$ (or the minimal element of $S$): $m = \min(S).$
+\end{definition}
+
+\begin{remark}
+The set $S=(0,1)$ is bounded. However, neither maximum nor minimum exist for this set.
+\end{remark}
+
+\begin{theorem} \hphantom{This is to make space for formatting}
+\begin{enumerate}
+	
+	\item[(i)] Let $S$ be bounded above. If $\max(S)$ exists, then it is unique.
+
+	\item[(ii)] Let $S$ be bounded below. If $\min(S)$exists, then it is unique.
+
+\end{enumerate}
+\end{theorem}
+
+\subsection{Supremum and infimum}
+
+\begin{definition}
+Let $S$ be bounded below. Suppose that there exists the largest number $m$ such that $S \subset [m, \infty).$ Then $m$ is called the greatest lower bound for $S,$ or the \textbf{infimum} of $S,$ denoted $\inf(S).$
+\end{definition}
+
+\begin{theorem}
+Let $S$ be bounded from below. If $\min(S)$ exists, then $\inf(S)$ also exists and coincides with $\min(S).$
+\end{theorem}
+
+\begin{theorem}
+Let $S\subset \bb{R}$ be a set bounded below and let $m=\inf{S}.$ Then for any $\varepsilon>0$ there exists $x\in S$ such that $x<m+\varepsilon.$
+\end{theorem}
+
+\begin{definition}
+Let $S$ be bounded above. Suppose that there exists the smallest number $M$ such that $S \subset (-\infty,M]$. Then $M$ is called the least upper bound for $S,$ or the \textbf{supremum} of $S,$ denoted $\sup(S).$
+\end{definition}
+
+\begin{theorem}
+Let $S$ be bounded from above. If $\max(S)$ exists, then $\sup(S)$ also exists and coincides with $\max(S).$
+\end{theorem}
+
+\begin{theorem}
+Let $S \subset R$ be a set bounded above and let $M = \sup(S).$ Then for any $\varepsilon > 0$ there exists $x \in S$ such that $M -\varepsilon < x.$
+\end{theorem}
+
+\begin{note}
+What the theorem above is saying is that number formed by taking a small number, $\varepsilon,$ away from the supremum of a set is no longer an upper bound of the set; therefore it cannot be the supremum of the set.
+\end{note}
+
+\begin{remark}
+The supremum and infimum of a set by definition do not need to be in the set itself.
+\end{remark}
+
+\subsection{Completeness}
+
+\begin{definition} \textbf{(Axiom of completeness).}
+Every non-empty set of real numbers which is bounded above has a supremum. 
+
+Every non-empty set of real numbers which is bounded from below has an infimum.
+\end{definition}
+
+\section{Sequences: Convergence}
+
+\subsection{Sequences}
+
+We say that a list of numbers $s_1,s_2,s_3,\ldots$ generated by a general formula such as, $$s_n=\f{1}{n^2} \quad n\in\bb{N},$$ is a sequence.
+
+\begin{remark}
+Some types of notations for sequences are $\{s_n\}_{n=n_0}^{\infty},$ alternatively $(s_n)_{n\geq n_0}.$
+\end{remark}
+
+\subsection{Convergence}
+
+\begin{definition}
+The sequence $s_n$ is said to \textbf{converge} to the limit $L$ if for all $\varepsilon > 0$ there exists a natural number $n_0$ such that for all $n\geq n_0$ we have $$|s_n-L|<\varepsilon.$$
+\end{definition}
+
+\begin{tcolorbox}
+In symbols:
+$$\forall \varepsilon >0 \: \exists n_0 \in \bb{N} \text{ such that } \forall n\geq n_0 \text{ we have } |s_n-L|<\varepsilon.$$
+\end{tcolorbox}
+
+\begin{remark}
+The defintion does not change if $n>n_0$ or if $\varepsilon = f(\varepsilon).$
+\end{remark}
+
+\begin{theorem}
+Every convergent sequence has one and only one limit.
+\end{theorem}
+
+\subsection{Divergence}
+
+\begin{definition}
+If the sequence $s_n$ does not converge to any limit it is said to \textbf{diverge}.
+\end{definition}
+
+\begin{definition}
+The sequence $s_n$ is said to diverge to $+\infty,$ for which we write $s_n\to +\infty,$ if, for every positive real number $H,$ there exists $n_0$ such that for all $n\geq n_0$ we have $$s_n>H.$$ i.e. $$\forall H>0 \; \exists n_0 \in \bb{N} \; \forall n\geq n_0 \; s_n>H.$$
+\end{definition}
+
+\begin{definition}
+The sequence $s_n$ is said to diverge to $-\infty,$ for which we write $s_n \to -\infty$ if, for any negative real number $H,$ there exists $n_0$ such that for all $n \geq n_0$ we have $$s_N<H.$$ i.e. 
+$$\forall H<0 \; \exists n_0 \in \bb{N} \; \forall n\geq n_0 \; s_n<H.$$
+\end{definition}
+
+\begin{example}
+TO DO !!
+\end{example}
+
+\begin{example}
+TO DO !!
+\end{example}
+
+\subsection{Boundedness}
+
+\begin{definition}
+The sequence $s_n$ is said to be \textbf{bounded} if its terms form a bounded set. i.e., if there exists a real number $M$ such that $|s_n| \leq M$ for all $n \in \bb{N}.$
+\end{definition}
+
+\begin{theorem}
+Every convergent sequence is bounded.
+\end{theorem}
+
+\section{The algebra of limits}
+
+\begin{theorem}
+Let $s_n \to L$ and $t_n \to M$ as $n\to \infty.$ Then 
+\begin{enumerate}
+ 	
+ 	\item for any number $\alpha \in \bb{R},$ one has $\alpha s_n\to \alpha L$ as $n\to\infty;$
+
+ 	\item $s_n+t_n\to L+M$ as $n\to\infty;$
+
+ 	\item $s_nt_n\to LM$ as $n\to\infty;$
+
+ 	\item $s_n/t_n \to L/M$ as $n\to\infty,$ provided $m\neq 0$ and $t_n\neq 0$ for all $n.$
+ 
+\end{enumerate} 
+\end{theorem}
+
+\begin{theorem}
+Let $s_n \to \infty$ or $s_n \to -\infty$ as $n \to \infty$ and $s_n \neq  0$ for all $n$. Then $1/{s_n} \to 0$ as $n \to \infty.$
+\end{theorem}
+
+\begin{theorem}
+Let $s_n \to L>0$ and let $t_n \to \pm\infty$ as $n\to\infty.$ Then $s_nt_n \to \pm\infty$ as $n\to \infty.$
+\end{theorem}
+
+\subsection{Sandwich theorem}
+
+\begin{theorem}
+Let $r_n \to L$ and $t_n \to L$ as $n \to \infty$ and suppose that $r_n \leq s_n \leq t_n$ for all $n\in\bb{N}.$ Then $s_n \to L$ as $n\to \infty.$
+\end{theorem}	
+
+\begin{example}
+TO DO !!
+\end{example}
+
+\subsection{Limits with inequalities}
+
+\begin{theorem}
+Let $s_n, t_n$ be convergent sequences such that $s_n \leq t_n$ for all $n \in \bb{N}.$ Then $\lim_{n\to \infty}s_n \leq \lim_{n\to \infty} t_n.$
+\end{theorem}
+
+\begin{corollary}
+Let $s_n, t_n$ be convergent sequences such that $s_n < t_n$ for all $n \in \bb{N}.$ Then $\lim_{n\to \infty}s_n \leq \lim_{n\to \infty} t_n.$
+\end{corollary}
+
+\begin{remark}
+This is because $s_n<t_n \imply s_n\leq t_n.$ The use of $<$ in the inequality for limits may be FALSE sometimes. 
+\end{remark}
+
+\section{Standard sequences}
+
+The following are `standard' sequences that converge to zero:
+
+\begin{itemize}
+
+	\item Exponentials: $a^n \to 0$ as $n \to \infty,$ $\forall a\in (-1,1);$
+
+	\item Powers: $n^{-\gamma}\to 0$ as $n \to \infty,$ $\forall \gamma>0;$
+
+	\item Logarithms: $\f{1}{\log(n)} \to 0$ as $n \to \infty.$
+
+\end{itemize}
+
+Alternately we also have the following sequences which diverge to $\infty:$
+
+\begin{itemize}
+	\item Exponentials: $A^n \to \infty$ as $n \to \infty,$ $\forall A>1;$
+
+	\item Powers: $n^{\gamma}\to \infty$ as $n \to \infty,$ $\forall \gamma >0;$
+
+	\item Logarithms: $\log(n) \to \infty$ as $n \to \infty.$
+\end{itemize}
+
+\subsection{Rates of convergence}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{./Resources/Rates of convergence.png}
+\end{figure}
+
+\subsubsection{Bernoulli inequality}
+
+\begin{lemma}\textbf{(Bernoulli inequality).} For every $k\in \bb{N}$ and $x\geq -1$ one has $$(1+k)^k\geq 1+kx.$$
+
+\end{lemma}
+
+\subsubsection{The sequence \texorpdfstring{$a^{1/n}$}{TEXT}}
+
+\begin{theorem}
+For any $a>0,$ we have $$a^{1/n} \to 1 \text{ as } n\to \infty.$$ 
+\end{theorem}
+
+\section{Monotone sequences}
+
+\begin{definition}
+A sequence $s_n$ is said to be:
+\begin{itemize}
+
+	\item \textbf{increasing}, if $s_{n+1} > s_n$ for all $n \in \bb{N}$;
+
+	\item \textbf{decreasing}, if $s_{n+1} < s_n$ for all $n \in \bb{N}$;
+
+	\item \textbf{non-decreasing}, if $s_{n+1} \geq s_n$ for all $n \in \bb{N}$;
+
+	\item \textbf{non-increasing}, if $s_{n+1} \leq s_n$ for all $n \in \bb{N}$;
+
+	\item \textbf{monotone} if it is either non-decreasing or non-increasing.
+
+\end{itemize}
+\end{definition}
+
+\begin{theorem} \hphantom{This is to make space for formatting}
+\begin{enumerate}
+	
+	\item Every non-decreasing sequence which is bounded above is convergent. Moreover, the limit of the sequence is the supremum of its terms.
+
+	\item Every non-increasing sequence which is bounded below is convergent. Moreover, the limit of the sequence is the infimum of its terms.
+
+\end{enumerate}
+\end{theorem}
+
+\section{Series}
+
+A series is just a special type of sequence.
+
+\begin{definition}
+Let $\{a_k\}_{k=1}^{\infty}$ be a sequence of real numbers. We say that the \textbf{series} $\sum_{k=1}^{\infty} a_k$ converges if the limit $$\lim_{n\to \infty} \sum_{k=1}^{n} a_k$$ exists. The limit is called the sum of the series $\sum_{k=1}^{\infty} a_k.$ So by definition, $$\sum_{k=1}^{\infty} a_k =\lim_{n\to\infty} \sum_{k=1}^{n} a_k$$ if the limit exists.
+\end{definition}
+
+\begin{remark}
+Essentially if a sequence is composed of $a_1,a_2,a_3,\ldots$ then its corresponding series is $S_n=a_1+a_2+a_3+\ldots$
+\end{remark}
+
+\begin{theorem}
+If the series $\sum_{k=1}^{\infty} a_k$ is convergent then $\lim_{k=\infty} a_k =0.$
+\end{theorem}
+
+\subsection{Geometric series}
+
+Let $|a|<1.$ Then the series $$\sum_{k=0}^{\infty} a_k = \f{1-a^{n+1}}{1-a}.$$ Furthermore $$\sum_{k=0}^{\infty} a_k =\lim_{n\to\infty} \sum_{k=0}^{\infty} a_k =\f{1}{1-a}.$$ Clearly if $|a|>1$ the series diverges.
+
+\subsection{Series with positive terms}
+
+\begin{corollary}
+Let $a_k \geq 0$ be a sequence of non-negative real numbers. Suppose that there exists a constant $C>0$ such that for all $n\in \bb{N}$ $$\sum_{k=1}^{\infty} a_k\leq C.$$ Then the series $\sum_{k=1}^{\infty} a_k$ converges and the sum, $s,$ of this series satisfies $s\leq C.$
+\end{corollary}
+
+\subsection{Special series}
+
+\includepdf[pages=-]{./Resources/Special series.pdf}
+
+\section{Subsequences and limit points}
+
+\subsection{Subsequences}
+
+\begin{definition}
+Let $\{s_n\}_{n=1}^{\infty}$ be a sequence of real numbers and let $n_k$ be a strictly increasing sequence of natural numbers (i.e. $1 \leq n_1 < n_2 < n_3 < \ldots$). Then $\{s_{n_k}\}_{k=1}^{\infty}$ is called a \textbf{subsequence} of $\{s_n\}_{n=1}^{\infty}.$
+\end{definition}
+
+\begin{example}
+Let $s_n=\f{1}{n}$ and $n_k=k^2.$ Then $s_{n_k}=s_{k^2}=\f{1}{k^2}.$
+\end{example}
+
+\begin{theorem}
+Let $s_n$ be a convergent sequence with $s_n \to L$ as $n \to \infty.$ Then every subsequence of $s_n$ converges to $L.$
+\end{theorem}
+
+\begin{theorem}\textbf{(The Bolzano-Weierstrass Theorem).}
+Every bounded sequence has a convergent subsequence. 
+
+More precisely, if $s_n$ is a sequence of real numbers such that $a \leq s_n \leq b$ for all $n,$ then there exists a subsequence of $s_n$ which converges to a limit $L \in [a, b].$
+\end{theorem}
+
+\subsection{Limit points}
+
+\begin{definition}
+A real number a is called a \textbf{limit point} of a sequence $s_n, n \in \bb{N},$ if there exists a subsequence $s_{n_k}$ such that $a = \lim_{k\to\infty} s_{n_k}.$
+\end{definition}
+
+\begin{theorem}
+A convergent sequence has one and only one limit point; this point is the limit of the sequence.
+\end{theorem}
+
+\begin{theorem}
+Let $s_n, n \in \bb{N},$ be a bounded sequence which has only one limit point $L.$ Then $s_n \to L$ as $n\to\infty.$
+\end{theorem}
+
+\subsection{Cauchy sequences}
+
+\begin{definition}
+The sequence $s_n$ is called a \textbf{Cauchy Sequence} if for all $\varepsilon>0$ there exists a natural number $n_0$ such tha for all $m,n \geq n_0$ we have $|s_m-s_n|<\varepsilon.$
+\end{definition}
+
+\begin{theorem}
+Every convergent sequence is a Cauchy sequence.
+\end{theorem}
+
+\begin{theorem}
+Every Cauchy sequence is bounded.
+\end{theorem}
+
+\begin{theorem}\textbf{(Cauchy's convergent Criterion)}
+Every Cauchy sequence is a convergent sequence.
+\end{theorem}
+
+\begin{theorem}
+A sequence of real numbers is a Cauchy sequence if and only if it is convergent.
+\end{theorem}
+
+\section{Absolute and conditional convergence of series}
+
+\begin{definition}
+The series $\sum_{k=1}^{\infty} a_k$ is said to \textbf{converge absolutely} if the series $\sum_{k=1}^{\infty} |a_k|$ is convergent.
+\end{definition}
+
+\begin{theorem}
+Every absolutely convergent series is convergent. 
+I.e. if $\sum_{k=1}^{\infty} |a_k|$ converges then $\sum_{k=1}^{\infty} a_k$ converges as well.
+\end{theorem}
+
+\subsection{Conditional convergence}
+
+\begin{definition}
+If the series $\sum_{k=1}^{\infty} a_k$ converges, but does not converge absolutely, it is said to \textbf{converge conditionally.}
+\end{definition}
+
+\subsection{Tests for convergence}
+
+\begin{theorem} \textbf{(The Comparison Test).}
+Let $\sum_{k=1}^{\infty} b_k$ be a convergent series of non-negative numbers and suppose that for some constant $M > 0$ we have $|a_k| \leq Mb_k$ for all $k.$ Then the series $\sum_{k=1}^{\infty} a_k$ is absolutely convergent.
+\end{theorem}
+
+\begin{theorem}\textbf{(The Alternating Series Test).}
+Let $a_k$ be a non-increasing sequence of positive numbers such that $a_k \to 0$ as $k \to \infty$. Then the series $$\sum_{k=1}^{\infty} (-1)^{k+1}a_k =a_1-a_2+a_3-a_4+\ldots$$ converges. Moreover, its sum lies between $a_1-a_2$ and $a_1.$
+\end{theorem}
+
+\pagebreak
+
+\section{Appendix}
+
+\subsection{The \texorpdfstring{$O$}{TEXT} symbol}
+
+\begin{definition}
+Let $s_n$ and $t_n$ be sequences. Suppose that there exist $C > 0$ such that for all $n \in N,$ one has $|s_n| \leq C|t_n|.$ Then one writes $$s_n=O(t_n) \text{ as } n\to \infty.$$
+\end{definition}
+
+\begin{definition}
+Let $s_n$ and $t_n$ be two sequences, such that $t_n \neq 0$for all $n.$ Suppose that $\lim_{n\to \infty} \f{s_n}{t_n}=0$  Then we write $s_n =o(t_n),n\to\infty.$
+\end{definition}
+
+\subsection{Modulus}
+
+\begin{definition}
+For $x\in \bb{R}$ the \textbf{modulus} of $x,$ $|x|,$ is defined as $$\begin{aligned}
+|x|=\begin{cases}
+x \quad &\text{if $x\geq0,$} \\
+-x \quad &\text{if $x<0$.}
+\end{cases}
+\end{aligned}$$
+\end{definition}
+
+\begin{theorem}\textbf{(Properties of the modulus)}
+\begin{enumerate}
+	
+	\item $\forall x,y \in \bb{R}:$ $|xy|=|x||y|;$ in particular, $|ax|=a|x|$ if $a>0;$
+
+	\item The triangle inequality: $\forall x,y \in \bb{R}:$ $|x+y|\leq |x|+|y|;$ 
+
+	\item $\forall x,y \in \bb{R}:$ $|x-y|\leq |x|+|y|.$ 
+
+\end{enumerate}
+\end{theorem}
+
+\subsection{Floor and Ceiling functions}
+
+Property: $$x-1< \lfloor x\rfloor \leq x \leq \lceil x\rceil< x+1.$$
+
+\end{document}

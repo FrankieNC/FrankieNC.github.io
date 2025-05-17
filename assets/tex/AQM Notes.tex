@@ -1,0 +1,2442 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{francesco}
+\usepackage{physics}
+\usepackage[colorlinks=true,
+            urlcolor=RubineRed,
+            linktoc=all,
+            linkcolor=black,
+            pdfauthor={Francesco N. Chotuck},
+            pdftitle={Advanced Quantum Mechanics Notes}
+            ]{hyperref}
+\usepackage[none]{hyphenat}
+\usepackage{pdfpages}
+
+\newcommand{\hilbert}{\mathcal H}
+\newcommand{\operator}{\wh{\mathcal{O}}}
+
+\pagestyle{fancy}
+\lhead{Francesco Chotuck}
+\rhead{6CCM436A Advanced Quantum Mechanics}
+\setlength{\headheight}{15pt}
+
+\title{Advanced Quantum Mechanics Notes}
+\date{}
+\author{Francesco Chotuck}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    \noindent This is KCL undergraduate module 6CCM436A, instructed by Neil Lambert. The formal name for this class is ``Advanced Quantum Mechanics''.
+\end{abstract}
+
+\tableofcontents
+
+\pagebreak
+
+\section{IQT recap}
+
+\begin{mdremark}
+    In this module the notation: \((\phi,\operator \Psi) = \bra{\phi} \ket{\operator\Psi}= \bra{\phi} \operator \ket{\Psi}\).
+\end{mdremark}
+
+
+\subsection{Hilbert spaces}
+
+\begin{definition}
+    A vector space is said to be \textbf{complete} if all the Cauchy sequences converge.
+\end{definition}
+
+\begin{definition}
+    A vector space is said to be \textbf{separable} if for any two vectors there exists two disjoint open states such that each includes one vector but not the other.
+\end{definition}
+
+\begin{mdthm}
+    A vector space is separable if there exists a countable basis. In this module we assume this is ALWAYS the case.
+\end{mdthm}
+
+\begin{definition}
+    A \textbf{Hermitian inner product} on \(V\) is a function \((\cdot, \cdot) : V \times V \to \CC\) which satisfies the following properties
+    \begin{enumerate}
+        \item Positive definite:
+        \[(\bm{v},\bm{v}) \geq 0 \quad \forall \bm{v} \in V\]
+        and \((\bm{v},\bm{v}) \iff \bm{v}=0\).
+        \item Hermiticity:
+        \[(\bm{u},\bm{v}) = (\bm{v},\bm{u})^* \quad \forall \bm{u},\bm{v} \in V,\]
+        \item linearity in the second argument,
+        \[(\bm{u},\alpha \bm{v} + \beta \bm{w}) = \alpha (\bm{u},\bm{v}) +\beta (\bm{u},\bm{w}) \quad \forall \bm{u},\bm{v},\bm{w} \in V \text{ and } \forall \alpha,\beta \in \CC,\]
+        \item anti-linearity in the first argument 
+        \[(\alpha \bm{u} +\beta \bm{v}, \bm{w}) = \alpha^* (\bm{u},\bm{w})+ \beta^*(\bm{v},\bm{w}) \quad \forall \bm{u},\bm{v},\bm{w} \in V \text{ and } \forall \alpha,\beta \in \CC.\]
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    A \textbf{Hilbert space} is a complete, separable complex vector space with positive definite inner product 
+    \[\bra{\psi_1} \ket{\psi_2} : \mathcal{H} \times \mathcal{H} \to \CC.\]
+\end{definition}
+
+\begin{mdnote}
+    For the purpose of this module we can interpret a Hilbert space to be an infinite dimensional complex vector space which `behaves' like \(\CC^N\) but with \(N=\infty\).
+\end{mdnote}
+
+\begin{mdremark}
+    If a Hilbert space is finitely dimensional then it is isomorphic to \(\CC^N\) for some \(N\).
+\end{mdremark}
+
+\begin{example}
+    A classic example of a Hilbert space is \(L_2(\RR)\): 
+    \[\begin{aligned}
+        L_2(\RR) &= \left\{\psi : \RR \to \CC : \int \abs{\psi}^2 \, dx <\infty\right\} \\
+        \bra{\psi_1}\ket{\psi_2} &= \int \psi_1^*\psi_2 \, dx.
+    \end{aligned}\]
+\end{example}
+
+\begin{definition}
+    The \textbf{state} of a system is given by an element \(\ket{\psi}\) of unit norm in a Hilbert space \(\hilbert\).
+\end{definition}
+
+\begin{mdcor}
+    We will use the terms ``state'' and ``wave function'' interchangeably.
+\end{mdcor}
+
+\begin{definition}
+    The space of linear maps from \(\hilbert\) to \(\CC\) is called the \textbf{dual space}, and is denoted by \(\hilbert^*\).
+\end{definition}
+
+In Dirac notation elements of the dual space are denoted by ``bras'' \(\bra{\psi}\) such that 
+\[\bra{\psi_1} \left( \ket{\psi_2} \right) = \bra{\psi_1} \ket{\psi_2}.\]
+
+\begin{mdthm}
+    The dual space is a Hilbert space and is isomorphic to \(\hilbert\).
+\end{mdthm}
+
+\begin{mdnote}
+    This means that for each \(\ket{\psi}\) there exists a \underline{unique} \(\bra{\psi}\) and vice versa.
+\end{mdnote}
+
+\begin{theorem}
+    There exists linear operators in Hilbert spaces i.e. 
+    \[\mathcal{O} : \hilbert \to \hilbert\]
+    such that \(\mathcal{O}\left( \lambda_1 \ket{\psi_1} +\lambda_2\ket{\psi_2} \right) =\lambda_1 \mathcal{O} \ket{\psi_1}+\lambda_2 \mathcal{O} \ket{\psi_2}\) where \(\lambda_1,\lambda_2 \in \CC\).
+\end{theorem}
+
+\begin{definition}
+    The \textbf{adjoint} of a linear map \(\mathcal{O}\) is a linear map \(\mathcal{O}^\dagger : \hilbert \to \hilbert\) that satisfies 
+    \[\bra{\psi_1} \ket{\mathcal{O} \psi_2} = \bra{\mathcal{O}^{\dagger}\psi_1} \ket{\psi_2}\]
+    for \(\ket{\psi_1},\ket{\psi_2} \in \hilbert\).
+\end{definition}
+
+\begin{mdnote}
+    Equivalently,
+    \[\left( \ket{u}, \mathcal{O}\ket{v} \right) = \left( \mathcal{O}^{\dagger} \ket{u}, \ket{v} \right) \quad \forall \ket{u},\ket{v} \in \mathcal{H}.\]
+\end{mdnote}
+
+\subsection{Delta-normalisable states}
+
+\begin{definition}
+    The \textbf{Dirac delta function} is defined as 
+    \[\begin{aligned}
+        \delta(k) = \begin{cases}
+            \infty &\text{if } k=0 \\
+            0 &\text{if } k\neq 0
+        \end{cases}
+    \end{aligned}\]
+    with the property that 
+    \[\int_{-\infty}^{\infty} \delta(k) \, dk =1.\]
+\end{definition}
+
+\begin{mdremark}
+    Although, it is called a `function' it is not truly a function, rather a distribution. 
+\end{mdremark}
+
+\begin{mdthm}
+    Properties of the \(\delta\)-function:
+    \begin{itemize}
+        \item \(\delta(x) \in \RR\),
+        \item \(\delta(x) \geq 0\),
+        \item \(\delta(x)=\delta(-x)\) (even).
+        \item \(\int_{-\infty}^{\infty} \delta(k) f(k) \, dk = f(0)\) (sometimes we use the notation \(\delta(f)= f(0)\));
+        \item \(\int_{-\infty}^{\infty} \delta(k-a)f(k) \, dk = f(a)\);
+        \item \(\int_{-\infty}^{\infty} e^{ikx} \, dx = 2\pi \delta(k)\);
+        \item \(\bra{e_x}\ket{e_y}=\delta(x-y)\).
+    \end{itemize}
+\end{mdthm}
+
+\begin{definition}
+    We say that \(\ket{e_x}\) and \(\ket{e_y}\) are \textbf{delta-normalisable} if 
+    \[\bra{e_x}\ket{e_y}=\delta(x-y).\]
+\end{definition}
+
+\begin{definition}
+    We say that \(\ket{e_k}\) for \(k \in \RR\) form a \textbf{delta-normalisable basis} of \(\mathcal{H}\) if any \(\ket{\Psi} \in \mathcal{H}\) can be represented in the form
+    \[\ket{\Psi} = \int_{-\infty}^{\infty} a(k) \ket{e_k} \, dk,\]
+    for some function square-integrable function \(a(k)\) (i.e. \(a(k) \in L^2(\RR)\)).
+\end{definition}
+
+\subsection{Expectation values}
+
+\begin{mdthm}
+    Let \(\wh{\mathcal{O}} : \mathcal{H} \to \mathcal{H}\) be a linear operator on a Hilbert space \(\mathcal{H}\). Then, the \textbf{expectation value} of \(\wh{\mathcal{O}} \) in a state \(\ket{\Psi} \in L^2(\RR)\) is defined as 
+    \[\langle \wh{\mathcal{O}}  \rangle = \frac{\bra{\Psi} \wh{\mathcal{O}} \ket{\Psi}}{\bra{\Psi} \ket{\Psi}}.\]
+\end{mdthm}
+
+\subsection{Observables}
+
+\begin{definition}
+    A linear operator is said to be \textbf{self-adjoint} (or \textbf{Hermitian}) if \(\mathcal{O}^{\dagger}=\mathcal{O}\).
+\end{definition}
+
+\begin{definition}
+    A linear operator which is self-adjoint is called an \textbf{observable}.
+\end{definition}
+
+\begin{theorem}
+    Eigenstate of self-adjoint operators have real eigenvalues and eigenvectors with distinct eigenvalues are orthogonal.
+\end{theorem}
+
+\begin{mdthm}
+    A self-adjoint operator admits an orthonormal basis of eigenvectors with real \\ eigenvalues.
+\end{mdthm}
+
+\begin{definition}
+    The linear \textbf{operator of position}, \(\wh{x}\), for a fixed time \(t\) is defined as 
+    \[(\wh{x} \, \Psi)(y) = y\Psi(y).\]
+\end{definition}
+
+\begin{definition}
+    The linear \textbf{operator of momentum}, \(\wh{p}\), for a fixed time \(t\) is defined as 
+    \[(\wh{p} \, \Psi)(x) = - i\hbar \diffp{}{x} \Psi(x).\]
+\end{definition}
+
+\begin{mdthm}
+    For a general operator \(\wh{\mathcal{O}}\) acting on \(\wh{x}\) we have
+    \[(\wh{\mathcal{O}}(\wh{x}) \Psi)(y) = \wh{\mathcal{O}}(y)\Psi(y).\]
+\end{mdthm}
+
+\begin{definition}
+    The \textbf{Hamiltonian operator} is defined as 
+    \[\wh{H} = \frac{\wh{p}^2}{2m} + V(\wh{x}),\]
+    where \(V(\wh{x})\) is defined as 
+    \[(V(\wh{x})\Psi) (y) = V(y)\Psi(y).\]
+\end{definition}
+
+\begin{definition}
+    An operator, \(\wh{A}\), which satisfies the property
+    \[\wh{A}^{\dagger}\wh{A} = \mathbbm{1},\]
+    where \(\mathbbm{1}\) is the identity operator, are called \textbf{unitary}.
+\end{definition}
+
+\begin{definition}
+    We call the operator \(e^{-\frac{i\wh{H}}{\hbar}t}\) the \textbf{time evolution operator} and is denoted by 
+    \[\wh{U}(t)=e^{-\frac{i\wh{H}}{\hbar}t}.\]
+\end{definition}
+
+\begin{theorem}
+    Properties of \(\wh{U}(t)\):
+    \begin{itemize}
+        \item \(\wh{U}(t_2)\wh{U}(t_1)=\wh{U}(t_1+t_2)\).
+        \item \(\left( \wh{U}(t) \right)^{\dagger} = \wh{U}(-t)\).
+    \end{itemize}
+\end{theorem}
+
+\begin{theorem}
+    The time evolution operator, \(\wh{U}(t)\) is unitary.
+\end{theorem}
+
+\begin{mdthm}
+    Unitary operators preserve the inner product i.e.
+    \[\left( \wh{U}(t) \ket{\Psi(t)},\wh{U}(t)\ket{\Phi(t)} \right) = (\ket{\Psi(t)},\ket{\Phi(t)}).\]
+\end{mdthm}
+
+\begin{mdthm}[Properties of exponentials of operators]
+    For any operator \(\wh{\mathcal{O}}\) in a Hilbert space \(\mathcal{H}\) and \(\alpha \in \CC\) we have:
+    \begin{itemize}
+        \item \(\diffp{}{\alpha}e^{\alpha \wh{\mathcal{O}}}= \wh{\mathcal{O}}e^{\alpha \wh{\mathcal{O}}} = e^{\alpha \wh{\mathcal{O}}}\wh{\mathcal{O}}\).
+        \item \(e^{\alpha \wh{\mathcal{O}}} e^{\beta \wh{\mathcal{O}}} = e^{(\alpha+\beta) \wh{\mathcal{O}}}\).
+    \end{itemize}
+\end{mdthm}
+
+\subsubsection{Matrix elements}
+
+\begin{mdprop}
+    The matrix elements of the operator \(\wh{O}\) in the chosen basis are given by the inner product of the basis states with the operator acting on the basis states, say \(\ket{\psi_m}\):
+    \[O_{ij} = \bra{\psi_i} \wh{O} \ket{\psi_j}\]
+where \( O_{ij} \) is the element of the matrix in the \(i\)-th row and \(j\)-th column.
+
+\end{mdprop}
+
+\begin{mdexample}
+    For a simple example, consider a 2-dimensional space with basis states \( \ket{\psi_1} \) and \( \ket{\psi_2} \). The matrix representation of an operator \( \wh{O} \) in this space would be a \(2\times2\) matrix. The matrix representation of \( \wh{O} \) would be:
+
+\[
+\begin{pmatrix}
+\bra{\psi_1} \wh{O} \ket{\psi_1} & \bra{\psi_1} \wh{O} \ket{\psi_2} \\
+\bra{\psi_2} \wh{O} \ket{\psi_1} & \bra{\psi_2} \wh{O} \ket{\psi_2}
+\end{pmatrix}
+\]
+
+Each element in this matrix represents the action of the operator \( \wh{O} \) on the basis states, and how that action projects onto the other basis states.
+
+\end{mdexample}
+
+\subsection{Heisenberg's uncertainty principle}
+
+\begin{definition}
+    The \textbf{uncertainty} of a \underline{normalised} Hermitian operator \(\wh{A}\), denoted by \(\Delta \wh{A}\), is defined by 
+    \[\begin{aligned}
+        ( \Delta \wh{A} )^2 &= \left\langle \left(\wh{A}-\langle \wh{A} \rangle\right)^2 \right\rangle \\
+        &= \bra{\Psi} \left( \wh{A}-\langle \wh{A}\rangle \right)^2 \ket{\Psi}.
+    \end{aligned}\]
+\end{definition}
+
+\begin{mdnote}
+    Operators need to be Hermitian as these are the operators which are used to measure quantities in Quantum Mechanics.
+\end{mdnote}
+
+\begin{theorem}
+    The uncertainty of an operator \(\wh{A}\) is real and non-negative i.e. \(\Delta \wh{A} \geq 0\).
+\end{theorem}
+
+\begin{proof}
+    We have 
+    \[\begin{aligned}
+        (\Delta \wh{A})^2 &= \bra{\Psi} \left( \wh{A}-\langle \wh{A}\rangle \right)^2 \ket{\Psi} \\
+        &= \bra{\Psi} (\wh{A}-\langle \wh{A}\rangle) (\wh{A}-\langle \wh{A}\rangle) \ket{\Psi} \\
+        &= \left[ (\wh{A}-\langle \wh{A}\rangle) \ket{\Psi} \right]^{\dagger} (\wh{A}-\langle \wh{A}\rangle) \ket{\Psi} \\
+        &= \norm{ \left(\wh{A}-\langle \wh{A}\rangle \right) \ket{\Psi}}^2 \\
+        &\geq 0
+    \end{aligned}\]
+    by the axioms of norms. In the last equality we have used the fact that \(\wh{A}\) is a Hermitian operator.
+\end{proof}
+
+\begin{corollary}
+    Let \(\wh{A}\) be an operator then, \(\Delta \wh{A} =0\) in a state \(\ket{\Psi}\) if and only if \(\ket{\Psi}\) is an eigenvector of \(\wh{A}\).
+\end{corollary}
+
+\begin{proof}
+    Recall the definition of uncertainty
+    \[\begin{aligned}
+        (\Delta \wh{A})^2 &= \bra{\Psi} \left( \wh{A}-\langle \wh{A}\rangle \right)^2 \ket{\Psi} \\
+        &= \norm{ \left(\wh{A}-\langle \wh{A}\rangle \right) \ket{\Psi}}^2,
+    \end{aligned}\]
+    by the axioms of the norm it is \(0\) if and only if 
+    \[\left( \wh{A}- \langle \wh{A} \rangle \right) \ket{\Psi} =0.\]
+    We can write this condition as
+    \[\wh{A} \ket{\Psi} = \langle \wh{A} \rangle \ket{\Psi},\]
+    i.e. \(\ket{\Psi}\) is an eigenvector (since \(\langle \wh{A} \rangle\) is a real number).
+\end{proof}
+
+\begin{mdthm}
+    Let \(\wh{A}\) and \(\wh{B}\) be Hermitian operators and \(\Delta \wh{A}\) and \(\Delta \wh{B}\) their respective uncertainty in a state \(\ket{\Psi}\). Then, we have
+    \[\Delta \wh{A} \, \Delta \wh{B} \geq \half \abs{ \left\langle \left[\wh{A},\wh{B}\right] \right\rangle }.\]
+\end{mdthm}
+
+\begin{mdexample}
+    Applying this to \(\wh{A}=\wh{x}\) and \(\wh{B}=\wh{p}\) we have 
+    \[\begin{aligned}
+        \Delta\wh{x} \, \Delta\wh{p} &\geq \half \abs{ \left\langle \left[\wh{x},\wh{p}\right] \right\rangle } \\
+        &= \half \abs{\langle i\hbar \rangle} \\
+        &= \frac{\hbar}{2}.
+    \end{aligned}\] 
+\end{mdexample}
+
+\subsection{The Schrödinger equation}
+
+\begin{mdthm}
+    We obtain the wave function from solving the (time-dependent) \textbf{Schrödinger equation}:
+    \[i \hbar \diffp{}{t} \Psi(x,t) = - \frac{\hbar^2}{2m} \diffp[2]{}{x}\Psi(x,t) + U(x)\Psi(x,t),\]
+    where \(U(x)\) is the potential energy function of the particle.
+\end{mdthm}
+
+\begin{mdthm}
+    The \textbf{time-independent} Schrödinger equation is given by 
+    \[- \frac{\hbar^2}{2m} \diffp[2]{}{x}\psi(x)+U(x)\psi(x)=\psi(x)E.\]
+    Equivalently, it can be written as 
+    \[(\wh{H}\psi)(x)=E\psi(x).\]
+\end{mdthm}
+
+\begin{mdnote}
+    Due to separation of variables the partial derivative above can be written as a total derivative and use standard techniques to solve a second order ODE.
+\end{mdnote}
+
+\begin{mdcor}
+    The general solution of the Schrödinger equation is given by 
+    \[\Psi(x,t) = \psi(x) e^{ -\frac{iE}{\hbar} t}.\]
+\end{mdcor}
+
+\subsection{Harmonic oscillator}
+
+\begin{definition}
+    A system with Hamiltonian operator 
+    \[\wh{H}=\frac{\wh{p}^2}{2m}+\frac{m\omega^2 \wh{x}^2}{2}\]
+    is called a \textbf{harmonic oscillator}.
+\end{definition}
+
+\noindent It will be useful to consider the operators:
+\[\wh{a} = \frac{\wh{p}-im\omega \, \wh{x}}{\sqrt{2m\omega \hbar}} 
+\quad \text{and} \quad
+\wh{a}^{\dagger} = \frac{\wh{p}+im\omega \, \wh{x}}{\sqrt{2m\omega \hbar}}.\]
+
+\begin{proposition}
+    The value of 
+    \[[\wh{a},\wh{a}^{\dagger}]=1.\]
+\end{proposition}
+
+\begin{mdthm}
+    The Hamiltonian operator, \(\wh{H}=\frac{\wh{p}^2}{2m}+\frac{m\omega^2 \wh{x}^2}{2}\) can be expressed as
+    \[\wh{H}=\hbar \omega \left( \wh{a}^{\dagger} \wh{a} + \half \right).\]
+\end{mdthm}
+
+We would like to determine the spectrum and the eigenstates of\(\wh{H}\) i.e., solve the time-independent Schrödinger equation 
+\[\wh{H} \ket{\Psi} = E \ket{\Psi}.\]
+
+We can write
+\[\wh{H}=\hbar\omega \left(\wh{N} +\half\right) \quad \text{where } \wh{N}=\wh{a}^{\dagger}\wh{a}.\]
+
+\begin{proposition}
+    Properties of \(\wh{N}=\wh{a}^{\dagger}\wh{a}\).
+    \begin{itemize}
+        \item \(\wh{N}\) is Hermitian i.e. \(\wh{N}^{\dagger}=\wh{N}\);
+        \item \(\ket{\Psi}\) is an eigenvector of \(\wh{H}\) if and only if \(\ket{\Psi}\) is an eigenvector of \(\wh{N}\).
+    \end{itemize}
+\end{proposition}
+
+\begin{mdnote}
+    The eigenvectors are the same, but the eigenvalues are different.
+\end{mdnote}
+
+\begin{lemma}
+    If \(\lambda\) is an eigenvalue of \(\wh{N}\) then \(\lambda \geq 0\).
+\end{lemma}
+
+\begin{lemma}
+    Let \(\ket{\Psi}\) be an eigenvector of \(\wh{N}\) with the eigenvalue \(\lambda\). Then exactly one of the statements holds:
+    \begin{enumerate}
+        \item \(\lambda=0\) \underline{and} \(\wh{a} \ket{\Psi}=0\) OR, 
+        \item \(\lambda \neq 0\), \(\wh{a} \ket{\Psi} \neq 0\) and \(\wh{a} \ket{\Psi}\) is an eigenvector of \(\wh{N}\) with eigenvalue \(\lambda-1\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{lemma}
+    Let \(\ket{\Psi}\) be an eigenvector of \(\wh{N}\) with eigenvalue \(\lambda\). Then, \(\lambda \in \ZZ_{\geq 0}\) and \(\ket{\Psi}, \, \wh{a}\ket{\Psi}, \\\wh{a}^2\ket{\Psi}, \ldots ,  \wh{a}^{\lambda} \ket{\Psi}\) are eigenstates of \(\wh{N}\) with the eigenvalues \(\lambda, \lambda-1,\lambda-2, \ldots, 0\) respectively. Finally, \(\wh{a}^{\lambda+1} \ket{\Psi}=0\).
+\end{lemma}
+
+\begin{mdlemma}
+    Let \(\ket{\Psi}\) be an eigenvector of \(\wh{N}\) with the eigenvalue \(\lambda\). Then, \(\wh{a}^{\dagger}\ket{\Psi} \neq 0 \) and \(\wh{a}^{\dagger}\ket{\Psi}\) is an eigenvector of \(\wh{N}\) with eigenvalue \(\lambda+1\).
+\end{mdlemma}
+
+\begin{mdnote}
+    To remember that \({\wh{a}}^{\dagger}\) increases the eigenvalue by \(1\) we can think of \(\dagger\) as \(+\).
+\end{mdnote}
+
+\begin{mdnote}
+    In conclusion, we see that we can lower the eigenvalue of \(\wh{N}\) by applying \(\wh{a}\) to the eigenstate, and similarly we can raise it by applying \(\wh{a}^{\dagger}\). For this reason \(\wh{a}\) and \(\wh{a}^{\dagger}\) are called the \textbf{lowering} and the \textbf{raising} operators. 
+\end{mdnote}
+
+\begin{mdlemma}
+    Let \(\ket{\Psi}\) be an eigenvector of \(\wh{N}\) with the eigenvalue \(\lambda\). Then, the following statements hold 
+    \begin{enumerate}
+        \item \(\lambda \in \ZZ_{\geq 0}\),
+        \item there exists a state \(\ket{\Phi} \equiv \wh{a}^{\lambda}\ket{\Psi} \in \mathcal{H}\) which satisfies \(\wh{a}\ket{\Phi}=0\) (in particular, it is an eigenstate of \(\wh{N}\) with eigenvalue \(0\)),
+        \item we have \(\ket{\Psi} = C (\wh{a}^{\dagger})^{\lambda}\ket{\Phi}\) for some \(C \in \CC\) where \(C \neq 0\).
+    \end{enumerate}
+\end{mdlemma}
+
+\begin{mdnote}
+    This lemma allows us to undo the action of \(\wh{a}\) with \(\wh{a}^{\dagger}\) and vice versa. For example consider the state \(\wh{a}\ket{\Psi}\) with eigenvalue \(\lambda-1\), and then apply \(\wh{a}^{\dagger}\) to get back to the eigenvalue \(\lambda\). We find the state 
+    \[\begin{aligned}
+        \wh{a}^{\dagger} \left( \wh{a}\ket{\Psi} \right) &= \wh{a}^{\dagger}\wh{a}\ket{\Psi} \\
+        &= \wh{N} \ket{\Psi} \\
+        &= \lambda \ket{\Psi}.
+    \end{aligned}\]
+    Thus, unless \(\lambda=0\), we can undo the action of \(\wh{a}\) by acting with \(\wh{a}^{\dagger}\).
+\end{mdnote}
+
+\begin{mdexample}
+    Suppose that \(\ket{\Psi}\) is the eigenstate of \(\wh{N}\) with the eigenvalue \(\lambda =2\). Then by Lemma \(9.3\) we can define the eigenstates of \(\wh{N}\)
+    \[\ket{\Phi_0} = \wh{a}^2 \ket{\Psi} \quad \text{and} \quad \ket{\Phi_1}=\wh{a}\ket{\Psi},\]
+    which have eigenvalues \(0\) and \(1\) respectively. We have 
+    \[\begin{aligned}
+        \wh{a}^{\dagger} \ket{\Phi_1} &= \wh{a}^{\dagger}\wh{a}\ket{\Psi} \\
+        &= \wh{N}\ket{\Psi} \\
+        &= 2\ket{\Psi}.
+    \end{aligned}\]
+    Moreover,
+    \[\begin{aligned}
+        \wh{a}^{\dagger} \ket{\Phi_0} &= \wh{a}^{\dagger} \wh{a}\ket{\Psi} \\
+        &= \wh{a}^{\dagger}\wh{a}\wh{a}\ket{\Psi} \\
+        &= \wh{a}^{\dagger}\wh{a}\ket{\Phi_1} \\
+        &= \wh{N} \ket{\Phi_1} \\
+        &= \ket{\Phi_1}.
+    \end{aligned}\]
+    In the last two equations we used that \(\Psi\) and \(\Phi_1\) are eigenstates of \(\wh{N}\) with the eigenvalues \(2\) and \(1\) respectively. We get from these equations 
+    \[\begin{aligned}
+        \ket{\Psi} &= \half \wh{a}^{\dagger} \ket{\Phi_1} \\
+        &= \half \wh{a}^{\dagger} (\wh{a}^{\dagger}\ket{\Phi_0}) \\
+        &= \half (\wh{a}^{\dagger})^2 \ket{\Phi_0}.
+    \end{aligned}\]
+\end{mdexample}
+
+\begin{mdlemma}
+    Let \(\ket{\Phi}\) be such that 
+    \[\wh{a}\ket{\Phi}=0 \quad \text{and} \quad \bra{\Phi}\ket{\Phi}=1.\]
+    Then, (up to a possible overall phase) \(\ket{\Phi}\) is described by the wave function 
+    \[\Phi(x)=\left( \frac{m\omega}{\pi \hbar} \right)^{\frac{1}{4}} e^{-\frac{m\omega x^2}{2\hbar}}.\]
+\end{mdlemma}
+
+\begin{mdnote}
+    This lemma tells us that there exists a unique normalised state \(\ket{\Phi}\) which satisfies \(\wh{a} \ket{\Phi}=0\).
+\end{mdnote}
+
+\begin{definition}[Notation]
+    We identify the state \(\ket{\Phi} \equiv \ket{0}\) where \(\ket{\Phi}\) is defined as above. The state \(\ket{0}\) is called the \textbf{ground state} (or vacuum state).
+\end{definition}
+
+\begin{mdremark}
+    \(\ket{0} \neq 0\) and indeed \(\ket{0}\) is an eigenvector.
+\end{mdremark}
+
+\begin{mdnote}
+    We call \(\ket{0}\) the \textit{ground state}  because it has the lowest possible energy.
+\end{mdnote}
+
+\begin{mdthm}
+    From \(\ket{0}\) we can construct the state for \(n \in \ZZ_{\geq 0}\),
+    \[\ket{n} \equiv \frac{1}{\sqrt{n!}} (\wh{a}^{\dagger})^n \ket{0},\]
+    and \(\bra{n}\ket{n}=1\).
+\end{mdthm}
+
+\begin{corollary}
+    The state \(\ket{n}\) is an eigenstate of \(\wh{N}\) with the eigenvalue \(n\), i.e.
+    \[\wh{N}\ket{n}= n\ket{n}.\]
+\end{corollary}
+
+\begin{theorem}
+    Let \(\ket{\Psi}\) be an eigenstate of \(\wh{N}\) with the eigenvalue \(\lambda\). Then, the following statements hold 
+    \begin{enumerate}
+        \item \(\lambda = n \in \ZZ_{\geq 0}\),
+        \item \(\ket{\Psi} = C \ket{n}\) for some \(C \in \CC\) where \(C \neq 0\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{mdthm}
+    The eigenstates of \(\wh{H}\) are the states \(\ket{n}\), and the corresponding eigenvalues are 
+    \[E_n = \hbar \omega \left( n+\half \right).\]
+    The spectrum of \(\wh{H}\) is therefore, 
+    \[\left\{ \frac{\hbar \omega}{2},\frac{3\hbar \omega}{2},\frac{5\hbar \omega}{2},\cdots \right\}\]
+\end{mdthm}
+
+\section{Spherically symmetric potential}
+
+\begin{mdnote}
+    We solve the Schrödinger equation as usual, where we do a seperation of varibales and set the two new equations equal to a constant.
+\end{mdnote}
+
+\begin{figure}[H]
+     \begin{center}
+        \includegraphics[width=\textwidth]{./Resources/Spherical Potential 1.png}
+     \end{center}
+\end{figure}
+
+\begin{figure}[H]
+     \begin{center}
+        \includegraphics[width=\textwidth]{./Resources/Spherical Potential 2.png}
+     \end{center}
+\end{figure}
+
+\section{Angular momentum}
+
+Classically the angular momentum vector \(\wh{L}\) is defined as \(\wh{L} = \bm{r} \times \bm{p}\) where \(\bm{r}\) and \(\bm{p}\) denote the position and momentum vector respectively. In Cartesian components, this is written as 
+\[\begin{aligned}
+    L_x &= yp_z-zp_y \\
+    L_y &= zp_x -xp_z \\
+    L_z &= xp_y -yp_x.
+\end{aligned}\]
+
+\subsection{Angular momentum operator}
+
+\begin{definition}
+    The \textbf{angular momentum} operator is the Hermitian operator defined by 
+    \[\begin{aligned}
+        \wh{L}_a &= \eps_{abc} \wh{x}_b \wh{p}_c \\
+        &= -i\hbar \eps_{abc} x_b \diffp{}{{x_c}}
+    \end{aligned}\]
+\end{definition}
+
+\begin{mdprop}
+    We have the following results:
+    \[\left[ L_1,L_2 \right] = i\hbar L_3, \quad \left[ L_2,L_3 \right] =i\hbar L_1 ,\quad \left[ L_3,L_1 \right]= i \hbar L_2.\]
+    Therefore, in general we have 
+    \[\left[ L_a,L_b \right] = i \hbar\eps_{abc}L_c.\]
+\end{mdprop}
+
+\begin{proof}
+    The proof relies on the following commutator relations:
+    \begin{itemize}
+        \item \([A, B_1B_2] = [A, B_1]B_2 + B_1[A, B_2]\);
+        \item \([A_1A_2, B_1B_2] = A_1[A_2, B_1]B_2 + A_1B_1[A_2, B_2] + [A_1, B_1]B_2A_2 + B_1[A_1, B_2]A_2\);
+        \item \([\wh{p}_i, \wh{p}_j] = 0\);
+        \item \([\wh{x}_i, \wh{p}_j] = i\hbar\delta_{ij}\);
+        \item \([\wh{x}_i, \wh{x}_j] = 0\).
+    \end{itemize}
+\end{proof}
+
+From the operators \(\wh{L}_a\) we can form the operator of the square of the modulus of the angular momentum vector, which we denote by \(\wh{L}^2\).
+
+\begin{definition}
+    Define 
+    \[\wh{L}^2 =\wh{L}_1^2+\wh{L}_2^2+\wh{L}_3^2.\]
+\end{definition}
+
+\begin{mdthm}
+    The operator \(\wh{L}^2\) commutes with each of the operators \(\wh{L}_a\) i.e.
+    \[\left[ \wh{L}^2,\wh{L}_a \right]=0.\]
+\end{mdthm}
+
+\noindent The relation above means that the square of the angular momentum, can have a definite value at the same time as one of its components. The most widely used basis is constructed from eigenstates of \(\wh{L}^2\) and \(\wh{L}_3\).
+
+\noindent Instead of the operators \(\wh{L}_1\) and \(\wh{L}_2\) it is often more convenient to use the following.
+
+\begin{definition}
+    Define
+    \[\begin{aligned}
+        \wh{L}_{+} &= \wh{L}_1 + i\wh{L}_2  \\
+        \wh{L}_{-} &= \wh{L}_1 - i\wh{L}_2.
+    \end{aligned}\]
+\end{definition}
+
+\begin{mdprop}
+    Some properties.
+    \begin{itemize}
+        \item \(\wh{L}_{+}^\dagger = \wh{L}_{-}\);
+        \item \([\wh{L}_{+}, \wh{L}_{-}] = 2\hbar\wh{L}_3\);
+        \item \([\wh{L}_3, \wh{L}_{+}] = \hbar\wh{L}_{+}\);
+        \item \([\wh{L}_3, \wh{L}_{-}] = -\hbar\wh{L}_{-}\);
+        \item We can write
+        \[\begin{aligned}
+            \wh{L}^2 &= \wh{L}_{+}\wh{L}_{-} + \wh{L}_3^2 - \hbar\wh{L}_3 \\
+            &= \wh{L}_{-}\wh{L}_{+} + \wh{L}_3^2 + \hbar\wh{L}_3.
+        \end{aligned}\]
+    \end{itemize}
+\end{mdprop}
+
+\begin{proof}
+    We prove the first bullet point:
+    \[\wh{L}_{+}^\dagger = (\wh{L}_1 + i\wh{L}_2)^\dagger = \wh{L}_{1}^\dagger + (i\wh{L}_2)^\dagger = \wh{L}_1 - i\wh{L}_2 = \wh{L}_{-}.\]
+\end{proof}
+
+\subsection{Algebraic theory of angular momentum}
+
+\subsubsection{Lie Algebra}
+
+\begin{definition}
+    A \textbf{Lie Algebra} is a vector space \(\mathfrak{g}\) with an antisymmetric linear map \([\cdot,\cdot] : \mathfrak{g} \times \mathfrak{g} \to \mathfrak{g}\) called the Lie Bracket. It satisfies the following properties:
+    \begin{itemize}
+        \item Linearity: \([ax+by,z] =a[x,z]+b[y,z]\).
+        \item Antisymmetric: \([x,y]=-[y,x]\).
+        \item Jacobi's identity: \([x,[y,z]]+[y,[z,x]]+[z,[x,y]]=0\).
+    \end{itemize}
+    Where \(a,b \in \RR\) and \(x,y,z \in \mathfrak{g}\).
+\end{definition}
+
+\begin{definition}
+    Let \(\mathfrak{g}\) be a Lie algebra and let \(V\) be a vector space. We let \(\text{gl}(V)\) denote the space of endomorphisms of \(V\), that is, the space of all linear maps of \(V\) to itself. A \textbf{representation} of \(\mathfrak{g}\) on \(V\) is a Lie algebra homomorphism
+    \[\rho: \mathfrak{g} \rightarrow \text{GL}(V).\]
+\end{definition}
+
+\begin{definition}
+    Given a representation \(\rho : \mathfrak{g} \rightarrow \text{End}(V)\) of a Lie algebra \(\mathfrak{g}\), we say that a subspace \(W\) of \(V\) is \textbf{invariant} if \(\rho(X)w \in W\) for all \(w \in W\) and \(X \in \mathfrak{g}\).
+\end{definition}
+
+\begin{definition}
+    A non-zero representation is said to be \textbf{irreducible} if the only invariant subspaces are \(V\) itself and the zero space \(\{0\}\).
+\end{definition}
+
+\subsubsection{Representation of the algebra}
+
+\begin{mdnote}
+    In the section we construct an irreducible unitary representation of \(\mathfrak{su}(2)\). Where by `unitary' we mean the \(J_i\) are unitary matrices.
+\end{mdnote}
+
+\begin{definition}
+    The Hermitian operators \(J_x,J_y,J_z\) are said to satisfy the \textbf{algebra of angular momentum} if the following commutation relation holds:
+    \[[J_a,J_b]=i \eps_{abc} J_c.\]
+\end{definition}
+
+\begin{mdnote}
+    We recover the angular momentum by setting \(L_i=\hbar J_i \then J_i = \frac{1}{\hbar}L_i\). 
+\end{mdnote}
+
+\begin{definition}
+    We define the following operators:
+    \[\begin{aligned}
+        J_+ &= J_x +iJ_y \\
+        J_-&= J_x -i J_y
+    \end{aligned}\]
+    such that 
+    \[(J_+)^{\dagger}=J_-.\]
+\end{definition}
+
+\begin{proposition}
+    We have the following relation:
+    \[[J_z,J_{\pm}]=\pm J_{\pm}.\]
+\end{proposition}
+
+\begin{definition}
+    We define the operator
+    \[J^2 = J_x^2+J_y^2+J_z^2.\]
+\end{definition}
+
+\begin{theorem}
+    We have that 
+    \[[J^2,J_i]=0.\]
+\end{theorem}
+
+\begin{proof}
+    It follows from the definition of the algebra and proof is similar to the one where \(L_i=\hbar J_i\).
+\end{proof}
+
+\begin{mdnote}
+    The operator \(J^2\) is said to be \textbf{Casimir}, which means that it commutes with all of its generators. When the commutator of two operators is zero it means that they can be simultaneously diagonalised. That is, meaning there exists a basis where both operators are represented by diagonal matrices simultaneously.
+\end{mdnote}
+
+\subsubsection*{Basis}
+
+We now try to find a basis for this representation of \(\mathfrak{su}(2)\). Since \([J^2,J_z]=0\) it means that these two operators are simultaneously diagonalised i.e.\
+\[J^2\ket{\lambda,\mathfrak{m}} = \lambda \ket{\lambda,\mathfrak{m}}\quad \text{and}\quad J_z\ket{\lambda,\mathfrak{m}} = \mathfrak{m}\ket{\lambda,\mathfrak{m}}.\]
+% Due to convention, we choose to diagonalise \(J_z\). We define ``ladder operators''  
+% \[J_{\pm}=J_x\pm i J_y \quad \text{such that} \quad J_+^{\dagger}=J_-,\]
+% and we notice that 
+% \[[J_z,J_{+}]= J_{+} \quad \text{and} \quad [J_z,J_-]=J_-.\]
+
+% \begin{mdnote}
+%     By abuse of notation we can write \([J_z,J_{\pm}]=\pm J_{\pm}\).
+% \end{mdnote}
+\noindent where \(\lambda,\mathfrak{m} \in \RR\). The first label of the eigenstate \(\ket{\lambda,\mathfrak{m}}\) represents the eigenvalue of the \(J^2\) operator and the second label the eigenvalue of \(J_z\). By the construction of the ladder operator \(J_{\pm}\) we can use it raise or lower the eigenvalues of \(J_z\).
+
+\begin{mdprop}
+    We have that 
+    \[J_+\ket{\lambda,\mathfrak{m}}=c_{\mathfrak{m}}\ket{\lambda,\mathfrak{m}+1} \quad \text{and} \quad J_-\ket{\lambda,\mathfrak{m}} = d_{\mathfrak{m}}\ket{\lambda,\mathfrak{m}-1}\]
+    where \(c_{\mathfrak{m}}\) and \(d_{\mathfrak{m}}\) are chosen to ensure that the states are normalised. Therefore, we have
+    \[c_{\mathfrak{m}} = \sqrt{\lambda-\mathfrak{m}^2-\mathfrak{m}} \quad \text{and}\quad d_{\mathfrak{m}}=\sqrt{\lambda-\mathfrak{m}^2+\mathfrak{m}}.\]
+\end{mdprop}
+
+\begin{proof}
+    Recall the commutator relation \([J_z,J_{\pm}]=J_zJ_{\pm}-J_{\pm}J_z\), and notice we can write \(J_zJ_{\pm}=[J_z,J_{\pm}]+J_{\pm}J_z\). Therefore,
+    \[\begin{aligned}
+        J_z\left(J_+\ket{\lambda,\mathfrak{m}} \right) &= \left( [J_z,J_{\pm}]+J_{\pm} J_z\right) \ket{\lambda,\mathfrak{m}} \\
+        &= \left( \pm J_{\pm} +\mathfrak{m} J_{\pm} \right)\ket{\lambda,\mathfrak{m}} \\
+        &= \left( \mathfrak{m}\pm 1 \right)J_{\pm}\ket{\lambda,\mathfrak{m}}.
+    \end{aligned}\]
+    The coefficients \(c_{\mathfrak{m}}\) and \(d_{\mathfrak{m}}\) were chosen such that the corresponding states would be normalised hence, we normalise the states. To calculate \(c_{\mathfrak{m}}\) we evaluate
+    \[\begin{aligned}
+        \abs{c_{\mathfrak{m}}}^2 \bra{\mathfrak{m}+1}\ket{\mathfrak{m}+1} &= \left( J_+\ket{\lambda, \mathfrak{m}} \right)^{\dagger} J_+\ket{\lambda, \mathfrak{m}} \\
+        &= \bra{\lambda, \mathfrak{m}} J_- J_+ \ket{\lambda, \mathfrak{m}} \\
+        &= \bra{\lambda, \mathfrak{m}} J_x^2 +J_y^2+i[J_x,J_y] \ket{\lambda, \mathfrak{m}} \\
+        &= \bra{\lambda, \mathfrak{m}} J^2-J_z^2-J_z \ket{\lambda, \mathfrak{m}} \\
+        &= (\lambda-\mathfrak{m}^2-\mathfrak{m} )  \bra{\lambda, \mathfrak{m}}\ket{\lambda, \mathfrak{m}}.
+    \end{aligned}\]
+    \begin{mdnote}
+        We do not know how \(J_x\) and \(J_y\) act on the states so, we use a relation to express them in terms of operators which we know how they act on the states, namely \(J^2\) and \(J_z\).
+    \end{mdnote}
+    Since the states are normalised we have \(\bra{\mathfrak{m}}\ket{\mathfrak{m}}=\bra{\mathfrak{m}+1}\ket{\mathfrak{m}+1}=1\), and we find that 
+    \[c_{\mathfrak{m}}= \sqrt{\lambda-\mathfrak{m}^2-\mathfrak{m}}.\]
+    We do a similar process for \(d_{\mathfrak{m}}\).
+\end{proof}
+
+\subsubsection*{Finite representation}
+
+If we have a finitely dimensional representation them there must exist a highest and lowest value of \(J_z\) eigenvalues, denote these by \(\mathfrak{m}_h\) and \(\mathfrak{m}_l\).
+
+\begin{mdthm}
+    The highest and lowest eigenvalues of \(J_z\) satisfy 
+    \[J_+ \ket{\lambda,\mathfrak{m}_h} = 0 \quad \text{and} \quad J_- \ket{\lambda,\mathfrak{m}_l}=0.\]
+\end{mdthm}
+
+\begin{mdnote}
+    If we repeatedly apply say, the rasing operator, we will reach a point where we exceed the total angular momentum. This cannot happen thus, there must exists a maximum state. Similar arguments apply for the lowring operator.
+\end{mdnote}
+
+\begin{mdcor}
+    The Lie Algebra \(\mathfrak{su}(2)\) has a finite unitary representation of dimension \(2\mathfrak{l}+1\) for \(\mathfrak{l}=0,\half,1,\frac{3}{2},\ldots\) i.e. \(\mathfrak{l}\) has increments of \(\half\). Furthermore, the states are labelled by 
+    \[\ket{\mathfrak{l},\mathfrak{m}} \quad \text{where } \mathfrak{m}=-\mathfrak{l},\mathfrak{l}+1,\ldots,\mathfrak{l}-1,\mathfrak{l}.\]
+\end{mdcor}
+
+\begin{mdnote}
+    It is convention to set \(\mathfrak{m}_h=\mathfrak{l}\) which implies that \(\lambda=\mathfrak{l}(\mathfrak{l}+1)\).
+\end{mdnote}
+
+\begin{proof}
+    The highest and lowest state require that \(c_{\mathfrak{m}_h}=d_{\mathfrak{m}_l}=0\). We have a formula for these:
+    \[\lambda-\mathfrak{m}_h(\mathfrak{m}_h+1)=0 \quad \text{and} \quad \lambda-\mathfrak{m}_l(\mathfrak{m}_l-1)=0.\]
+    As such we obtain
+    \[\mathfrak{m}_h(\mathfrak{m}_h+1)=\mathfrak{m}_l(\mathfrak{m}_l-1).\]
+    By inspection, we have 
+    \[\mathfrak{m}_l=-\mathfrak{m}_h \quad \text{or}\quad \mathfrak{m}_l = \mathfrak{m}_h+1.\]
+    The second solution is invalid as we require \(\mathfrak{m}_l \leq \mathfrak{m}_h\) by construction. Hence, the spectrum of eigenvalues of \(J_z\) is:
+    \[\begin{aligned}
+        \mathfrak{m}_h,\mathfrak{m}_h-1,\ldots,0,\ldots,\mathfrak{m}_l+1,\mathfrak{m}_l
+    \end{aligned}\]
+    equivalently,
+    \[\underbrace{\mathfrak{m}_h,\mathfrak{m}_h-1,\ldots,0,\ldots,-\mathfrak{m}_h+1,-\mathfrak{m}_h}_{2\mathfrak{m}_h+1}\]
+    with a \underline{single state} assigned to each eigenvalue. Therefore, the representation has dimension \(2\mathfrak{m}_h+1 \in \NN\setminus\{0\}\), which implies that 
+    \[\mathfrak{m}_h=0,\half,1,\frac{3}{2},\ldots\]
+\end{proof}
+
+\begin{example}
+    Let us look at some examples. We recall for \(\mathfrak{l}=0,\half,1,\frac{3}{2},\ldots\) the following 
+    \[\ket{\mathfrak{l},\mathfrak{m}} \quad \text{where } \mathfrak{m}=-\mathfrak{l},\mathfrak{l}+1,\ldots,\mathfrak{l}-1,\mathfrak{l}.\]
+    \begin{itemize}
+        \item When \( \mathfrak{l} = 0\) we have that \(\mathfrak{m}=0\). Therefore, we have just one state \( \ket{0,0} \) and the matrices \( J_i \) act trivially. This is the trivial representation.
+        \item When \( \mathfrak{l} = \half\) we have that \(\mathfrak{m}=-\half,\half\). Hence, we have two states. Now, any state in this basis must be in the form \(\ket{v}=a\ket{\frac{1}{2}, \frac{1}{2}}+b\ket{\frac{1}{2}, -\frac{1}{2}}\) thus, we set the basis state to be as simple as possible:
+        \[ \ket{\frac{1}{2}, \frac{1}{2}} = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \quad \text{and} \quad \ket{\frac{1}{2}, -\frac{1}{2}} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}.\]
+        We contruct 
+        \[\begin{aligned}
+            J_3 &=\begin{pmatrix}
+                \bra{\frac{1}{2}, \frac{1}{2}}J_3 \ket{\frac{1}{2}, \frac{1}{2}} & \bra{\frac{1}{2}, \frac{1}{2}} J_3 \ket{\frac{1}{2}, -\frac{1}{2}} \\
+                \bra{\frac{1}{2}, -\frac{1}{2}}J_3 \ket{\frac{1}{2}, \frac{1}{2}} & \bra{\frac{1}{2}, -\frac{1}{2}} J_3 \ket{\frac{1}{2}, -\frac{1}{2}} \\
+            \end{pmatrix}
+            &=\begin{pmatrix} \frac{1}{2} & 0 \\ 0 & -\frac{1}{2} \end{pmatrix}.
+        \end{aligned}\]
+        We can determine \( J_+ \) through
+
+\[ J_+\ket{\frac{1}{2}, \frac{1}{2}} = 0 \quad J_+\ket{\frac{1}{2}, -\frac{1}{2}} = \sqrt{\frac{3}{4} - \frac{1}{4}} \ket{\frac{1}{2}, \frac{1}{2}} = \ket{\frac{1}{2}, \frac{1}{2}}. \]
+
+so that
+
+\[ J_+ = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}. \]
+
+And can determine \( J_- \) through
+
+\[ J_-\ket{\frac{1}{2}, \frac{1}{2}} = \sqrt{\frac{3}{4} - \frac{1}{4}} \ket{\frac{1}{2}, -\frac{1}{2}} = \ket{\frac{1}{2}, -\frac{1}{2}} \]
+
+so that
+
+\[ J_- = \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}. \]
+
+Or alternatively
+
+\[ J_1 = \frac{1}{2}(J_+ + J_-) = \frac{1}{2} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \]
+
+\[ J_2 = \frac{1}{2i}(J_+ - J_-) = \frac{1}{2} \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix} \]
+
+Thus we have recovered the Pauli matrices.
+    \end{itemize}
+\end{example}
+
+\begin{mdnote}
+    Throughout this process we have used the results obtained from above.
+\end{mdnote}
+
+\subsection{The eigenvalues of the angular momentum}
+
+\begin{mdnote}
+    In the previous section, we dealt with the Lie algebra of \(\mathfrak{su}(2)\) and obtained an irreducible representation. To relate our previous results to the algebra of the angular momentum we only need to add a factor of \(\hbar\). 
+\end{mdnote}
+
+\begin{mdthm}
+    We summarise the results of the previous section in terms of the angular momentum here.
+    \begin{itemize}
+        \item \(L^2 \ket{\mathfrak{l},\mathfrak{m}} = \hbar^2\mathfrak{l}(\mathfrak{l}+1)\ket{\mathfrak{l},\mathfrak{m}}\)
+        \item \(L_3 \ket{\mathfrak{l},\mathfrak{m}}=\hbar \mathfrak{m}\ket{\mathfrak{l},\mathfrak{m}}\).
+        \item \(L_+\ket{\mathfrak{l},\mathfrak{m}} = c_{\mathfrak{m}}\ket{\mathfrak{l},\mathfrak{m}+1}\) where 
+        \[c_{\mathfrak{m}} = \hbar \sqrt{\mathfrak{l}(\mathfrak{l}+1)-\mathfrak{m}^2-\mathfrak{m}}.\]
+        \item \(L_+\ket{\mathfrak{l},\mathfrak{m}} = d_{\mathfrak{m}}\ket{\mathfrak{l},\mathfrak{m}-1}\) where 
+        \[d_{\mathfrak{m}} = \hbar \sqrt{\mathfrak{l}(\mathfrak{l}+1)-\mathfrak{m}^2+\mathfrak{m}}.\]
+    \end{itemize}
+\end{mdthm}
+
+\subsection{Spin-1/2}
+
+\begin{mdprop}
+    We can build the representation of this by 
+    \[\wh{S}_i = \frac{\hbar}{2} \sigma_i\]
+    where \(\sigma_i\) are the Pauli matrices.
+\end{mdprop}
+
+\begin{mdnote}
+    The matrices obey the Lie algebra of the angular momentum.
+\end{mdnote}
+
+\subsection{The eigenvectors of the angular momentum}
+
+\begin{mdprop}
+    We write the angular momentum operators in spherical coordinatess.
+    \begin{itemize}
+        \item \(L_1 = i\hbar \left( \sin\phi\partial_\theta +\cot\theta\cos\phi\partial_{\phi} \right)\).
+        \item \(L_2 = i\hbar \left( -\cos\phi\partial_\theta+\cot\theta\sin\phi\partial_\phi \right)\).
+        \item \(L_3= -i\hbar\partial_\phi\).
+        \item \(L_+ = \hbar e^{i\phi}\left[ \partial_\theta+i\cot\theta \partial_\phi \right]\).
+        \item \(L_- = \hbar e^{-i\phi}\left[ \partial_\theta+i\cot\theta \partial_\phi \right]\)
+    \end{itemize}
+\end{mdprop}
+
+\begin{mdthm}
+    We see that \(\ket{\mathfrak{l},\mathfrak{m}}=Y_{\mathfrak{l,m}}\) i.e.\ the spherical harmonics. Hence, the set \({\left\{ Y_{\mathfrak{l,m}} : \mathfrak{m}= -\mathfrak{l},\ldots,\mathfrak{l} \right\}}\) provides an irreducible \((2\mathfrak{l}+1)\)-dimensional representation of \(\mathfrak{su}(2)\) inside the space of all differentiable functions on \(S^2\) (viewed as the unit sphere in \(\RR^3\)).
+\end{mdthm}
+
+\subsection{Addition of angular momenta}
+
+In this section we consider a system of two particles. We assume that each particle carries and angular momentum. The combined system will have a single wave function \(\Psi(t,\bm{x}^{(1)},\bm{x}^{(2)})\). Thus, we define two sets of angular momentum operators \(\wh{L}^{(1)}\) and \(\wh{L}^{(2)}\) which act on \(\bm{x}^{(1)}\) and \(\bm{x}^{(2)}\) separately (i.e. \(L^{(1)}_a = -i\hbar\eps_{abc} x_b^{(1)}\partial^{(1)}_c\)).
+
+\begin{definition}
+    The total angular momentum associated to the rotational symmetry of the system as a whole is 
+    \[\wh{L}^{(T)}=\wh{L}^{(1)}+\wh{L}^{(2)}.\]
+\end{definition}
+
+\begin{proposition}
+    The following set of operators commutes:
+    \[\left( \wh{L}^{(1)} \right)^2, \wh{L}_z^{(1)},\left( \wh{L}^{(2)} \right)^2, \wh{L}_z^{(2)}.\]
+    We label the eigenvectors diagonalising simultaneously these \(4\) operators by  
+    \[\ket{\mathfrak{l}_1,\mathfrak{m}_1;\mathfrak{l}_2,\mathfrak{m}_2}\]
+    where the \(\mathfrak{m}_i\) range between 
+    \[\begin{aligned}
+        -\mathfrak{l}_1 \leq &\mathfrak{m}_1 \leq \mathfrak{l}_1 \\
+        -\mathfrak{l}_2 \leq &\mathfrak{m}_2 \leq \mathfrak{l}_2.
+    \end{aligned}\]
+    Therefore, for a fixed \(\mathfrak{l}_1\) and \(\mathfrak{l}_2\) there are a total of \((2\mathfrak{l}_1+1)(2\mathfrak{l}_2+1)\) states.
+\end{proposition}
+
+\begin{mdprop}
+    The following set of operators commutes:
+    \[\left( \wh{L}^{(T)} \right)^2, \wh{L}_z^{(T)},\left( \wh{L}^{(1)} \right)^2, \left( \wh{L}^{(2)} \right)^2.\]
+    We denote the eigenvectors diagonalising the operators as 
+    \[\ket{\mathfrak{l},\mathfrak{m}; \mathfrak{l}_1,\mathfrak{l}_2},\]
+    where for a fixed \(\mathfrak{l}_1\) and \(\mathfrak{l}_2\) we have that 
+    \[\mathfrak{l} = \mathfrak{l}_1-\mathfrak{l}_2, \left( \mathfrak{l}_1-\mathfrak{l}_2+1 \right), \left( \mathfrak{l}_1-\mathfrak{l}_2+2 \right), \ldots,\mathfrak{l}_1+\mathfrak{l}_2.\]
+    The above representation is equivalent to a change of basis from the previous set to the following, and so we have 
+    \[\ket{\mathfrak{l},\mathfrak{m};\mathfrak{l}_1,\mathfrak{l}_2} = \sum_{\mathfrak{m}_1=-\mathfrak{l}_1}^{\mathfrak{l}_1} \sum_{\mathfrak{m}_2=-\mathfrak{l}_2}^{\mathfrak{l}_2} C^{\mathfrak{l}_1,\mathfrak{l}_2,\mathfrak{l}}_{\mathfrak{m}_1,\mathfrak{m}_2,\mathfrak{m}} \ket{\mathfrak{l}_1,\mathfrak{m}_1;\mathfrak{l}_2,\mathfrak{m}_2},\]
+    where the coefficients \(C^{\mathfrak{l}_1,\mathfrak{l}_2,\mathfrak{l}}_{\mathfrak{m}_1,\mathfrak{m}_2,\mathfrak{m}}\) are called the \textbf{Clebsch-Gordan} coefficients.
+\end{mdprop}
+
+\begin{mdnote}
+    It is more natural to consider the above set of operators when dealing with addition of angular momenta.
+\end{mdnote}
+
+\begin{mdnote}
+    In some other texts it \(\abs{\mathfrak{l}_1-\mathfrak{l}_2}\).
+\end{mdnote}
+
+\begin{mdprop}
+    The sum of angular momenta is an angular momentum in the tensor product:
+    \[\wh{L}_a^{(T)} = \wh{L}_a^{(1)} \otimes \mathbb{I} + \mathbb{I} \otimes \wh{L}_a^{(2)} \text{ which satisfies } \left[ \wh{L}_a,\wh{L}_b \right] = i\hbar \eps_{abc} \wh{L}_c \text{ acting on } \hilbert_1 \otimes \hilbert_2.\]
+    Therefore, we can write 
+    \[\ket{\mathfrak{l}_1,\mathfrak{m}_1;\mathfrak{l}_2,\mathfrak{m}_2} = \ket{\mathfrak{l}_1,\mathfrak{m}_1} \otimes \ket{\mathfrak{l}_2,\mathfrak{m}_2}.\]
+    This is how the total angular momentum operator acts:
+    \[\begin{aligned}
+        L_a^{(T)} \ket{\mathfrak{l}_1,\mathfrak{m}_1;\mathfrak{l}_2,\mathfrak{m}_2}  &= \left( L_a^{(1)}+L_a^{(2)} \right)\ket{\mathfrak{l}_1,\mathfrak{m}_1;\mathfrak{l}_2,\mathfrak{m}_2}  \\
+        &=L_a^{(1)} \ket{\mathfrak{l}_1,\mathfrak{m}_1} \otimes \ket{\mathfrak{l_2},\mathfrak{m}_2}+\ket{\mathfrak{l}_1,\mathfrak{m}_1} \otimes L_a^{(2)} \ket{\mathfrak{l_2},\mathfrak{m}_2}.
+    \end{aligned}\]
+\end{mdprop}
+
+\begin{mdnote}
+    The \(2\) particle wavefunction lives in \(L^2(\RR^6) = L^2(\RR^3)\otimes L^2(\RR^3)\).
+\end{mdnote}
+
+\begin{mdnote}
+    All of the above is also valid for \(J_i\), by removing the \(\hbar\) factor. 
+\end{mdnote}
+
+\begin{mdexample}
+    We have that 
+    \[\begin{aligned}
+        J_3^{(T)} \left( \ket{\mathfrak{l}_1,\mathfrak{m}_1} \otimes \ket{\mathfrak{l}_2,\mathfrak{m}_2}\right) &= \left( J_3^{(1)}+J_3^{(2)}  \right) \ket{\mathfrak{l}_1,\mathfrak{m}_1} \otimes \ket{\mathfrak{l}_2,\mathfrak{m}_2} \\
+        &=J_3^{(1)}\ket{\mathfrak{l}_1,\mathfrak{m}_1}\otimes\ket{\mathfrak{l}_2,\mathfrak{m}_2} + \ket{\mathfrak{l}_1,\mathfrak{m}_1} \otimes J_3^{(2)}\ket{\mathfrak{l}_2,\mathfrak{m}_2} \\
+        &=\mathfrak{m}_1 \ket{\mathfrak{l}_1,\mathfrak{m}_1} \otimes \ket{\mathfrak{l}_2,\mathfrak{m}_2} + \ket{\mathfrak{l}_1,\mathfrak{m}_1} \otimes \mathfrak{m}_2\ket{\mathfrak{l}_2,\mathfrak{m}_2} \\
+        &= (\mathfrak{m}_1+ \mathfrak{m}_2)\ket{\mathfrak{l}_1,\mathfrak{m}_1}\otimes\ket{\mathfrak{l}_2,\mathfrak{m}_2}.
+    \end{aligned}\]
+\end{mdexample}
+
+\begin{example}
+    We consider the case when \(\mathfrak{l}_1=\mathfrak{l}_2=\half\). There are \((2\left( \half \right) +1)^2=4\) states. Since we are in this case we suppress some notation since the values are the same and instead write:
+    \[\ket{\mathfrak{l}_1,\mathfrak{m}_1 ; \mathfrak{l}_2,\mathfrak{m}_2} = \ket{\mathfrak{m}_1,\mathfrak{m}_2}.\]
+    So,
+    \[\begin{aligned}
+        \ket{\half,\half;\half,\half} &= \ket{\half,\half}\otimes\ket{\half,\half} =\ket{\half,\half} \\
+        \ket{\half,\half;\half,-\half} &= \ket{\half,\half}\otimes\ket{\half,-\half} =\ket{\half,-\half} \\
+        \ket{\half,-\half;\half,\half} &= \ket{\half,-\half}\otimes\ket{\half,\half} =\ket{-\half,\half} \\
+        \ket{\half,-\half;\half,-\half} &= \ket{\half,-\half}\otimes\ket{\half,-\half} =\ket{-\half,-\half} 
+    \end{aligned}\]
+    These are eigenstates of \( J^{(1)}_3 + J^{(2)}_3 \)
+    \[\begin{aligned}
+(J^{(1)}_3 + J^{(2)}_3) \ket{\frac{1}{2}, \frac{1}{2}} &= J^{(1)}_3 \ket{\frac{1}{2}} \otimes \ket{\frac{1}{2}} + \ket{\frac{1}{2}} \otimes J^{(2)}_3 \ket{\frac{1}{2}} \\
+&= \frac{1}{2} \ket{\frac{1}{2}} \otimes \ket{\frac{1}{2}} + \frac{1}{2} \ket{\frac{1}{2}} \otimes \ket{\frac{1}{2}} \\
+&= \ket{\frac{1}{2}, \frac{1}{2}} \\
+(J^{(1)}_3 + J^{(2)}_3) \ket{\frac{1}{2}, -\frac{1}{2}} &= J^{(1)}_3 \ket{\frac{1}{2}} \otimes \ket{-\frac{1}{2}} + \ket{\frac{1}{2}} \otimes J^{(2)}_3 \ket{-\frac{1}{2}} \\
+&= \frac{1}{2} \ket{\frac{1}{2}} \otimes \ket{-\frac{1}{2}} - \frac{1}{2} \ket{\frac{1}{2}} \otimes \ket{-\frac{1}{2}} \\
+&= 0 \\
+(J^{(1)}_3 + J^{(2)}_3) \ket{-\frac{1}{2}, \frac{1}{2}} &= J^{(1)}_3 \ket{-\frac{1}{2}} \otimes \ket{\frac{1}{2}} + \ket{-\frac{1}{2}} \otimes J^{(2)}_3 \ket{\frac{1}{2}} \\
+&= -\frac{1}{2} \ket{-\frac{1}{2}} \otimes \ket{\frac{1}{2}} + \frac{1}{2} \ket{-\frac{1}{2}} \otimes \ket{\frac{1}{2}} \\
+&= 0 \\
+(J^{(1)}_3 + J^{(2)}_3) \ket{-\frac{1}{2}, -\frac{1}{2}} &= J^{(1)}_3 \ket{-\frac{1}{2}} \otimes \ket{-\frac{1}{2}} + \ket{-\frac{1}{2}} \otimes J^{(2)}_3 \ket{-\frac{1}{2}} \\
+&= -\frac{1}{2} \ket{-\frac{1}{2}} \otimes \ket{-\frac{1}{2}} - \frac{1}{2} \ket{-\frac{1}{2}} \otimes \ket{-\frac{1}{2}} \\
+&= -\ket{-\frac{1}{2}, -\frac{1}{2}}
+\end{aligned}\]
+
+Thus we find the \( J^{(T)}_3 \) eigenvalues \(\mathfrak{m}=-1, 0, 0, +1\). This doesn't correspond to any irreducible representation of \( \mathfrak{su}(2) \) but we can split it as \(0\) and \((-1, 0, 1)\) which are the eigenvalues of the \( \mathfrak{l} = 0 \) and \( \mathfrak{l} = 1 \) representations. Thus we expect to find
+
+\[
+2 \otimes 2 = 1 \oplus 3
+\]
+
+Indeed the correct basis is
+
+\[\begin{aligned}
+\ket{0, 0} &= \frac{1}{\sqrt{2}} \ket{\frac{1}{2}, -\frac{1}{2}} - \frac{1}{\sqrt{2}} \ket{-\frac{1}{2}, \frac{1}{2}} \\
+\ket{1, -1} &= \ket{-\frac{1}{2}, -\frac{1}{2}} \\
+\ket{1, 0} &= \frac{1}{\sqrt{2}} \ket{\frac{1}{2}, -\frac{1}{2}} + \frac{1}{\sqrt{2}} \ket{-\frac{1}{2}, \frac{1}{2}} \\
+\ket{1, 1} &= \ket{\frac{1}{2}, \frac{1}{2}}.
+\end{aligned}\]
+
+\begin{mdnote}
+    Here we wrote \(\ket{\mathfrak{l},\mathfrak{m}}\) instead of \(\ket{\mathfrak{l},\mathfrak{m},\half,\half}\).
+\end{mdnote}
+
+\end{example}
+
+\subsubsection{Example}
+
+\includepdf[pages=-]{./Resources/DS add ang.pdf}
+
+\section{The Hydrogen atom}
+
+\includepdf[pages=-]{./Resources/21-22 H atom.pdf}
+\includepdf[pages=-]{./Resources/23-24 H atom.pdf}
+
+% \section{Perturbation theory}
+
+% Few problems in quantum mechanics -- with either time-independent or time-dependent Hamiltonians -- can be solved exactly. Inevitably we are forced to resort to some form of approximation method.
+
+% \noindent We are going to consider systems that have a Hamiltonian:
+% \[\wh{H} = \wh{H}_0+\eps\wh{V}\] 
+% where \(\wh{H}_0\) is the Hamiltonian of the unperturbed, \(\eps\) is a small parameter, and \(\wh{V}\) is the potential describing the perturbation. We will assume \(\wh{V}\) is independent of time. Furthermore, let us assume that we can solve the time-independent Schrödinger equation for \(\wh{H}_0\) i.e. that we know its eigenvalues and eigenfunctions:
+% \[\wh{H}_0 \psi^{(0)}_n(x) = E^{(0)}_n \psi^{(0)}_n(x).\]
+% Since \(\eps\) is a small parameter we can expand the solution to 
+% \[\wh{H}\psi_n(x)=(\wh{H}_0+\eps \wh{V})\psi_n(x) = E_n \psi(x)\]
+% as a Taylor series in \(\eps\):
+% \[\begin{aligned}
+%     \psi_n(x) &= \psi_n^{(0)}(x)+\eps\psi_n^{(1)}(x) + \eps^2\psi_n^{(2)}(x)+\cdots \\
+%     E_n &=  E_n^{(0)} +\eps E_n^{(1)}+\eps^2 E_n^{(2)} + \cdots 
+% \end{aligned}\]
+% Now using the above we have 
+% \[(\wh{H}_0+\eps \wh{V})\left( \psi_n^{(0)}(x)+\eps\psi_n^{(1)}(x)+\cdots \right) = \left( E_n^{(0)} +\eps E_n^{(1)}+\cdots \right)\left( \psi_n^{(0)}(x)+\eps\psi_n^{(1)}(x)+\cdots \right).\]
+% We can now solve the problem in any order of \(\eps\).
+
+% \subsection{Time independent first order non-degenerate}
+
+% For now let us assume that the eigenvalues are all distinct. This is called \textbf{non-degenerate perturbation theory}.
+
+% \begin{mdprop}
+%     The first-order energy correction is given by:
+%     \[E_n^{(1)} =\frac{\bra{\psi_n^{(0)}}\wh{V}\ket{\psi_n^{(0)}}}{\bra{\psi_n^{(0)}}\ket{\psi_n^{(0)}}}.\]
+% \end{mdprop}
+
+% \begin{proof}
+%     Expanding and only considering the first order \(\eps\)-terms we have
+% \[\wh{H}_0 \psi_n^{(1)}(x) + \wh{V} \psi_n^{(0)}(x) = E_n^{(0)} \psi_n^{(1)}(x) + E_n^{(1)} \psi_n^{(0)}(x).\]
+% Taking the inner product of the above with \(\ket{\psi_n^{(0)}}\) yields:
+% \[\bra{\psi_n^{(0)}} \wh{H}_0\ket{\psi_n^{(1)}}+\bra{\psi_n^{(0)}} \wh{V}\ket{\psi_n^{(0)}}=E_n^{(0)}\bra{\psi_n^{(0)}}\ket{\psi_n^{(1)}}+E_n^{(1)}\bra{\psi_n^{(0)}}\ket{\psi_n^{(0)}}.\]
+% Since \( \wh{H}_0\ket{\psi_n^{(1)}} = E_n\ket{\psi_n^{(1)}}\) we can cancel these terms, and we are left with the required quantity.
+% \end{proof}
+
+% % To first order in the perturbation parameter \(\eps\), the shift of the \(n\)-th energy eigenvalue is given by the above.
+
+% % \begin{mdprop}
+% %     The eigenvalue of the Hamiltonian is given by 
+% %     \[E = E^{(n)}+\eps \frac{\bra{\psi^{(n)}}\wh{V}\ket{\psi^{(n)}}}{\bra{\psi^{(n)}}\ket{\psi^{(n)}}}+O(\eps^2).\]
+% % \end{mdprop}
+
+
+% \begin{mdprop}
+%     At first order in \(\eps\) we have:
+% \[\ket{\psi_n^{(1)}} = \sum_{m \neq n} \frac{\bra{\psi_m^{(0)}} \widehat{V} \ket{\psi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}} \ket{\psi_m^{(0)}}.\]
+% \end{mdprop}
+
+% \begin{proof}
+%     Let us now consider taking the scalar product of 
+%     \[\wh{H}_0 \psi_n^{(1)}(x) + \wh{V} \psi_n^{(0)}(x) = E_n^{(0)} \psi_n^{(1)}(x) + E_n^{(1)} \psi_n^{(0)}(x).\]
+%     with \(\psi_m^{(0)}\), for \(\psi_m^{(0)}\neq \psi_n^{(0)}\):
+%     \[\bra{\psi_m^{(0)}} \wh{H}_0\ket{\psi_n^{(1)}}+\bra{\psi_m^{(0)}} \wh{V}\ket{\psi_n^{(0)}}=E_n^{(0)}\bra{\psi_m^{(0)}}\ket{\psi_n^{(1)}}+E_n^{(1)}\bra{\psi_m^{(0)}}\ket{\psi_n^{(0)}}.\]
+% Using the fact that:
+% \[
+% \braket{\psi_m^{(0)}}{\psi_n^{(0)}} = 0,
+% \]
+% we obtain:
+% \[
+% \braket{\psi_m^{(0)}}{\psi_n^{(1)}} = \frac{\bra{\psi_m^{(0)}} \widehat{V} \ket{\psi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}}.
+% \]
+% Since the \(\ket{\psi_n^{(0)}}\) form a complete basis of the Hilbert space we can write 
+% \[\ket{\psi_n^{(1)}} = \sum_m c_m \ket{\psi_m^{(0)}}\]
+% where \(c_m = \braket{\psi_m^{(0)}}{\psi_n^{(1)}}\).
+% \end{proof}
+
+% \subsection{Time independent second order non-degenerate}
+
+% In the 2023-2024 notes Neil does the following expansion for the Hamiltonian:
+% \[\wh{H} = \wh{H}_0+\eps\wh{H}_1+\eps^2\wh{H}_2+\cdots\]
+% Doing a similar process as in the previous expansion and only considering the second order terms, we have
+% \[\wh{H}_2 \psi_n^{(0)}+\wh{H}_1\psi_n^{(1)}+\wh{H}_0\psi_n^{(2)}=E_n^{(0)}\psi_n^{(2)}+E_n^{(1)}\psi_n^{(1)}+E_n^{(2)}\psi_n^{(0)}.\]
+% The unknowns are \(E_n^{(2)}\) and \(\psi_n^{(2)}\) whereas everythign else is known, so by taking the inner product with \(\bra{E_m^{(0)}}\) we have
+% \[\begin{split}
+%     \bra{E_m^{(0)}}\wh{H}_2 \ket{\psi_n^{(0)}} + \bra{E_m^{(0)}}\wh{H}_1\ket{\psi_n^{(1)}} + \bra{E_m^{(0)}}\wh{H}_0\ket{\psi_n^{(2)}} \\= E_n^{(0)}\bra{E_m^{(0)}}\ket{\psi_n^{(2)}} + E_n^{(1)}\bra{E_m^{(0)}}\ket{\psi_n^{(1)}} + E_n^{(2)}\bra{E_m^{(0)}}\ket{\psi_n^{(0)}}.
+% \end{split}
+% \]
+
+% \begin{mdprop}
+%     The second order correction is given by 
+%     \[\begin{aligned}
+%         E_n^{(2)} &= \bra{\psi_n^{(0)}}\wh{H}_2 \ket{\psi_n^{(0)}} + \bra{\psi_n^{(0)}}\wh{H}_1\ket{\psi_n^{(1)}}\\
+%         &= \bra{\psi_n^{(0)}}\wh{H}_2 \ket{\psi_n^{(0)}}+\sum_{m\neq n} \frac{\bra{\psi_m^{(0)}} \wh{H}_1\ket{\psi_n^{(0)}} \bra{\psi_n^{(0)}} \wh{H}_1 \ket{\psi_m^{(0)}}}{E_n^{(0)}-E_m^{0}}.
+%     \end{aligned}\]
+% \end{mdprop}
+
+% \noindent For the following we will denote \(\ket{\psi_n^{{0}}}=\ket{n}\), and in a similar fashion \(\ket{m}\) and introduce the matrix elements
+% \[\bra{m} \wh{V}\ket{n} =V_{mn}\]
+% where \(\wh{V}=\wh{H}_1\).
+
+% \begin{mdprop}
+%     We also have the following:
+%     \[\sum_{\substack{m\neq n \\ p\neq n}} \frac{V_{pm} V_{mn}}{\left(E_n^{(0)} - E_m^{(0)}\right)\left(E_n^{(0)} - E_p^{(0)}\right)} \ket{m} -\sum_{m\neq n} \frac{V_{mn} V_{nm}}{\left(E_n^{(0)} - E_m^{(0)}\right)^2} \ket{m}-\frac{1}{2} \sum_{m\neq n} \frac{V_{mn} V_{nm}}{\left(E_n^{(0)} - E_m^{(0)}\right)^2} \ket{n}\]
+% \end{mdprop}
+
+% \subsection{Degenerate perturbation theory}
+
+% In the previous sections we discussed the approach to perturbation theory for distinct eigenvalues. In this section, we discuss when some (or all) are not distinct.
+% We only consider in first-order:
+% \[\wh{H}_0 \psi_n^{(1)}(x) + \wh{V} \psi_n^{(0)}(x) = E_n^{(0)} \psi_n^{(1)}(x) + E_n^{(1)} \psi_n^{(0)}(x)\]
+% and, we take the inner product with \(\bra{\psi_m^{0}}\):
+% \[\bra{\psi_m^{(0)}} \wh{H}_0\ket{\psi_n^{(1)}}+\bra{\psi_m^{(0)}} \wh{V}\ket{\psi_n^{(0)}}=E_n^{(0)}\bra{\psi_m^{(0)}}\ket{\psi_n^{(1)}}+E_n^{(1)}\bra{\psi_m^{(0)}}\ket{\psi_n^{(0)}}.\]
+
+% \begin{proposition}
+%     If \(m=n\) we have (the same as before):
+%     \[E_n^{(1)} = \bra{E_n^{(0)}}\wh{V}\ket{E_n^{(0)}}.\]
+% \end{proposition}
+
+% \noindent Let us assume that we have that we \(2\) degenerates states labelled by \(a\) and \(b\) i.e. \(E_a^{(0)} = E_b^{(0)}\). We need 
+% \[\bra{\psi_b^{(0)}} \wh{V} \ket{\psi_a^{(0)}} = E_a^{(1)} \delta_{ab}\]
+% where we need to choose \(\ket{\psi_a^{(0)}}\) to be an eigenstate of \(\wh{V}\) with eigenvalue \(E_a^{(1)}\). We then find that the degeneracy is lifted by the eigenvalues of \(\hat{V}\) in the degenerate subspace
+% \[ E_{n'} = E_{n'}^{(0)} + \eps \bra{E_{n'}^{(0)}}\hat{V}\ket{E_{n'}^{(0)}} + \ldots \]
+% \[ = E_{n'}^{(0)} + \eps E_{n'}^{(1)} + \ldots \]
+% where \(\hat{V}\ket{E_{n'}^{(0)}} = E_{n'}^{(1)}\ket{E_{n'}^{(0)}}\). Whereas for non-degenerate eigenvalues we find
+% \[ E_{n'} = E_{n'}^{(0)} + \eps \bra{E_{n'}^{(0)}}\hat{V}\ket{E_{n'}^{(0)}} + \ldots \]
+
+% where \(n'\) labels the non-degenerate eigenstates. We then solve for the eigenvectors by
+% \begin{mdprop}
+%     \[ \ket{E_{n'}^{(1)}} = \sum_{m' \neq n'} \frac{\bra{E_{m'}^{(0)}}\hat{V}\ket{E_{n'}^{(0)}}}{E_{n'}^{(0)} - E_{m'}^{(0)}} \ket{E_{m'}^{(0)}} \]
+% \[ \ket{E_{n'}^{(1)}} = \sum_{m'} \frac{\bra{E_{m'}^{(0)}}\hat{V}\ket{E_{n'}^{(0)}}}{E_{n'}^{(0)} - E_{m'}^{(0)}} \ket{E_{m'}^{(0)}} \]
+% \end{mdprop}
+
+
+% \subsection{Time dependent perturbation theory}
+
+% In this section we assume that the Hamiltonian is mostly time-independent adn the time dependence enters through a small perturbation:
+% \[\wh{H}(t) = \wh{H}_0 +\eps\wh{V}(t).\]
+% We need to solve the tiem dependent Schrödinger equation, as such we expan dthe state \(\psi(x,t)\) with respect to the basis made from the \(\psi_n^{(0)}(x)\) of eigenfunctions of the stationary part of the Hamiltonian, \(\wh{H}_0\):
+% \[\psi(t, x) = \sum_{n} c_n(t) e^{-\frac{i}{\hbar}E_n^{(0)} t} \psi_n^{(0)}(x).\]
+% Substituting into the Schrödinger equationa and comparing the LHS and RHS we obtain that 
+% \[\sum_{n=0}^{\infty} i\hbar \left( \diff{}{t}{c}_n(t) \right) e^{-\frac{i}{\hbar}E_n^{(0)} t} \psi_n^{(0)}(x) = \eps \sum_{n} c_n(t) e^{-\frac{i}{\hbar}E_n^{(0)} t} \wh{V}(t) \psi_n^{(0)}(x)
+% ;\]
+% Taking the inner product with \(\bra{\psi_m^{(0)}}\) we get 
+% \[\diff{}{t}c_m(t) = \frac{1}{i\hbar}\eps\sum_n c_n(t) e^{i(E_m-E_n)t/\hbar} \bra{\psi_m^{(0)}}\wh{V}(t)\ket{\psi_n^{(0)}}.\]
+
+% \noindent To study the system in the case of a small perturbation we Taylor expand in \(\eps\):
+% To study the system in the case of a small perturbation we Taylor expand in \(\alpha\)
+% \[ c_n(t) = c_n^{(0)} + \eps c_n^{(1)}(t) + O(\eps^2) \]
+% The first term of the expansion is constant and so we get
+% \[ \diff{}{t}{c}_m^{(1)} = \frac{1}{i\hbar} \sum_n c_n^{(0)} e^{i(E_m-E_n)t/\hbar} \bra{ \psi_m^{(0)}} \wh{V}(t)  \ket{\psi_n^{(0)} } \]
+% Let us now assume that initially at \( t = t_0 \) our system was in a stationary state of the non-perturbed hamiltonian \(\psi(t_0, x) \propto \psi_k^{(0)}(x)\), this means that
+% \[ c_n^{(0)} = \delta_{nk}, \quad c_n^{(1)}(t_0) = 0 \]
+% then
+% \begin{mdthm}
+%     \[ c_m^{(1)}(t) = \int_{t_0}^{t} \frac{1}{i\hbar} e^{i(E_m-E_n)t/\hbar}  \bra{\psi_m^{(0)}} \wh{V}(t) \ket{\psi_k^{(0)}}\, dt \]
+% In this case \(c_n^{(1)}\) is called the \textbf{first order transition amplitude}.
+% \end{mdthm}
+
+\section{Perturbation theory}
+
+Few problems in quantum mechanics --- with either time-independent or time-dependent Hamiltonians --- can be solved exactly. Inevitably we are forced to resort to some form of approximation method.
+
+\noindent We are going to consider systems that have a Hamiltonian:
+\[H=H_0+V\] 
+where \(H_0\) is the Hamiltonian of the unperturbed and \(V=f(\eps)\) is the potential describing the perturbation. We will assume \(V\) is independent of time. Furthermore, let us assume that we can solve the time-independent Schrödinger equation for \(H\) i.e. that we know its eigenvalues and eigenfunctions:
+\[H_0\ket{E^{(0)}_n} =E^{(0)}_n \ket{E^{(0)}_n}\]
+Since \(\eps\) is a small parameter we expain in terms of \(\eps\):
+\[\begin{aligned}
+    H &= H^{(0)} +\eps H^{(1)}+\eps^2 H^{(2)} +\cdots \\
+    E_n &= E_n^{(0)} +\eps E_n^{(1)}+\eps^2 E_n^{(2)} +\cdots \\
+    \ket{E_n} &= \ket{E_n^{(0)}} +\eps \ket{E_n^{(1)}}+\eps^2 \ket{E_n^{(2)}} +\cdots
+\end{aligned}\]
+
+We want to solve the equation:
+\[H\ket{E_n}=E_n \ket{E_n}\]
+by substituting the expansions we have from above and obtain 
+\[\left( H^{(0)} +\eps H^{(1)}+\eps^2 H^{(2)} +\cdots \right) = \left( E_n^{(0)} +\eps E_n^{(1)}+\eps^2 E_n^{(2)} +\cdots \right)\left( \ket{E_n^{(0)}} +\eps \ket{E_n^{(1)}}+\eps^2 \ket{E_n^{(2)}} +\cdots \right).\]
+
+There are many cases to analyse, we begin with non-degenerate cases (i.e.\ all the eigenvalues are distinct).
+
+\subsection{Non-degenerate: first order}
+
+We consider the expansion:
+\[\left( H^{(0)} +\eps H^{(1)}+\cdots \right) = \left( E_n^{(0)} +\eps E_n^{(1)} +\cdots \right)\left( \ket{E_n^{(0)}} +\eps \ket{E_n^{(1)}}+\cdots \right).\]
+
+The zeroth order \(\eps\) terms cancel as we have already solved the unperturbed system. Thus, ignoring all \(\eps\) terms higher than the linear one we have 
+\[H^{(1)}\ket{E_n^{(0)}} + H^{(0)}\ket{E_n^{(1)}} = E_n^{(1)}\ket{E_n^{(0)}} + E_n^{(0)}\ket{E_n^{(1)}}.\]
+Now we know \( H^{(0)}, E_n^{(0)} \) and \( E_n^{(1)} \) so we need to solve for \( E_n^{(1)} \).
+
+\begin{mdprop}
+    We have that the first order energy correction is given by 
+    \[E_n^{(1)} = \bra{E_n^{(0)}} H^{(1)} \ket{E_n^{(0)}}\]
+    and that 
+    \[\begin{aligned}
+        \ket{E_n^{(1)}} &= \sum_m \bra{E_m^{(0)}} \ket{E_n^{(1)}}\ket{E_m^{(0)}} \\
+        &= \sum_{m\neq n} \frac{\bra{E_m^{(0)}} H^{(1)} \ket{E_n^{(0)}}}{E_n^{(0)}-E_m^{(0)}}\ket{E_m^{(0)}}.
+    \end{aligned}\]
+\end{mdprop}
+
+\begin{mdremark}
+    We can rewrite this in a more concise manner by setting \(H^{(1)}=V\) and use the notation 
+    \[V_{mn} = \bra{E^{(0)}_m} V \ket{E^{(0)}_n}.\]
+    With this, we have that 
+    \[E_n^{(1)} = V_{nn}\]
+    and 
+    \[\ket{E_n^{(1)}} = \sum_{m\neq n}\frac{V_{mn}}{E_n^{(0)}-E_m^{(0)}}\ket{E_m^{(0)}}.\]
+\end{mdremark}
+
+\begin{proof}
+    We begin from 
+    \[H^{(1)}\ket{E_n^{(0)}} + H^{(0)}\ket{E_n^{(1)}} = E_n^{(1)}\ket{E_n^{(0)}} + E_n^{(0)}\ket{E_n^{(1)}}.\]
+    We use the fact that \( \left\{ \ket{E_n^{(0)}} \right\} \) are an orthonormal basis. So
+    \[\bra{E_m^{(0)}} H^{(1)} \ket{E_n^{(1)}} + \bra{E_m^{(0)}} H^{(0)} \ket{E_n^{(1)}} = E_n^{(1)} \braket{E_m^{(0)}}{E_n^{(0)}} + E_n^{(0)} \braket{E_m^{(0)}}{E_n^{(1)}}\]
+    However we also know that \( \bra{E_m^{(0)}} H^{(0)} = \left(H^{(0)}\ket{E_m^{(0)}} \right)^\dagger = \left( E_m^{(0)} \ket{E_m^{(0)}} \right)^{\dagger} = \bra{E_m^{(0)}} E_m^{(0)}\) and hence
+    \[\bra{E_m^{(0)}} H^{(1)} \ket{E_n^{(1)}} = E_n^{(1)} \delta_{mn} + (E_n^{(0)} - E_m^{(0)}) \braket{E_m^{(0)}}{E_n^{(1)}}.\]
+    We can now take \( n = m \) to find
+    \[E_n^{(1)} = \bra{E_n^{(0)}} H^{(1)} \ket{E_n^{(0)}.}\]
+    So we know the first order correction to the energies. 
+    
+    We can now write, for \( m \neq n \),
+    \[\braket{E_m^{(0)}}{E_n^{(1)}} = \frac{1}{E_n^{(0)} - E_m^{(0)}} \bra{E_m^{(0)}} H \ket{E_n^{(0)}}\]
+    Here is where the non-degeneracy is important. On the other hand we want orthonormal states \( \ket{E_n} \):
+    \[\begin{aligned}
+        \delta_{mn} &= \braket{E_n}{E_m} \\
+        &= \left( \bra{E^{(0)}_n} + \varepsilon \bra{E^{(1)}_n} + \ldots \right) \left( \ket{E^{(0)}_m} + \varepsilon \ket{E^{(1)}_m} + \ldots \right) \\
+        0 &= \varepsilon \left( \bra{E^{(1)}_n} \ket{E^{(0)}_m} + \bra{E^{(0)}_n} \ket{E^{(1)}_m} \right)
+    \end{aligned}\]
+    Thus we learn that
+    \[\bra{E^{(1)}_n} \ket{E^{(0)}_m} = -\left( \bra{E^{(0)}_m} \ket{E^{(1)}_n} \right)^* = -\bra{E^{(0)}_m} \ket{E^{(1)}_n}\]In particular we can take
+    \[\fbox{\(\bra{E^{(1)}_n} \ket{E^{(0)}_n} = \bra{E^{(0)}_n} \ket{E^{(1)}_n} = 0\)}\]
+    \ul{This tells us that the first order correction is orthogonal to the unperturbed eignevalue}.
+    In particular we can write \(\ket{E_n^{(1)}}\) in a basis of \(\ket{E_m^{(0)}}\) i.e. 
+    \[\ket{E_n^{(1)}} = \sum_m c_{mn} \ket{E_m^{(0)}}.\]
+    We recall that we can write 
+    \[\mathbb{I} = \sum_m \ket{E_m^{(0)}}\bra{E_m^{(0)}}\]
+    so multiplying both sides by \(\ket{E_n^{(1)}}\) we have 
+    \[\begin{aligned}
+        \ket{E_n^{(1)}} &= \sum_m \ket{E_m^{(0)}}\underbrace{\bra{E_m^{(0)}}\ket{E_n^{(1)}}}_{c_{mn}} \\
+        &=  \sum_m  \bra{E_m^{(0)}}\ket{E_n^{(1)}}\ket{E_m^{(0)}} \\
+        &= \sum_{m \neq n} \frac{\bra{E_m^{(0)}} H^{(1)} \ket{E_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}}  \ket{E_m^{(0)}}
+    \end{aligned}\]
+\end{proof}
+
+\subsection{Non-degenerate: second order}
+
+We can assume that the zeroth and first order equations have been solved so we find, at second order,
+
+\[H^{(2)}\ket{E_n^{(0)}} = H^{(1)}\ket{E_n^{(1)}} +H^{(0)}\ket{E_n^{2}} =E_n^{(0)}\ket{E_n^{(2)}}+E_n^{(1)}\ket{E_n^{(1)}}+E_n^{(2)}\ket{E_n^{(0)}}.\]
+
+\begin{mdprop}
+    The second order energy correction to \(E_n\) is given by 
+    \[E_n^{(2)} = \bra{E_n^{(0)}} H^{(2)} \ket{E_n^{(0)}} + \sum_{m \neq n} \frac{\bra{E_m^{(0)}} H^{(1)} \ket{E_n^{(0)}} \bra{E_n^{(0)}} H^{(1)} \ket{E_m^{(0)}}}{E_n^{(0)} - E_m^{(0)}}\]
+\end{mdprop}
+
+\begin{mdremark}
+    In the nice notation we can write if we set \(H^{(2)}=0\) then:
+    \[E_n^{(2)} = \sum_{m\neq n} \frac{V_{mn}V_{nm}}{E_n^{(0)}-E_m^{(0)}}.\]
+\end{mdremark}
+
+\begin{proof}
+    Remember that the unknowns are \( E_n^{(2)} \) and \( \bra{E_n^{(0)}} \ket{E_n^{(2)}} \), everything else is known. So we take matrix elements again:
+    \[\begin{split}
+        \bra{E_m^{(0)}} H^{(2)} \ket{E_n^{(0)}} + \bra{E_m^{(0)}} H^{(1)} \ket{E_n^{(1)}} + \bra{E_m^{(0)}} H^{(0)} \ket{E_n^{(2)}} \\
+        =E_n^{(2)} \bra{E_m^{(0)}} \ket{E_n^{(0)}} + E_n^{(1)} \bra{E_m^{(0)}} \ket{E_n^{(1)}} + E_n^{(2)} \underbrace{\bra{E_m^{(0)}}\ket{E_n^{(0)}}}_{\delta_{mn}}.
+    \end{split}\]
+    Again we first look at \( m = n \) and find
+    \[\bra{E_n^{(0)}} H^{(2)} \ket{E_n^{(0)}} + \bra{E_n^{(0)}} H^{(1)} \ket{E_n^{(1)}} + E_n^{(0)} \bra{E_n^{(0)}} \ket{E_n^{(2)}} = E_n^{(0)} \bra{E_n^{(0)}} \ket{E_n^{(2)}} + E_n^{(2)}
+\]
+where we have used \( \bra{E_n^{(0)}} \ket{E_n^{(1)}} = 0 \). The \( \bra{E_n^{(0)}} \ket{E_n^{(2)}} \) terms cancel so this tells us the second order correction to \( E_n \):
+\[\begin{aligned}
+    E_n^{(2)} &= \bra{E_n^{(0)}} H^{(2)} \ket{E_n^{(0)}} + \bra{E_n^{(0)}} H^{(1)} \ket{E_n^{(1)}} \\
+    &= \bra{E_n^{(0)}} H^{(2)} \ket{E_n^{(0)}} + \bra{E_n^{(0)}} H^{(1)} \left( \sum_{m \neq n} \frac{\bra{E_m^{(0)}} H^{(1)} \ket{E_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}} \ket{E_m^{(0)}} \right)\\
+    &= \bra{E_n^{(0)}} H^{(2)} \ket{E_n^{(0)}} + \sum_{m \neq n} \frac{\bra{E_m^{(0)}} H^{(1)} \ket{E_n^{(0)}} \bra{E_n^{(0)}} H^{(1)} \ket{E_m^{(0)}}}{E_n^{(0)} - E_m^{(0)}}
+\end{aligned}\]
+\begin{mdnote}
+    We multplied the \(\bra{E_n^{(0)}} H^{(1)}\) with \(\ket{E_m^{(0)}}\) inside the bracket.
+\end{mdnote}
+\end{proof}
+
+\begin{mdprop}
+    We have that for \(H^{(2)}=0\):
+    \[\ket{E_n^{(2)}} = \sum_m c_{nm} \ket{E^{(0)}_m}\]
+    where for \(m \neq n\)
+    \[c_{nm} = \frac{V_{mn}}{E_n^{(0)}-E_m^{(0)}} +\sum_{p\neq n} \left( \frac{V_{pm}V_{mp}}{\left( E_n^{(0)}-E_m^{(0)} \right) \left( E_n^{(0)}-E_p^{(0)} \right)} \right) - \frac{V_{nn}V_{mn}}{\left( E_n^{(0)}-E_m^{(0)} \right)\left( E_n^{(0)}-E_m^{(0)} \right)}\]
+    and 
+    \[c_{nn} = -\half \sum_{m\neq n} \frac{V_{mn}V_{mn}}{\left( E_n^{(0)}-E_m^{(0)} \right)^2}\]
+\end{mdprop}
+
+\begin{proof}
+    We recall 
+    \[
+    \begin{split}
+        \bra{E_{m}^{(0)}} H^{(2)} \ket{E_{n}^{(0)}} + \bra{E_{m}^{(0)}} H^{(1)} \ket{E_{n}^{(1)}} + \bra{E_{m}^{(1)}} H^{(1)} \ket{E_{n}^{(0)}} \\
+        = \bra{E_{n}^{(0)}} H^{(0)} \ket{E_{n}^{(2)}} + \bra{E_{n}^{(1)}} H^{(0)} \ket{E_{n}^{(1)}} + \bra{E_{n}^{(2)}} H^{(0)} \ket{E_{n}^{(0)}} \delta_{nm}.
+    \end{split}\]
+    To determine \(\ket{E_{n}^{(2)}}\) we need to know the coefficients \(c_{nm}\) where
+    \[\ket{E_{n}^{(2)}} = \sum_{m} c_{nm} \ket{E_{m}^{(0)}}\]
+    and we know that \(c_{nm} = \bra{E_{m}^{(0)}}\ket{E_{n}^{(2)}}\). Thus since we have a non-degenerate spectrum we so, by rearranging the first equaion, we have that for \(n \neq m\),
+    \[\begin{aligned}
+        c_{nm} &= \bra{E_{m}^{(0)}}\ket{E_{n}^{(2)}} \\
+        &= \frac{1}{E_{n}^{(0)} - E_{m}^{(0)}} \left( \bra{E_{m}^{(0)}} H^{(2)} \ket{E_{n}^{(0)}} + \bra{E_{m}^{(1)}} H^{(1)} \ket{E_{n}^{(1)}} - E_{n}^{(1)}\bra{E_{m}^{(1)}}\ket{E_{n}^{(0)}} \right).
+    \end{aligned}\]
+However we know that
+\[
+\ket{E_{n}^{(1)}} = \sum_{p \neq n} \frac{1}{E_{n}^{(0)} - E_{p}^{(0)}} \bra{E_{p}^{(0)}} H^{(1)} \ket{E_{n}^{(0)}} \ket{E_{p}^{(0)}}
+\]
+so
+\[
+\bra{E_{m}^{(0)}} H^{(1)} \ket{E_{n}^{(1)}} = \sum_{p \neq n} \frac{1}{E_{n}^{(0)} - E_{p}^{(0)}} \bra{E_{m}^{(0)}} H^{(1)} \ket{E_{p}^{(0)}} \bra{E_{p}^{(0)}} H^{(1)} \ket{E_{n}^{(0)}}
+\]
+We also know
+\[
+E_{n}^{(1)} = \bra{E_{n}^{(0)}} H^{(1)} \ket{E_{n}^{(0)}}
+\]
+so
+\[\begin{aligned}
+    E_{n}^{(1)}\bra{E_{m}^{(1)}}\ket{E_{n}^{(0)}} &= \bra{E_{n}^{(0)}} H^{(1)} \ket{E_{n}^{(0)}} \sum_{p \neq n} \frac{1}{E_{n}^{(0)} - E_{p}^{(0)}} \bra{E_{p}^{(0)}} H^{(1)} \ket{E_{n}^{(0)}} \delta_{mp}\\
+&= \frac{1}{E_{n}^{(0)} - E_{m}^{(0)}} \bra{E_{n}^{(0)}} H^{(1)} \ket{E_{n}^{(0)}} \bra{E_{m}^{(0)}} H^{(1)} \ket{E_{n}^{(0)}}
+\end{aligned}\]
+
+Thus substituting each term we have worked out, (for \(m \neq n\))
+\[\begin{split}
+    c_{nm} = \frac{\bra{E_{m}^{(0)}} H^{2} \ket{E_{n}^{(0)}}}{E_{n}^{(0)} - E_{m}^{(0)}} + \sum_{p \neq n} \left( \frac{\bra{E_p^{(0)}} H^{(1)} \ket{E_m^{(0)}} \bra{E_m^{(0)}} H^{(1)} \ket{E_p^{(0)}} }{(E_n^{(0)}-E_p^{(0)})(E_n^{(0)}-E_m^{(0)})} \right) \\ -\frac{\bra{E_n^{(0)}} H^{(1)} \ket{E_n^{(0)}} \bra{E_m^{(0)}} H^{(1)} \ket{E_n^{(0)}}}{(E_n^{(0)}-E_m^(0))(E_n^{(0)}-E_m^{(0)})}
+\end{split}\]
+
+However we still need to know \(c_{nn}\). We fix this by asking that
+\[\begin{aligned}
+    1 &= \braket{E_{n}} \\
+    &= (\bra{E_{n}^{(0)}} + \epsilon\bra{E_{n}^{(1)}} + \epsilon^{2}\bra{E_{n}^{(2)}})(\ket{E_{n}^{(0)}} + \epsilon\ket{E_{n}^{(1)}} + \epsilon^{2}\ket{E_{n}^{(2)}})
+\end{aligned}\]
+which at order \(\epsilon^{2}\) gives
+\[\begin{aligned}
+    0 &= \bra{E_{n}^{(0)}}\ket{E_{n}^{(2)}} + \bra{E_{n}^{(2)}}\ket{E_{n}^{(0)}} + \bra{E_{n}^{(1)}}\ket{E_{n}^{(1)}} \\
+    &= c_{nn} + c_{nn}^{*} + \braket{E_{n}^{(1)}}
+\end{aligned}\]
+Thus we take
+\[
+c_{nn} = -\frac{1}{2}\braket{E_{n}^{(1)}} = -\frac{1}{2} \sum_{p \neq n} \frac{\abs{\bra{E_{p}^{(0)}} H^{(1)} \ket{E_{n}^{(0)}}}^{2}}{(E_{n}^{(0)} - E_{p}^{(0)})^{2}}.
+\]
+\end{proof}
+
+\subsection{Degenerate perturbation theory}
+
+\begin{mdprop}
+    In degenerate perturbation theory we have that for \(m=n\)
+    \[E_n^{(1)} = \bra{E_n^{(0)}} H^{(1)} \ket{E_n^{(0)}}.\]
+    Suppose we have some subset \(\left\{ n',m' \right\}\) of degenerate energy states \(E_{n'}^{(0)}=E_{m'}^{(0)}\) we have that 
+    \[E_{n'}^{(1)} \delta_{n'm'} =\bra{E_{m'}^{(0)}} H^{(1)} \ket{E_{n'}^{(0)}}.\]
+    Furthermore, 
+    \[\begin{aligned}
+        E_{n'} &= E_{n'}^{(0)} + \eps \bra{E_{n'}^{(0)}} H^{(1)} \ket{E_{n'}^{(0)}} +\cdots \\
+        &= E_{n'}^{(0)} +\eps E_{n'}^{(1)} +\cdots 
+    \end{aligned}\]
+    where \(H^{(1)}\ket{E_{n'}^{(0)}} = E_{n'}^{(1)} \ket{E_{n'}^{(0)}}\). Then the eigenvectors are 
+    \[\begin{aligned}
+        \ket{E_{n'}^{(1)}} &= \sum_{m''} \frac{\bra{E_{m''}^{(0)}} H^{(1)} \ket{E_{n'}^{(0)}}}{E_{n'}^{(0)}-E_{m''}^{(0)}} \ket{E_{m''}^{(0)}}.
+    \end{aligned}\]
+    where \(n''\) label non-degenerate eigenstates.
+\end{mdprop}
+
+\subsection{Time dependent perturbation theory}
+
+In this section we assume that the Hamiltonian is mostly time-independent adn the time dependence enters through a small perturbation:
+\[H=H_0 +\eps H_1(t)+\cdots\]
+We recall that the time-independent Schrödinger equation is given by 
+\[i\hbar \diffp{}{t}\ket{\Psi} = H\ket{\Psi}\]
+and is solved by 
+\[\ket{\Psi^{(0)}(t)} = \sum_n c_n e^{-i E_n t/\hbar} \ket{\psi_n^{(0)}}.\]
+To solve the peturbed Schrödinger equation:
+\[i\hbar \diffp{}{t} \ket{\Psi} = H^{(0)} \ket{\Psi} +\eps H^{(1)}(t)\ket{\Psi}\]
+we allow \(c_n\) to be a function of time.
+
+\begin{mdprop}
+    We can expand \(c_m(t)\) as 
+    \[c_m(t) = c_m(0)+\eps c_m^{(1)}(t) +\eps^2 c_m^{(2)}(t) _
+    +\cdots\]
+    with the boundary condition that \(c_m^{(k)}(0)=0\) for all \(k \in \NN\) and \(c_m = \delta_{mk}\). We have that 
+    \[c_m^{(1)} = -\frac{i}{\hbar} \int_0^t e^{i(E_m-E_k)\tau/\hbar} \bra{\psi_m^{(0)}} H^{(1)}(t) \ket{\psi_k^{(0)}} \, d\tau.\]
+\end{mdprop}
+
+\begin{mdnote}
+    We can set the lower bound to be anything other than \(0\) like \(-\infty\) and have \(c_m^{(k)}(-\infty)=0\) for all \(k\). 
+\end{mdnote}
+
+\begin{proof}
+    We substitute the solution of the Schrödinger equation to 
+    \[i\hbar \diffp{}{t} \ket{\Psi} = H^{(0)} \ket{\Psi} +\eps H^{(1)}(t)\ket{\Psi}\]
+    and obtain 
+    \[\begin{split}
+        \sum_n \left( i\hbar \diff{}{t}c_n(t)+E_n c_n(t) \right) e^{-i E_n t/\hbar} \ket{\psi_n^{(0)}} =\sum_n c_n(t) e^{-i E_n t/\hbar} H^{(0)}\ket{\psi_n^{(0)}} \\
+        +\eps \sum_n c_n(t)e^{-i E_n t/\hbar} H^{(1)} \ket{\psi_n^{(0)}}.
+    \end{split}\]
+    We can cancel out the second term on the LHS and the first term on the RHS since we know that \(H^{(0)}\ket{\psi_n^{(0)}} =E_n \ket{\psi_n^{(0)}}\). Therefore, we have 
+    \[i\hbar \sum_n \diff{}{t}c_n(t) e^{-i E_n t/\hbar} \ket{\psi_n^{(0)}} = \eps\sum_n c_n(t) e^{-i E_n t/\hbar} H^{(1)} \ket{\psi_n^{(0)}}.\]
+    Since \(\ket{\psi_n^{(0)}}\) are an orthonormal basis of the Hilber space we can take teh inner product with \(\bra{\psi_m^{(0)}}\) and obtain 
+    \[\begin{aligned}
+        i\hbar \diff{}{t}c_m(t) e^{-iE_m t/\hbar} &= \eps \sum_n c_n(t) e^{-iE_m t/\hbar} \bra{\psi_m^{(0)}} H^{(1)}(t) \ket{\psi_n^{(0)}} \\
+        \diff{}{t}c_m(t) &= -\frac{i\eps}{\hbar} \sum_n c_n(t) e^{i(E_m-E_n)t/\hbar} \bra{\psi_m^{(0)}} H^{(1)}(t) \ket{\psi_n^{(0)}}.
+    \end{aligned}\]
+    Thus we obtain a first order differential equation for each \(c_n(t)\). 
+\end{proof}
+
+\begin{mdprop}
+    We have that \(\abs{c_m(t)}^2\) gives the probability that after the perturbation the system will lie in the \(m\)-th energy state (\(m\neq k\)) at tiem \(t\). We call \(c_m^{(1)}(t)\) the \textbf{first order transition amplitude}.
+\end{mdprop}
+
+\begin{mdremark}
+    We do not expect \(\sum_n \abs{c_n(t)}^2=1\) since the perturbation has introduced (or taken away) energy from the system which then gets redistributed.
+\end{mdremark}
+
+\subsection{Degenerate perturbation theory}
+
+In the previous sections we discussed the approach to perturbation theory for distinct eigenvalues. In this section, we discuss when some (or all) are not distinct.
+We only consider in first-order:
+\[\wh{H}_0 \psi_n^{(1)}(x) + \wh{V} \psi_n^{(0)}(x) = E_n^{(0)} \psi_n^{(1)}(x) + E_n^{(1)} \psi_n^{(0)}(x)\]
+and, we take the inner product with \(\bra{\psi_m^{0}}\):
+\[\bra{\psi_m^{(0)}} \wh{H}_0\ket{\psi_n^{(1)}}+\bra{\psi_m^{(0)}} \wh{V}\ket{\psi_n^{(0)}}=E_n^{(0)}\bra{\psi_m^{(0)}}\ket{\psi_n^{(1)}}+E_n^{(1)}\bra{\psi_m^{(0)}}\ket{\psi_n^{(0)}}.\]
+
+\begin{proposition}
+    If \(m=n\) we have (the same as before):
+    \[E_n^{(1)} = \bra{E_n^{(0)}}\wh{V}\ket{E_n^{(0)}}.\]
+\end{proposition}
+
+\noindent Let us assume that we have that we \(2\) degenerates states labelled by \(a\) and \(b\) i.e. \(E_a^{(0)} = E_b^{(0)}\). We need 
+\[\bra{\psi_b^{(0)}} \wh{V} \ket{\psi_a^{(0)}} = E_a^{(1)} \delta_{ab}\]
+where we need to choose \(\ket{\psi_a^{(0)}}\) to be an eigenstate of \(\wh{V}\) with eigenvalue \(E_a^{(1)}\). We then find that the degeneracy is lifted by the eigenvalues of \(\hat{V}\) in the degenerate subspace
+\[ E_{n'} = E_{n'}^{(0)} + \eps \bra{E_{n'}^{(0)}}\hat{V}\ket{E_{n'}^{(0)}} + \ldots \]
+\[ = E_{n'}^{(0)} + \eps E_{n'}^{(1)} + \ldots \]
+where \(\hat{V}\ket{E_{n'}^{(0)}} = E_{n'}^{(1)}\ket{E_{n'}^{(0)}}\). Whereas for non-degenerate eigenvalues we find
+\[ E_{n'} = E_{n'}^{(0)} + \eps \bra{E_{n'}^{(0)}}\hat{V}\ket{E_{n'}^{(0)}} + \ldots \]
+
+where \(n'\) labels the non-degenerate eigenstates. We then solve for the eigenvectors by
+\begin{mdprop}
+    \[ \ket{E_{n'}^{(1)}} = \sum_{m' \neq n'} \frac{\bra{E_{m'}^{(0)}}\hat{V}\ket{E_{n'}^{(0)}}}{E_{n'}^{(0)} - E_{m'}^{(0)}} \ket{E_{m'}^{(0)}} \]
+\[ \ket{E_{n'}^{(1)}} = \sum_{m'} \frac{\bra{E_{m'}^{(0)}}\hat{V}\ket{E_{n'}^{(0)}}}{E_{n'}^{(0)} - E_{m'}^{(0)}} \ket{E_{m'}^{(0)}} \]
+\end{mdprop}
+
+
+\section{Semi-classical quantisation}
+
+\begin{definition}
+    The \textbf{WKB} (Wentzel, Kramers, Brillouin) method is a technique for obtaining approximate solutions to the time-independent Schrödinger equation in one dimension.
+\end{definition}
+
+\noindent We will consider wave-functions of the form
+\[\psi(x) = e^{\frac{i}{\hbar} \sigma(x)},\]
+where \(\sigma(x)\) has units in \(\hbar\). Using
+\[\begin{aligned}
+    \psi'(x) &=\frac{i}{\hbar} \sigma'(x) e^{\frac{i}{\hbar} \sigma(x)}\\
+    \psi''(x) &= \frac{i}{\hbar} \sigma''(x) e^{\frac{i}{\hbar} \sigma(x)}-\frac{(\sigma'(x))^2}{\hbar^2}e^{\frac{i}{\hbar} \sigma(x)}
+\end{aligned}\]
+We can rewrite the Schrödinger equation: \(-\frac{\hbar^2}{2m}\psi''+(U(x)-E)\psi=0\) as 
+\[\frac{1}{2m} \left( (\sigma')^2-i\hbar \sigma'' \right)=E-U(x).\]
+The equation above can be solved by a formal power series in \(\hbar\):
+\[\sigma = \sigma_0 + \hbar\sigma_1+ \hbar^2 \sigma_2 +\cdots\]
+Plugging the expansion into the Schrödinger equations, and we have 
+\[(\sigma'_0 + \hbar\sigma'_1+ \hbar^2 \sigma'_2 +\cdots)^2-i\hbar\left( \sigma'_0 + \hbar\sigma'_1+ \hbar^2 \sigma'_2 +\cdots \right)=2m(E-U(x)).\]
+
+\subsection{Zeroth order}
+
+Omitting all terms containing \(\hbar\) gives
+\[\left(\sigma_0'\right)^2 = 2m(E - U(x)).\]
+Hence, we find
+\[\sigma_0 = \pm \int_{x_0}^x p(y)\; dy, \quad \text{where} \quad p(y) = \sqrt{2m(E - U(y))}.\]
+Note that \(p(x)\) is nothing but the momentum of the classical particle of energy \(E\) moving in the external potential \(U(x)\):
+\[E = \frac{p^2_{\text{classical}}(x)}{2m} + U(x).\]
+Thus, we found the solution
+\[\begin{aligned}
+    \psi(x)_{\text{semiclassical}} &= e^{\frac{i}{\hbar} \sigma(x)} \\
+    &=e^{\pm \frac{i}{\hbar} \int p(y)dy}
+\end{aligned}\]
+The fact that there are two solutions is expected as the starting point is the second order differential equation. The general solution is a linear combination of these two
+\[\psi(x) = Ae^{+\frac{i}{\hbar} \int p(y)dy} + Be^{-\frac{i}{\hbar} \int p(y)dy}.\]
+The coefficients \(A\) and \(B\) should be selected to satisfy the boundary conditions. We will discuss some particular examples below.
+
+\subsection{Validity of the approximation}
+
+We should have that 
+\[\hbar \sigma'' \ll (\sigma')^2.\]
+We see that 
+\[\diff[2]{}{x}\sigma_0 = \pm \half \sqrt{\frac{2m}{E-V}}\diff{V}{x} \quad \text{and} \quad \left( \diff{}{x}\sigma \right)^2=2m(E-V).\]
+Assuming \(V\) iw well behaved i.e.\ \(\diff{V}{x}\) is bounded, then we find the semi-classical approximation break down at the \textbf{`turning points'} where \(V=E\). Here the momentum \(p\) vanishes  so nothing can be smaller than it.
+
+\subsection{First order}
+
+Recalling the Schrödinger equation:
+\[\begin{aligned}
+    (\sigma'_0 + \hbar\sigma'_1+ \hbar^2 \sigma'_2 +\cdots)^2-i\hbar\left( \sigma'_0 + \hbar\sigma'_1+ \hbar^2 \sigma'_2 +\cdots \right)-2m(E-U(x)) &=0 \\
+    (\sigma'_0)^2-2m(E-U(x))+\hbar(2\sigma'_0\sigma'_1-i\sigma''_0)+O(h^2)&=0
+\end{aligned}\]
+Now we keep all the terms up to \(\hbar\):
+\[2\sigma'_0\sigma'_1-i\sigma''_0=0\]
+equivalently
+\[\begin{aligned}
+    \sigma'_1 &= \frac{i}{2} \frac{\sigma''_0}{\sigma'_0} \\
+    &=\frac{i}{2} \frac{p'}{p} \\
+    &= \frac{i}{2} \diff{}{x} \ln(p)
+\end{aligned}\]
+So that
+\[\text{constant} +\sigma_1 =\frac{i}{2} \ln p(x)\]
+We can absorb the constant in the normalisation coefficients \(A,B\) and hence, to first order 
+\[
+\fbox{\(
+\psi_{\text{WKB}} = \frac{A}{\sqrt{p(x)}}e^{+\frac{i}{\hbar} \int p(y)\, dy}+\frac{B}{\sqrt{p(x)}}e^{-\frac{i}{\hbar} \int p(y)\,dy}.
+\)}
+\]
+
+\subsection{Quantisation I: Particle in a box}
+
+We investigate the WKB approximation for a particle in a box, i.e. 
+\[U(x) = \begin{cases}
+    0 &\text{if } 0 \leq x \leq L \\
+    \infty &\text{otherwise} 
+\end{cases}\]
+
+\begin{mdnote}
+    The wave function vanishes for \(x\leq 0\) and \(x\geq L\).
+\end{mdnote}
+
+\noindent From the previous section we know the form of the wave function:
+\[\begin{aligned}
+    \psi(x) &= \frac{A}{\sqrt{p}}e^{+\frac{i}{\hbar} \int p \, dy}+\frac{B}{\sqrt{p}}e^{-\frac{i}{\hbar} \int p\, dy} \\
+    &=A'e^{\frac{i}{\hbar} px}+ B'e^{-\frac{i}{\hbar} px},
+\end{aligned}\]
+where \(p=\sqrt{2mE}\). To find the coefficients we need to impose the boundary condition \(\psi(0)=\psi(L)=0\) which leads to 
+\[\begin{aligned}
+    A'+B'&=0 \\
+    A'e^{\frac{ipL}{\hbar}}+B'e^{-\frac{ipL}{\hbar}} &= 2A'\sin\left( \frac{pL}{\hbar} \right) = 0.
+\end{aligned}\]
+We find that \(p = \frac{n\pi \hbar}{L }\) for \(n \in \NN \setminus \{0\}\). Therefore,
+\[E = \frac{n^2 \pi^2 \hbar^2}{2mL^2}\]
+which agrees with the exact answer.
+
+\begin{mdremark}
+    This agrees with teh answer because \(\diff[2]{}{x}\sigma_0 = \diff{p}{x}=0\).
+\end{mdremark}
+
+\subsection{Quantisation II: Smooth potentials}
+
+In this situation we have a continuous potential where we could encounter \(p(x)=0\). Near a turning point we can assume that the potential is roughly linear. Before, starting we must discuss the following.
+
+\subsubsection{Airy's function}
+
+Consider a particle experiencing a constant force \(F\) then, the potential is 
+\[U(x) = -Fx.\]
+The corresponding Schrödinger equation is 
+\[\frac{\hbar^2}{2m}\diff[2]{\Psi}{x} + (E+Fx)\Psi =0.\]
+Making the change of variables 
+\[x = y + \frac{E}{F} \then -\frac{\hbar^2}{2m} \diff[2]{\Psi}{x} +yF\Psi=0\]
+and next we rescale with \(y= z\left( \frac{\hbar^2}{2mF} \right)^{1/3}\) to obtain
+\[\fbox{\(\diff[2]{\Psi}{z} -z\Psi=0.\)}\]
+The solution to his equation which decays at large \(z\) is 
+\[\Psi=c\text{Ai}(z)\]
+for some constant \(c\).
+
+\begin{definition}
+    \textbf{Airy's function} is defined as 
+    \[\text{Ai}(z) = \frac{1}{\sqrt{\pi}} \int_{0}^{\infty} \cos\left( \frac{1}{3}u^3+zu \right) \, du\] 
+\end{definition}
+
+\begin{mdprop}
+    Some results regarding Airy's function.
+    \begin{itemize}
+        \item \(\text{Ai}'(z) = -\frac{1}{\sqrt{\pi}} \int_{0}^{\infty} u \sin\left(\frac{1}{3}u^3 + zu\right) \, du\);
+        \item \(\text{Ai}''(z) = -\frac{1}{\sqrt{\pi}} \int_{0}^{\infty} u^2 \cos\left(\frac{1}{3}u^3 + zu\right) du\);
+        \item \(\text{Ai}''(z) - z\text{Ai}(z) = 0.\)
+    \end{itemize}
+\end{mdprop}
+Below is a plot of Airy's function.
+
+\begin{figure}[H]
+     \begin{center}
+         \includegraphics[width=\textwidth]{./Resources/airy_function_plot_no_title.png}
+     \end{center}
+\end{figure}
+
+\noindent It oscillates to the left of the turning point (where \(E >Fx\)) and then decays exponentially to the right (where \(E<Fx\)). This is what we expect near a turning point.
+
+\begin{mdremark}
+    To the right of the turning point (i.e. when \(U =Fx\) and \(U>E_{\text{total}}\)) Airy's function and in turn the wave function are not zero. Thus, there is a non-zero probability to find the particle in a region which is strictly forbidden in the classical world.
+\end{mdremark}
+
+\subsubsection{Bohr-Sommerfeld quantisation}
+
+Let us do the WKB procedure for a potential of the form 
+\[U = E+F(x-b).\]
+This is a potential that arises to the right \((F>0)\) with the turning point at \(x=b\). We have that 
+\[p(x) = \sqrt{2m(Fb-Fx)}\]
+and hence (we pick the lower bound of integration constant to make things simple as the effect is just a constant that can be absorbed elsewhere)
+
+\[\begin{aligned}
+    \int_b^x p(y) \, dy =\sigma^{(0)} &= \int_{b}^{x} \sqrt{2m(Fb - Fy)} \,dy \\
+    &= -\frac{2}{3}\sqrt{2mF}(b - x)^{3/2}
+\end{aligned}\]
+and we can have that the WKB wave function is
+\[\psi_{\text{WKB}} = \frac{A}{\sqrt{p(x)}}e^{\frac{i}{\hbar} \frac{2}{3}\sqrt{2mF}(b-x)^{3/2}} + \frac{B}{\sqrt{p(x)}}e^{-\frac{i}{\hbar} \frac{2}{3}\sqrt{2mF}(b-x)^{3/2}}.\]
+However, we do not trust this approximation near \(x=b\) and in particular when \(p=0\). Rather we choose the following:
+\[\psi = \begin{cases}
+    \phi_{\text{WKB}} &\text{if } x>b\\
+    c \text{Ai}\left( \frac{2mF}{\hbar} \right)^{1/3}(x-b) &\text{if } x\sim b \\
+    \chi_{\text{WKB}} &\text{if } x<b
+\end{cases}\]
+Where \(\phi_{\text{WKB}}\) and \(\chi_{\text{WKB}}\) are the same as \(\psi_{\text{WKB}}\) but with different normalisation constants.
+
+Let us consider a more general situation with a potential with turning points on the left and right. In the middle region \(a<x<b\) we need to match the two solution we find (assuming a general potential):
+\[
+\begin{aligned}
+    \psi_b = \frac{c}{\sqrt{p(x)}} \sin\left(-\frac{1}{\hbar} \int_{b}^{x} p(y)\, dy + \frac{\pi}{4}\right) \quad &\text{if } x < b \\
+    \psi_a = \frac{c}{\sqrt{p(x)}} \sin\left(-\frac{1}{\hbar} \int_{a}^{x} p(y) \, dy - \frac{\pi}{4}\right)\quad  &\text{if } x > a
+\end{aligned}
+\]
+which are equal when 
+\[
+-\frac{1}{\hbar} \int_{b}^{x} p(y) \, dy + \frac{\pi}{4} = -\frac{1}{\hbar} \int_{a}^{x} p(y) \,dy - \frac{\pi}{4} + n\pi
+\]
+for some \( n \in \ZZ\). Rearranging this gives the 
+
+\begin{mdprop}
+    Bohr-Sommerfeld quantisation rule:
+    \[\int_{a}^{b} p(y)\, dy = \pi\hbar\left(n - \frac{1}{2}\right) \quad \text{for } n \in \mathbb{Z}\]
+    where \( a \) and \( b \) are two turning points.
+\end{mdprop}
+
+\subsection{Quantisation III: Harmonic oscillator}
+
+In this example the potential is \( U(x) = \frac{k}{2}x^2 \) so that 
+\[ p(x) = \sqrt{2m\left(E - \frac{k}{2}x^2\right)}\] 
+we have to find the turning points \( a \) and \( b \) thus, we need to find when \(E=V\). We have
+\[E = \frac{k}{2}x^2 \iff a, b = \pm\sqrt{\frac{2E}{k}}\]
+Using the Bohr-Sommerfeld quantisation rule we have
+\[
+\int_{-\sqrt{\frac{2E}{k}}}^{\sqrt{\frac{2E}{k}}} \sqrt{2m \left( E - \frac{k}{2}x^2 \right)} \,dx = \pi\hbar\left(n - \frac{1}{2}\right)
+\]
+which gives
+\[
+\pi\sqrt{\frac{E}{\frac{m}{k}}} = \pi\hbar\left(n - \frac{1}{2}\right)
+\]
+equivalently
+\[
+E = \hbar\sqrt{\frac{k}{m}}\left(n - \frac{1}{2}\right) = \hbar\omega\left(n - \frac{1}{2}\right)
+\]
+which in fact gives the exact spectrum in this case! (In general it will be only valid for large \( n\)'s).
+
+\section{Density matrices, thermal states and entanglement}
+
+\begin{mdprop}
+    The trace of a matrix \( A \) in bra-ket notation is expressed as:
+\[ \text{Tr}(A) = \sum_{i=1}^n \langle i | A | i \rangle \]
+Here, \( | i \rangle \) represents the basis vectors, and \( \langle i | A | i \rangle \) denotes the diagonal elements of the matrix.
+\end{mdprop}
+
+\begin{mdprop}
+    \(\text{Tr}(\ket{\psi}\bra{\psi})= \dim(\mathcal{H}) \times \bra{\psi}\ket{\psi}\).
+\end{mdprop}
+
+\subsection{Density matrices}
+
+\begin{definition}
+    Define the operator \(\rho=\ket{\psi}\bra{\psi}\). This operator is a matrix which we call the \textbf{density matrix}.
+\end{definition}
+
+\begin{mdremark}
+    This is indeed a matrix (considering a \(3\)-dimensional Hilbert space) we have:
+    \[\begin{aligned}
+        \ket{\Phi}\bra{\Psi} &=
+    \begin{pmatrix}
+    \Phi_1 \\
+    \Phi_2 \\
+    \Phi_3
+    \end{pmatrix}
+    \begin{pmatrix}
+    \Psi_1^* & \Psi_2^* & \Psi_3^*
+    \end{pmatrix} \\
+    &=
+    \begin{pmatrix}
+    \Phi_1 \Psi_1^* & \Phi_1 \Psi_2^* & \Phi_1 \Psi_3^* \\
+    \Phi_2 \Psi_1^* & \Phi_2 \Psi_2^* & \Phi_2 \Psi_3^* \\
+    \Phi_3 \Psi_1^* & \Phi_3 \Psi_2^* & \Phi_3 \Psi_3^*
+    \end{pmatrix}
+    \end{aligned}
+\]
+\end{mdremark}
+
+\begin{proposition}
+    We have that \(\text{tr}(\rho)=1\).
+\end{proposition}
+
+\begin{proof}
+    The simplest way to see that is to assume that \( \ket{\psi} \) is an element of some basis \( \{\ket{\psi_i}\} \), and calculate the trace as
+    \[
+    \text{tr}(\rho) = \sum_i \bra{\psi_i}\ket{\psi}\bra{\psi}\ket{\psi_i}
+    \]
+    This sum gets a contribution only from the \( i \) for which \( \ket{\psi} = \ket{\psi_i} \), and gives indeed \( 1 \).    
+\end{proof}
+
+\begin{mdprop}
+    Given any observable \(\mathcal{O}\) we have that the expectation value of \(\mathcal{O}\) is 
+    \[\langle \mathcal{O} \rangle = \text{tr}(\mathcal{O}\rho).\]
+\end{mdprop}
+
+\begin{proof}
+    Assume that we have an orthonormal basis which is given by \(\{\ket{e_i}\}_i\), the trace is given by 
+    \[\begin{aligned}
+        \text{tr}(\mathcal{O}\rho) &=\sum_n \bra{e_n} \mathcal{O}\rho \ket{e_n} \\
+        &= \sum_n \bra{e_n} \mathcal{O} \ket{\psi} \bra{\psi} \ket{e_n} \\
+        &= \sum_n \bra{\psi} \ket{e_n} \bra{e_n} \mathcal{O} \ket{\psi} \\
+        &= \bra{\psi}\mathcal{O}\ket{\psi}.
+    \end{aligned}\]
+    This is because the \(\sum_n \ket{e_n}\bra{e_n}=1\) as discussed above.
+\end{proof}
+
+\subsubsection{Pure and mixed states}
+
+\begin{definition}
+    A \textbf{pure state} of a quantum system is denoted by a vector (ket) with unit length, so the density matrix of a pure state \(\ket{\psi}\) is given by \(\rho= \ket{\psi}\bra{\psi}\).
+\end{definition}
+
+\begin{definition}
+    A state where the density matrix is given by \(\rho = \sum_n p_n \ket{\psi_n}\bra{\psi_n}\) is called a \textbf{mixed state} where \(0\leq p_n \leq 1\).
+\end{definition}
+
+\begin{mdnote}
+    A few things.
+    \begin{itemize}
+        \item We need \(\sum p_i =1\).
+        \item This is a sum of matrices.
+        \item If given a basis of eigenvectors then \(p_i\) are the eigenvalues of each state.
+    \end{itemize}
+\end{mdnote}
+
+\begin{theorem}
+    A pure state, \(\ket{\psi}\), has density matrix \(\ket{\psi}\bra{\psi}\) hence,
+    \[\text{tr}(\rho^2)=\text{tr}(\rho)=1.\]
+\end{theorem}
+
+\begin{proof}
+    For a pure state \(\ket{\psi}\) we have that \(\rho=\ket{\psi}\bra{\psi}\) thus, 
+    \[\begin{aligned}
+        \rho^2 &= \left( \ket{\psi}\bra{\psi} \right) \left( \ket{\psi}\bra{\psi} \right) \\
+        &=\ket{\psi}\bra{\psi}\ket{\psi}\bra{\psi} \\
+        &= \ket{\psi}\bra{\psi} = \rho.
+    \end{aligned}\]
+\end{proof}
+
+\begin{mdprop}
+    For a mixed state \(\ket{\phi}\), with orthonormal basis \(\{\ket{\phi_i}\}_i\) the density matrix is given by 
+    \[\rho = \sum_n p_n \ket{\phi_n} \bra{\phi_n}.\]
+\end{mdprop}
+
+\begin{theorem}
+    For a mixed stated we have that \(\text{tr}(\rho^2)\leq 1\).
+\end{theorem}
+
+\begin{mdnote}
+    The above is a methodology to distinguish between pure and mixed states.
+\end{mdnote}
+
+\begin{proof}
+    The density matrix of a mixed state is give by \(\rho = \sum_n p_n \ket{\phi_n} \bra{\phi_n}\). Therefore,
+    \[\begin{aligned}
+        \rho^2 &= \sum_n\sum_m \left(  p_n \ket{\phi_n} \bra{\phi_n} \right) \left( p_m \ket{\phi_m} \bra{\phi_m} \right) \\
+        &= \sum_n p_n^2 \ket{\phi_n}\bra{\phi_n}.
+    \end{aligned}\]
+    We have that \(0 \leq p_n \leq 1\) and so, \(p_n^2 \leq p_n\) for each \(p_n\). Hence, 
+    \[\text{tr}(\rho^2) = \sum_n \rho^2_n \leq \sum_n p_n =1.\]
+\end{proof}
+
+\subsection{Thermal states}
+
+The following is the most classic example of a mixed state. 
+
+\begin{definition}
+    The \textbf{Boltzmann distribution} is a mixed state described by density matrix:
+    \[\rho_{\text{thermal}} = \frac{1}{Z} \sum_n e^{-\frac{E_n}{k_B T}} \ket{E_n}\bra{E_n} \quad \text{and} \quad Z = \sum_n e^{-\frac{E_n}{k_B T}}\]
+    where \(k_B\) is the Boltzmann constant (converts temperature into energy), \(T\) is temperature and \(\ket{E_n}\) are the energy eigenstates. 
+\end{definition}
+
+\begin{mdnote}
+    To find the normalisation \(Z\) we need to impose that \(\text{tr}(\rho)=1\).
+    \begin{proof}
+        We use the basis for the density matrix given by the eigenstates \(\ket{E_m}\). We compute the trace:
+        \[\begin{aligned}
+            1 = \text{tr}(\rho) &= \frac{1}{Z} \sum_{m,n} e^{-\frac{E_n}{k_B T}} \bra{E_m} \rho \ket{E_m}  \\
+            &=\frac{1}{Z} \sum_{m,n} e^{-\frac{E_n}{k_B T}} \bra{E_m} \ket{E_n}\bra{E_n} \ket{E_m} \\
+            &= \frac{1}{Z} \sum_{m,n} e^{-\frac{E_n}{k_B T}} \delta_{mn}\delta_{nm} \\ 
+            &= \frac{1}{Z} \sum_n e^{-\frac{E_n}{k_B T}} .
+        \end{aligned}\]
+        Rearranging, gives us the required \(Z\).
+    \end{proof}
+\end{mdnote}
+
+\begin{definition}
+    The \textbf{partition function} counts the number of states available at each energy \(E_n\): 
+    \[Z= \sum_{E_n} d(n) e^{-\frac{E_n}{k_B T}},\]
+    where \(d(n)\) counts the degeneracy of states at energy level \(E_n\).
+\end{definition}
+
+\begin{mdnote}
+    By degeneracy we mean the mutliplicity of the eigenvalue \(E_n\).
+\end{mdnote}
+
+\begin{proposition}
+    At low temperatures, \(T \to 0\), the density matrix will peak around the lowest energy state:
+    \[\lim_{T\to 0} \rho_{\text{thermal}}\ket{E_0} \bra{E_0}\]
+    hence, becomes a pure state.
+\end{proposition}
+
+\begin{proposition}
+    At high temperatures, \(T \to \infty\), all the energy states contribute (more or less) equally and so 
+    \[\lim_{T \to \infty} \rho_{\text{thermal}} = \frac{1}{\dim(\mathcal{H})} \sum_n \ket{E_n} \bra{E_n}.\]
+\end{proposition}
+
+\begin{mdthm}
+    The expected energy of a thermal state is 
+    \[\langle H \rangle = \text{tr}(H\rho) = -\diffp{}{\beta} \ln(Z),\]
+    where \(\rho=\rho_\text{thermal}\) and \(\beta = \frac{1}{k_B T}\).
+\end{mdthm}
+
+\begin{proof}
+    We compute the trace 
+    \[\begin{aligned}
+        \text{tr}(H\rho) &= \sum_m \bra{E_m} H\rho \ket{E_m} \\
+        &= \frac{1}{Z} \sum_m\sum_n e^{-\beta E_n} \bra{E_m} H \ket{E_n}\bra{E_n} \ket{E_m} \\
+        &= \frac{1}{Z} \sum_m\sum_n e^{-\beta E_n} E_n\bra{E_m}\ket{E_n}\bra{E_n} \ket{E_m} \\
+        &=\frac{1}{Z} \sum_m\sum_n e^{-\beta E_n} E_n \delta_{mn}\delta_{mn} \\
+        &=\frac{1}{Z} \sum_n E_n e^{-\beta E_n} \\
+        &=- \frac{1}{Z} \diffp{}{\beta} \sum_n e^{-\beta E_n}\\
+        &= - \diffp{}{\beta}\ln(Z).
+    \end{aligned}\]
+    Where we have applied the fact that \(H\ket{E_n} = E_n \ket{E_n}\).
+\end{proof}
+
+\subsection{(Von Neumann) Entropy}
+
+We found a way to characterize the non-purity of a state in terms of the trace of the square of the matrix. In this section we define a new way to do so.
+
+\begin{definition}
+    \textbf{Entropy} is a measure of disorder/chaos.
+\end{definition}
+
+\begin{definition}
+    The most basic definition of entropy is 
+    \[S(E_n) = \ln(d(n))\] 
+    i.e.\ the log of the number of states with the same energy.
+\end{definition}
+
+\begin{definition}
+    The \textbf{Von Neumann entropy} is defined as 
+    \[S = -\text{tr}(\rho \ln \rho) = -\sum_n p_n \ln p_n,\]
+    where \(p_n\) are the eigenvalues of the the density matrix \(\rho\). 
+\end{definition}
+
+\begin{mdremark}
+    We also call it \(S_{vN}\) for Von Neumann entropy.
+\end{mdremark}
+
+\begin{mdnote}
+    To compute the \(\log\) of a matrix we diagonalise it then, take the \(\log\) of each diagonal entry.
+\end{mdnote}
+
+\begin{mdprop}
+    We have that 
+    \begin{itemize}
+        \item for a pure state \( S = 0 \);
+        \item for mixed states \(S >0\).
+    \end{itemize}
+\end{mdprop}
+
+\begin{proof}
+    For a pure state \( S = 0 \), since either \( p_i = 1 \), with vanishing \(\ln\) or \( p_n = 0 \) (notice that we use \(\lim_{x \to 0} x \ln x = 0\)). Since \( 0 \leq p_n \leq 1 \), the entropy is always positive.
+\end{proof}
+
+\begin{theorem}
+    We have that \(S \leq \ln(\dim(\hilbert))\).
+\end{theorem}
+
+\begin{definition}
+    A mixed state with \(S = \ln(\dim(\hilbert))\) is said to be \textbf{maximally mixed}.
+\end{definition}
+
+\begin{example}
+    This happens when \(p_n = \frac{1}{\dim(\hilbert)}\) for all \(n\).
+\end{example}
+
+\subsection{Entanglement}
+
+Consider a system comprised of two non-interacting particles, or more generally a tensor product Hilbert space \( \mathcal{H} = \mathcal{H}_1 \otimes \mathcal{H}_2 \), as discussed in the context of products of \(\mathfrak{su}(2)\) representations.
+
+\noindent The most general state in our tensor Hilbert space can be written as (in the standard basis)
+\[\ket{\Psi} = \sum_{n_1,n_2} c_{n_1 n_2} \ket{e_{n_1}} \otimes \ket{e_{n_2}}\]
+with \(\ket{e_{n_1}}\) and \(\ket{e_{n_2}}\) are the standard basis vectors of \(\hilbert_1\) and \(\hilbert_2\) respectively. Note that the pure state over \(\hilbert\) takes the form 
+\[\begin{aligned}
+    \rho &= \ket{\Psi}\bra{\Psi} \\
+    &= \sum_{n_1,n_2,m_1,m_2} c_{n_1 n_2} c^*_{m_1 m_2} \ket{e_{n_1}} \otimes \ket{e_{n_2}} \bra{e_{m_1}} \otimes \bra{e_{m_2}} \\ 
+    &=\sum_{n_1,n_2,m_1,m_2} c_{n_1 n_2} c^*_{m_1 m_2} \ket{e_{n_1}} \bra{e_{m_1}}\otimes \ket{e_{n_2}} \bra{e_{m_2}}.
+\end{aligned}\]
+Let us assume that we are asking questions only about the first particle and have no knowledge of the second particle. We should then average over \(\hilbert_2\). Doing so amounts to taking the trace
+\[\begin{aligned}
+    \rho_{\text{reduced}} &= \text{tr}_{\hilbert_2} (\rho) \\
+    &=  \sum_{p} \bra{e_p}\left( \sum_{n_1,n_2,m_1,m_2} c_{n_1 n_2} c^*_{m_1 m_2} \ket{e_{n_1}} \bra{e_{m_1}}\otimes \ket{e_{n_2}} \bra{e_{m_2}} \right) \ket{e_p} \\
+    &= \sum_{n_1,m_1} \left( \sum_{n_2,m_2} c_{n_1 n_2} c^*_{m_1 m_2}\right) \ket{e_{n_1}} \bra{e_{m_1}} \\
+    &= \sum_{n_1 ,m_1} a_{n_1 m_1}\ket{e_{n_1}} \bra{e_{m_1}}.
+\end{aligned}\]
+
+\begin{mdnote}
+    Averaging over \(\mathcal{H}_2\) sets the trace of \(\ket{e_{n_2}}\bra{e_{m_2}}\) to \(1\).
+\end{mdnote}
+
+This is a mixed state for the first Hilbert space known as \textbf{reduced density matrix}.
+
+\noindent Note that \(a_{n_1 m_1}\) defines a self-adjoint operator on \(\hilbert_1\). Thus, we can find a new basis of \(\hilbert_1\) given by \(\ket{e'_{n_1}}\) such that 
+\[\rho_{\text{reduced}} = \sum_{n_1} p_{n_1} \ket{e'_{n_1}} \bra{e'_{n_1}}.\]
+Furthermore, the \(p_{n_1}\) which are the eigenvalue of \(a_{n_1 m_1}\) are real and in fact positive and less than one.
+
+\begin{mdthm}
+    The \textbf{entanglement entropy} given by 
+    \[S = -\text{tr}_{\hilbert_1} \left( \rho_{\text{reduced}} \ln(\rho_{\text{reduced}}) \right)\]
+    is the same in both \(\hilbert_1\) and \(\hilbert_2\).
+\end{mdthm}
+
+\section{Relativistic QM}
+
+\begin{definition}
+    The following transformation is called a \textbf{Galilean boost}:
+    \[\bm{x}_i \to \bm{x}_i+\bm{v}t\]
+\end{definition}
+
+\begin{mdnote}
+    In Galilean relativity the speed of light is not constant under a boost since velocities are shifted i.e. \(\bm{{\dot{x}}}=\bm{{\dot{x}}}+\bm{v}\).
+\end{mdnote}
+
+\begin{definition}
+    A \textbf{Lorentz boost} are transformation of the form 
+    \[\begin{aligned}
+        ct' &= \gamma ct + \gamma \bm{\beta} \cdot \bm{x} \\
+        \bm{x}' &= \gamma \bm{x} + \gamma \bm{\beta} ct \\
+        c \cdot \text{d}t' &= \gamma \text{d}ct + \gamma \bm{\beta} \cdot \text{d}\bm{x} \\
+        \text{d}\bm{x}' &= \gamma \text{d}\bm{x} + \gamma \bm{\beta} c \cdot \text{d}t
+        \end{aligned}
+        \]
+    where \(c\) is the speed of light.
+\end{definition}
+
+\begin{mdnote}
+    In special relativity we have that the invariant notion of length is, for infinitesimal displacement 
+    \[\text{d}s^2 =c^2 \text{d}t^2 -\text{d}x^2=\text{d}y^2-\text{d}z^2.\]
+\end{mdnote}
+
+\subsection{Relativistic wave equation}
+
+In special relativity time and space are interchangeable. 
+The first attempt to find a relativistic wave equations is to simply make time second order and consider
+\[
+\frac{\hbar^2}{c^2} \frac{\partial^2 \Psi}{\partial t^2} - \hbar^2 \nabla^2 \Psi + m^2 c^2 \Psi = 0
+\]
+This is invariant under Special relativity if \( \Psi(x) \rightarrow \Psi'(x) = \Psi(x') \). It is known as the \textbf{Klein-Gordon equation}. But there are big problems:
+
+\begin{enumerate}
+    \item If we look at energy and momentum eigenstates \( \Psi = e^{-iEt/\hbar + i\bm{p} \cdot \bm{x}/\hbar} \) we find
+    \[
+    E^2 = \abs{\bm{p}}^2 c^2 + m^2 c^4
+    \]
+    This allows for both positive and negative energy.
+
+    \item We would like to interpret \( \Psi^* \Psi \) as a probability density but it is not conserved:
+    \[
+    \frac{d}{dt} \int \Psi^* \Psi d^3x \neq 0
+    \]
+    One can find a conserved density: \( \rho = i\hbar(\Psi^* \frac{\partial \Psi}{\partial t} - \Psi \frac{\partial \Psi^*}{\partial t}) \) but this is not positive definite.
+    \item Knowing the state at time \( t = 0 \) is not enough information to determine it at later times, one also needs \( \frac{\partial \Psi}{\partial t} \) at \( t = 0 \).
+\end{enumerate}
+
+An alternative approach is by Dirac. He proposed an equation that was first order in both time and space. First we define 
+
+\begin{definition}
+    The \textbf{anti-commutator} \(\{\gamma^i,\gamma^j\}=\gamma^i\gamma^j +\gamma^j\gamma^i\).
+\end{definition}
+
+\begin{definition}
+    The \textbf{Dirac equation} is given by:
+    \[\left( i\hbar \gamma^0 \frac{\partial}{c \partial t} - i\hbar \gamma \cdot \nabla + mc \right) \Psi = 0.\]
+    Where
+    \[
+    \gamma^0 = \begin{pmatrix} 0 & \mathbb{I} \\ \mathbb{I} & 0 \end{pmatrix}, \quad
+    \gamma^i = \begin{pmatrix} 0 & \sigma^i \\ -\sigma^i & 0 \end{pmatrix}
+    \]
+    where \(\mathbb{I}\) is the \(2 \times 2\) unit matrix and \(\sigma^i\), the Pauli matrices. 
+\end{definition}
+
+\begin{mdprop}   
+    We recover the Klein-Gordon equation if we \ul{square} the Dirac equation and set 
+    \[(\gamma^0)^2 = 1, \quad \{\gamma^0, \gamma^i\} = 0, \quad \{\gamma^i, \gamma^j\} = -2\delta^{ij}\]
+\end{mdprop} 
+
+\begin{corollary}
+    The wave function \(\Psi\) is a complex vector of the form 
+    \[\Psi = \begin{pmatrix}
+        \psi_1 \\
+        \psi_2 \\
+        \psi_3 \\
+        \psi_4
+    \end{pmatrix}.\]
+\end{corollary}
+
+\subsection{Relativistic notation}
+
+\begin{definition}
+    We will use the following notation, \(x^{\mu}\) with \(\mu \in \{0,1,2,3\}\) where
+    \[x^0 = ct, \quad x^1 = x, \quad x^2 = y, \quad x^3 = z\]
+    and \(c\) is the speed of light.
+\end{definition}
+
+\begin{theorem}
+    With the notation above the invariant length is written as 
+    \[ds^2 = \eta_{\mu\nu} dx^\mu dx^\nu\]
+    where
+    \[\eta_{\mu\nu} = \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & -1 & 0 & 0 \\
+    0 & 0 & -1 & 0 \\
+    0 & 0 & 0 & -1
+    \end{pmatrix}\]
+    and repeated indices are summed over.
+\end{theorem}
+
+\begin{corollary}
+    The inverse to \(\eta_{\mu\nu}\) is given by 
+    \[\eta^{\mu\nu} = (\eta_{\mu\nu})\inv = \begin{pmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & -1 & 0 & 0 \\
+        0 & 0 & -1 & 0 \\
+        0 & 0 & 0 & -1
+        \end{pmatrix}.\]
+\end{corollary}
+
+\begin{mdnote}
+    Numerically, they are the same but this is a coincidence.
+\end{mdnote}
+
+\begin{mdcor}
+    We can use \(\eta\) to raise and lower indices i.e.
+    \[\eta_{\mu\nu} s^{\mu}= s_\nu \quad\text{and}\quad \eta^{\mu\nu} s_{\nu} =s^{\mu}.\]
+\end{mdcor}
+
+\begin{mdprop}
+    Using this notation the Dirac equation is written as 
+    \[-i\hbar \gamma^{\mu}\diffp[]{}{{x^\mu}}\Psi+mc\Psi=0.\]
+\end{mdprop}
+
+\begin{mdnote}
+    Later on we define the conjugate, we the dirac equation is the is 
+    \[i\hbar \diffp[]{}{{x^\mu}}\ol{\Psi}\gamma^{\mu}+mc\ol{\Psi}=0.\]
+\end{mdnote}
+
+\subsection{Spinors}
+
+In this section we will talk about the notation we will use for \(\Psi\).
+
+\begin{definition}
+    We call \(\Psi\) a \textbf{spinor}, and we denote its entries by \(\Psi_{\alpha}\) for \(\alpha \in \left\{ 1,2,3,4 \right\}\).
+\end{definition}
+
+\begin{definition}
+    The \(\gamma\)-matrices are now denoted by 
+    \[\gamma^{\mu} = \left( \gamma^{\mu} \right)_{\alpha}\mkern0.5mu^{\beta}\]
+    where \(\alpha\) and \(\beta\) are called the spinor indices.
+\end{definition}
+
+\begin{theorem}
+    The condition on the anti-commutator of the \(\gamma\) matrices is now written as 
+    \[\left\{ \gamma^{\mu},\gamma^\nu \right\} =2\eta^{\mu\nu}\mathbb{I} \iff \left\{ \gamma^{\mu},\gamma^\nu \right\}_{\alpha}\mkern0.5mu^{\beta} =2\eta^{\mu\nu}\delta_{\alpha}\mkern0.5mu^{\beta}\]
+\end{theorem}
+
+\begin{theorem}
+    We have that \((\gamma^\mu)^\dagger = \gamma^0 \gamma^\mu \gamma^0\).
+\end{theorem}
+
+\begin{mdthm}
+    We can write a Lorentz transformation as 
+    \[x'^{\mu} = \Lambda^{\mu}_{\ \nu} x^{\nu}\]
+    which implies that \(ds'^2 =ds^2\) can be written as 
+    \[\Lambda^{\mu}_{\ \rho} \Lambda^{\nu}_{\ \sigma} \eta_{\mu\nu} = \eta_{\rho\sigma}
+    \]
+    i.e.\ a Lorentz transformation is invariant if it satisfies the above (Einstein summation is used).
+\end{mdthm}
+
+\begin{proof}
+    We want a transformation that can keep the inner product invariant. Then if \( X' = \Lambda X \) and \( Y' = \Lambda Y \) then
+
+\[
+X' \cdot Y' = \eta_{\mu\nu}X'^{\mu}Y'^{\nu}
+\]
+
+\[
+= \eta_{\mu\nu}(\Lambda^{\mu}_{\ \rho}X^{\rho})(\Lambda^{\nu}_{\ \sigma}Y^{\sigma})
+\]
+
+\[
+= \eta_{\lambda\xi}(\Lambda^{\lambda}_{\ \mu}X^{\mu})(\Lambda^{\xi}_{\ \nu}Y^{\nu})
+\]
+
+where we have relabelled the dummy indices in the last line in order to make a direct comparison with
+
+\[
+X \cdot Y = \eta_{\mu\nu}X^{\mu}Y^{\nu}.
+\]
+
+If \(\Lambda\) leaves the Minkowski inner product invariant then it must satisfy
+
+\[
+\eta_{\lambda\xi}\Lambda^{\lambda}_{\ \mu}\Lambda^{\xi}_{\ \nu} = \eta_{\mu\nu}
+\]
+
+or in matrix notation,
+
+\[
+\Lambda^T \eta \Lambda = \eta
+\]
+
+\end{proof}
+
+\subsection{Back to QM}
+
+From all the above we now have a wave equation that is relativistic and first order in time.
+
+\begin{proposition}
+    We can write the Dirac equation as follows:
+    \[i\hbar \diffp{}{t}\Psi = \wh{H}\Psi \quad \text{where} \quad \wh{H} = -i\hbar c\gamma^0\bm{\gamma}\cdot \nabla +mc^2\gamma^0.\]
+    Therefore, \(\wh{H}\) is self-adjoint but not positive definite and \(\gamma^0\) has eigenvalues \(\pm 1\).
+\end{proposition}
+
+\begin{definition}
+    The \textbf{Dirac conjugate} \(\ol{\Psi}= \Psi^\dagger \gamma^0\).
+\end{definition}
+
+\begin{mdprop}
+    An infinitesimal Lorentz transformation of \(\Psi\) is given by 
+    \[\delta\Psi = \frac{1}{4} \omega_{\mu\nu} \gamma^{\mu\nu} \Psi,\]
+    where \(w_{\mu\nu}=-w_{\nu\mu}\).
+\end{mdprop}
+
+\begin{mdnote}
+    To find \(\delta\) of something, take its derivative i.e.\ for \(J^\mu\).
+\end{mdnote}
+
+\begin{mdnote}
+    The \(\omega\) is obtained by consider \(\Lambda^\mu_{\;\nu} = \delta^\mu_{\;\nu}+\omega^\mu_{\;\nu}\) (i.e. expanding inoto the infinitesimal form). Plug this in to the Lorentz transformation and after a contraction of indices we have the result.
+\end{mdnote}
+
+\begin{mdthm}
+    We have that 
+    \[\partial_\mu \Psi = \diffp[]{{x'^\nu}}{{x^\mu}}\diffp[]{\Psi}{{x'^\nu}} = \Lambda^{\nu}_{\;\mu} \partial'_{\nu}\Psi.\]
+\end{mdthm}
+
+\section{The Feynman path integral}
+
+This section presents another way of formulating quantum mechanics which is known as the \textbf{path integral formulation}.
+
+\begin{definition}
+    We define the \textbf{propagator}
+    \[\begin{aligned}
+        K(a_2,t_2;a_1,t_1) &= \bra{a_2,t_2}\ket{a_1,t_1} \\
+        &= \bra{a_2} e^{i\wh{H}(t_2-t_1)/\hbar}\ket{a_1}.
+    \end{aligned}\]
+    It takes a particle at position \(a_1\) at time \(t_1\) and computes the amplitude that it is found at \(a_2\) at time \(t_2\).
+\end{definition}
+
+\begin{mdthm}
+    For Hamiltonians of the form \(\wh{H} = \frac{1}{2m} \wh{p}^2 +V(\wh{q})\) the propagator takes the form of a path-integral
+    \[K(a_2,t_2;a_1,t_1) = \int \exp\left( \frac{i}{\hbar}\int\left( k(t)\dot{a}(t)+H(k(t),a(t)) \right) \, dt\right) \, \left[ \frac{dk}{2\pi\hbar} \right] \left[ da \right],\]
+    where 
+    \begin{itemize}
+        \item \(k(t)\) and \(a(t)\) are arbitrary paths such that \(a(t_1) =a_1\) and \(a(t_2)=a_2\);
+        \item \(\dot{a}(t)\) is the derivative with respect to time of \(a(t)\);
+        \item \(H(k(t),a(t)) = \frac{1}{2m}k(t)^2+V(a(t))\).
+    \end{itemize}
+    The square brackets indicate that this is an infinite dimensional integral where we are integrating over all paths \(k(t)\) and \(a(t)\).
+\end{mdthm}
+
+\subsection{Gaussian path integral}
+
+\begin{definition}
+    \textbf{Gaussian integrals} are of the form
+    \[\int e^{-Ak^2+Bk} \, dk = \sqrt{\frac{\pi}{A}} e^\frac{B^2}{4A}.\]
+\end{definition}
+
+\begin{theorem}
+    The integral of a Gaussian gives another Gaussian.
+\end{theorem}
+
+\begin{theorem}
+    From the propagator the integral over \(k(t)\) is a Gaussian integral.
+\end{theorem}
+
+\begin{proposition}
+    We can write the propagator as 
+    \[K(a_2,t_2;a_1,t_1) = \int e^{-\frac{i}{\hbar}S[a(t)]} \, [da],\]
+    where 
+    \[S[a] = \int_{t_1}^{t_2} \half m\dot{a}^2-V(a)\, dt.\]
+\end{proposition}
+
+\subsection{Computing determinants}
+
+Let us look at a simple example \( H = \frac{1}{2m}\wh{p}^2 + \frac{1}{2}k\wh{q}^2 \). The corresponding Lagrangian is of course just
+\[ L = \frac{1}{2}m\dot{q}^2 - \frac{1}{2}kq^2 \]
+It is helpful to rewrite the action as
+\[ S = -\frac{1}{2} \int q\mathcal{E}q \, dt \quad \mathcal{E} = m\diff[2]{}{t} + k \]
+where we view \( \mathcal{E} \) as a differential operator. Let us expand \( q(t) \) in a real orthonormal basis of functions
+\[ q = \sum_n q_n e_n(t) \]
+with
+\[ \int e_n(t)e_m(t) \, dt = \delta_{nm} \]
+Thus
+\[ S = -\sum_{n} q_n q_m \int \frac{1}{2} e_n(t)\mathcal{E}e_m(t) \, dt \]
+Let us choose \( e_n(t) \) to be eigenstates of \( \mathcal{E} \) with eigenvalues \( \lambda_n \):
+\[ \begin{aligned}
+    S &= -\sum_{n} q_n q_m \int \frac{1}{2} e_n(t) \lambda_n e_m(t) \, dt \\
+    &= -\frac{1}{2} \sum_n \lambda_n q_n^2 
+\end{aligned}\]
+Thus
+\[ \begin{aligned}
+    \int e^{-\frac{i}{\hbar}S[q]}\, [dq] &= \int \prod_n  e^{\frac{i}{2\hbar} \sum_n \lambda_n q_n^2} \, dq_n \\
+    &= \prod_n \int  e^{\frac{i}{2\hbar} \lambda_n q_n^2} \, dq_n \\
+    &= \prod_n \sqrt{\frac{\pi \hbar}{\lambda_n}} \\
+    &= \frac{N}{\sqrt{\det \mathcal{E}}} \quad \text{where} \quad \det \mathcal{E} = \prod_n \lambda_n 
+\end{aligned}\]
+Here \( \mathcal{N} \) is another normalization constant that we are not interested in.
+We can generalise this: for a quadratic action with many coordinates \( q_a\) for \(a = 1, \ldots, n \) of the form
+\[ S = -\frac{1}{2} \int q_a \mathcal{E}_{ab} q_b \, dt \]
+we find
+\[ \int \prod_a e^{\frac{i}{\hbar}S[q_1,\ldots,q_n]} \, [dq_a] = \frac{\mathcal{N}}{\sqrt{\det \mathcal{E}_{ab}}} \]
+where the determinant is the infinite product of eigenvalues of the operator \( \mathcal{E}_{ab} \). More generally still if one has
+\[ S = -\frac{1}{2} \int q_a \mathcal{E}_{ab} q_b + J_a q_a \, dt \]
+we find
+\[ \int \prod_a e^{\frac{i}{\hbar}S[q_1,\ldots,q_n]} \, [dq_a]= \frac{\mathcal{N}}{\sqrt{\det \mathcal{E}_{ab}}} e^{-\frac{1}{2} J_a \mathcal{E}^{-1}_{ab} J_b}.\]
+
+
+
+\pagebreak
+
+\appendix
+
+\addcontentsline{toc}{section}{Appendix}
+\section*{Appendix}
+
+% \section{Resources}
+% https://www2.ph.ed.ac.uk/~ldeldebb/docs/QM/lect7.pdf
+% Change lect7.pdf for more stuff
+%https://ocw.mit.edu/courses/8-05-quantum-physics-ii-fall-2013/pages/syllabus/
+
+\section{Tensors}
+
+\subsection{Kronecker \texorpdfstring{\(\delta\)}{TEXT} function}
+
+\begin{definition}
+    The Kronecker delta function is defined as
+    \[\begin{aligned}
+        \delta_{ij} = \begin{cases}
+            0 \quad &\text{if } i \neq j \\
+            1 \quad &\text{if } i =j.
+        \end{cases}
+    \end{aligned}\]
+\end{definition}
+
+\begin{mdnote}
+    The function, \(\delta_{ij}\), can also be thought as the identity tensor.
+\end{mdnote}
+
+\subsection{\texorpdfstring{\(\eps\)}{TEXT}-tensor}
+
+\begin{definition}
+    In three dimensions, the \(\eps\)-tensor (or the Levi-Civita symbol) is defined by 
+    \[\begin{aligned}
+        \eps_{ijk} =\begin{cases}
+            1 \quad &\text{if } (i,j,k) = (1,2,3),(2,3,1),(3,1,2)\\
+            -1 \quad &\text{if } (i,j,k) = (3,2,1),(1,3,2),(2,1,3)\\
+            0 \quad &\text{otherwise.}
+        \end{cases}
+    \end{aligned}\]
+\end{definition}
+
+\begin{mdnote}
+    That is \(\eps_{ijk}=1\) if \((i,j,k)\) are a clockwise (or even) permutation of \((1,2,3)\) whereas, \(\eps_{ijk}=-1\) if \((i,j,k)\) are an anti-clockwise (or odd) permutation of \((1,2,3)\) and \(0\) if any of the indices are the same.
+\end{mdnote}
+
+\begin{mdthm}
+    The \(\eps\)-tensor obeys the following relation:
+    \[\sum_{i=1}^{3} \eps_{ijk}\eps_{inm} = \delta_{jn}\delta_{km}-\delta_{jm}\delta_{kn},\]
+    where \(\delta_{ab}\) is the Kronecker-\(\delta\) function.
+\end{mdthm}
+
+\section{Notation}
+
+\begin{definition}
+    Let \(\bm{v}\) have components \(v^i\), as \(\bm{v}\) is a column vector then the index \(i\) labels the \ul{rows} of the single column in the vector.
+\end{definition}
+
+\begin{definition}
+    We have \(\bm{v}^{\top}\) is a row vector, the components are labelled by \(v_i\) where \(i\) labels the \ul{column} of the single row vector.
+\end{definition}
+
+\begin{mdnote}
+    In conclusion, upper indices representes row and lower indices columns.
+\end{mdnote}
+
+\begin{corollary}
+    With the notation above we may write \(\bm{v} \cdot \bm{v}= \bm{v}^{\top} \bm{v}= \sum_{i=1}^{3} v_i v^i\).
+\end{corollary}
+
+\begin{definition}
+    The notation \(A^{i}_{\; j}\) indicates the component of the matrix \(A\) in the \(i\)-th row and \(j\)-th column.
+\end{definition}
+
+\begin{mdcor}
+    With this notation, we can write \(A\bm{v} =\bm{u}\) as 
+    \[(A\bm{v})^i = \sum_{j=1}^3 A^i_{\; j} v^j =u^i.\]
+\end{mdcor}
+
+\begin{definition}
+    Taking the transpose of a matrix switches the indices i.e.\ 
+    \[(A^{\top})^i_{\; j} = A_j^{\; \;\,i}.\]
+\end{definition}
+
+\begin{definition}
+    The \textbf{Euclidean metric tensor}, \(\delta_{ij}\), is used to lower indices. That is,
+    \[ \sum_j \delta_{ij}v^{j} = v_i.\]
+    Its inverse is given by \(\delta\inv= \delta^{ij}\) which is used to raise the indices. That is,
+    \[\delta^{ij} v_j = v^{i}.\]
+\end{definition}
+
+\begin{mdnote}
+    This is the Kronecker-\(\delta\) function.
+\end{mdnote}
+
+\section{Vector identities}
+
+\begin{mdprop}
+    Dot product.
+    \begin{enumerate}
+        \item \textbf{Commutative Property:} \( \bm{a} \cdot \bm{b} = \bm{b} \cdot \bm{a} \)
+        
+        \item \textbf{Distributive Property over Addition:} \( \bm{a} \cdot (\bm{b} + \bm{c}) = \bm{a} \cdot \bm{b} + \bm{a} \cdot \bm{c} \)
+        
+        \item \textbf{Scalar Multiplication:} \( (k \bm{a}) \cdot \bm{b} = k (\bm{a} \cdot \bm{b}) = \bm{a} \cdot (k \bm{b}) \)
+        
+        \item \textbf{Dot Product with Zero Vector:} \( \bm{a} \cdot \bm{0} = 0 \)
+        
+        \item \textbf{Dot Product with Itself:} \( \bm{a} \cdot \bm{a} = \|\bm{a}\|^2 \)
+        
+        \item \textbf{Orthogonality:} If \( \bm{a} \perp \bm{b} \) (i.e., \( \bm{a} \) and \( \bm{b} \) are orthogonal), then \( \bm{a} \cdot \bm{b} = 0 \).
+    \end{enumerate}
+\end{mdprop}
+
+\begin{mdprop}
+    Cross product.
+    \begin{enumerate}
+        \item \textbf{Anticommutativity:} \( \bm{a} \times \bm{b} = -(\bm{b} \times \bm{a}) \)
+        
+        \item \textbf{Distributive Property over Addition:} \( \bm{a} \times (\bm{b} + \bm{c}) = \bm{a} \times \bm{b} + \bm{a} \times \bm{c} \)
+        
+        \item \textbf{Scalar Triple Product:} \( \bm{a} \cdot (\bm{b} \times \bm{c}) = \bm{b} \cdot (\bm{c} \times \bm{a}) = \bm{c} \cdot (\bm{a} \times \bm{b}) \)
+        
+        \item \textbf{Cross Product with Zero Vector:} \( \bm{a} \times \bm{0} = \bm{0} \times \bm{a} = \bm{0} \)
+        
+        \item \textbf{Cross Product with Itself:} \( \bm{a} \times \bm{a} = \bm{0} \)
+        
+        \item \textbf{Cross Product with Parallel Vectors:} If \( \bm{a} \) and \( \bm{b} \) are parallel, then \( \bm{a} \times \bm{b} = \bm{0} \).
+        
+        \item \textbf{BAC-CAB Identity (Triple Cross Product Identity):}
+        \[
+        \bm{a} \times (\bm{b} \times \bm{c}) = (\bm{a} \cdot \bm{c})\bm{b} - (\bm{a} \cdot \bm{b})\bm{c}
+        \]
+        
+        \item \textbf{Scalar Quadruple Product:}
+        \[
+        \bm{a} \cdot (\bm{b} \times \bm{c}) \times \bm{d} = (\bm{a} \cdot \bm{d}) (\bm{b} \cdot \bm{c}) - (\bm{a} \cdot \bm{c}) (\bm{b} \cdot \bm{d})
+        \]
+    \end{enumerate}
+\end{mdprop}
+
+\begin{mdthm}
+    The \(i^{\text{th}}\) component of the resultant vector of the cross product is given by 
+    \[(\bm{a} \times \bm{b})_i = \sum_{j=1}^{3} \sum_{k=1}^{3} \eps_{ijk} a_j b_k.\]
+\end{mdthm}
+
+\begin{mdnote}
+    By the \(i^{\text{th}}\) component we mean 
+    \[(\bm{a} \times \bm{b}) = 
+    \begin{pmatrix}
+        (\bm{a} \times \bm{b})_1 \\
+        (\bm{a} \times \bm{b})_2 \\
+        (\bm{a} \times \bm{b})_3
+    \end{pmatrix}.\]
+\end{mdnote}
+
+\section{The Pauli Matrices}
+The Pauli matrices are denoted by $\sigma_1$, $\sigma_2$, and $\sigma_3$, and they form a basis for the vector space of $2 \times 2$ Hermitian matrices. Each matrix is traceless and has a determinant of $-1$. They can be represented explicitly as:
+
+\[
+\sigma_1 = 
+\begin{pmatrix}
+0 & 1 \\
+1 & 0
+\end{pmatrix}, \quad
+\sigma_2 = 
+\begin{pmatrix}
+0 & -i \\
+i & 0
+\end{pmatrix}, \quad
+\sigma_3 = 
+\begin{pmatrix}
+1 & 0 \\
+0 & -1
+\end{pmatrix}.
+\]
+
+\subsection{Properties}
+The Pauli matrices have several interesting properties. They are Hermitian and unitary, and they obey the following commutation and anti-commutation relations:
+
+\[
+[\sigma_i, \sigma_j] = 2i \eps_{ijk} \sigma_k, \quad
+\{\sigma_i, \sigma_j\} = 2\delta_{ij} \mathbb{I}_{2\times 2},
+\]
+where $i, j, k \in \{1, 2, 3\}$, $\eps{ijk}$ is the Levi-Civita symbol, $\delta_{ij}$ is the Kronecker delta, and $I$ is the $2 \times 2$ identity matrix.
+
+\section{Tensor Product of Matrices}
+
+The tensor product of two matrices, denoted as \( A \otimes B \), is a fundamental operation in linear algebra. If \( A \) is an \( m \times n \) matrix and \( B \) is a \( p \times q \) matrix, then the tensor product \( A \otimes B \) results in an \( mp \times nq \) block matrix.
+
+The elements of \( A \otimes B \) are formed by multiplying each element of \( A \) by the entire matrix \( B \), resulting in blocks of \( B \) scaled by the elements of \( A \).
+
+Formally:
+
+\[ A \otimes B = \begin{bmatrix} a_{11}B & \cdots & a_{1n}B \\ \vdots & \ddots & \vdots \\ a_{m1}B & \cdots & a_{mn}B \end{bmatrix} \]
+
+\begin{mdexample}
+    Consider two matrices:
+
+\[ A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \]
+\[ B = \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix} \]
+
+The tensor product \( A \otimes B \) will be:
+
+\[ A \otimes B = \begin{bmatrix} 1 \times B & 2 \times B \\ 3 \times B & 4 \times B \end{bmatrix} = \begin{bmatrix} 5 & 6 & 10 & 12 \\ 7 & 8 & 14 & 16 \\ 15 & 18 & 20 & 24 \\ 21 & 24 & 28 & 32 \end{bmatrix} \]
+
+\end{mdexample}
+
+\end{document}

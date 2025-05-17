@@ -1,0 +1,750 @@
+\documentclass[12pt, a4paper]{article}   	
+\usepackage{geometry}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage{color}   
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usepackage{multicol}
+\usepackage[thinc]{esdiff}
+\usepackage{physics}
+\usepackage{bm}
+\usepackage{pdfpages}
+\usepackage{pdflscape}
+\usepackage{listings}
+\usepackage{float}
+
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true, linktoc=all, linkcolor=black,}
+
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\f}[2]{\frac{#1}{#2}}
+\newcommand{\imply}{\Rightarrow}
+\newcommand{\Cal}[1]{\mathcal{#1}}
+\newcommand{\mb}[1]{\mathbf{#1}}
+
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Span}{span}
+
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{example}{Example}
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{plain}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{LAG 2 Notes}
+\date{}
+\author{Francesco Chotuck}
+\begin{document} 
+\maketitle 
+
+\tableofcontents
+
+\pagebreak
+
+\section{Linear Operators}
+
+\subsection{Linear operators introduction}
+
+\begin{definition}
+Let $V$ be a vector space. A linear transformation $T:V\rightarrow V$ is called a \textbf{linear operator} on $V.$ The set of linear operators on $V$ is denoted $\End{(V)}.$
+\end{definition}
+
+\begin{remark}
+The set of linear operators on $V$ is denoted $\End(V)$ because these linear operators are endomorphisms. 
+\end{remark}
+
+\begin{definition}
+Let $M_n(\bb{F})$ denote the set of $n\times n$ matrices with entries in $\bb{F}.$
+\end{definition}
+
+\begin{note}
+$V=\text{ finite dimensional vector space over } \bb{F};$ sometimes $\bb{F}$ is called the \textbf{ground field} of $V.$ 
+\end{note}
+
+\subsection{Eigenvalues, Eigenspaces and Spectrum}
+
+\begin{definition}
+(Eigenvectors and eigenvalues). If $T:V\rightarrow V$ is a linear operator, then we call a vector $\mathbf{v} \in V$ an \textbf{eigenvector} for $T$ if $$\mathbf{v} \neq \mathbf{0} \quad \text{and} \quad T(\mathbf{v})=\lambda \mathbf{v} \text{ for some } \lambda \in \bb{F}.$$
+\end{definition}
+
+\begin{remark}
+Standard basis vectors are eigenvectors if the matrix is a diagonal matrix.
+\end{remark}
+
+\begin{definition}
+(Spectrum). The set of all eigenvalues of a linear operator $T$ is called the \textbf{spectrum} of $T$ and is denoted by $\sigma{(T)}.$
+\end{definition}
+
+\begin{definition}
+(Identity). The identity transformation is the linear operator $I:V\rightarrow V$ that is defined by $I(\mathbf{v})=\mathbf{v}$ for all $\mathbf{v} \in V.$ The linear operator is well defined for any vector space over any field.
+
+\end{definition}
+
+\begin{lemma}
+Let $T$ be a linear operator on a vector space $V$ and $\mathbf{v} \in V$ and $\lambda \in \bb{F}.$ Then $\mathbf{v}$ is an eigenvector of $T$ with eigenvalue $\lambda$ if and only if $$\mathbf{v} \neq \mathbf{0} \quad \text{and} \quad \mathbf{v} \in \ker{(T-\lambda I)}.$$
+\end{lemma}
+
+\begin{definition}
+(Eigenspace). Let $T:V\rightarrow V$ be a linear operator and $\lambda \in \bb{F}$ an eigenvalue of $T.$ Then we define a linear subspace $V_\lambda$ of $V$ by setting $$V_\lambda = \ker{(T-\lambda I)}$$
+\end{definition}
+
+\subsection{Similarity and Diagonalizability}
+
+\begin{definition}
+(Similarity). If $A$ and $B$ are $n \times n$ matrices over $\bb{F},$ then we say that $A$ is similar to $B,$ if there exists an $n \times n$ invertible matrix $Q$ over $\bb{F}$ such that $B=QAQ^{-1}.$ If $A$ is similar to $B,$ then we write $A\simeq B.$ If we want to emphasise the dependence on $\bb{F}$ we may say instead that $A$ is similar to $B$ over $\bb{F}.$
+\end{definition}
+
+\begin{corollary}
+If two matrices $A,B \in M_n(\bb{F})$ are similar then they have the same spectrum, i.e. $\sigma(A)=\sigma(B)$
+\end{corollary}
+
+\subsection{The characteristic polynomial}
+
+\begin{definition}
+The \textbf{characteristic polynomial} of an $n \times n$ matrix $A$ is the polynomial $p_A(x) = \det(A - xI)$ (in the variable $x$). The characteristic equation of $A$ is the equation $\det(A - xI) = 0.$
+\end{definition}
+
+\begin{lemma}
+Let $\lambda \in \bb{F}.$ Then $\lambda$ is an eigenvalue for $A$ if and only if $p_A(\lambda) = 0.$
+\end{lemma}
+
+\begin{tcolorbox}
+$$\begin{aligned}
+\text{An $n \times n$ matrix $M$ is invertible} &\iff \text{rank$(M)=n$} \\
+&\iff \text{nullity$(M)=0$} \\
+&\iff \det(M)\neq 0.
+\end{aligned}$$
+\end{tcolorbox}
+
+\section{Diagonalisability}
+
+\begin{definition}
+(Diagonalizability).
+
+\begin{enumerate}
+	
+	\item We say that a linear operator $T : V \rightarrow V$ is \textbf{diagonalizable} if there is a matrix $[T]_{\Cal{B}}$ representing $T$ that is diagonal (for some choice basis $\Cal{B}$ of $V$).
+
+	\item An $n \times n$ matrix $A$ with entries in $\bb{F}$ is said to be \textbf{diagonalizable over} $\bb{F}$ if $A$ is similar over $\bb{F}$ to a diagonal matrix. We call A \textbf{diagonalizable} for short if $A$ is diagonalizable over $\bb{F}$ and the field $\bb{F}$ is clear from context.
+
+\end{enumerate}
+\end{definition}
+
+\subsection{Criteria for diagonalizability}
+
+\begin{theorem}
+A linear map $T : V \to V$ is diagonalizable if and only $V$ has a basis consisting of eigenvectors for $T$ . A matrix $A$ in $M_n(\bb{F})$ is diagonalizable over $\bb{F}$ if and only if $\bb{F}^n$ has a basis consisting of eigenvectors for $A.$
+\end{theorem}
+
+\subsection{How do we diagonalise in practice?}
+
+If an $n\times n$ matrix $A$ is diagonalizable so, it must have a basis of eigenvectors $\Cal{B} := \{\mathbf{v}_1, \ldots, \mathbf{v}_n\}$ with corresponding (possibly repeating) eigenvalues $\lambda_1,\ldots, \lambda_n.$ Let $$D=\begin{pmatrix} \lambda_1 & 0 & \ldots & 0 \\ 0 & \lambda_2 & \ldots 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0& \ldots & \lambda_n \end{pmatrix}.$$ Our goal is to find a matrix $P$ so that $$A=PDP^{-1}.$$
+
+\begin{tcolorbox}
+We get $P$ by stacking the eigenvectors $\mathbf{v}_1,\ldots,\mathbf{v}_n$ into columns next to one another.
+\end{tcolorbox}
+
+\begin{example}
+Let $$A=\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}.$$
+
+\begin{itemize}
+
+	\item \textbf{Step 1:} Finding the eigenvalues. $$\begin{aligned} p_A(x)=\det(A-xI) &= \det \begin{pmatrix} -x & 1 \\ 1 & -x \end{pmatrix} \\
+	&=(-x)(-x)-(1)(1) \\
+	&=x^2-1 \\
+	&= (x+1)(x-1)
+	\end{aligned}$$ So, the eigenvalues are $\lambda_1=1$ and $\lambda_2=-1.$
+
+	\item \textbf{Step 2:} Finding eigenvectors. Let us find the eigenvectors for $\lambda_1=1,$ $$\begin{aligned}(A-(1)I)\mathbf{v}_1&=\mathbf{0} \\
+	\begin{pmatrix} -1 & 1 \\ 1 & -1 \end{pmatrix}\mathbf{v}_1&=\mathbf{0} \end{aligned}.$$ To find $\mathbf{v}_1$ let us form the augmented matrix and perform row reduction. $$\begin{pmatrix} -1 & 1 & \bigm| & 0 \\1 & -1 & \bigm| & 0 \\ \end{pmatrix} \xrightarrow{R2 \to R1+R2} \begin{pmatrix} -1 & 1 & \bigm| & 0 \\0 & 0 & \bigm| & 0 \\ \end{pmatrix} \xrightarrow{R1 \to (-1)R1} \begin{pmatrix} 1 & -1 & \bigm| & 0 \\0 & 0 & \bigm| & 0 \\ \end{pmatrix}.$$ Therefore, if $\mathbf{v}_1=\begin{pmatrix} x_1 \\ x_2 \end{pmatrix}$ then $x_1-x_2=0 \imply x_1 = x_2.$ Set $x_1=1$ and it follows that $x_2=1$ so, $\mathbf{v}_1 = (1,1).$
+
+	\item \textbf{Step 3:} Finding eigenvectors. Repeat Step 2 for $\lambda_2=-1$ and obtain that $\mathbf{v}_2 = (1,-1).$
+
+	\item \textbf{Step 4:} Forming $P.$ The matrix $P$ is formed by adjoining the eigenvectors in the order in which they appear in the diagonal matrix. If$$A=P\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}P^{-1}.$$ Then $P =\begin{pmatrix} 1 &1 \\ 1 &-1\end{pmatrix}.$
+
+\end{itemize}
+\end{example}
+
+\begin{remark}
+To find the eigenvectors it is also sufficient to analyse one of the rows instead of performing row reduction. For example, $\begin{pmatrix} -1 & 1 \\ 1 & -1 \end{pmatrix}\mathbf{v}_1=\mathbf{0}$ using row one we have that $-x_1+x_2=0 \imply x_2=x_1.$
+\end{remark}
+
+\begin{remark}
+An easy way to check if a vector is an eigenvector is by using the definition of eigenvectors i.e. $A\mathbf{v}=\lambda \mathbf{v}.$ Following from the previous example, we have that $A$ has eigenvalue $1$ and $-1$. Let us check if $\mathbf{v}=(1,1)$ is an eigenvector. So, $A\mathbf{v}=\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} 1 \\1 \end{pmatrix} = \begin{pmatrix} 1 \\ 1 \end{pmatrix} = (1) \begin{pmatrix} 1 \\ 1 \end{pmatrix} = \lambda \mathbf{v}.$
+\end{remark}
+
+\subsection{Multiplicity}
+
+First of all let us recall the definition of linear independence.
+
+\begin{tcolorbox}
+A collection of vectors $\mathbf{v}_1,\ldots, \mathbf{v}_k \in V$ is called linearly independent if, whenever $$\alpha_1\mathbf{v}_1 +\ldots+\alpha_k\mathbf{v}_k = \mathbf{0} \quad \text{for } \alpha_1,\ldots,\alpha_k \in \bb{F},$$ then $\alpha_1 =\alpha_2 =\ldots=\alpha_k =0.$ In other words,there is only one way to express $\mathbf{0}$ as a linear combination of the $\mathbf{v}_i,$ namely with all coefficients $\alpha_i$ equal to $0.$
+\end{tcolorbox}
+
+\begin{lemma}
+If $T : V \to V$ is a linear map, and $\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_k \in V$ are eigenvectors for $T$ with distinct eigenvalues $\lambda_1, \lambda_2,\ldots, \lambda_k,$ then $\{\mathbf{v}_1,\ldots,\mathbf{v}_k\}$ is linearly independent.
+\end{lemma}
+
+\begin{corollary}
+Suppose $V$ is an $n$--dimensional vector space and $T : V \to V$ a linear map. If $T$ has $n$ distinct eigenvalues then it is diagonalizable.
+\end{corollary}
+
+Equally this result can be formulated for matrices:
+
+\begin{tcolorbox}
+Any $n\times n$ matrix over $\bb{F}$ with $n$ distinct eigenvalues in $\bb{F}$ is diagonalizable over $\bb{F}.$
+\end{tcolorbox}
+
+\begin{theorem}
+(The Fundamental Theorem of Algebra). Consider the (monic) polynomial $f(x)=x_n+a_{n-1}x^{n-1}+\ldots+a_0$ with coefficients $a_0,a_1,\ldots,a_{n-1} \in \bb{C},$ then
+$$f(x) = (x - \alpha_1)(x - \alpha_2)\ldots(x -\alpha_n)$$ for some $\alpha_1,\alpha_2,\ldots,\alpha_n \in \bb{C}.$
+\end{theorem}
+
+\begin{note}
+Monic means the leading coefficient is $1.$
+\end{note}
+
+\begin{definition}
+The \textbf{algebraic multiplicity} $m_\lambda$ of an eigenvalue $\lambda$ of $A \in M_n(\bb{C})$ is the multiplicity of $\lambda$ as a root of the characteristic equation. That is, if $$p_A(x)=(\lambda_1 -x)^{m_1}(\lambda_2 -x)^{m_2}\ldots(\lambda_k -x)^{m_k},$$
+where $\lambda_1,\ldots, \lambda_k \in \bb{C}$ are the distinct eigenvalues for $A$ (without repetition), then the algebraic multiplicity of each $\lambda_i$ is $m_i.$
+\end{definition}
+
+\begin{definition}
+The \textbf{geometric multiplicity} $n_\lambda$ of $\lambda$ is defined to be the dimension of the associated eigenspace $V_\lambda.$ Equivalently, the geometric multiplicity is the nullity of $(A -\lambda I ).$ We may write $n_i = \dim(\ker(A - \lambda_iI))$ for the geometric multiplicity of $\lambda_i.$
+\end{definition}
+
+\begin{remark}
+Note that for an $n\times n$ matrix $A$ the characteristic polynomial $p_A(x) = \det(A-xI)$ has degree $n$ in $x.$ Thus if $m_1,\ldots,m_k$ are the algebraic multiplicities of the eigenvalues of $A,$ then $\sum_{i=1}^{k} m_i = n.$
+\end{remark}
+
+\begin{proposition}
+Suppose that $B$ is similar to $A.$ Then
+
+\begin{enumerate}
+	
+	\item $A$ and $B$ have the same characteristic polynomial, $p_A(x) = p_B(x);$
+
+	\item the algebraic multiplicity of an eigenvalue $\lambda$ of $A$ is the same as its algebraic multiplicity as an eigenvalue of $B;$
+
+	\item the geometric multiplicity of an eigenvalue $\lambda$ of $A$ is the same as its geometric multiplicity as an eigenvalue of $B.$
+
+\end{enumerate}
+\end{proposition}
+
+\begin{theorem}
+A square matrix $A$ is diagonalizable over $\bb{C}$ if and only if $m_\lambda = n_\lambda$ for all eigenvalues $\lambda$ of $A.$
+\end{theorem}
+
+\subsection{Upper triangular matrices}
+
+\begin{theorem}
+(Schur triangulation). Every square matrix is similar over $\bb{C}$ to an upper-triangular matrix.
+\end{theorem}
+
+\begin{remark}
+For a fixed square n×n matrix $Q$ the map $M_n(\bb{C}) \to M_n(\bb{C})$ that sends $A$ to $QAQ^{-1}$ is a linear operator that is also known as \textbf{"conjugation by $Q$"}. Therefore if two matrices are similar, they are sometimes also referred to as conjugate. We may say \textbf{"conjugating $A$ by $Q$ gives $B$"} to express the equation $B = QAQ^{-1}.$
+\end{remark}
+
+\begin{tcolorbox}
+\textbf{Characteristic polynomial of a triangular matrix.} If T is an upper-triangular matrix, $$T = \begin{pmatrix} t_{11} & t_{12} &\ldots& t_{1n} \\ 0&t_{22}&\ldots&t_{2n} \\ \vdots&0&\ddots& \vdots \\ 0&0& \ldots & t_{nn} \end{pmatrix},$$ then the characteristic polynomial of $T$ is $p_T(x)= (t_{11} - x)(t_{22} - x)\ldots(t_{nn} - x).$ Moreover if $A$ is similar to the upper-triangular matrix $T$ then also $p_A(x) = p_T(x)= (t_{11} - x)(t_{22} - x)\ldots(t_{nn} - x).$
+\end{tcolorbox}
+
+\begin{definition}
+For any matrix $A \in M_n(\bb{F}),$ the \textbf{trace} of $A$ denoted $trace(A) \in \bb{F}$ be defined to be the sum of the diagonal entries of $A.$
+\end{definition}
+
+\begin{remark}
+Let $A$ be an $n\times n$ matrix, and let $\lambda_1, \lambda_2,\ldots,\lambda_n$ be its (complex) eigenvalues (counting multiplicities). Then
+\begin{enumerate}
+	
+	\item $\text{trace}(A)$ = $\lambda_1 +\lambda_2+\ldots+\lambda_n.$
+
+	\item $\det(A)=\lambda_1\lambda_2\ldots\lambda_n.$
+
+\end{enumerate}
+\end{remark}
+
+\begin{corollary}
+Let $A$ be an $n \times n$ matrix over $\bb{C}.$ For any eigenvalue $\lambda$ of $A,$ the geometric multiplicity is less than or equal to the algebraic multiplicity: $n_\lambda \leq m_\lambda.$
+\end{corollary}
+
+\subsection{The Cayley-Hamilton Theorem}
+
+Given a polynomial $p(x) = \sum_{k=0}^{N} a_kx^k,$ we define the evaluation of the polynomial on a square matrix $A$ by setting $$p(A):=\sum_{k=0}^{N}a_kA^k $$ where we agree, by convention, that $A^0=I.$
+
+\begin{theorem}
+(Cayley-Hamilton Theorem). Every square matrix $A$ satisfies its characteristic equation; i.e.,$p_A(A) = \mathbf{0}.$
+\end{theorem}
+
+\subsection{Minimal polynomial}
+
+\begin{lemma}
+For any complex $n \times n$ matrix $A$ there is a unique lowest degree monic (coefficient of leading term is $1$) polynomial $m_A(x)$ over $C,$ such that $m_A(A) = \underline{\mathbf{0}}.$ The polynomial $m_A(x)$ has the following properties:
+\begin{enumerate}
+	
+	\item If $q(x)$ is a polynomial such that $q(A) = \underline{\mathbf{0}},$ then $m_A(x)$ divides $q(x).$
+
+	\item The roots of $m_A(x) = 0$ are precisely the eigenvalues $\lambda$ of A.
+
+	\item If $A$ and $B$ are similar, then $m_A(x) = m_B(x).$
+
+\end{enumerate}
+
+The polynomial $m_A(x)$ defined in this way is called the \textbf{minimal polynomial} of $A.$
+\end{lemma}
+
+\begin{remark}
+Property $(1)$ tells us that $m_A(x) | p_A(x),$ as $p_A(x)=0$ by Cayley-Hamilton.
+\end{remark}
+
+\begin{theorem}
+An $n\times n$ matrix $A$ is diagonalizable over $\bb{C}$ if and only if its minimal polynomial $m_A(x)$ has no repeated roots.
+\end{theorem}
+
+\begin{example}
+From Skills 5: how to calculate minimal polynomial.
+\includepdf{./Resources/Minimal polynomial example.pdf}
+\end{example}
+
+\subsection{Spectral mapping theorem}
+
+\begin{theorem}
+For any matrix $A \in M_n(\bb{C})$ and any polynomial $p$ the spectrum of $p(A)$ is related to the spectrum of $A$ by the identity $$\sigma(p(A))=p(\sigma(A)),$$ where $p(\sigma(A)):=\{p(\lambda) : \lambda \in \sigma(A)\}.$ In other words, $\mu$ is an eigenvalue of $p(A)$ if and only if there exists an eigenvalue $\lambda$ of $A$ such that $p(\lambda) = \mu.$
+\end{theorem}
+
+\begin{corollary}
+Let $p$ be a polynomial and let $A$ be a square matrix with eigenvalues $\lambda_1,\ldots,\lambda_n \in \bb{C}.$ Then $p(A)$ is invertible if and only if $$p(\lambda_k)\neq 0, \quad l=1,2,\ldots,n.$$
+\end{corollary}
+
+\subsection{Jordan Canonical Form}
+
+\begin{theorem}
+Every square matrix A is similar over C to a partitioned matrix of the form: $$\begin{pmatrix} T_1 & \underline{\mathbf{0}} & \ldots & \underline{\mathbf{0}} \\ \underline{\mathbf{0}} & T_2 & \ldots & \underline{\mathbf{0}} \\ \vdots & \underline{\mathbf{0}} & \ddots & \vdots \\ \underline{\mathbf{0}} & \underline{\mathbf{0}} & \ldots & T_k \end{pmatrix},$$ where each $T_i$ is a square matrix of some dimension $r_i \times r_i$ which has the general form $$T_i=J_{\lambda_i,r_i}\begin{pmatrix} \lambda_i&1&0&\ldots&0 \\ 0&\lambda_i&1&\ldots&0 \\ \vdots&\vdots&\ddots&\ddots&\vdots \\ 0&0&\ldots&\lambda_i&1 \\ 0&0&\ldots&0&\lambda_i \end{pmatrix}$$ for some eigenvalue $\lambda_i$ of $A.$ Moreover the matrix $T$ as above is unique, up to permuting the order of the blocks $T_1,\ldots,T_k.$
+\end{theorem} 
+
+\begin{note}
+The notation $\underline{\mb{0}}$ denotes the zero matrix.
+\end{note}
+
+The form of the matrix in the theorem is called \textit{Jordan canonical form} or \textit{Jordan normal form.} The matrix $T$ also called a \textit{Jordan normal form matrix} (JNF matrix), and the individual blocks, the matrices $T_i,$ are called the \textit{Jordan blocks} of the JNF matrix $T.$ We remark that there can be repetition among the eigenvalues $\lambda_1,\ldots, \lambda_k$ appearing in the expression, and the sizes of the Jordan blocks $T_1,T_2,\ldots,T_k$ may differ from each other; also some of the $T_i$ may be $1\times1,$ in which case we have $T_i = (\lambda_i).$
+
+\begin{example}
+
+\end{example}
+If $T$ is a $3 \times 3$ matrix over $\bb{C}$ it can have one, two or three distinct eigenvalues. This leads to the following three cases.
+
+\begin{itemize}
+
+	\item If $p_A(x)$ has distinct roots $\lambda_1, \lambda_2, \lambda_3,$ then $A$ is diagonalizable and $$\begin{pmatrix} \lambda_1 &0&0 \\0&\lambda_2&0 \\ 0&0&\lambda_3 \end{pmatrix}.$$ So in this case $T_1=(\lambda_1),T_2=(\lambda_2),T_3=(\lambda_3).$
+
+	\item If $p_A(x) = (\lambda_1 -x)(\lambda_2 -x)^2$ with $\lambda_1 \neq \lambda_2,$ then $$\begin{pmatrix} \lambda_1 &0&0 \\0&\lambda_2&0 \\ 0&0&\lambda_2 \end{pmatrix} \text{ or } \begin{pmatrix} \lambda_1 &0&0 \\0&\lambda_2&1 \\ 0&0&\lambda_2 \end{pmatrix}.$$ In the first case $k=3, T_1=(\lambda_1)$ and $T_2=T_(\lambda_2);$ in the second case $k=2,$ $T_1=(\lambda_1)$ and $T_2=\begin{pmatrix} \lambda_2 & 1 \\ 0 & \lambda_2 \end{pmatrix}.$
+
+	\item If $p_A(x)=(\lambda-x)^3,$ then $$\begin{pmatrix} \lambda &0&0 \\0&\lambda&0 \\ 0&0&\lambda \end{pmatrix},\begin{pmatrix} \lambda &0&0 \\0&\lambda&1 \\ 0&0&\lambda \end{pmatrix}, \text{ or } \begin{pmatrix} \lambda &1&0 \\0&\lambda&1 \\ 0&0&\lambda \end{pmatrix}.$$In the first case $k = 3, T_1 = T_2 = T_3 = (\lambda);$ in the second case $k = 2, T1 = (\lambda)$ and $T_2= \begin{pmatrix} \lambda & 1 \\ 0&\lambda \end{pmatrix};$ in the last case $k=1$ and $T=T_1.$
+
+\end{itemize}
+
+If $A$ is similar to the JNF matrix $T,$ then it has the same eigenvalues, multiplicities, characteristic and minimal polynomials, since these agree for matrices that are similar.
+
+\begin{example}
+From the lecture scans:
+\begin{landscape}
+\includepdf[pages={4},landscape=true]{./Resources/LAG2-V5.4-example.pdf}
+\includepdf[pages={6},landscape=true]{./Resources/LAG2-V5.4-example.pdf}
+\end{landscape}
+\end{example}
+
+\begin{remark}
+Jordan blocks must have the same number on the diagonal and next to each diagonal entry there must be a $1.$
+\end{remark}
+
+\begin{tcolorbox}
+From Skill session 5:
+\begin{itemize}
+
+	\item The eigenvalues of $T$ are the diagonal entries of $T$ so, $m_\lambda$ is number of times $\lambda$ appears on the diagonal.   
+
+	\item If $\lambda$ is an eigenvalue of $T, n_\lambda$ is equal to the number of Jordan blocks with $\lambda$ as its diagonal entries.
+
+	\item The minimal polynomial of $T$ is: $$m_T=\prod_{\lambda \in \sigma(T)}(x-\lambda)^{r_\lambda},$$ where $r_\lambda$ is the size of the largest Jordan block with eigenvalue $\lambda.$
+
+\end{itemize}
+\end{tcolorbox}
+
+\begin{lemma}
+(Rank-nullity lemma). Suppose that $T : V \to W$ is a linear map, $\{\mathbf{w}_1,\ldots,\mathbf{w}_r\}$ is a basis for the image, $\Im(T),$ and $\{\mathbf{v}_1,\ldots,\mathbf{v}_k\}$ is a basis for the kernel, $\ker(T).$ For $i = 1,...,r,$ let $\mathbf{u}_i \in V$ be such that $T(\mathbf{u}_i) = \mathbf{w}_i.$ Then $S = \{\mathbf{u}_1,\ldots,\mathbf{u}_r,\mathbf{v}_1,\ldots,\mathbf{v}_k\}$ is a basis for $V.$
+\end{lemma}
+
+\section{Inner product spaces}
+
+All vector spaces here are finite-dimensional.
+
+\subsection{Inner products in \texorpdfstring{$\bb{R}^n$}{TEXT} and \texorpdfstring{$\bb{C}^n.$}{TEXT} Inner product spaces}
+
+\begin{definition}
+For any two vectors $\mathbf{z}=(z_1,\ldots,z_n) \in \bb{C}^n$ and $\mathbf{w} = (w_1,\ldots,w_n) \in \bb{C}^n$ we define \begin{itemize}
+
+	\item the \textit{norm} of $\mathbf{z}$ by $$||\mathbf{z}||:= \sqrt{\sum_{k=1}^{n} |z_k|^2} = \sqrt{\sum_{k=1}^{n} \left(\left(\Re{z_k}\right)^2+\left(\Im{z_k}\right)^2\right)}.$$
+
+    \item the \textit{dot product} of $\mathbf{x}$ and $\mathbf{y}$ given by $$\mathbf{x\cdot y}:=\sum_{k=1}^{n}z_k\overline{w_k}.$$
+
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+ Let $V$ be a vector space over $\bb{F}.$ An inner product on $V$ is a map $$\langle \cdot,\cdot\rangle: \underbrace{V\times V}_{\text{Cartesian product}} \to \bb{F}$$ such that for all $\mathbf{x,y,z} \in V$ and all scalars $\alpha, \beta \in \bb{F},$
+ \begin{enumerate}
+ 	
+ 	\item[(i)] \underline{Linearity in the first vector:} $$\langle \alpha\mathbf{x}+\beta\mathbf{y},\mathbf{z}\rangle=\alpha\langle\mathbf{x,z}\rangle +\beta\langle\mathbf{y,z}\rangle;$$
+
+ 	\item[(ii)] \underline{Conjugate symmetry:} $$\langle  \mathbf{x,y}\rangle=\overline{\langle \mathbf{y,x} \rangle};$$
+
+ 	\item[(iii)]\underline{Non-negativity:} $$\langle \mathbf{x,x}\rangle\geq 0 ;$$
+
+ 	\item[(iv)]\underline{Non-degeneracy:} $$\langle \mathbf{x,x} \rangle=0  \iff \mathbf{x=0} \in V;$$
+ \end{enumerate}
+are satisfied.
+\end{definition}
+
+\begin{remark}
+If we use property (i) and (ii): $$\begin{aligned}
+\langle \mathbf{x},\alpha\mathbf{y}+\beta\mathbf{z} \rangle &=\overline{\langle \alpha\mathbf{y}+\beta\mathbf{z}, \mathbf{x} \rangle} \\
+&=\overline{\alpha\langle \mathbf{y,x} \rangle +\beta \langle \mathbf{z,x} \rangle}\\
+&=\overline{\alpha\overline{\langle \mathbf{y,x} \rangle+\overline{\beta}\langle \mathbf{z,x} \rangle}} \\
+&=\overline{\alpha}\overline{\overline{\langle \mathbf{y,x} \rangle}}+\overline{\beta}\overline{\overline{\langle \mathbf{x,z} \rangle}}\\
+&=\overline{\alpha}\langle \mathbf{x,y} \rangle+\overline{\beta}\langle \mathbf{x,z} \rangle.
+\end{aligned}$$ This is called `conjugate linear in the second entry'.
+\end{remark}
+
+\begin{definition}
+Let $\langle \cdot,\cdot \rangle:V\times V \to \bb{F}$ be an inner product. We call $$||\mathbf{x}||:=\sqrt{\langle \mathbf{x,x} \rangle}\geq 0$$ the \textit{norm} of $\mathbf{x}\in V$ with respect to the inner product. We will also say that $||\cdot||$ is the norm \textit{associated} to the inner product $\langle \cdot,\cdot \rangle.$
+\end{definition}
+
+\begin{definition}
+An \textit{inner product} space is a vector space over $\bb{F}$ together with a specified inner product on it.
+\end{definition}
+
+\begin{lemma}
+Let $V$ be an inner product space and $\mathbf{x} \in V.$ Then $\mathbf{x=0}$ if and only if $$\langle \mathbf{x,y} \rangle=0 \quad \forall\mathbf{y}\in V.$$
+\end{lemma}
+
+\begin{corollary}
+Let $V$ be an inner product space and $\mathbf{x,y}\in V.$ Then $\mathbf{x=y}$ holds if and only if $$\langle \mathbf{x,z} \rangle=\langle \mathbf{y,z} \rangle \quad \forall\mathbf{z}\in V.$$
+\end{corollary}
+
+\begin{corollary}
+Let $V$ be a vector space, $W$ an inner product space and $A,B \to W$ two linear transformations such that $$\langle A\mathbf{x},\mathbf{y} \rangle=\langle B\mathbf{x},\mathbf{y} \rangle \quad \forall\mathbf{x}\in V,\mathbf{y}\in W.$$ Then $A=B.$
+\end{corollary}
+
+\begin{theorem}
+Let $V$ be an inner product space over $\bb{F}$ with associated norm $||\cdot||.$ Then for all $\mathbf{x,y} \in V$ we have \begin{enumerate}
+    
+    \item $|\langle \mathbf{x,y} \rangle|\leq ||\mathbf{x}||\, ||\mathbf{y}||$ (Cauchy-Schwartz inequality),
+
+    \item $\|\mathbf{x+y}\|\leq \|\mathbf{x}\|+\|\mathbf{y}\|$ (Triangle inequality)
+
+\end{enumerate} 
+We have equality in the Cauchy-Schwartz inequality if and only if one of $\mathbf{x,y}$ is a scalar multiple of the other.
+\end{theorem}
+
+\begin{theorem}
+Let $V$ be an inner product space over $\bb{F}.$ Then for any $\mathbf{x,y}\in V$, 
+\begin{enumerate}
+    
+    \item $\langle \mb{x,y} \rangle=\f{1}{4}\|\mb{x+y}\|^2-\f{1}{4}\|\mb{x-y}\|^2,$ for $\bb{R}.$
+
+    \item $\langle \mb{x,y} \rangle =\f{1}{4}\|\mb{x+y}\|^2-\f{1}{4}\|\mb{x-y}\|^2+\f{i}{4}\|\mb{x}+i\mb{y}\|^2-\f{i}{4}\|\mb{x}-i\mb{y}\|^2,$ for $\bb{C}.$
+
+\end{enumerate}
+These are known as the \textbf{polarisation identities.}
+\end{theorem}
+
+\begin{lemma}
+Let $V$ be an inner product space with norm $\|\cdot\|.$ The for any $\mb{x,y}\in V,$ $$\|\mb{x+y}\|^2+\|\mb{x-y}\|^2=2(\|\mb{x}\|^2+\|\mb{y}\|^2).$$ This is known as the \textbf{triangle inequality.}
+\end{lemma}
+
+\begin{definition}
+Let $V$ be a vector space over $\bb{F}.$ A \textit{norm} on $V$ is a map $\|\cdot\|:V\to \bb{R}$ such that for all $\mb{x,y}\in V$ and all $\alpha\in \bb{F}$ we have \begin{enumerate}
+    
+    \item[(i)] \underline{Homogeneity:} $$\|\alpha\mb{x}\|=|\alpha|\,\|\mathbf{x}\|,$$
+
+    \item[(ii)] \underline{Triangle inequality:} $$\|\mb{x+y}\|\leq \|\mb{x}\|+\|\mb{y}\|,$$
+
+    \item[(iii)] \underline{Non-negativity:} $$\|\mb{x}\|\geq 0 \quad \forall\mb{x}\in V,$$
+
+    \item[(iv)] \underline{Non-degeneracy:} $$\|\mb{x}\|=0 \text{ if and only if } \mb{x=0}.$$
+
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+A vector space equipped with a norm is called a \textit{normed space.}
+\end{definition}
+
+\begin{theorem}
+(Jordan-von Neumann). A norm in a normed space is obtained from some inner product if and only if it satisfies the parallelogram identity.
+\end{theorem}
+
+\subsection{Orthogonality}
+
+An inner product space $(V,\langle \cdot,\cdot \rangle)$ has an associated norm $||\cdot||.$
+
+\begin{definition}
+Let $V$ be an inner product space. Two vectors $\mathbf{x},\mathbf{y} \in V$ are called orthogonal if $$\langle \mathbf{x,y} \rangle=0  \quad (\text{shorthand } \mathbf{x} \perp \mathbf{y}).$$
+\end{definition}
+
+\begin{definition}
+Let $V$ be an inner product space and $E \subset V$ a subspace. We say that a vector $\mathbf{x} \in V$ is orthogonal to $E$ if $\mathbf{x}$ is orthogonal to all vectors $\mathbf{y} \in E.$ We also say that two subspaces $E, F \subset V$ are orthogonal if all vectors in $E$ are orthogonal to $F$ (and vice versa).
+From the lecture scans: \begin{itemize}
+
+    \item $\mb{x} \in V$ is orthogonal to $E \subset V$ if $\langle \mb{x,y} \rangle=0 \; \forall\mb{y}\in E$ i.e. $\mb{x} \perp E.$ 
+
+    \item Two subspaces $E,F \subset V$ are orthogonal if $\langle \mb{x,y} \rangle=0 \; \forall \mb{x} \in E$ and $\forall\mb{y}\in F.$
+\end{itemize}
+\end{definition}
+
+\begin{lemma}
+Let $V$ be an inner product space and $E = \text{span
+}\{\mathbf{v}_1,\ldots,\mathbf{v}_r\} \subset V.$ Then $x \perp E$ if and only if $$\mathbf{x} \perp \mathbf{v}_j \quad \forall j =1,\ldots,r.$$
+\end{lemma}
+
+\begin{definition}
+Let $V$ be an inner product space. We say that a subset of $V , S = {\mathbf{x}_1,\ldots,x_\mathbf{x}} \subset V,$ is an \textit{orthogonal set} if $\langle \mathbf{x}_i,\mathbf{x}_j\rangle = 0$ for all $i \neq j.$ If in addition $||\mathbf{x}_i|| = 1$ for all $i = 1,\ldots,n,$ we say that $S$ is an \textit{orthonormal set}.
+\end{definition}
+
+\begin{lemma}
+ (Generalized Pythagorean identity). Let $V$ be an inner product space and $S = {\mathbf{x}_1,\ldots,\mathbf{x}_n}$ an \textit{orthogonal set}. Then for any $\alpha_1,\ldots,\alpha_n \in \bb{F},$ $$\left\|\sum_{j=1}^{n}\alpha_j\mb{x}_j\right\|^2=\sum_{j=1}^{n}|\alpha_j|^2\|\mb{x}_j\|^2.$$
+\end{lemma}
+
+\begin{corollary}
+Let $V$ be an inner product space. Any orthogonal set of non-zero vectors is linearly independent.
+\end{corollary}
+
+\begin{definition}
+Let $V$ be an inner product space. An orthogonal (or orthonormal) set $S \subset V$ which is also a basis of $V$ is called an \textit{orthogonal} (or \textit{orthonormal}) basis.
+\end{definition}
+
+\subsection{Writing arbitrary vectors as linear combinations of orthogonal basis vectors}
+
+Suppose $\{\mathbf{e}_1,\ldots,\mathbf{e}_n\}$ is an orthogonal basis for $V$ (in this case $\mb{e}_n$ is not representing the standard basis). Let $\mathbf{x} \in V.$Then there exists $\alpha_1,\ldots,\alpha_n \in \bb{F}$ such that $\mathbf{x}=\alpha_1\mathbf{e}_1+\alpha_2\mathbf{e}_2+\ldots+\alpha_n\mathbf{e}_n.$ \\
+
+\subsection*{Question: If we know x, how do we find the $\alpha_i?$}
+
+$$\begin{aligned}
+\langle \mathbf{x},\mathbf{e}_i \rangle &= \left\langle \sum_{j=1}^{n} \alpha_j, \mb{e}_i \right\rangle \\
+&=\sum_{j=1}^{n}\alpha_j \underbrace{\langle \mb{e}_j,\mb{e}_i \rangle}_{=0 \text{ unless } j=k} \\
+&= \alpha_i \|\mb{e}_i\|^2 \\
+&\imply \alpha_i=\f{\langle \mb{x},\mb{e}_i \rangle}{\|\mb{e}_i\|^2}.
+\end{aligned}$$ Thus \begin{tcolorbox}
+$$\mb{x}=\sum_{j=1}^{n} \f{\langle \mb{x},\mb{e}_i \rangle}{\|\mb{e}_i\|^2} \mb{e}_j.$$
+\end{tcolorbox}
+
+\subsection{Orthogonal projections and the Gram-Schmidt process}
+
+\includegraphics[width=1\textwidth]{./Resources/Orthogonal projection.png}
+
+\begin{definition}
+Let $V$ be an inner product space and $E \subset V$ a subspace. For a vector $\mb{x} \in V,$ its orthogonal projection $P_E \mb{x}$ on the subspace $E$ is a vector $\mb{y}$ such that \begin{itemize}
+
+    \item[(i)] $\mb{y}\in E,$
+    \item[(ii)] $(\mb{x-y})\perp E.$
+
+\end{itemize} We write $\mb{y}=P_E\mb{x}$ for the orthogonal projection.
+\end{definition}
+
+\begin{theorem}
+Let $V$ be an inner product space and $E \subset V$ a subspace. The orthogonal projection $\mb{y}=P_E\mb{x}$ minimizes the distance from $x \in V$ to $E,$ i.e. $$\forall\mb{z} \in E: \quad \|\mb{x-y}\|\leq \|\mb{x-z}\|.$$ Moreover, if for some $\mb{z} \in E$ we have $\|\mb{x-y}\|=\mb{x-z},$ then $\mb{y=z}.$
+\end{theorem}
+
+\begin{theorem}
+Let $V$ be an inner product space, $E \subset V$ a subspace with orthogonal basis $\{\mb{x}_1,\ldots,\mb{x}_r\}.$ Then the orthogonal projection $P_E\mb{x}$ of a vector $\mb{x} \in V$ on $E$ is given by the formula 
+
+\begin{tcolorbox}
+$$P_E\mb{x}=\sum_{j=1}^{r} \f{\langle \mb{x},\mb{x}_j \rangle}{\|\mb{x}_j\|^2} \mb{x}_j.$$
+\end{tcolorbox}
+\end{theorem}
+
+\begin{theorem}
+(Gram-Schmidt orthogonalization). Let $V$ be an inner product space and $\{\mb{x}_1,\ldots, \mb{x}_n\}$ linearly independent vectors in $V.$ Then one may construct orthogonal vectors $\mb{y}_1,\ldots,\mb{y}_n \in V$ such that for each $1 \leq r \leq n$ we have $$\Span\{\mb{x}_1,\ldots, \mb{x}_r\}=\Span\{\mb{y}_1,\ldots, \mb{y}_r\}.$$
+\end{theorem}
+
+So by the theorem to construct an orthogonal basis we follow this algorithm: 
+\begin{tcolorbox}
+$$\mb{y}_{r+1}:=\mb{x}_{r+1}-P_{E_r}\mb{x}_{r+1}-\sum_{k=1}^{r}\frac{\langle \mb{x}_{r+1},\mb{y}_k \rangle}{\|\mb{y}_k\|^2}\mb{y}_k.$$
+\end{tcolorbox}
+
+From the lecture scans: \includepdf[landscape=true]{./Resources/Gram-Schmidt.pdf}
+
+\subsection{Adjoints of linear operators}
+
+Let $A\in M_{m,n}(\bb{C}).$ We define the adjoint matrix of $A$ as: $$A^*=\overline{A^{T}}\in M_{m,n}(\bb{C}).$$ Recall the dot the product on $\bb{C}^n: \mb{x,y} \in \bb{C}^n \imply \mb{x\cdot y}=\sum_{j=1}^{n} \mb{x}_k\overline{\mb{y}_j};$ then we can think of $\mb{x,y}\in M_{m,n}(\bb{C}^n).$ Then $$\mb{x\cdot y}=\underbrace{\mb{y^*}}_{\substack{1\times n\\ \text{ matrix}}} \underbrace{\mb{x}}_{\substack{n\times 1 \\\text{ matrix}}}.$$
+
+\begin{lemma}
+Let $A\in M_n(\bb{C})$ and $\mb{x,y}\in \bb{C}^n.$ Then $(A\mb{x})\cdot\mb{y}=\mb{x}\cdot(A^*\mb{y)}$
+\end{lemma}
+
+\begin{theorem}
+Let $V$ be an inner product space and $T : V \to V$ a linear operator on it. Then there exists a unique linear operator $T^* : V \to V$ such that $$\langle T\mb{x},\mb{y} \rangle= \langle  \mb{x},T^*\mb{y} \rangle \quad \forall\mb{x,y}\in V.$$
+\end{theorem}
+
+\begin{definition}
+The operator $T^*$ in the last theorem is called the \textbf{adjoint} of $T .$
+\end{definition}
+
+\begin{theorem}
+Let $V$ be an inner product space and $T,U : V \to V$ linear operators on $V$. If $c \in \bb{F},$ then \begin{enumerate}
+	
+	\item $(T+U)^*=T^*+U^*;$
+	\item $(cT)^*=\overline{c}T^*;$
+	\item $(TU)^*=U^*T^*;$
+	\item $(T^*)^*=T.$
+
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Let $V$ be an inner product space and $T : V \to V$ a linear operator on $V.$ Then \begin{enumerate}
+	
+	\item $\ker{T^*}=(\Im T)^{\perp};$
+	\item $\ker{T}=(\Im T^*)^{\perp};$
+	\item $\Im T^*=(\ker{T})^{\perp};$
+	\item $\Im T=(\ker{T^*}^\perp).$
+
+\end{enumerate}
+\end{theorem}
+
+\begin{definition}
+Let $V$ be an inner product space. A linear operator $T : V \to V$ such that $T = T^*$ is called \textbf{self-adjoint} (or \textit{Hermitian}).
+\end{definition}
+
+\subsection{Isometries and unitary operators}
+
+\begin{definition}
+ Let $V$ and $W$ be inner product spaces over $\bb{F}$. A linear map $U : V \to W$ is called an \textbf{isometry} (or \textit{norm preserving}) if $$\|U\mb{x}\|_W=\|\mb{x}\|_V \quad \forall\mb{x} \in V.$$ A norm preserving linear operator $U : V \to V$ on an inner product space $V$ is also called a \textbf{unitary operator.}
+\end{definition}
+
+\begin{lemma}
+Eigenvalues of unitary operators have absolute value $1.$
+\end{lemma}
+
+\begin{theorem}
+Let $V, W$ be inner product spaces over $\bb{F}.$ Then $U : V \to W$ preserves norms if and only if it preserves inner products, i.e. $$\langle U\mb{x},U\mb{y} \rangle_W=\langle \mb{x,y} \rangle_V \quad \forall\mb{x,y} \in V.$$
+\end{theorem}
+
+\begin{lemma}
+Let $V$ be an inner product space and $U : V \to V$ a linear map. Then $U$ is norm preserving if and only if $U^*U = UU^* = I.$ That is, $U^{-1}=U^*.$
+\end{lemma}
+
+\begin{corollary}
+\begin{enumerate}
+	
+	\item $U : V \to V$ is a unitary operator. Let $\{\mb{x}_1,\ldots,\mb{x}_r\} \subset V$ be an orthonormal set. Then $\{U\mb{x}_1,\ldots, U\mb{x}_r\}$ is an orthonormal set.
+
+	\item Let $\{\mb{x}_1,\ldots, \mb{x}_n\}$ be an orthonormal basis of an inner product space $V .$ An operator $U : V \to V$ is unitary if and only if $\{U\mb{x}_1,\ldots,U\mb{x}_n\}$ is an orthonormal basis of $V.$
+
+\end{enumerate}
+\end{corollary}
+
+\begin{definition}
+ A matrix $U \in M_n(\bb{C})$ is called unitary if $U^*U = I_{n\times n}$ where $U^* = \overline{U^T}.$ A matrix $O \in M_n(\bb{R})$ is called orthogonal if $O^TO = I_{n\times n} .$
+\end{definition}
+
+\begin{proposition}
+Let $U \in Mn(C)$ be a unitary matrix. Then
+\begin{enumerate}
+	
+	\item $|\det U| = 1,$ so in particular for orthogonal matrices $O \in M_n(\bb{R}) : \det O = \pm1.$
+
+	\item If $\lambda$ is an eigenvalue of $U,$ then $|\lambda| = 1.$
+
+\end{enumerate}
+\end{proposition}
+
+\begin{definition} 
+Let $A,B \in M_n(\bb{C}).$ We say that $B$ is unitarily equivalent to $A$ if there exists a unitary matrix $U \in M_n(\bb{C})$ such that $A = UBU^{-1}.$ If the same holds true for an orthogonal matrix $O \in M_n(\bb{R}),$ i.e. $A = OBO^{-1},$ then $B$ is orthogonally equivalent to $A.$
+\end{definition}
+
+\begin{theorem}
+A matrix $A \in M_n(\bb{C})$ is unitarily equivalent to a diagonal matrix (i.e. can be unitarily diagonalized) if and only if it has $n$ orthonormal eigenvectors (in other words, there exists an orthonormal basis of $\bb{C}^n$ consisting of eigenvectors for $A$).
+\end{theorem}
+
+\section{Structure of operators in inner product}
+
+\section{Bilinear and quadratic forms}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Appendix}
+
+\subsection{Functions of linear operators}
+
+\begin{example}
+Say $f(x)=x^2 \text{ and } A \begin{pmatrix} a & b \\ c & d \end{pmatrix}:$ then, $$f(A)=A^2 = \begin{pmatrix} a & b \\ c & d \end{pmatrix}\begin{pmatrix} a & b \\ c & d \end{pmatrix} = \begin{pmatrix} a^2+bc & ab+bd \\ ac+cd & bc+d^2 \end{pmatrix}.$$
+\end{example}
+
+\begin{example}
+$f(x) = x^2 +1.$ Then we set $f(A)=A^2+I$ so, $$\begin{pmatrix} a^2+bc & ab+bd \\ ac+cd & bc+d^2 \end{pmatrix} + \begin{pmatrix} 1 & 0 \\ 0&1 \end{pmatrix} = \begin{pmatrix} a^2+bc+1 & ab+bd \\ ac+cd & bc+d^2+1 \end{pmatrix}$$
+\end{example}
+
+\begin{definition}
+Let $p(x)=a_kx^k+a_{k-1}x^{k-1}+\ldots+a_1x+a_0(1)$ where $a_0,a_1,\ldots a_k \in \bb{F}$ and $A \in M_n(\bb{F})$ then $$p(A)=a_kA^k+a_{k-1}A^{k-1}+\ldots+a_1A+a_0I.$$ 
+\end{definition}
+
+\begin{lemma}
+If $A \simeq B$ then $p(A)\simeq p(B)$ for any polynomial $p.$ In fact if $B =QAQ^{-1}$ then $p(B)=Qp(A)Q^{-1}.$
+\end{lemma}
+
+\subsubsection{Exponential function}
+
+Replace $p(x)$ by $\exp(x)=e^x.$ Recall that $$\exp(x) = 1+x+\frac{1}{2!}x^2+\frac{1}{3!}x^3+\frac{1}{4!}x^4+\ldots = \sum_{n=0}^{\infty} \frac{1}{n!}x^n.$$
+
+\begin{lemma}
+Suppose $A$ is diagonalizable (so $A=QDQ^{-1}$ for some diagonal matrix $D$).
+\begin{itemize}
+
+	\item Then $\sum_{n=0}^{\infty}\frac{1}{n!}A^n$ converges and we call the limit $\exp(A).$ 
+
+	\item Moreover if $D=\begin{pmatrix} \lambda_1 &0&\ldots &0 \\ 0 & \lambda_2 & \ldots &0 \\ \vdots &\vdots &\ddots & \vdots \\ 0 & 0 & \ldots & \lambda_n  \end{pmatrix}$ the limit is $\exp(A) = Q\begin{pmatrix} e^{\lambda_1} &0&\ldots &0 \\ 0 & e^{\lambda_2} & \ldots &0 \\ \vdots &\vdots &\ddots & \vdots \\ 0 & 0 & \ldots & e^{\lambda_n}  \end{pmatrix}Q^{-1}.$
+
+\end{itemize}
+\end{lemma}
+
+\begin{remark}
+If $v(t) = \begin{pmatrix} x_1(t) \\ \vdots \\x_n(t) \end{pmatrix}$ satisfy $\dot{v}(t)=Av(t)$ and $v(0)=\begin{pmatrix} a_1 \\ \vdots \\ a_n\end{pmatrix}.$ Then $\mathbf{v}(t)= \exp(tA)\begin{pmatrix} a_1 \\ \vdots \\ a_n\end{pmatrix}.$ 
+\end{remark}
+
+\end{document}		
