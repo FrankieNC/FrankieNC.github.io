@@ -476,6 +476,11 @@ ninja.data = [{
           description: "another project with an image 🎉",
           section: "Projects",handler: () => {
               window.location.href = "/projects/9_project/";
+            },},{id: "projects-undergraduate-mathematics-notes",
+          title: 'Undergraduate Mathematics Notes',
+          description: "My undergraduate maths notes from King&#39;s College London",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/BSc%20maths%20notes/";
             },},{
         id: 'social-email',
         title: 'email',
