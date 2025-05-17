@@ -1,0 +1,1171 @@
+\documentclass[12pt, a4paper]{article}   	
+\usepackage{geometry}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage{color}   
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usepackage{multicol}
+\usepackage[thinc]{esdiff}
+\usepackage{physics}
+\usepackage{bm}
+\usepackage{pdfpages}
+\usepackage{pdflscape}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true, linktoc=all, linkcolor=black,}
+
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\f}[2]{\frac{#1}{#2}}
+\newcommand{\imply}{\Rightarrow}
+\newcommand{\Cal}[1]{\mathcal{#1}}
+\newcommand{\mb}[1]{\mathbf{#1}}
+
+\DeclareMathOperator{\Div}{div}
+\DeclareMathOperator{\Curl}{curl}
+\DeclareMathOperator{\Grad}{grad}
+
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{example}{Example}
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{plain}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{Calculus 2 Notes}
+\date{}
+\author{Francesco Chotuck}
+\begin{document} 
+\maketitle 
+
+\tableofcontents
+
+\pagebreak
+
+\section{Functions \texorpdfstring{$\bb{R} \to \bb{R}^n$}{TEXT}}
+
+\subsection{Curves, paths and parametrisation}
+
+\begin{definition}
+By a \textbf{curve} in $\bb{R}^n$ we mean a 1-dimensional subset of $\bb{R}^n$ which nearly everywhere looks like a twisted piece of the real line i.e. $\bb{R}^1.$ A portion of a curve is called an \textbf{arc of a curve.}
+\end{definition}
+
+\begin{remark}
+A curve is said to be \textbf{simple} if it does not intersect itself.
+\end{remark}
+
+\begin{remark}
+A curve is said to be a \textbf{closed curve} if its end points coincide i.e. the curve is a loop. Otherwise, it called an \textbf{open curve.}
+\end{remark}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{./Resources/Simple and Closed curve.png}
+\caption{An illustration of simple, closed and a combination of curves}
+\label{fig: Simple/Closed curve}
+\end{figure}
+
+\subsubsection{Paths and Vector-valued Functions}
+
+\begin{definition}
+A \textbf{path} (or a \textbf{vector-valued function}) is a smooth function $\mathbf{r} : [a,b] \to \bb{R}^n \text{ or } \mathbf{r}: \bb{R} \to \bb{R}^n.$
+\end{definition}
+
+\begin{remark}
+A smooth function is a differentiable function over $\bb{R}$ or an interval $[a,b].$
+\end{remark}
+
+\begin{example}
+$\mathbf{r}(t)=(\cos t, \sin t).$
+\end{example}
+
+\subsubsection{Parametrisation of curves}
+
+\begin{definition}
+A \textbf{parametrisation of a simple curve} $C$ of finite length is a path $\mathbf{r} : [a,b] \to C$ defined on an interval $[a,b]$ which is one-to-one and onto. 
+\end{definition}
+
+\begin{remark}
+There are infinitely different parametrisation for any given curve $C$ -- or equivalently, infinitely many different ways of giving a \textbf{coordinate} to the curve.
+\end{remark}
+
+\begin{remark}
+A path is just a parametrised curve in the `direction' of $t.$
+\end{remark}
+
+\subsection{Differentiation of paths}
+
+\begin{definition}
+Given a path (or a vector-valued function) $\mathbf{r}(t): \bb{R} \to \bb{R}^n,$ the derivative of $\mathbf{r}$ with respect to $t$ is defined to be $$\mathbf{r}'(t)=\lim_{h \to 0}\f{\mathbf{r}(t+h)-\mathbf{r}(t)}{h}.$$ This corresponds to differentiating each vector components of $\mathbf{r}.$
+\end{definition} 
+
+For example, if $$\mathbf{r}(t) = \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} \text{ then } \mathbf{r}'(t) = \begin{pmatrix} x'(t) \\ y'(t) \end{pmatrix}.$$
+
+\subsection{Product rule for differentiation of paths}
+
+\begin{theorem}
+Let $\mb{r}$ and $\mb{g}$ be differentiable vector-valued functions of $t,$ let $f$ be a differentiable real-valued function of $t,$ and let $c$ be a scalar. Then the derivative has the following properties:
+\begin{enumerate}
+	
+	\item[(i)] $$\diff{}{t}[f(t)\mathbf{r}(t)] = f'(t)\mathbf{r}(t) + f(t)\mathbf{r}'(t);$$
+
+	\item[(ii)] $$\diff{}{t}[\mathbf{g}(t)\cdot \mathbf{r}(t)] = \mathbf{g}'(t)\cdot \mathbf{r}(t) + \mathbf{g}(t)\cdot \mathbf{r}'(t);$$
+
+	\item[(iii)] $$\diff{}{t}[\mathbf{g}(t)\times \mathbf{r}(t)] = \mathbf{g}'(t)\times \mathbf{r}(t) + \mathbf{g}(t)\times \mathbf{r}'(t);$$
+
+	\item[(iv)] $$\diff{}{t}[\mb{r}\left(f(t)\right)]=\mb{r'}\left(f(t)\right)f'(t);$$
+
+	\item[(v)] If $\mb{r}(t)\cdot \mb{r}(t) =c$ then, $\mb{r}(t)\cdot \mb{r'}(t)=0.$
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Only a proof of property $(v)$ is presented as the rest are trivial. 
+$$\begin{aligned}
+\diff{}{t}[\mb{r}(t)\cdot \mb{r}(t)]&= \diff{}{t}[c] \\
+\mathbf{r}'(t)\cdot \mathbf{r}(t) + \mathbf{r}(t)\cdot \mathbf{r}'(t) &= 0\\
+2\left(\mathbf{r}(t)\cdot \mathbf{r}'(t)\right) &=0 \\
+\mathbf{r}(t)\cdot \mathbf{r}'(t) &= 0.
+\end{aligned}$$
+\end{proof}
+
+\subsection{Taylor's theorem for paths}
+
+\begin{itemize}
+
+	\item Taylor expansion of first order $$\mathbf{r}(t+h) = \mathbf{r}(t) + h\mathbf{r}'(t) + \mathbf{o}(h),$$ where $\mb{o}(h)$ is a vector such that $\f{\mb{o}(h)}{h}\to 0$ as $h\to 0.$
+
+	\item Second order $$\mathbf{r}(t+h)=\mathbf{r}(t)+h\mathbf{r}(t)+ \frac{h^2}{2!}\mathbf{r}''(t)+\mathbf{o}(h^2),$$ where $\mb{o}(h^2)$ is a vector such that $\f{\mb{o}(h^2)}{h^2}\to 0$ as $h\to 0.$
+
+\end{itemize}
+
+\subsection{Tangent Lines}
+
+Geometrically $\mathbf{r}'(t_0) := \mathbf{r}'(t)|_{t=t_0}$ is a \textbf{tangent vector} to $C$ at the point $p = \mathbf{r}(t_0).$ Notice that if we change the parametrisation of $C$ we obtain different tangent vectors therefore, if $C$ is smooth at $p$, then the \textbf{tangent line $T_pC$ to $C$ is, by definition, the space of all tangent vectors to the curve at }$\mathbf{p.}$
+
+\begin{tcolorbox}
+The tangent line can be parametrised as $$\mathbf{l}(\mu) = \mathbf{r}(t_0) + \mu \mathbf{r}'(t_0).$$
+\end{tcolorbox}
+
+\section{Functions \texorpdfstring{$\bb{R}^m \to \bb{R}$}{TEXT}}
+
+\subsection{Graphs of scalar functions}
+
+\begin{definition}
+The graph of $f : \bb{R}^m \to \bb{R}$ is the $m$--dimensional subset of $\bb{R}^{m+1}$ defined by $$\text{Graph}(f) = \{(\mathbf{x}, f(\mathbf{x})) \in \bb{R}^{m+1} : \mathbf{x} \in \bb{R}^m\} .$$
+\end{definition}
+
+\begin{remark}
+Let us consider the case in 2--dimensions: we have the point $x \mapsto f(x)$ so, we have a curve (a piece of the real line) plotted on the $xy$--plane. Now let us consider the case in 3--dimensions: we have the points $(x,y) \mapsto f(x,y)$ so, we have a surface (a piece $xy$--plane) plotted in 3--dimensions. This reasoning can be extended into higher dimensions.
+\end{remark} 
+
+\subsection{Directional derivatives}
+
+\begin{definition}
+If $\mathbf{u}$ is a fixed unit vector, the directional derivative $f'_\mathbf{u}(\mathbf{x})$ of the function $f(x)$ in the direction $\mathbf{u}$ is defined to be $$f'_\mathbf{u}(\mathbf{x})= \lim_{h \to 0} \frac{f(\mathbf{x}+h\mathbf{u})-f(\mathbf{x})}{h}.$$
+\end{definition}
+
+\begin{remark}
+The directional derivative of $f : \bb{R}^m \to \bb{R}$ is always a scalar function $f'_\mathbf{u}(\mathbf{x}) : \bb{R}^m \to \bb{R},$ that is, at each point of $\mathbf{x} \in \bb{R}^m$ it defines a number, not a vector.
+\end{remark}
+
+\begin{lemma}
+The directional derivative of a scalar function $f : \bb{R}^m \to \bb{R}$ in the direction $\mathbf{u}$ is 
+\begin{tcolorbox}
+$$f'_\mathbf{u}(\mathbf{x})=\diff{}{t} \Bigr|_{t=0} f(\mathbf{x}+t\mathbf{u}).$$
+\end{tcolorbox}
+\end{lemma}
+
+\begin{remark}
+This is analogous to the definition of a single variable derivative.
+\end{remark}
+
+\subsection{Partial derivatives}
+
+\begin{definition}
+When it exists, the $i^{\text{th}}$ partial derivative $\pdv{f}{x_i}$ of a scalar-valued function $f:\bb{R}^m \to \bb{R} \text{ at } x \in \bb{R}^m,$ is a directional derivative in the direction of a standard basis vector and is defined by $$\pdv{f}{x_i}\Bigr|_{\mathbf{x}}:=f'_{\mathbf{e}_i}(\mathbf{x}).$$ Equivalently, $$\pdv{f}{x_i}=f'_{\mathbf{e}_i}(\mathbf{x}_0+t\mathbf{e}_i)\Bigr|_{t=0}.$$ To evaluate a partial derivative in respect to $x_i$ treat all the other variables constants and differentiate as usual in respect to $x_i.$ 
+\end{definition}
+
+\begin{remark}
+When all the partial derivatives exist and are continuous we say that $f$ is differentiable at $\mathbf{x}$.
+\end{remark}
+
+\subsection{Tangent plane to a surface}
+
+\begin{proposition}
+Let $f : \bb{R}^2 \to \bb{R}$ be differentiable at $(x,y) \in \bb{R}^2.$ The tangent plane to the graph-surface of $f$ at the point $(x_0,y_0,f(x_0,y_0))$ is given by 
+\begin{tcolorbox}
+$$z=z_0+(x-x_0)f_x(x_0,y_0) +(y-y_0)f_y(x_0,y_0).$$
+\end{tcolorbox}
+
+\begin{tcolorbox}
+For $f :\bb{R}^3 \to \bb{R}$ the tangent plane is $$(\mb{x}-\mb{x}_0)\cdot\nabla f=0.$$
+\end{tcolorbox}
+\end{proposition}
+
+\section{Gradient vector}
+
+\subsection{Gradient of a scalar function}
+
+\begin{definition}
+The vector $\nabla f(\mathbf{x})$ is called the \textbf{gradient} of $f$ at $\mathbf{x}.$ The map $$\bb{R}^m\to\bb{R}^m, \quad \mathbf{x} \mapsto f(\mathbf{x})$$ is called the gradient vector field associated to $f.$
+\end{definition}
+
+\begin{definition}
+A scalar function $f(\mathbf{x})\in \bb{R}$ of a vector variable $\mathbf{x} \in \bb{R}^m$ is \textbf{differentiable} if there exists a vector function $\nabla f(\mathbf{x})$ such that $$f(\mathbf{x+h})-f(\mathbf{x})=\mathbf{h}\cdot \nabla f(\mathbf{x})+o(|\mathbf{h}|),$$ we can interpret $o(|\mathbf{h}|)$ as the `remainder' therefore, $\lim_{|\mathbf{h}| \to 0} \frac{o(|\mathbf{h}|)}{|\mathbf{h}|}.$
+\end{definition}
+
+\begin{remark}
+The definition above can be equivalently restate as: $$\nabla f(\mb{x})=\lim_{x\to0} \f{f(\mb{x+h})-f(\mb{x})}{\mb{h}}.$$
+\end{remark}
+
+\begin{theorem}
+If $f : \bb{R}^2 \to \bb{R}$ has partial derivatives $\pdv{f}{x} , \pdv{f}{y}$ then in Cartesian (rectangular) coordinates $$\nabla f = \pdv{f}{x}\mathbf{i}+\pdv{f}{y}\mathbf{j} = \begin{pmatrix}\pdv{f}{x} \\ \pdv{f}{y} \end{pmatrix}.$$ Similarly, if $f : \bb{R}^3 \to \bb{R}$ has partial derivatives $\pdv{f}{x} , \pdv{f}{y}, \pdv{f}{z}$ then in Cartesian coordinates $$\nabla f = \pdv{f}{x}\mathbf{i}+\pdv{f}{y}\mathbf{j}+\pdv{f}{z}\mathbf{k} = \begin{pmatrix}\pdv{f}{x} \\ \pdv{f}{y} \\ \pdv{f}{z}\end{pmatrix}.$$ 
+\end{theorem}
+
+\begin{remark}
+The gradient vector is perpendicular to the level sets. 
+Refer to \href{https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivative-and-gradient-articles/a/the-gradient}{\nolinkurl{www.khanacademy.org}}.
+\end{remark}
+
+\subsubsection{The rate of change of a function}
+
+\begin{theorem}
+Suppose that $f : \bb{R}^m \to \bb{R}$ is differentiable and suppose that $\mathbf{u} \in \bb{R}^m$ is a unit vector. Then $$f'_{\mathbf{u}}(\mathbf{x})=\mathbf{u}\cdot \nabla f(\mathbf{x}).$$
+\end{theorem}
+
+\begin{corollary}
+At a point $\mathbf{x} \in \bb{R}^m$ the value $f(\mathbf{x}) \in \bb{R}$ of the function $f:\bb{R}^m \to \bb{R}$ increases most rapidly in the direction of $\nabla f(\mathbf{x}) \in \bb{R}^m$ and decreases most rapidly in the direction of $-\nabla f(\mathbf{x}) \in \bb{R}^m.$
+\end{corollary}
+
+\begin{theorem}
+Suppose the function $f(\mb{x})$ is differentiable at $(x_0,y_0)$ the the gradient vector, $\nabla,$ has the following properties: \begin{enumerate}
+	
+	\item[(i)] If $\nabla f(x_0,y_0)=\mb{0}$ then $f'_{\mb{u}}(x_0,y_0)=0$ for any vector $\mb{u}.$
+
+	\item[(ii)] If $\nabla f(x_0,y_0)\neq\mb{0}$ then $f'_{\mb{u}}(x_0,y_0)$ is maximised when $\mb{u}$ points in the same direction as $\nabla f(x_0,y_0)$. The maximum value of $f'_{\mb{u}}(x_0,y_0)$ is $\|\nabla f(x_0,y_0)\|.$
+
+	\item[(iii)] If $\nabla f(x_0,y_0)\neq\mb{0}$ then $f'_{\mb{u}}(x_0,y_0)$ is minimised when $\mb{u}$ points in the opposite direction as $\nabla f(x_0,y_0)$. The minimum value of $f'_{\mb{u}}(x_0,y_0)$ is $-\|\nabla f(x_0,y_0)\|.$
+
+\end{enumerate}
+\end{theorem} 
+
+\subsection{Alternative formula for the tangent plane to a surface}
+
+Let $f : \bb{R}^2 \to \bb{R}$ be differentiable at $(x, y) \in \bb{R}^2.$ Then the equation for the tangent plane at the point $(x_0,y_0,z_0 = f(x_0,y_0))$ can be rewritten using the gradient of $f$ as follows: 
+
+\begin{tcolorbox}
+$$z=z_0+(\mathbf{x}-\mathbf{x}_0)\cdot \nabla f(\mathbf{x}_0)$$
+\end{tcolorbox}
+
+\begin{corollary}
+At any given point $p \in S $on a (smooth enough) surface $S$ the tangent plane $T_p(S)$ is unique, i.e. spanned simultaneously by tangent vectors to all possible (smooth) curves in $S$ passing through $p.$
+\end{corollary}
+
+\subsection{Higher order partial derivatives}
+
+By higher-order partial derivative we just mean a “partial derivative of a partial derivative” provided they exist. That is, we can compute $\pdv{}{x}$ of $\pdv{}{z}$ and so on: $$\pdv[2]{f}{x_j}{x_i}:=\pdv{}{x_j}\left(\pdv{f}{x_i}\right).$$
+
+\begin{theorem}
+(Clairaut-Schwartz Theorem) $$\pdv[2]{f}{x_j}{x_i}=\pdv[2]{f}{x_i}{x_j}.$$
+\end{theorem}
+
+A point on notation: for brevity we often use the following alternative notation for partial derivatives using just a
+subscript to $f:$ 
+
+$$\begin{aligned}
+\pdv{f}{x_i}&=f_{x_i}, & \text{ etc.} \\
+\pdv[2]{f}{x} &= f_{xx}, & \pdv[2]{f}{x}{y}=f_{xy} & \text{ etc.}
+\end{aligned}$$
+
+\subsection{Taylor’s Theorem in Two Variables}
+
+\begin{theorem}
+Let $f : \bb{R}^2 \to \bb{R}$ have continuous first and second order partial derivatives. Then there is the following expansion in h, k around $\mathbf{x}_0 = (x_0, y_0)$ such that 
+\begin{multline*}
+f(x_0 +h,y_0 +k) = f(x_0,y_0)+h\pdv{f}{x}(x_0,y_0)+k\pdv{f}{y}(x_0,y_0) \\
++\frac{h^2}{2}\pdv[2]{f}{x}(x_0,y_0)+hk\pdv[2]{f}{y}{x}(x_0,y_0)+\frac{k^2}{2}\pdv[2]{f}{y}(x_0,y_0) +o(||\mathbf{h}||^2),
+\end{multline*}
+
+where the partial derivatives are all evaluated at $\mathbf{x}_0$, and the remainder $o(\|\mathbf{h}\|^2)$ is a function such that $\frac{o(\|\mathbf{h}\|^2)}{(h^2 + k^2)} \to 0$ as $h, k \to 0.$
+\end{theorem}
+
+\subsubsection{Compact formulation}
+
+\begin{definition}
+The $(2 \times 2)$ Hessian matrix, denoted by $Df(x_0,y_0)$ is defined as $$Df(x_0,y_0):=\begin{pmatrix} f_{xx}(x_0,y_0) & f_{xy}(x_0,y_0) \\ f_{yx}(x_0,y_0) & f_{yy}(x_0,y_0) \end{pmatrix}.$$
+
+By stating an equation for the coefficients using indices $\mathbf{i}$ and $\mathbf{j},$ the Hessian matrix is as follows: $$Df(\mathbf{x})_{i,j}=\pdv[2]{f}{x_i}{x_j}.$$
+\end{definition}
+
+\begin{tcolorbox}
+Taylor expansion to $2^{\text{nd}}$ order $$f(\mathbf{x+h})=f(\mathbf{x})+\mathbf{h}\cdot \nabla f(\mathbf{x})+\frac{1}{2}\mathbf{h}\cdot Df(x_0,y_0)\mathbf{h}+o(||\mathbf{h}||^2)$$
+\end{tcolorbox}
+
+\subsection{Maxima and minima of a function}
+
+\begin{definition}
+\hphantom{This text is to make space so it looks good when finalised.} 
+\begin{enumerate}
+	
+	\item[(a)] A function $f(x,y)$ is said to have a \textbf{local maximum} at the point $(a,b)$ in $\bb{R}^2$ if $f(a,b) \geq f(x,y)$ for all points $(x,y)$ in a neighbourhood of $(a,b).$
+
+	\item[(b)] A function $f(x,y)$ is said to have a \textbf{local minimum} at the point $(a,b)$ in $\bb{R}^2$ if $f(a,b) \leq f(x,y)$ for all points $(x,y)$ in a neighbourhood of $(a,b).$
+
+	\item[(c)] A point $(a,b)$ of a function $f(x,y)$ such that $$\nabla f(a,b)=0, \text{ or equivalently } f_x =f_y=0$$ is called a \textbf{critical point.}
+
+	A \textbf{local extreme value} is either a maximum or a minimum.
+
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+If $f$ is differentiable and has a local extreme value at the point $(a,b)$ then $$\pdv{f(a,b)}{x}=\pdv{f(a,b)}{y}=0.$$ i.e. a local extreme value is a critical point. 
+\end{theorem}
+
+\begin{theorem}
+Suppose that $f_x(a,b)=f_y(a,b)=0.$
+
+$$D=\det\begin{pmatrix} f_{xx} & f_{xy} \\ f_{xy} & f_{yy} \end{pmatrix} = f_{xx}f_{yy}-(f_{xy})^2.$$
+
+\begin{enumerate}
+	
+	\item[(a)] If $D > 0$ and $f_{xx}(a,b)>0,$ then $f(a,b)$ is a local minimum.
+
+	\item[(b)] If $D>0$ and $f_{xx}(a,b)<0,$ then $f(a,b)$ is a local maximum.
+
+	\item[(c)] If $D<0,$ then $(a,b)$ is a saddle point.
+
+	\item[(d)] If $D=0,$ then the test tells us nothing.
+
+\end{enumerate}
+\end{theorem}
+
+The definition of a local extremum of a function of three variables is analogous to that for the
+two variable case:
+
+\begin{definition}
+\hphantom{This text is to make space so it looks good when finalised.} 
+\begin{enumerate}
+	
+	\item[(a)] A function $f(x,y,z)$ is said to have a \textbf{local maximum} at the point $(a,b,c)$ if $f(a,b,c) \geq f(x,y,z)$ for all points $(x,y,z)$ in a neighbourhood of $(a,b,c).$
+
+	\item[(b)] A function $f(x,y,z)$ is said to have a \textbf{local minimum} at the point $(a,b,c)$ if $f(a,b,c) \leq f(x,y,z)$ for all points $(x,y,z)$ in a neighbourhood of $(a,b,c).$
+
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+If $f$ is differentiable and has a local extreme value at the point $(a, b, c)$ then $$\nabla f(a,b,c)=\mb{0}.$$
+\end{theorem}
+
+\section{Chain rule}
+
+\subsection{The chain rule for derivatives}
+
+\begin{theorem} \textbf{(Chain rule for $1$ independent variable)} Suppose that $x=g(t)$ and $y=h(t)$ are differentiable functions of $t$ and $z=f(x,y)$ is a differentiable function of $x$ and $y.$ Then $z=f(x(t),y(t))$ is a differentiable function of $t$ and $$\diff{z}{t}=\pdv{z}{x}\diff{x}{t}+\pdv{z}{y}\diff{y}{t},$$ where the ordinary derivatives are evaluated at $t$ and the partial derivatives are evaluated at $(x,y).$
+\end{theorem}
+
+\begin{theorem} \textbf{(Chain rule for $2$ independent variables)} Suppose $x = g(u, v)$ and $y = h(u, v)$ are differentiable functions of $u$ and $v,$ and $z = f (x, y)$ is a differentiable function of $x$ and $y.$ Then, $z = f(g(u, v), h(u, v))$ is a differentiable function of $u$ and $v,$ and $$\begin{aligned}
+\pdv{z}{u} &=\pdv{z}{x}\pdv{x}{u}+\pdv{z}{y}\pdv{y}{u}\\
+\pdv{z}{v}&=\pdv{z}{x}\pdv{x}{v}+\pdv{z}{y}\pdv{y}{v}
+\end{aligned}$$
+\end{theorem}
+
+\subsection{The chain rule for paths}
+
+\begin{theorem}
+\textbf{(Chain rule along a curve)} Let $f:\bb{R}^m\to\bb{R}$ and a path $\mb{r}:\bb{R}\to \bb{R}^m$. The rate of change of the function $f(\mb{r}(t))$ with respect to $t$ along the curve $\mb{r}(t)$ is
+\begin{tcolorbox}
+$$\diff{f(\mb{r}(t))}{t}=\nabla f(\mb{r}(t))\cdot \mb{r'}(t).$$
+\end{tcolorbox}
+\end{theorem}
+
+\subsection{Extrema with extra conditions - Lagrange Multiplier}
+
+\begin{theorem}
+If the function $f(\mb{x})$ has an extremum (subject to $g(\mb{x}) = c$) at the point $\mb{x}_0,$ then the vectors $\nabla f(\mb{x}_0)$ and $\nabla g(\mb{x}_0)$ are parallel. Thus, if $\nabla g(\mb{x}_0)$ is non-zero, there exists a unique constant $\lambda$ (known as a Lagrange multiplier) such that $$\nabla f(\mb{x}_0)=\lambda\nabla g(\mb{x}_0).$$
+\end{theorem}
+
+\begin{example}
+Use the method of Lagrange multipliers to find the minimum value of $f(x, y) = x^2 + 4y^2 - 2x + 8y$ subject to the constraint $x + 2y = 7.$
+
+\textbf{Solution:} Let $g(x,y)=x+2y-7$
+$$\begin{aligned}
+\nabla f(x,y) &= \begin{pmatrix} 2x-2 \\ 8y+8 \end{pmatrix} \\
+\nabla g(x,y) &= \begin{pmatrix} 1 \\ 2 \end{pmatrix}. 
+\end{aligned}$$ Using the Lagrange multiplier theorem we have: $$\begin{aligned}
+\nabla f(x,y) &=\lambda \nabla g(x,y) \\
+\begin{pmatrix} 2x-2 \\ 8y+8 \end{pmatrix} &= \lambda\begin{pmatrix} 1 \\ 2 \end{pmatrix}. 
+\end{aligned}$$ Then by equating the coefficients we have a system of linear equations to solve:$$\begin{aligned}
+\begin{cases}
+2x-2=\lambda \\
+8y+8=2\lambda\\
+x+2y-7=0.
+\end{cases}
+\end{aligned}$$ Solving the system we have that $\lambda=4y+4$ and using the substitution for $\lambda$ the values of $x$ and $y$ are obtained and it follows that $(x,y)=(5,1).$
+\end{example}
+
+\section{Integrals of Scalar Functions over Curves}
+
+\begin{theorem}
+Suppose that $\mb{r} : [a,b] \to C \subset \bb{R}^m$ is any parametrisation of a curve $C$ in $\bb{R}^m.$ Then the integral of a function $f : \bb{R}^m \to \bb{R}$ over $C$ is given by the formula $$\int_C f \, ds=\int_{a}^{b}f(\mb{r}(t)) \; \|\mb{r'}(t)\|\,dt.$$
+\end{theorem}
+
+This can thought of as the surface area of the two-dimensional strip between the curve $C$ and the
+graph of $f$ over $C.$
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{./Resources/Scalar value integral demonstration.png}
+\caption{Illustration from lecture scans}
+\end{figure}
+
+\subsection{Arc length}
+
+\begin{definition}
+Let $C$ be an arc of a curve (of finite extent). Then the arc-length of $C$ is defined
+to be the integral $$l=\int_C\, ds.$$
+\end{definition}
+
+\begin{theorem}
+Suppose that $\mb{r}(t) : [a,b] \to \bb{R}^m$ is any parametrisation of a curve $C$ in $\bb{R}^m.$ Then the length $l$ of the arc is $$l=\int_{a}^{b}\|\mb{r'}(t)\|\,dt.$$ If $\mb{r}(t)=(x_1(t),x_2(t),\ldots,x_m(t)),$ then $$l=\int_{a}^{b} \sqrt{x'_1(t)^2+x'_2(t)^2+\ldots+x'_m(t)^2} \, dt.$$
+\end{theorem}
+
+\section{Vector Fields}
+
+\begin{definition}
+A function $\mb{u} : \bb{R}^m \to \bb{R}^m$ is called a \textbf{vector field.} It assigns to each point in $\bb{R}^m$ an $m$-vector.
+\end{definition}
+
+\subsection{Derivatives of vector fields: Div}
+
+In this section we regard $\nabla$ as a `vector differential operator' i.e. $$\nabla =\pdv{}{x}\mb{i}+\pdv{}{y}\mb{j}+\pdv{}{z}\mb{k}.$$
+
+\begin{definition}
+If $\mb{v}(x, y, z) = v_1(x, y, z)\mb{i} + v_2(x, y, z)\mb{j} + v_3(x, y, z)\mb{k}$ then
+\begin{tcolorbox}
+$$\nabla \cdot \mb{v}=\Div{\mb{v}}=\pdv{v_1}{x}+\pdv{v_2}{y}+\pdv{v_3}{z}.$$ $\nabla \cdot \mb{v}$ is called the \textbf{divergence} of $\mb{v}$ or simply $\Div{\mb{v}}$
+\end{tcolorbox}
+\end{definition}
+
+\begin{remark}
+$\nabla \cdot \mb{v}$ is a \textbf{scalar function} $\bb{R}^3\to \bb{R}.$
+\end{remark}
+
+\subsubsection*{Interpretation of divergence}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{./Resources/Divergence.png}
+\caption{Illustration of divergence in a vector field.}
+\end{figure}
+
+Imagine the vector field representing the motion of fluids then negative divergence indicates `sinks' and positive divergence indicates `sources.'
+
+\subsection{Derivatives of vector fields: Curl}
+
+\begin{definition}
+The curl of a vector field $\mb{v} : \bb{R}^3 \to \bb{R}^3$ is the vector field defined by \begin{tcolorbox}
+$$\nabla \times \mb{v}=\Curl{\mb{v}}=\left(\pdv{v_3}{y}-\pdv{v_2}{z}\right)\mb{i}+\left(\pdv{v_1}{z}-\pdv{v_3}{x}\right)\mb{j}+\left(\pdv{v_2}{x}-\pdv{v_1}{y}\right)\mb{k}.$$
+\end{tcolorbox}
+\end{definition}
+
+It is difficult to recall the equation for the curl so, it is easier to recall how to compute the determinant of a $3\times3$ matrix: $$\nabla \times \mb{v} = \det \begin{pmatrix} \mb{i}&\mb{j}&\mb{k} \\ \pdv{}{x}&\pdv{}{y}&\pdv{}{z}\\ v_1&v_2&v_3 \end{pmatrix}.$$
+
+\begin{definition} \label{def:Green's curl}
+The curl of a vector field $\mb{v} : \bb{R}^2 \to \bb{R}^2$ is the vector field defined by \begin{tcolorbox}
+$$\nabla \times \mb{v} = \Curl{\mb{v}} = \left(\pdv{v_2}{x}-\pdv{v_1}{y}\right)\mb{k}.$$
+\end{tcolorbox}
+\end{definition}
+
+\begin{remark}
+Again as the notation would suggest, $\nabla \times \mb{v}$ is a vector quantity. It is called the \textit{curl} of $\mb{v}$ or simply $\Curl{\mb{v}}.$
+\end{remark}
+
+
+
+\subsubsection*{Interpretation of curl}
+
+Curl is a measure of how much a vector field circulates or rotates about a given point. when the flow is anti-clockwise, curl is considered to be positive and when it is clockwise, curl is negative. \href{https://skill-lync.com/blogs/what-is-the-physical-meaning-of-divergence-curl-and-gradient-of-a-vector-field}{\nolinkurl{www.skill-lync.com}}.
+
+\subsection{Cross-product and the antisymmetric \texorpdfstring{$\varepsilon$}{TEXT}-tensor}
+
+\begin{definition}
+The $\varepsilon$-tensor is a three-index object $\varepsilon_{ijk},$ where $i, j, k$ take values in the set
+$\{1, 2, 3\}$ with the following properties:
+\begin{enumerate}
+	
+	\item $\varepsilon_{ijk}=1;$
+	\item $\varepsilon$ is antisymmetric: $\varepsilon_{ijk}=-\varepsilon_{jik};$
+	\item Invariance under cyclic permutation: $\varepsilon_{ijk} = \varepsilon_{kij} = \varepsilon_{jki};$
+	\item $\varepsilon_{ijk}=0$ whenever two or more indices agree, e.g. $0 = \varepsilon_{112} = \varepsilon_{333} = \varepsilon_{313}\ldots$
+
+\end{enumerate}
+\end{definition} 
+
+Note that the last property follows directly from antisymmetry: consider the case with two indices the same: $\varepsilon_{iik}.$ Then by antisymmetry $\varepsilon_{iik} = -\varepsilon_{iik},$ which can only by true if $\varepsilon_{iik} = 0.$ In components, we can write out all the values of the $\varepsilon$-tensor: $$\begin{aligned}
+\varepsilon_{ijk}=\begin{cases}
+1\quad &\text{if } (ijk) =(123),(312),(231)\\
+-1 \quad &\text{if } (ijk)=(132),(213),(321)\\
+0 \quad &\text{else}
+\end{cases}
+\end{aligned}$$
+
+\begin{theorem}
+The cross product of two vectors can be expressed using the $\varepsilon$-tensor as follows: the $i^{\text{th}}$ component of the vector $\mb{v \times w}$ is $$(\mb{v\times w})_i=\sum_{j=1}^{3} \sum_{k=1}^{3} \varepsilon_{ijk}v_jw_k.$$
+\end{theorem}
+
+\subsection{Identities for \texorpdfstring{$\nabla$}{TEXT}}
+
+\begin{enumerate}
+	\item Linearity: $$\begin{aligned}\nabla \cdot (\mb{v+w})&=(\nabla\cdot\mb{v})+(\nabla\cdot\mb{w}), \\
+	\nabla \times (\mb{v+w})&=(\nabla\times\mb{v})+(\nabla\times\mb{w}).\end{aligned}$$
+
+	\item Leibniz rule: $$\begin{aligned}
+	\nabla\cdot(f\mb{v})&=(\nabla f)\cdot \mb{v}+f(\nabla \cdot \mb{v})\\
+	\nabla\times(f\mb{v})&=(\nabla f)\times \mb{v}+f(\nabla \times \mb{v})\\
+	\nabla\cdot(\mb{v\times w})&=(\nabla\times\mb{v})\cdot\mb{w}-\mb{v}\cdot(\nabla\times\mb{w}).
+	\end{aligned}$$
+
+	\item Second derivative: $$\nabla\cdot(\nabla\times\mb{v})=0 \quad \text{for any vector field } \mb{v}.$$ Can be thought as $'\Div{(\Curl)=0'.}$ \\ Conversely, if $\nabla\cdot\mb{w}=0$ then on any simply connected domain (a domain with no holes) one can find a vector field $\mb{v}$ such that $\mb{w}=\nabla\times\mb{v}.$ 
+	$$\nabla\times(\nabla f)=0 \quad \text{for any function }f.$$ Can be thought as $'\Curl{(\Grad{\mb{v}})}'.$ \\ Conversely, if $\nabla\times\mb{w}=0$ then on any simply connected domain one can find a function $f$ such that $\mb{w}=\nabla f.$
+	$$\nabla\cdot(\nabla f \times \nabla g)=0\quad \text{for any function $f$ and $g$}.$$
+	$$\nabla\cdot(\nabla f)=\pdv[2]{f}{x}+\pdv[2]{f}{y}+\pdv[2]{f}{z}=f_{xx}+f_{yy}+f_{zz}=\nabla^2f.$$
+	For vector fields $\mb{v}$ we can define $\nabla^2\mb{v}$ through the equation $$\nabla\times(\nabla\times\mb{v})=\nabla(\nabla\cdot \mb{v})-\nabla^2\mb{v}.$$ $\nabla^2f$ can be thought as $'\Div{(\Grad{f})}'$ which is also known as the ``Laplace operator'' or ``Laplacian''.
+
+\end{enumerate}
+
+\subsection{Test for integrability of vector fields}
+
+It is often very important to know whether a vector field $\mb{v}$ can be written as the gradient of a scalar field $$\mb{v}=\nabla f$$ or as the curl of a different vector field $$\mb{v}=\nabla \times \mb{u}.$$
+
+\subsubsection{Can \texorpdfstring{$\mb{v}$}{TEXT} be written as the gradient of a scalar function?}
+
+\begin{enumerate}
+	
+	\item[(a)] If $\nabla\times \mb{v} \neq0$ then $\mb{v}$ cannot be written as the gradient of a scalar function.
+
+	\item[(b)] If $\nabla \times \mb{v} = 0$ then on any simply connected region, $\mb{v}$ can be written as the gradient of a scalar function.
+
+\end{enumerate}
+
+\subsubsection{Can \texorpdfstring{$\mb{v}$}{TEXT} be written as the curl of a vector field?}
+
+\begin{enumerate}
+	
+	\item[(a)] If $\nabla\cdot \mb{v} \neq0$ then $\mb{v}$ cannot be written as the curl of a vector field.
+
+	\item[(b)] If $\nabla \cdot \mb{v} = 0$ then on any simply connected region, $\mb{v}$ can be written as as curl of a vector field.
+
+\end{enumerate}
+
+\section{Line Integrals for Vector fields}
+
+\begin{proposition}
+Suppose that $C$ is the arc of the curve $\mb{r}(t)$ corresponding to $a \leq t \leq b.$ Then $$\int_C \mb{v}\cdot \,d\mb{r}=\int_{a}^{b} \mb{v}(\mb{r}(t))\cdot\mb{r'}(t)\,dt.$$
+\end{proposition}
+
+\begin{proposition}
+Suppose that $C$ is the arc of the curve $\mb{r}(t)$ in $\bb{R}^3$ corresponding to $t_1 \leq t \leq t_2.$ Then $$\int_C \mb{v}\cdot \,d\mb{r}=\int_{t_1}^{t_2} \mb{v}(\mb{r}(t))\cdot\mb{r'}(t)\,dt.$$
+\end{proposition}
+
+\subsection*{Alternative notation}
+
+If $\mb{v}(x, y, z) = P (x, y, z)\mb{i} + Q(x, y, z)\mb{j} + R(x, y, z)\mb{k},$ then, expanding $d\mb{r}=dx\mb{i}+dy\mb{j}+dz\mb{k}, \int_C \mb{v}\cdot d\mb{r}$ may also be expanded as $$\int_C P(x,y,z)\,dx+Q(x,y,z)\,dy+R(x,y,z)\,dz .$$  Also, if $C$ is parametrised as $\mb{r}(t)= x(t)\mb{i} + y(t)\mb{j} + z(t)\mb{k}, t_1 \leq t \leq t_2,$ $$\begin{aligned}
+dx&= x'(t) dt, \\
+dy&= y'(t) dt, \\
+dz&= z'(t) dt,
+\end{aligned}$$ and thus $$\begin{aligned}
+\int_C \mb{v}\cdot d\mb{r} &= \int_C P(x,y,z)\,dx+Q(x,y,z)\,dy+R(x,y,z)\,dz \\
+&=\int_{t_1}^{t_2} \left(P(x(t),y(t),z(t))x'(t)+Q(x(t),y(t),z(t))y'(t)+R(x(t),y(t),z(t))z'(t)\right) \, dt.
+\end{aligned}$$
+
+\subsection{FTC I}
+
+\begin{theorem}
+(\textbf{FTC I}) Suppose that $f : \bb{R}^m \to \bb{R}$ is a function and that $C$ is the arc of a curve which starts at $p\in \bb{R}^m$ and ends at $q\in \bb{R}^m.$ Then $$\int_C \nabla f\cdot d\mb{r}=f(\mb{q})-f(\mb{p}).$$
+\end{theorem}
+
+\begin{corollary}
+If $\mb{v} = \nabla f$ for some function $f$ and $C_1$ and $C_2$ are two arcs which begin at the same point and end at the same point, then $$\int_{C_1}\mb{v}\cdot \, d\mb{r}=\int_{C_2}\mb{v}\cdot \, d\mb{r}.$$
+\end{corollary}
+
+\begin{corollary}
+If $C$ is a closed arc (that is, its starting point and finishing point coincide) and $\mb{v} = \nabla f$ for some function $f,$ then $$\oint_C\mb{v}\cdot \, d\mb{r}=0$$
+\end{corollary}
+
+\section{Double Integrals}
+
+\begin{definition}
+Suppose that $U$ is the region $U=\{(x,y) : a \leq x\leq b, p \leq y \leq q\}$ then $$\iint_U f(x,y)\, dxdy = \lim_{\substack{\delta x \to 0 \\ \delta y \to 0}} \sum \sum f(x,y) \delta x \delta y.$$
+\end{definition}
+
+\begin{remark}
+As single integrals represent signed area, double integrals represent the signed volume.
+\end{remark}
+
+\begin{definition}
+The area of the region $R$ is given by $A(R) = \iint_R 1 \, dxdy.$
+\end{definition}
+
+\subsection{Rectangular regions}
+
+\begin{remark}
+A remark on notation: the region $R = \{(x,y) : a \leq x \leq b, c\leq y \leq d\} \subset \bb{R}^2$ can be also written as $R=[a,b]\times[c,d].$
+\end{remark}
+
+\begin{theorem}
+\textbf{(Properties of the double integrals)} Assume that the functions $f (x, y)$ and $g(x, y)$ are integrable over the rectangular region $R; S$ and $T$ are subregions of $R;$ and assume that $m$ and $M$ are real numbers. \begin{enumerate}
+	
+	\item[(i)] If $R=S \cup T$ and $S\cap T = \emptyset$ except an overlap on the boundaries, then $$\iint_Rf(x,y) \, dxdy = \iint_S f(x,y) \, dxdy+ \iint_T f(x,y) \, dxdy.$$
+
+	\item[(ii)] If $m \leq f(x,y) \leq M,$ then $$m \times A(R) \leq \iint_R f(x,y) \, dxdy \leq M \times A(R).$$
+
+	\item[(iii)] In the case where $f (x, y)$ can be factored as a product of a function $g(x)$ of $x$ only and a function $h(y)$ of $y$ only, then over the region $R = \{(x, y) : a \leq x \leq b, c \leq y \leq d\},$ the double integral can be written as $$\iint_R f(x,y) \, dxdy =\left(\int_a^b g(x) \, dx\right)\left(\int_c^d h(y) \, dy\right).$$
+
+\end{enumerate}	
+\end{theorem}
+
+\begin{theorem} \textbf{(Fubini's Theorem)}
+Suppose that $f(x,y)$ is a function of two variables that is continuous over a rectangular region $R=\{(x,y) \in \bb{R}^2 : a \leq x \leq b,c\leq y\leq d\}.$ The the double integral of $f$ over the region $R,$ $$\iint_R f(x,y) \, dxdy =\iint_R f(x,y) \, dydx.$$
+\end{theorem}	
+
+\begin{remark}
+In this course Fubini's theorem will always be true.
+\end{remark}
+
+\begin{definition}
+Assume $a, b, c,$ and $d$ are real numbers. We define an \textbf{iterated integral} for a function $f (x, y)$ over the rectangular region $R=[a,b]\times [c,d]$ as \begin{enumerate}
+	
+	\item[(a)] $$\int_a^b\int_c^d f(x,y) \, dydx = \int_a^b\left[\int_c^d f(x,y) \, dy\right]dx;$$
+
+	\item[(b)] $$\int_a^b\int_c^d f(x,y) \, dxdy = \int_a^b\left[\int_c^d f(x,y) \, dx\right]dy.$$
+
+\end{enumerate}
+
+The notation $\int_a^b\left[\int_c^d f(x,y) \, dy\right]dx$ means that we integrate $f(x,y)$ with respect to $y$ while holding $x$ constant and vice versa.
+
+\end{definition}
+
+\begin{example}
+Evaluate the double integral $\iint_R (xy-3xy^2) \,dxdy$ where $R=\{(x,y) : 0 \leq x \leq 2, 1\leq y \leq 2\}.$ \\
+\textbf{Solution:} $$\begin{aligned}
+I=\iint_R (xy-3xy^2) \,dxdy &= \iint_R xy \, dxdy - \iint_R 3xy^2\, dxdy \\
+&= \int_{y=1}^{y=2} \int_{x=0}^{x=2} xy \, dxdy - \int_{y=1}^{y=2} \int_{x=0}^{x=2} 3xy^2 \, dxdy \\
+&= \int_{y=1}^{y=2} \left[\frac{x^2}{2}y\right]_{x=0}^{x=2} \, dy - 3\int_{y=1}^{y=2} \left[\frac{x^2}{2}y^2\right] \, dy \\
+&= \int_1^2 2y \, dy - \int_1^2 6y^2 \, dy \\
+&= [y^2]_1^2 - [2y^3]_1^2\\
+&= -11.
+\end{aligned}$$
+\end{example}
+
+\begin{example}
+Illustrating Property (ii). \\
+Over the region $R=\{(x,y): 1\leq x \leq 3, 1\leq y \leq 2\},$ we have $2\leq x^2+y^2\leq 13.$ Find a lower and upper bound for the integral $\iint_R (x^2+y^2) \, dxdy.$ \\
+\textbf{Solution:} For a lower bound, integrate the constant function $2$ over the region $R.$ For an upper bound, integrate the constant function $13$ over the region $R.$
+$$\begin{aligned}
+\int_1^2\int_1^3 2 \, dxdy &= 4 \\
+\int_1^2\int_1^3 13 \, dxdy &= 26.
+\end{aligned}$$ Hence, we obtain $$4 \leq \iint_R (x^2+y^2) \, dxdy \leq 26.$$
+\end{example}
+
+\begin{example}
+Illustrating Property (iii).\\
+Evaluate the integral $\iint_R e^y \cos(x) \, dxdy$ over the region $R=\{(x,y):0\leq x\leq \f{\pi}{2}, 0 \leq y \leq 1\}.$\\
+\textbf{Solution:} $$\begin{aligned}
+\iint_R e^y \cos(x) \, dxdy &= \int_0^1 \int_0^{\frac{\pi}{2}} e^y \cos(x) \, dxdy \\
+&= \left(\int_0^1 e^y \, dy\right)\left(\int_0^{\frac{\pi}{2}} \cos(x) \, dx\right) \\
+&= e-1.
+\end{aligned}$$
+\end{example}
+
+\subsection{General regions}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.69\textwidth]{./Resources/General region.png}
+\caption{For a region $D \subset R.$}
+\label{fig:General region}
+\end{figure}
+
+In order to develop double integrals of $f$ over $D,$ we extend the definition of the function to include all points on the rectangular region $R.$ By defining a new function $g(x,y)$ on $R$ as follows, $$\begin{aligned}
+g(x,y)= \begin{cases}
+f(x,y) &\text{if $(x,y)$ is in $D,$}\\
+0 		&\text{if $(x,y)$ is $R$ but not in $D.$}
+\end{cases}
+\end{aligned}$$
+
+\begin{definition}
+A region $D$ in the $(x, y)$ plane is of \textbf{Type I} if it lies between two vertical lines and the graphs of two continuous functions $g_1 (x)$ and $g_2 (x).$ 
+\end{definition}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{./Resources/Type 1 region.png}\caption{A Type I region.}
+\end{figure}
+
+\begin{definition}
+A region $D$ in the $(x,y)$ plane is of \textbf{Type II} if it lies between two horizontal lines and the graphs of two continuous functions $h_1 (y)$ and $h_2 (y). $
+\end{definition}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{./Resources/Type 2 region.png}
+\caption{A Type II region.}
+\end{figure}
+
+\begin{example}
+\textbf{(Describing a Region as Type I and also Type II).}
+Consider the region in the first quadrant between the functions $y = \sqrt{x}$ and $y = x^3.$ Describe the region first as Type I and then as Type II. \\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{./Resources/Example - Type 1 and 2 region.png}
+\caption{Region $D$}
+\label{fig:example Type I & Type II region}
+\end{figure} 
+
+\textbf{Solution:}
+When describing a region as Type I, we need to identify the function that lies above the region and the function that lies below the region. Here, region D is bounded above by $y = \sqrt{x}$ and below by $y = x^3$ in the interval for $x$ in $[0, 1].$ Hence, as Type I, $D$ is described as the set $\{(x,y) : 0\leq x \leq 1, x^3 \leq y \leq \sqrt{x}\}.$ 
+\par However, when describing a region as Type II, we need to identify the function that lies on the left of the region and the function that lies on the right of the region. Here, the region $D$ is bounded on the left by $x = y^2$ and on the right by $x = \sqrt[3]{y}$ in the interval for $y$ in $[0, 1].$ Hence, as Type II, $D$ is described as the set $\{(x,y) : y^2\leq x \leq \sqrt[3]{x},  0\leq y \leq 1\}$
+\end{example}
+
+\begin{theorem}
+\textbf{(Double Integrals over Non-rectangular Regions)} Suppose $g(x, y)$ is the extension to the rectangle $R$ of the function $f (x, y)$ defined on the regions $D$ and $R$ as shown in Figure~\ref{fig:General region} inside $R.$ Then g$(x, y)$ is integrable and we define the double integral of $f (x, y)$ over $D$ by $$\iint_D f(x,y) \, dxdy =\iint_R g(x,y) \, dxdy.$$
+\end{theorem}
+
+\begin{example}
+Evaluate $I=\iint_D x(y-1) \, dxdy$ where $D$ is the region bounded by $y=1-x^2,$ and $y=x^2-3.$ \\
+\textbf{Solution:} Start by sketching the region in the $(x,y)$ plane.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{./Resources/General region-example.png}
+\caption{Region $D$}
+\label{fig:General region-example}
+\end{figure}
+
+To decide whether to integrate in respect to $x$ or $y$ use this method: \begin{itemize}
+
+	\item Integrating in respect to $x$: the integration is horizontal so, does the left function and right function change as we move left and right in the region of integration?
+
+	\item Integration in respect to $y$: the integration is vertical so, does the lower function and upper function change as we move up and down in the region of integration?
+\end{itemize} 
+
+In the region $D$ of Figure~\ref{fig:General region-example} as we move left to right the function changes so, doing the integration in respect to $x$ is not optimal as we have to consider two different functions hence, two different integrals. Whereas, as we move up and down in the region the lower and upper function do not change so, the integration is efficient in respect to $y.$ So, the limits for this integral are $$\begin{aligned}
+-\sqrt{2}\leq &x \leq \sqrt{2}\\
+x^2-3\leq &y \leq 1-x^2.
+\end{aligned}$$ The integral then is set up as $$\begin{aligned}
+I=\int_{-\sqrt{2}}^{\sqrt{2}}\left(\int_{x^2-3}^{1-x^2}x(y-1)\, dy\right)\, dx
+\end{aligned}$$
+\end{example}
+
+\begin{theorem}
+\textbf{(Decomposing Regions)} Suppose the region $D$ can be expressed as $D = D_1 \cup D_2$ where $D_1$ and $D_2$ do not overlap except at their boundaries. Then $$\iint_D f(x,y) \, dxdy = \iint_{D_1} f(x,y) \,dxdy+\iint_{D_2} f(x,y) \,dxdy.$$
+\end{theorem}
+
+\begin{example}
+Express the region $D$ shown in Figure~\ref{fig:Region Decomposition} as a union of regions of Type I or Type II, and evaluate the integral $\iint_D (2x+5y) \, dxdy.$
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{./Resources/Region to Decompose.png}
+\caption{The region D which can be decomposed in a union of three regions}
+\label{fig:Region Decomposition}
+\end{figure}
+\end{example}
+
+\textbf{Solution:} The region $D$ can be decomposed into the union of three regions, each of either Type I or Type II. So, $D=D_1\cup D_2 \cup D_3$ where, $$\begin{aligned}
+D_1&=\left\{(x,y):-2\leq x\leq 0, 0 \leq y \leq (x+2)^2\right\}, \\
+D_2&=\left\{(x,y): 0\leq x \leq \left(y-\frac{1}{16}y^3\right), 0\leq y \leq 4\right\} \\
+D_3&=\left\{(x,y): -2 \leq x \leq \left(y-\frac{1}{16}y^3\right), -4\leq y \leq 0\right\}.
+\end{aligned}$$ 
+These regions are more clearly illustrated in Figure~\ref{fig:Decomposed region}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{./Resources/Region Decomposed.png}
+\caption{Decomposed region $D=D_1 \cup D_2 \cup D_3$}
+\label{fig:Decomposed region}
+\end{figure}
+
+\subsection{Changing variables}
+
+\begin{theorem}
+Suppose that the pair of functions $u = u(x, y)$ and $v = v(x, y)$ are invertible so that $x = x(u, v)$ and $y = y(u, v).$ Also suppose that the region $U$ in the $(x, y)$-plane corresponds to the region $U'$ in the $(u,v)$-plane. Then $$\iint_U f(x,y) \, dxdy = \iint_{U'} f(x(u,v),y(u,v)) \, \left| \pdv{(x,y)}{(u,v)} \right| \, dudv,$$ where $$\pdv{(x,y)}{(u,v)} = \det \begin{pmatrix} \pdv{x}{u} & \pdv{y}{u} \\ \pdv{x}{v} & \pdv{y}{v} \end{pmatrix}=\det\begin{pmatrix} \pdv{x}{u} & \pdv{x}{v} \\ \pdv{y}{u} & \pdv{y}{v} \end{pmatrix}$$ The matrix is known as the \textbf{Jacobian.}
+\end{theorem}
+
+\begin{example}
+Evaluate $I=\iint_R xy^3 \, dxdy$ where $R$ is the region bounded by $xy=1, xy=3,y=2$ and $y=6$ using the transformation $x=\f{v}{6u},y=2u.$ \\ 
+\textbf{Solution:} First, transform the each of the boundary curves $$\begin{aligned}
+y&=6: 2u=6 &\imply u=3 \\
+xy&=3: \left(\f{v}{6u}\right)(2u)=3 &\imply v=9\\
+y&=2: 2u=2 &\imply u=1\\
+xy&=1: \left(\f{v}{6u}\right)(2u)=1 &\imply v=3\\
+\end{aligned}$$ So, the limits for the transformed region are, $$\begin{aligned}
+1\leq &u \leq 3\\
+3 \leq &v \leq 9
+\end{aligned}$$ Next, evaluate the Jacobian: $$\pdv{(x,y)}{(u,v)}=\det \begin{pmatrix} \pdv{x}{u} & \pdv{x}{v} \\ \pdv{y}{u} & \pdv{y}{v} \end{pmatrix} = \det \begin{pmatrix} -\f{v}{6u^2} & \f{1}{6u} \\ 2 & 0 \end{pmatrix}=0-\f{2}{6u}=-\f{1}{3u}.$$ Now the integral can be written in the $(u,v)$ coordinates system: 
+$$\begin{aligned}I&=\int_{1}^{3}\int_{3}^{9}\left(\f{v}{6u}\right)(2u)^3\left|-\f{1}{3u}\right| \, dvdu\\
+&= \int_{1}^{3}\int_{3}^{9} \f{4}{9}vu \, dvdu.
+\end{aligned}$$
+\end{example}
+
+\subsubsection{Polar coordinates}
+
+\begin{definition}
+A \textbf{polar rectangle} is the set $R=\{(r,\theta) : a\leq r \leq b, \alpha \leq \theta \leq \beta\}.$
+\end{definition}
+
+\begin{theorem}
+If $f$ is continuous on a polar rectangle $R$ given by $a\leq r \leq b, \alpha \leq \theta \leq \beta,$ where $0\leq \beta-\alpha\leq 2\pi,$ then $$\iint_R f(x,y) \, dxdy =\int_\alpha^\beta\int_a^b f(r\cos(\theta),r\sin(\theta)) r  \,drd\theta.$$
+\end{theorem}
+
+\begin{example}
+Evaluate $\iint_R (3x+4y^2) \, dxdy$ where $R$ is the region in the upper half-plane bounded by the circles $x^2+y^2=1$ and $x^2+y^2=4.$ \\
+\textbf{Solution:} The region $R$ can be described as $$\begin{aligned}
+R&=\{(x,y) : y \geq 0, 1\leq x^2+y^2\leq 4\}
+&=\{(r,\theta): 1\leq r\leq 2, 0\leq \theta\leq \pi\}.
+\end{aligned}$$ Therefore,
+
+$$\begin{aligned}
+\iint_R (3x+4y^2) \, dxdy &= \int_0^{\pi}\int_1^2(3r\cos(\theta)+4r^2\sin^2(\theta))r\, drd\theta \\
+	&=\int_0^{\pi}\int_1^2(3r^2\cos(\theta)+4r^3\sin^2(\theta))\, drd\theta \\
+	&=\int_0^{\pi}\left[r^3\cos(\theta)+r^4\sin^2(\theta))\right]_{r=1}^{r=2} \, d\theta \\
+	&= \int_0^{\pi} (7\cos(\theta)+15\sin^2(\theta))\, d\theta \\
+	&= \f{15}{2}\pi.
+\end{aligned}$$
+\end{example}
+
+\subsection{FTC II: Green's Theorem}
+
+\begin{theorem}\label{th:Green}
+\textbf{(FTC II)} Let $C$ be a simple closed curve in $\bb{R}^2$ and $\Omega$ be the interior of $C.$ Also let $\mb{v} : \bb{R}^2 \to \bb{R}^2$ be a vector field on $\bb{R}^2,$ given in components by $\mb{v}(x,y) = P(x,y)\mb{i} + Q(x,y)\mb{j},$ with components functions that have continuous partial derivatives on $\Omega.$ Then, if $C$ is parametrised in an anti-clockwise direction, $$\iint_{\Omega}\left(\pdv{Q}{x}-\pdv{P}{y}\right)\,dxdy=\oint_C P\, dx+Q\, dy=\oint_C \mb{v}\cdot \, d\mb{r}.$$
+\end{theorem}
+
+\begin{corollary}
+With the assumptions of Theorem \ref{th:Green}, Green's theorem can be restated as $$\iint_{\Omega} \left(\nabla \times \mb{v}\right)\cdot \mb{k} \, dxdy =\oint_C \mb{v}\cdot \, d\mb{r}.$$ This also follows from Definition \ref{def:Green's curl}.
+\end{corollary}
+
+\begin{corollary}
+\textbf{(Area formula)} Let $C$ be a simple closed curve in $\bb{R}^2$ and $\Omega$ be the interior of $C.$ Then the area of the interior region is given by $$\text{Area}(\Omega)=\f{1}{2}\oint_C (-y \, dx +x\, dy).$$
+\end{corollary}
+
+\begin{example}
+Evaluate $\oint_C(3y-e^{\sin{x}}) \, dx+\left(7x+\sqrt{y^4+1}\right) \, dy,$ where $C$ is the circle $x^2+y^2=9.$ \\
+\textbf{Solution:}  The region $D$ bounded by $C$ is the disk $x^2 + y^2 \leq 9,$ by applying Green's theorem and changing into polar coordinates: 
+$$\begin{aligned}
+I&=\oint_C(3y-e^{\sin{x}}) \, dx+\left(7x+\sqrt{y^4+1}\right) \, dy \\
+&=\iint_D\left[\pdv{}{x}\left(7x+\sqrt{y^4+1}\right)-\pdv{}{y}\left(3y-e^{\sin{x}}\right)\right] \, dxdy \\
+&=\int_0^{2\pi}\int_0^3 (7-3) r\, drd\theta \\
+&= 36\pi.
+\end{aligned}$$
+\end{example}
+
+\section{Surface Integrals}
+
+\subsection{Parametric surfaces}
+
+\begin{definition}
+A parametrisation of a surface $S \subset \bb{R}^3$ means a differentiable map from a region $U \subset \bb{R}^2$ to $S$ $$\mb{r}:U\subset \bb{R}^2 \to S\subset \bb{R}^3, \quad (u,v)\mapsto \mb{r}(u,v),$$ which is onto and one-to-one except possible on a `line of points' i.e. $$\mb{r}(u,v)=\begin{pmatrix} x(u,v)\\y(u,v) \\z(u,v) \end{pmatrix}.$$
+\end{definition}
+
+A simple way to parametrise graphs is to use $x$ and $y$ as the parameters such that $$\mb{r}(x,y) = \begin{pmatrix} x\\y\\f(x,y) \end{pmatrix}.$$
+
+\subsubsection{The fundamental vector product of a surface}
+
+\begin{definition}
+Let $$\mb{r}(u,v) = \begin{pmatrix} x(u,v)\\y(u,v)\\z(u,v) \end{pmatrix}$$ be a parametrised surface, and $$\mb{r'_u}(u,v)= \pdv{x(u,v)}{u}\mb{i} + \pdv{y(u,v)}{u}\mb{j} +\pdv{z(u,v)}{u}\mb{k}$$ and $$\mb{r'_v}(u,v)=\pdv{x(u,v)}{v}\mb{i} + \pdv{y(u,v)}{v}\mb{j} +\pdv{z(u,v)}{v}\mb{k} $$ be partial derivatives of $\mb{r}$ with respect to $u$ and $v$ respectively. Then the vector $$\mb{N}(u,v)=\mb{r'_u}(u,v)\times \mb{r'_v}(u,v)$$ is known as the \textbf{fundamental vector product} of the surface at the point $\mb{r}(u,v).$
+\end{definition}
+
+\begin{remark}
+The vectors $\mb{r'_u}$ and $\mb{r'_v}$ are tangent vectors at the points $\mb{r}(u,v_0)$ and $\mb{r}(u_0,v)$ respectively. To obtain the equation of the tangent plane at the point $(a,b,c)$ first compute $\mb{r'_u}\times \mb{r'_v} = \begin{pmatrix} Q \\ R \\ S \end{pmatrix}$ and the equation of the tangent plane will be $$Q(x-a)+R(y-b)+S(z-c)=0.$$
+\end{remark}
+
+\begin{theorem}
+The fundamental vector product $\mb{N}(u,v)$ is perpendicular to the surface at $\mb{r}(u,v).$
+\end{theorem}
+
+\begin{corollary}
+If the surface $S$ is described by the equation $z = f(x,y),$ then it can be parametrised as $$\mb{r}(x,y)=\begin{pmatrix} x\\y\\f(x,y) \end{pmatrix}$$ therefore, $$\mb{N}(x,y)=-\pdv{f}{x}\mb{i}-\pdv{f}{y}\mb{j}+\mb{k}.$$
+\end{corollary}
+
+\subsection{Surface integrals of scalar functions}
+
+\begin{proposition}
+For a scalar function $f:\bb{R}^3\to\bb{R}$ and a surface parametrised by $u$ and $v,$ $$\iint_S f(x,y,z) \, d\sigma =\iint_D f(\mb{r}(u,v))\mb{N}(u,v) \, dudv.$$
+\end{proposition}
+
+\begin{corollary}
+Any surface parametrised by $z=g(x,y)$ i.e. $$x=x, \quad y=y, \quad z=g(x,y),$$ we have $$\iint_S f(x,y,z) \,d\sigma=\iint_D f(x,y,g(x,y))\sqrt{\left(\pdv{z}{x}\right)^2+\left(\pdv{z}{y}\right)+1}\, dxdy.$$
+\end{corollary}
+
+\begin{theorem}
+Suppose that $S=\mb{r}(u,v)$ is a parametrised surface for $(u,v)\in D$. Then the \textbf{surface area} of $S$ is $$\text{Area of }S =\iint_D |\mb{N}(u,v)| \, dudv.$$
+\end{theorem}
+
+\begin{corollary}
+For the special case of a surface $S$ with equation $z=f(x,y),$ where $(x,y)$ lies in $D$ then $S$ is parametrised as $$x=x ,\quad y=y, \quad z=f(x,y).$$ Therefore the surface area of $S$ is given as $$\text{Area of }S =\iint_D \sqrt{1+\left(\pdv{z}{x}\right)^2+\left(\pdv{z}{y}\right)^2} \, dxdy.$$
+\end{corollary}
+
+\subsection{Surface integrals of vector fields}
+
+\begin{definition}
+Let $S$ be a surface in $\bb{R}^3$ of finite extent and let $\mb{v} : \bb{R}^3 \to \bb{R}^3$ be a vector field on $\bb{R}^3.$ Also suppose that at each point of $S$ $\mb{n}$ is a unit vector normal to $S.$ Then the integral of $\mb{v}$ over $S$ — or, \textbf{the flux of $\mb{v}$ across $S$ in the direction of $\mb{n}$} — is defined by $$\iint_S \mb{v}\cdot \mb{n} \, d\sigma = \iint_D \mb{v} \cdot \mb{N}(u,v) \, dudv =\iint_D \mb{v}(\mb{r}(u,v)) \cdot \mb{N}(u,v) \, dudv.$$
+\end{definition}
+
+\begin{proposition}
+If $\mb{v}$ is a vector field on $\bb{R}^3$ and $S$ is the surface determined by the equation $z=f(x,y)$ then the flux of $\mb{v}=v_1\mb{i}+v_2\mb{j}+v_3\mb{k}$ across S in the direction of the upwards normal is $$\iint_D \left(-v_1\pdv{f}{x}-v_2\pdv{f}{y}+v_3\right) \, dxdy.$$
+\end{proposition}
+
+\subsection{Stokes' Theorem}
+
+\begin{theorem}
+Suppose that $S$ is a curved region in $\bb{R}^3$ bounded by the closed curve $C.$ Then $$\iint_S (\nabla \times \mb{v})\cdot \mb{n} \, d\sigma =\oint_C \mb{v} \, d\mb{r}$$ where $C$ is taken anti-clockwise about $\mb{n}.$
+\end{theorem}
+
+\begin{corollary}
+Suppose that the surface $S$ is closed; that is, it is contained in a finite region of space and has no boundary (such as a sphere). Then $$\iint_S (\nabla \times \mb{v})\cdot \mb{n} \, d\sigma = 0.$$
+\end{corollary}
+
+\begin{corollary}
+If $\mb{F}$ is a vector field and there exists a closed surface $S$ such that $$\iint_S \mb{F}\cdot\mb{n} \, d\sigma \neq0,$$ then $\mb{F}$ is not the curl of any vector field in $\bb{R}^3,$ i.e. $\mb{F}\neq \nabla \times \mb{u}$ for any vector field $\mb{u}.$ 
+\end{corollary}
+
+\begin{corollary}
+Suppose that the surface $S$ has two closed boundary curves $C_1$ and $C_2$ (for example, when $S$ is a cylinder with two circles as boundary). Then $$\iint_S (\nabla \times \mb{v})\cdot \mb{n} \, d\sigma= \oint_{C_1} \mb{v} \cdot d\mb{r} -\oint_{C_2} \mb{v} \cdot d\mb{r}$$ where $C_1$ is taken anti-clockwise about $\mb{n}$ and $C_2$ is taken clockwise about $\mb{n}.$
+\end{corollary}
+
+\section{FTC in three dimensions}
+
+\subsection{Triple integrals}
+
+Similar to double integrals, triple integrals represent the volume of a three dimensional shape given by $f(x,y,z).$
+
+\begin{theorem} \textbf{(Fubini's Theorem)}
+If $f(x, y, z)$ is continuous on a rectangular box $B = [a, b] \times [c, d] \times [e, f],$ then $$\iiint_B f(x,y,z) \, dxdydz =\int_e^f \int_c^d \int_a^b f(x,y,z) \, dxdydz.$$ This integral is also equal to any of the other five possible orderings for the iterated triple integral.
+\end{theorem}
+
+\begin{theorem}
+The volume of the region $E$ is given by $V(E)=\iiint_E 1 \, dxdydz.$
+\end{theorem}
+
+\subsubsection{Triple integrals over general regions}
+
+\begin{theorem}
+The triple integral of a continuous function $f(x,y,z)$ over a general three-dimensional region $E=\{(x,y,z):(x,y)\in D, u_1(x,y) \leq z \leq u_2(x,y)\}$ in $\bb{R}^3,$ where $D$ is the projection of $E$ onto the $xy$-plane, is $$\iiint_E f(x,y,z) \, dxdydz =\iint_D\left[\int_{u_1(x,y)}^{u_2(x,y)} f(x,y,z) \, dz\right] \, dxdy.$$ 
+\end{theorem}
+
+\begin{example}
+TO DO !!
+\end{example}
+
+\subsubsection{Cylindrical coordinates}
+
+\begin{theorem}
+Suppose that $g(x,y,z)$ is a continuous function, then in \textbf{cylindrical coordinates} $$g(x,y,z)=g(r\cos\theta, r\sin\theta, z) =f(r,\theta,z)$$ and that $$\iiint_E g(x,y,z) \, dxdydz =\iiint_E f(r,\theta,z) r \, drd\theta dz.$$
+\end{theorem}
+
+\begin{example}
+TO DO !!
+\end{example}
+
+\subsubsection{Spherical coordinates}
+
+\begin{theorem}
+Suppose that $g(x,y,z)$ is a continuous function, then in \textbf{spherical coordinates} $$g(x,y,z)=g(r\rho\sin\phi\cos\theta, \rho\sin\phi\sin\theta, \rho\cos\phi) =f(\rho,\theta,\phi)$$ and that $$\iiint_E g(x,y,z) \, dxdydz =\iiint_E f(\rho,\theta,\phi) \rho^2\sin\phi \, d\rho d\theta d\phi.$$
+\end{theorem}
+
+\begin{example}
+TO DO !!
+\end{example}
+
+\subsubsection{Changing variables}
+
+\begin{definition}
+The Jacobian in three variables is defined as follows: $$J=
+\begin{pmatrix} 
+\pdv{x}{u} & \pdv{y}{u}&\pdv{z}{u} \\
+\pdv{x}{v} & \pdv{y}{v}&\pdv{z}{v} \\
+\pdv{x}{w} & \pdv{y}{w}&\pdv{z}{w}
+ \end{pmatrix}.$$ The Jacobian can also be denoted as $J=\pdv{(x,y,z)}{(u,v,w)}.$
+\end{definition}
+
+\begin{theorem}
+Suppose that the triple of functions $u = u(x,y,z), v = v(x,y,z)$ and $w = w(x,y,z)$ are invertible so that $x = x(u,v,w), y = y(u,v,y)$ and $z = z(u,v,w).$ Also suppose that the volume $V$ in $(x, y, z)$-space corresponds to the volume $V'$  in $(u, v, w)$-space. Then $$
+\iiint_V f(x,y,z) \, dxdydz = \iiint_{V'} f(x(u,v,w),y(u,v,w),z(u,v,w)) \left|\pdv{(x,y,z)}{(u,v,w)}\right| \, dudvdw.$$
+\end{theorem}
+
+\subsection{FTC III: The divergence theorem}
+
+\begin{theorem}
+Suppose that $V$ is a solid in $\bb{R}^3$ which is bounded by the closed surface $S,$ and that $\mb{v}$ is a vector field on $\bb{R}^3.$ Then $$\iiint_V \nabla \cdot \mb{v} \, dxdydz =\iint_S \mb{v} \cdot \mb{n} \, d\sigma,$$ where $\mb{n}$ is the outward normal.
+\end{theorem}
+
+
+
+
+
+
+\pagebreak
+
+\section{Formulae}
+
+\subsection{Tangent plane}
+
+$$z= f(x_0, y_0)+ f_x(x_0, y_0)(x-x_0)+ f_y(x_0, y_0)(y-y_0).$$
+
+$$(\mathbf{x} - \mathbf{x}_0) \cdot \nabla f(\mathbf{x}_0) = 0$$
+
+$$(x-x_0)\pdv{f(\mathbf{x}_0)}{x}+(y-y_0)\pdv{f(\mathbf{x}_0)}{y}+(z-z_0)\pdv{f(\mathbf{x}_0)}{z}=0.$$
+
+\subsection{Directional derivative}
+
+$$f'_{\mathbf{u}}=\nabla f \cdot \mathbf{u}.$$
+
+\subsection{Linear approximation}
+
+$$\mathbf{l}(\mu) = \mathbf{r}(t_0) + \mu \mathbf{r}'(t_0).$$
+
+\subsection{Taylor's theorem for vector valued functions}
+
+$$\mathbf{r}(t+h)=\mathbf{r}(t)+h\mathbf{r'}(t)+ \frac{h^2}{2}\mathbf{r''}(t)+\mathbf{o}(h^2).$$
+
+\subsection{Taylor first order approximation}
+
+$$f(\mathbf{x+h})=f(\mathbf{x})+\mathbf{h}\cdot \nabla f(\mathbf{x})+o(|\mathbf{h}|).$$
+
+$$f(x_0 +h,y_0 +k) = f(x_0,y_0)+h\pdv{f}{x}(x_0,y_0)+k\pdv{f}{y}(x_0,y_0).$$
+
+\subsection{Taylor second order approximation}
+
+$$f(\mathbf{x+h})=f(\mathbf{x})+\mathbf{h}\cdot \nabla f(\mathbf{x})+\frac{1}{2}\mathbf{h}\cdot D_{f(x_0,y_0)}\mathbf{h}+o(||\mathbf{h}||^2)$$
+
+\begin{multline*}
+f(x_0 +h,y_0 +k) = f(x_0,y_0)+h\pdv{f}{x}(x_0,y_0)+k\pdv{f}{y}(x_0,y_0) \\
++\frac{h^2}{2}\pdv[2]{f}{x}(x_0,y_0)+hk\pdv[2]{f}{y}{x}(x_0,y_0)+\frac{k^2}{2}\pdv[2]{f}{y}(x_0,y_0) +o(||\mathbf{h}||^2),
+\end{multline*}
+
+\subsection{Second derivative test}
+
+Suppose that $f_x(a,b)=f_y(a,b)=0.$
+
+$$D=\det\begin{pmatrix} f_{xx} & f_{xy} \\ f_{xy} & f_{yy} \end{pmatrix} = f_{xx}f_{yy}-(f_{xy})^2.$$
+
+\begin{enumerate}
+	
+	\item[(a)] If $D > 0$ and $f_{xx}(a,b)>0,$ then $f(a,b)$ is a local minimum.
+
+	\item[(b)] If $D>0$ and $f_{xx}(a,b)<0,$ then $f(a,b)$ is a local maximum.
+
+	\item[(c)] If $D<0,$ then $(a,b)$ is a saddle point.
+
+	\item[(d)] If $D=0,$ then the test tells us nothing.
+
+\end{enumerate}
+
+\subsection{Integrals of scalar functions}
+
+$$\int_C f \, ds=\int_{a}^{b}f(\mb{r}(t)) \; \|\mb{r'}(t)\|\,dt.$$
+
+\subsection{Arc length}
+
+$$l=\int_a^b \|\mb{r'}(t)\| \, dt$$
+
+\subsection{Line integrals for vector fields}
+
+$$\int_C \mb{v}\cdot \,d\mb{r}=\int_{a}^{b} \mb{v}(\mb{r}(t))\cdot\mb{r'}(t)\,dt.$$
+
+\section{Appendix}
+
+\subsection{O-notation}
+
+ Intuitively, $f(x)$ is $o(g(x))$ (read "$f(x)$ is little-o of $g(x)$") means that $g(x)$ grows faster than $f(x).$ One writes $$f(x)=o(g(x)) \iff \lim_{x \to \infty} \f{f(x)}{g(x)}=0.$$
+
+\subsection{Polar coordinates}
+
+\begin{definition}
+In the \textbf{polar coordinate system}, a point in space (Figure~\ref{fig:polar coordinates}) is represented by the double coordinates $(r,\theta),$ where \begin{itemize}
+
+	\item $r$ is the distance from the point to the origin;
+
+	\item $\theta$ is the angle moved from the $x$-axis to the line segment where $\theta \in [0,2\pi].$
+
+\end{itemize}
+\end{definition}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{./Resources/Polar coordinates.png}
+\caption{Illustration of polar coordinate system}
+\label{fig:polar coordinates}
+\end{figure}
+
+\subsection{Cylindrical polar coordinates}
+
+\begin{definition}
+In the \textbf{cylindrical coordinate system}, a point in space (Figure~\ref{fig:cylindrical coordinates}) is represented by the ordered triple coordinates $(r, \theta,z),$ where \begin{itemize}
+ 	\item $(r,\theta)$ are the polar coordinates of the point's projection in the $xy$-plane,
+ 	\item $z$ is the usual $z$-coordinate in the Cartesian coordinate system. 	
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+As in polar coordinates $\theta \in [0,2\pi].$
+\end{remark}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{./Resources/Cylindrical coordinates.png}
+\caption{Illustration of coordinate plane in cylindrical coordinate system}
+\label{fig:cylindrical coordinates}
+\end{figure}
+
+\subsection{Spherical polar coordinates}
+
+\begin{definition}
+In the \textbf{spherical coordinate system}, a point $P$ in space (Figure~\ref{fig:spherical coordinates}) is represented by the ordered triple coordinates $(\rho, \theta, \phi),$ where \begin{itemize}
+
+	\item $\rho$ is the distance between $P$ and the origin $(\rho\neq0);$
+
+	\item $\theta$ is the same angle used to describe location in the cylindrical coordinates;
+
+	\item $\phi$ is the angle formed between the positive $z$-axis and the line segment $\overrightarrow{OP}$ where $O$ is the origin and $0\leq \phi \leq \pi.$
+
+\end{itemize}
+\end{definition}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{./Resources/Spherical coordinates.png}
+\caption{Illustration of coordinate plane in spherical coordinate system}
+\label{fig:spherical coordinates}
+\end{figure}
+
+\subsubsection{Cylindrical to spherical coordinates}
+
+\begin{theorem}
+In a cylindrical coordinate system, spherical coordinates are equivalent to $$\begin{aligned}
+r&=\rho\sin\phi \\
+\theta &=\theta \\
+z&=\rho \cos\phi. 
+\end{aligned}$$ Where $\phi$ is the angle from the $z$-axis to the $y$-axis in a clockwise orientation.
+\end{theorem}
+
+\subsection{Vector cross product}
+
+\includepdf[pages=-]{./Resources/Vector cross product.pdf}
+
+\end{document}

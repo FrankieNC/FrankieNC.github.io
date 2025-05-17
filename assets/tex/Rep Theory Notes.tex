@@ -1,0 +1,1910 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{francesco}
+\usepackage[colorlinks=true,
+            urlcolor=RubineRed,
+            linktoc=all,
+            linkcolor=black,
+            pdfauthor={Francesco N. Chotuck},
+            pdftitle={Representation Theory of Finite Groups}
+            ]{hyperref}
+%\usepackage[none]{hyphenat}
+\usepackage%[disable]
+{todonotes}
+
+\newcommand{\gl}{\text{GL}}
+\newcommand{\KK}{\mathbb{K}}
+\newcommand{\mat}{\text{Mat}}
+\newcommand{\fun}{\text{Fun}}
+\setlength {\marginparwidth }{2cm}
+
+\pagestyle{fancy}
+\lhead{Francesco Chotuck}
+\rhead{6CCM351A Representation Theory of Finite Groups Notes}
+\setlength{\headheight}{15pt}
+
+\title{Representation Theory of Finite Groups Notes}
+\date{}
+\author{Francesco Chotuck}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    \noindent This is KCL undergraduate module 6CCM351A, instructed by Dr.\ Dmitri Panov. The formal name for this class is ``Representation Theory of Finite Groups Notes''.
+\end{abstract}
+
+\tableofcontents
+
+\pagebreak
+
+\section{Group representations}
+
+\subsection{Definitions}
+
+\begin{definition}
+    A \textbf{representation} of \(G\) over a vector space \(V\) is a homomorphism \(\rho:G \to \gl(V)\) i.e. 
+    \[\begin{aligned}
+        \rho(g_1g_2) &=\rho(g_1)\rho(g_2) \\
+        \rho(e_G) &=\id \\
+        \rho(g\inv) &=\rho(g)\inv, 
+    \end{aligned}\]
+    for all \(g,g_1,g_2 \in G\).
+\end{definition}
+
+\begin{mdremark}
+    In this course \(V\) will always be a \textbf{finite-dimensional} vector space, usually \(\CC^k\) or \(\RR^k\), We denote \(\gl(V^k)\) with \(\gl_k(V)\). Also, \(G\) will be a \textbf{finite} group.
+\end{mdremark}
+
+\begin{example}
+    Some example of finite groups:
+    \begin{itemize}
+        \item \(C_n\) a cyclic group of order \(n\);
+        \item \(D_{2n}\) a dihedral group \(2n\);
+        \item \(S_n\) a symmetric group of order \(n\).
+    \end{itemize}
+\end{example}
+
+\begin{example}
+    We construct a representation of \(C_4\) over \(\RR^2\). Consider the following mapping
+    \[\begin{aligned}
+        e \mapsto \begin{pmatrix} 1 & 0 \\ 0 & 1\end{pmatrix} &\qquad x \mapsto \begin{pmatrix} 1 & 0 \\ 0 & 1\end{pmatrix}\\
+        x^2 \mapsto \begin{pmatrix} 1 & 0 \\ 0 & 1\end{pmatrix} &\qquad x^ \mapsto \begin{pmatrix} 1 & 0 \\ 0 & 1\end{pmatrix}.
+    \end{aligned}\]
+    Notice that these matrices represent rotations by \(\frac{\pi}{2}\) rad of a square. This is because we can express the group \(C_n\) as the rotations of an \(n\)-gon.
+
+    \noindent Furthermore, we observe that for representation \(\rho_1\): there is no line in \(\RR^2\) which is sent to itself by all the \(\rho_1(g)\). We call \(\rho\) an irreducible representation.
+\end{example}
+
+\begin{definition}
+    Let \(G\) be a group and, let \(\KK\) be a field. Suppose we have \(n\)-dimensional representation of \(G\). We say that the representation is \textbf{irreducible} if there is no proper linear subspace \(W \subset \KK^n\) which is invariant under all elements \(\rho(G)\).
+\end{definition}
+
+\begin{mdremark}
+    By \textit{proper} subspace we mean a subspace which is not trivial or the whole space. Furthermore, by dimension of the representation we speak of the dimension of the vector space which the representation is over.
+\end{mdremark}
+
+\begin{mdexample}
+    All the matrices \(\rho_2(x^k)\) have the following eigenvectors 
+    \[\bm{v}_1 =\begin{pmatrix} 1 \\i\end{pmatrix} \text{ and } \bm{v}_2 = \begin{pmatrix} 1 \\ -i\end{pmatrix}\]
+    Hence, we have two complex invariant lines: the span \(\langle \bm{v}_1 \rangle\) and the span \(\langle \bm{v}_2 \rangle\). We can rewrite \(\rho_2\) in the basis \(\{\bm{v}_1,\bm{v}_@\}\) of \(\CC^2\). Then, we obtain the group homomorphism \(\wt{\rho}_2 : C_4 \to \gl_2(\CC)\). We notice that \(\rho_2(x)\bm{v}_1=i\bm{v}_1\) and \(\rho_2(x)=-i\bm{v}_2\); as such in this basis we have 
+    \[\wt{\rho}_2(x) = \begin{pmatrix} i & 0 \\ 0 &-i\end{pmatrix}.\]
+    Therefore, \(\wt{\rho}_2\) is as follows
+    \[e \mapsto \begin{pmatrix} 1 & 0 \\ 0 &1\end{pmatrix}\quad x\mapsto \begin{pmatrix} i & 0 \\ 0 &-i\end{pmatrix}\quad x^2 \mapsto \begin{pmatrix} -1 & 0 \\ 0 &-1\end{pmatrix}\quad x^3 \mapsto\begin{pmatrix} -i & 0 \\ 0 &i\end{pmatrix}.\]
+    We say that \(\rho_2\) and \(\wt{\rho}_2\) are \textbf{equivalent} representation.\ We observe that 
+    \begin{itemize}
+        \item since \(x^4=e\), the eigenvalues of all matrices are fourth roots of unity and,
+        \item \(\rho_1\) is irreducible but, \(\rho_2\) is NOT.
+    \end{itemize}
+\end{mdexample}
+
+\begin{definition}
+    Let \(\rho:G \to \gl_(V)\) and \(\sigma:G\to \gl_n(V)\) be representation of \(G\) over \(V\). We say that \(\rho\) is \textbf{equivalent} to \(\sigma\) if \(n=m\) and there exists an invertible \(n \times n\) matrix \(T\) such that for all \(g \in G\)
+    \[\sigma(g) = T\inv \rho(g) T.\]
+\end{definition}
+
+\begin{example}
+    Some more examples:
+    \begin{itemize}
+        \item We construct a \(1\)-dimensional representation \(\rho_3\) of \(C_4\). The vector space is \(\CC\) and, we have 
+        \[\rho_3 :C_4 \to \gl_1(\CC) \cong \CC^{*}\]
+        where 
+        \[e\mapsto 1, \quad x \mapsto i, \quad x^2 \mapsto -1, \quad x^3 \mapsto -i.\]
+        Note that these are precisely the top left corner entries of the matrices of \(\wt{\rho}_2\).
+        \item These are also \(1\)-dimensional representations of \(C_4\):
+        \[\rho_4(x) = -i, \quad \rho_5(x)=-1\quad \rho_6(x)=1\]
+        for all \(x \in C_4\). We call \(\rho_6\) the \textbf{trivial representation} of \(C_4\) on \(\CC\).
+    \end{itemize}
+\end{example}
+
+\begin{mdexample}
+    We provide an example of a representation for the symmetric group \(S_4\), the bijective maps \(\sigma:\{1,2,3,4\} \to \{1,2,3,4\}\) which has \(24\) elements. Note that this group is generated by the transpositions \(s_1 = (12),s_2 = (23)\) and \(s_3=(34)\). To define the representation of \(S_4\) it suffices to define how the generators behave:
+    \[s_1 \mapsto \begin{pmatrix} 0 & 1 &0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix},\quad s_2 \mapsto \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix},\quad s_3 \mapsto \begin{pmatrix} 1 & 0 & -1 \\ 0 & 1 & -1 \\ 0 & 0 & -1\end{pmatrix}\]
+\end{mdexample}
+
+\begin{mdthm}
+    Some facts which will be proven later in the course.
+    \begin{enumerate}
+        \item Let \(A\) be an abelian group. Then any representation \(\rho\) of \(A\) on \(\CC^n\) has a \(1\)-dimensional invariant subspace. Equivalently, all the matrices \(\rho(a)\) have a common eigenvector.
+        \item The representations \(\rho_3,\rho_4,\rho_5,\rho_6\) form a complete list of all irreducible \\ representations of \(C_4\) over complex numbers, up to equivalence.
+        \item \(\rho_{\text{standard}}\) is a representation of \(S_4\) over \(\CC\).
+        \item The standard representation \(\rho_{\text{standard}}\) of \(S_4\) defined above is irreducible.
+        \item Any finite group \(G\) for which all of its complex, irreducible representations are \(1\)-dimensional must be commutative.
+    \end{enumerate}
+\end{mdthm}
+
+\begin{definition}
+    The group homomorphism \(\rho_{\text{sign}} :S_4 \to \gl_1(\CC)\) where 
+    \[s_1 \mapsto -1, \quad s_2 \mapsto -1,\quad  s_3 \mapsto -1\]
+    is called the \textbf{sign representation} of \(S_4\).
+\end{definition}
+
+\begin{mdremark}
+    The sign representation divides \(S_4\) into two subsets: the even permutations for which \(\rho_{\text{sign}}(\sigma)=1\) and the odd permutations for which \(\rho_{\text{sign}}(\sigma)=-1\). 
+\end{mdremark}
+
+\subsection{Group actions}
+
+\begin{definition}
+    Let \(X\) be a set and, let \(G\) be a group. An \textbf{action} of \(G\) on \(X\) is a map 
+    \[\begin{aligned}
+        a : G \times X &\to X \\ 
+        (g,x) &\mapsto g\cdot x
+    \end{aligned}\]
+    such that 
+    \begin{enumerate}
+        \item \(e \cdot x = x\) for all \(x \in X\),
+        \item \((gh)\cdot x = g\cdot (h\cdot x)\) for all \(g,h\in G\) and \(x \in X\).
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    A set \(X\) together with an action \(G \times X \to X\) of a group is also called a \(G\)-\textbf{set}.
+\end{definition}
+
+\begin{mdexample}
+    These are examples of actions.
+    \begin{enumerate}
+        \item A representation \(\rho : G \to \gl_n(\KK)\) defines an action 
+        \[\begin{aligned}
+            G \times \KK^n &\to \KK^n \\
+            (g,v) &\mapsto \rho(g) \cdot v.
+        \end{aligned}\]
+        \item The symmetric group \(S_n\) is the set of all bijections \(\{1,\ldots,n\} \to \{1,\ldots,n\}\) we can define the `tautological' (obvious) action
+        \[\begin{aligned}
+            S_n \times \{1,\ldots,n\} &\to \{1,\ldots,n\} \\
+            (\sigma,k) &\mapsto \sigma\cdot k=\sigma(k).
+        \end{aligned}\]
+        \item Let \(G\) be any group and \(X\) any set. The \textbf{trivial action}, on \(X\) is the action such that \(g \cdot x =x\) for all \(g\in G\) and \(x \in X\).
+        \item Let \(X \subset \RR^2\) be the interior of the square with four vertices \((\pm 1,\pm 1)\). The symmetry group of this object is denoted by \(D_8\). By definition \(D_8\) acts on \(X\) and, the action consists of \(4\) rotations and \(4\) reflections.
+    \end{enumerate}
+\end{mdexample}
+
+\begin{definition}
+    A \(G\)-action on a set defines an equivalence relation on \(X\):
+    \[x \sim y \iff \exists g\in G \text{ such that } g \cdot x =y.\]
+    The equivalence classes are called the \textbf{orbits} of \(G\) or the \(G\)-orbits. The orbit containing \(x\) is denoted by \(G \cdot x\).
+\end{definition}
+
+\begin{example}
+    We find the orbits of the previous examples.
+    \begin{enumerate}
+        \item[2.] There exists one orbit which contains all elements. To show this it suffices to show that all \(k \sim 1\), clearly \((1k)\cdot 1=k\).
+        \item[3.] The orbits are the singleton \(\{x\}\) for \(x \in X\).
+        \item[4.] The centre \((0,0)\) is an orbit with one element. Every point of \(X \setminus (0,0)\) that lies on an axis of symmetry belongs to an orbit of size \(4\). All other orbits contain \(8\) points.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    Let \(G\) act on \(X\). The \textbf{stabiliser subgroup} of an element \(x \in X\) is the subgroup of an element \(x \in X\) is the subgroup 
+    \[G_x = \{g \in G : g\cdot x =x\}.\]
+\end{definition}
+
+\begin{example}
+    We find the orbits of the previous examples.
+    \begin{enumerate}
+        \item[2.] The stabiliser for \(x=1\) is the group of permutation of \(\{2,\ldots,n\}\) hence, it is isomorphic to \(S_{n-1}\).
+        \item[3.] The stabiliser of any \(x \in X\) is the group itself.
+        \item[4.] We have the following:
+        \begin{itemize}
+            \item The stabiliser of the centre is \(D_8\);
+            \item The stabiliser on any of the axes of symmetry consists of the identity and a reflection on an axis of symmetry which preserves the position of a given point. Hence, this is the subgroup \(\ZZ_2\);
+            \item The remaining points have the stabiliser subgroup \(\{e\}\).
+        \end{itemize}
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    An action of \(G\) on \(X\) is called \textbf{transitive}, if there is only one orbit. That is, for any two elements \(x,y \in X\) there exists a \(g \in G\) such that \(g \cdot x =y\).
+    Then the set \(X\) is then called a \textbf{homogeneous} \(G\)-set.
+\end{definition}
+
+\begin{mdexample}
+    From the examples above:
+    \begin{itemize}
+        \item The action defined on the \(G\)-set \(\{1,\ldots,n\}\) is transitive.
+        \item The trivial action is transitive if it acts on a singleton.
+    \end{itemize}
+\end{mdexample}
+
+\subsubsection{Five `universal' examples of group actions}
+
+Before we begin, we recall the following definition.
+
+\begin{definition}
+    Let \(G\) be a group and \(H \subset G\) be a subgroup.
+    \begin{itemize}
+        \item A \textbf{left coset} is a subset of \(G\) of the form 
+        \[gH = \{gh = h \in H\}.\]
+        We denote the set of all left cosets by \(G/H\)
+        \item A \textbf{right coset} is a subset of \(G\) of the form 
+        \[Hg = \{hg : h \in H\}.\]
+    \end{itemize}
+\end{definition}
+
+\begin{mdexample}
+    We will present a universal set of actions which exist for any group.
+    \begin{enumerate}
+        \item Let \(G\) be a group and let \(X =G\). We define the action 
+        \[g \cdot x = gxg\inv\]
+        for \(g \in G\) and \(x \in X\), we call this action by conjugation. The orbit of \(e\) is \(\{e\}\). Whereas, for an arbitrary \(x \in X\) the orbit is called the \textbf{conjugacy class} of \(x\).
+        \item Let \(X=G\) and define the action 
+        \[g \cdot x =gx,\]
+        we call this the \textbf{action by left multiplication}. The orbit of \(e\) is \(G\) and so this action is transitive.
+        \item Let \(H\) be a subgroup of \(G\) and set \(X=G\). Define the action on \(H\) by left multiplication
+        \[h\cdot x=hx\]
+        for all \(h \in H\) and \(x\in X\). The orbits of this action are the \ul{right} \(H\)-cosets,  \(Hx\).
+        \item Similarly, we can define an action of \(H\) on \(X=G\) whose orbits are \ul{left cosets} \(xH\). We define the action 
+        \[h\cdot x = xh\inv,\]
+        for all \(h \in H\) and \(x\in X\).
+        \item Let \(G\) be a group and \(H\) be a subgroup. Let \(X = G/H\) be the set of left cosets. 
+    \end{enumerate}
+\end{mdexample}
+
+\begin{mdthm}
+    Let \(G\) be a group and \(H\) be a subgroup. Let \(X = G/H\) be the set of left cosets. Define the action of \(G\) on \(X\) by multiplication from the left 
+    \[g \cdot g_0H =gg_0 H.\]
+    This action is transitive and the stabiliser subgroup of \(eH\) is \(H\).
+\end{mdthm}
+
+\subsection{Describing an orbit of action}
+
+\begin{definition}
+    Let \(X\) and \(Y\) be \(G\)-sets. A map \(f:X \to Y\) is called \textbf{equivariant} (or a map of \(G\)-sets) if 
+    \[f(g\cdot x) = g\cdot (f(x))\]
+    for all \(x \in X\) and \(g \in G\).
+\end{definition}
+
+\begin{definition}
+    If \(f\) as defined above is equivariant and bijective, it called an \textbf{isomorphism} of \(G\)-sets.
+\end{definition}
+
+\begin{lemma}
+    Let \(X\) be a \(G\)-set and let \(x \in X\). Define the orbit  of \(x\) by \(G \cdot x = \{g\cdot x : g \in G\}\). Then, there is an isomorphism of \(G\)-sets 
+    \[\begin{aligned}
+        \phi: G/G_x &\to G \cdot x \\
+        gG_x &\mapsto g\cdot x.
+    \end{aligned}\]
+\end{lemma}
+
+\begin{proof}
+    We must prove that the map \(\phi\) satisfies the following.
+    \begin{itemize}
+        \item \textit{Well-defined}. We must show the image is independent of the choice of the representative of the left coset. Suppose \(g_1 G_x\) and \(g_2G_x\) represent the same coset of \(G_x\) i.e. \(g_1G_x =g_2G_x\). As such, we can write \(g_1 = g_2h\) for some \(h \in G_x\). Hence,
+        \[g_1\cdot x=g_2h\cdot x = g_2 \cdot \underbrace{(h \cdot x)}_{x}=g_2 \cdot x.\]
+        \item \textit{Equivariant}.  Let \(g_0 \in G\). The action on \(G/G_x\) is defined by \(g\cdot g_0G_x =gg_0G_x\). Applying \(\phi\) we have 
+        \[\phi(g\cdot (g_0G_x))=\phi(gg_0G_x)=gg_0\cdot x = g \cdot \phi(g_0 G_x).\]
+        \item \textit{Bijective}. The map is surjective because \(G\) is transitive on the orbit of \(X\). For injectivity, let \(g_1G_x\) and \(g_2G_x\) be two cosets such that their image coincides i.e. \(g_1 \cdot x = g_2 \cdot x\). We need to show that \(g_1G_x = g_2G_x\) i.e. \(g_1=g_2h\) for some \(h\in G_x\). Indeed, we have
+        \[\begin{aligned}
+            g_1\cdot x=g_2 \cdot x &\then g_2\inv g_1 \cdot x =x \\
+            &\then g_2\inv g_1= h\in G_x.
+        \end{aligned}\]
+    \end{itemize}
+\end{proof}
+
+\begin{mdcor}[The orbit-stabiliser theorem]
+    If \(X\) is a \(G\)-set and \(x \in X\) then we have the following
+    \[\abs{G\cdot x}=\frac{\abs{G}}{\abs{G_x}}.\]
+\end{mdcor}
+
+\begin{proof}
+    By the lemma above we have \(\abs{G\cdot x}=\abs{G/G_x}\) and by Lagrange's theorem we have \(\abs{G/G_x}=\frac{\abs{G}}{\abs{G_x}}\).
+\end{proof}
+
+\begin{lemma}
+    Suppose \(X\) is a \(G\)-set, \(x\in X\) and \(g\cdot x=y\) then, \(G_y = gG_xg\inv\).
+\end{lemma}
+
+\begin{proof}
+    We need to prove the double inclusion of sets.
+    \begin{itemize}
+        \item Proof of \(gG_x g\inv \subseteq G_y\). \\
+        That is elements of \(gG_xg\inv\) stabilise \(y=g\cdot x\). Suppose \(h\in G_x\) then 
+        \[(ghg\inv )\cdot y = ghg\inv g \cdot x = (gh)\cdot x = g \cdot (h\cdot x) = g\cdot x =y.\]
+        \item Proof of \(g\inv G_y g \subseteq G_x\). \\
+        By the same reasoning as above we have \(g\inv G_y g\ \subseteq G_x\), conjugating this by \(g\) we get \(G_y \subseteq gG_x g\inv\).
+    \end{itemize}
+\end{proof}
+
+\begin{mdcor}
+    If \(X\) is a \(G\)-set and \(x,y\in X\) lie in the same orbit of \(G\) then \(G_x\) and \(G_y\) are isomorphic groups.
+\end{mdcor}
+
+\begin{proof}
+    Since \(x\) and \(y\) are in one orbit we have \(y=g\cdot x\). By the lemma above we have \(G_y =gG_x g\inv\) which gives an isomorphism from \(G_x\) to \(G_y\).
+\end{proof}
+
+\todo[inline]{Consider changing the notation for the orbit from \(G \cdot x\) to \(\text{orb}(x)\)}.
+
+\subsection{The Cauchy-Frobenius orbit counting lemma}
+
+\begin{definition}
+    Let \(X\) be a \(G\)-set and \(g \in G\). The set \(\text{Fix}_X(g)\) of \textbf{fixed points} of \(g\) is the subset of \(X\) defined by 
+    \[\text{Fix}_X(g)= \{x\in X :g\cdot x =x\}.\]
+\end{definition}
+
+\begin{mdprop}[Cauchy-Frobenius orbit counting lemma]
+    For a finite group \(G\) and a finite \(G\)-set \(X\), the number of orbits in \(X\) is equal to 
+    \[\frac{1}{\abs{G}}\sum_{g\in G} \abs{\text{Fix}_X(g)},\]
+    i.e. the average number of fixed points for the elements \(g\in G\).
+\end{mdprop}
+
+\begin{proof}
+    Denote by \(X/G\) the set of orbits. 
+    \begin{itemize}
+        \item We first prove that the number of orbits is given by 
+        \[\abs{X/G} = \frac{1}{\abs{G}}\sum_{x\in X} \abs{G_x}.\]
+        Firstly, assume that the action of \(G\) is transitive so, there is only one orbit \(\abs{G\cdot x}=\abs{X}\). By the orbit-stabiliser theorem we have \(\abs{X} = \frac{\abs{G}}{\abs{G_x}}\). Therefore, 
+        \[\begin{aligned}
+        \frac{1}{\abs{G}}\sum_{x\in X} \abs{G_x} &= \frac{1}{\abs{G}}\sum_{x\in X} \frac{\abs{G}}{\abs{X}} \\
+        &= \sum_{x\in X}\abs{X}\inv \\
+        &=1.
+        \end{aligned}\]
+        \item For the general case, we decompose the sum over \(X\) into a sum over orbits. The action of \(G\) on each orbit is transitive and so the sum over each orbit is \(1\). 
+    \end{itemize}
+    We need to show that 
+    \[\sum_{g\in G} \abs{\text{Fix}_X(g)} = \sum_{x\in X} \abs{G_x}.\]
+    To do so, we need to consider the set 
+    \[Z = \left\{ (g,x) \in G \times X : g\cdot x=x \right\}.\]
+    Notice that we have 
+    \[\sum_{g\in G} \abs{\text{Fix}_X(g)} =\abs{Z}= \sum_{x\in X} \abs{G_x}.\]
+    (If we do a table for a group acting on a set, we notice that the LHS sums the columns and RHS sum the rows of elements are stabilised by the \(G\)-set action).
+\end{proof}
+
+\begin{mdexample}
+    We consider the group \(S_n\). What is the average number of fixed points of a permutation of the set \(X=\{1,\ldots,n\}\)?
+    \begin{itemize}
+        \item When \(n=2\), we have two permutations, the identity and where we swap the position of two points in space. As such, we have \(0\) and \(2\) fixed points respectively. The average is then \(2\). 
+    \end{itemize}
+    We can rephrase the questions as, how many numbers of orbits \(S_n\) on \(\{1,\ldots,n\}\). That is, the average number of fixed points is given by the number of orbits.
+\end{mdexample}
+
+\section{LAG recap}
+
+\begin{definition}
+    Let \(W\) be a linear subspace of a vector space \(V\). A \textbf{complement} to \(W\) is another subspace \(W'\) such that 
+    \begin{itemize}
+        \item \(W+W'=V\) and
+        \item \(W\cap W'= \{0\}\).
+    \end{itemize}
+\end{definition}
+
+\begin{mdremark}
+    \(W \cup W'\)  is not necessarily equal to \(V\)! The word `complement' has a different meaning here from its set theoretic definition.
+\end{mdremark}
+
+\begin{mdremark}
+    For any subspace \(W \subset V\) there is a complement.
+    \begin{proof}
+        Let \(\left\{ v_1,\ldots,v_k \right\}\) be a basis of \(W\) and complete it to a basis of \(V\) say, \\ \(\left\{ v_1,\ldots,v_k,v_{k+1},\ldots,v_n \right\}\). The span of \(\left\{ v_{k+1},\ldots,v_n \right\}\) is then a complement of \(W\).
+    \end{proof}
+    Since the basis of a linear space is not unique it follows that the complement is not unique.
+\end{mdremark}
+
+\begin{definition}
+    We define the \textbf{Hermitian inner product} on a complex vector space \(V\) as a function 
+    \[\langle \cdot, \cdot \rangle : V \times V \to \CC,\]
+    such that for any \(u,v,w \in V\) and \(\alpha \in \CC\) it satisfies 
+    \begin{itemize}
+        \item \(\langle u,v \rangle = \ol{\langle u,v \rangle}\);
+        \item \(\langle \alpha u,v \rangle = \alpha\langle u,v \rangle\);
+        \item \(\langle u+w,v \rangle = \langle u,v \rangle+\langle w,v \rangle\);
+        \item \(\langle u,u \rangle >0\) if \(u\neq =0\).
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    On \(\CC^n\) the \textit{standard} Hermitian inner product is 
+    \[\langle u,v \rangle = \sum_{i=1}^{n} u_i \ol{v}_i.\]
+\end{definition}
+
+\begin{mdexample}
+    Suppose \(V\) is a vector space with an inner product (either real or complex). Then every linear subspace \(W\) has a \ul{preferred} complement: the \textbf{orthogonal complement}. It is denoted by \(W^{\perp}\) and defined by 
+    \[W^{\perp}=\left\{ v \in V :(v,w)=0 \text{ for all } w\in W\right\}.\]
+    Where \((\cdot,\cdot)\) denotes the inner product.
+\end{mdexample}
+
+\begin{definition}
+    Let \(W_1,\ldots,W_k\) be subspaces of a vector space \(V\). We say that \(V\) is the \textbf{internal direct sum} of \(w_1,\ldots,W_k\) if every element \(v \in V\) can be written in a \ul{unique} way as a sum 
+    \[v = w_1+\cdots+w_k \quad \text{where } w_i \in W_i.\]
+    In this case we write \(V=W_1 \oplus \cdots \oplus W_k\).
+\end{definition}
+
+\begin{mdremark}
+    Suppose \(V = W_1 \oplus \cdots \oplus W_k\) and \(\mathcal{B}_1,\ldots,\mathcal{B_k}\) are bases of \(W_1,\ldots,W_k\). Then \(\mathcal{B} = \bigsqcup_{i=1}^k \mathcal{B}\) is a basis of \(V\). Therefore,
+    \[\dim(V)=\dim(W_1)+\cdots+\dim(W_k).\]
+\end{mdremark}
+
+\begin{mdexample}
+    Let \(V=\KK^n\) and let \(M\) be a diagonalisable \(n\times n\) matrix with distinct eigenvalues \(\lambda_1,\ldots,\lambda_m\). Then 
+    \[\KK^n = V_{\lambda_1} \oplus \cdots \oplus V_{\lambda_m}\]
+    where \(V_{\lambda_i}\) is the eigenspace of \(M\) corresponding to each \(\lambda_i\).
+\end{mdexample}
+
+\section{Maschke's theorem Ver I}
+
+\begin{definition}
+    Let \(G\) be a group and \(V\) be a vector space over a field \(\KK\). A \textbf{representation} of \(G\) on \(V\) is a group homomorphism \(\rho:G \to \gl(V)\). Any representation \(\rho:G \to \gl(V)\) defines an action of \(G\) on \(V\): 
+    \[g\cdot v = \rho(g)(v) \quad \text{for } g\in G, v\in V.\]
+    Since \(\rho(g)\) is a linear map, we also have 
+    \[g\cdot (u+v)=g\cdot u +g\cdot v \quad \text{and} \quad g\cdot (\lambda v)=\lambda(g\cdot v)\]
+    for \(u,v \in V\) and \(\lambda\in \KK\).
+\end{definition}
+
+\begin{mdremark}
+    We will adopt the phrase ``let \(V\) be a representation of \(G\) over \(\KK\)'' to mean: let \(V\) be a vector space over \(\KK\) and suppose we have a specific group homomorphism \(\rho_V :G \to \gl(V)\). Furthermore, ``\(g\cdot v\)'' will mean \(\rho_V(g)(v)\).
+\end{mdremark}
+
+\begin{definition}
+    Let \(V\) be a representation of \(G\) and \(W\) be a linear subspace of \(V\). Then we call \(W\) and \textbf{invariant subspace} of \(V\) if 
+    \[g\cdot w\in W \quad \text{for all } g\in G \text{ and } w\in W.\]
+\end{definition}
+
+\begin{mdremark}
+    An invariant subspace \(W\) of \(V\) is also a representation of \(G\). Indeed, we can take \(\rho_W : G \to \gl(W)\) by \(\rho_W(g) = \rho_V(g) \vert_W\) i.e. \(\rho_V\) is restricted to \(W\).
+\end{mdremark}
+
+\begin{definition}
+    Let \(V\) be a representation and \(W\) be an invariant subspace. If \(W'\) is a complement to \(W\) and \(W'\) is invariant, we call \(W'\) an \textbf{invariant complement} to \(W\). We say that \(V\) is the \ul{direct sum of representations} \(W\) and \(W'\).
+\end{definition}
+
+\begin{definition}
+    Let \(V\) be a representation of \(G\). We say the representation is \textbf{irreducible} if the only invariant subspaces \(W \subset V\) are \(\left\{ 0 \right\}\) and \(V\).
+\end{definition}
+
+\begin{definition}
+    Let \(V\) be a representation of \(G\). We say the representation is \textbf{completely reducible} if 
+    \begin{enumerate}
+        \item \(V = W_1 \oplus \cdots \oplus W_m\),
+        \item the subspaces \(W_i\) are invariant and,
+        \item the representation of \(G\) on each \(W_i\) is irreducible.
+    \end{enumerate}
+\end{definition}
+
+\begin{mdremark}
+    Irreducible representation are completely reducible.
+\end{mdremark}
+
+\begin{mdexample}
+    Let \(S^1 =\left\{ a+ib \in \CC^* : a^2+b^2=1 \right\}\) be the circle group. Consider its action on \(\RR^3\) by rotations around the \(z\)-axis. This representation 
+    \[\begin{aligned}
+        \rho_{\RR^3} :S^1&\to \gl_3(\RR) \\
+        a+ib&\mapsto \begin{pmatrix}
+            a & -b & 0 \\ b & a & 0 \\ 0 & 0 & 1
+        \end{pmatrix}.
+    \end{aligned}\]
+    We notice the following:
+    \begin{itemize}
+        \item the orbits of this action are circles are parallel to the \(xy\)-plane with centres on the \(z\)-axis, and points on the \(z\)-axis;
+        \item the invariant subspaces are the \(xy\)-plane and the \(z\)-axis. These are complementary.
+        \item \(\rho_{\RR^3}\) is a completely reducible representation.
+    \end{itemize}
+    We have the decomposition \(\RR^3 = \RR^2 \oplus \RR^1 = \{z\text{-axis}\}\). Both summands are irreducible representations of \(S^1\).
+\end{mdexample}
+
+\begin{mdthm}[Maschke's Theorem V1]
+    Suppose \(G\) is a finite group and \(V\) is a finite-dimensional representation of \(G\) over \(\CC\) or \(\RR\). Then any invariant subspace \(W\) of \(V\) has an invariant complement \(W'\).
+\end{mdthm}
+
+\begin{corollary}
+    If \(G\) is a finite group and \(V\) is a representation of \(G\) over \(\CC\) or \(\RR\), then \(V\) is completely reducible.
+\end{corollary}
+
+\begin{proof}
+    We prove this by induction on \(n=\dim(V)\). By definition any one dimensional representation is irreducible hence, it is also completely reducible. Now suppose \(V\) has dimension \(n>1\) and is not irreducible i.e. it contains a proper invariant subspace say \(V_1\). By Maschke's theorem we know \(V_1\) has an invariant complement \(V_2\). AS such we have \(V = V_1 \oplus V_2\) and both \(V_1,V_2\) are representations of \(G\). By induction \(V_1\) and \(V_2\) are completely reducible thus, \(V_1\oplus V_2\) is completely reducible.
+\end{proof}
+
+\subsection{Counterexample}
+
+\begin{example}
+    Maschke's theorem can fail for infinite groups. Let \(G = (\ZZ,+)\) be the infinite cyclic group with generator \(x\). Define a representation of \(G\) on \(\RR^2\) by 
+    \[\rho:x^k \mapsto \begin{pmatrix} 1 &k \\ 0 & 1\end{pmatrix}.\]
+    The vector \(e_1 =(1,0)\) spans an invariant subspace (i.e. the \(x\)-axis). This subspace has no invariant complement! Indeed, any one dimensional subspace \(V\) of \(\RR^2\) different from \(\text{span}(e_1)\) is spanned by a vector \((a,1)\). But \(\rho(x)(a,1)=(a+1,1) \not\in V\). So, \(V\) is not invariant.
+\end{example}
+
+\subsection{Proof of Maschke's I}
+
+\begin{definition}
+    Suppose \(V\) is a complex representation of a group \(G\). A Hermitian inner product \(\langle \cdot,\cdot \rangle \) on \(V\) is called \textbf{invariant}, if we have 
+    \[\langle g \cdot v , g\cdot w\rangle = \langle v,w \rangle \]
+    for every \(g \in G\) and \(v,w\in V\).
+\end{definition}
+
+\begin{lemma}
+    Suppose \(V\) is a complex representation with an invariant have a Hermitian inner product on \(V\). If \(W\) is an invariant subspace then the orthogonal complement \(W^{\perp}\) is an invariant complement.
+\end{lemma}
+
+\begin{proof}
+    Suppose \(v \in W^{\perp} ,g \in G\) and \(w \in W\). Since the inner product is invariant and \(g\inv \cdot W =W\) we have 
+    \[\langle g\cdot v,w\rangle = \langle v,g\inv\cdot w\rangle=0.\]
+    So, \(g\cdot v\) is orthogonal to all vectors \(w \in W\) i.e. \(g\cdot v \in W^{\perp}\).
+\end{proof}
+
+\noindent We can now prove Maschke's theorem.
+
+\begin{proof}[Proof of Maschke's Theorem V1]
+    Assume \(\KK=\CC\) (the case for \(\RR\) is identical). Suppose there is an invariant Hermitian inner product on \(V\). Then Maschke's theorem follows from the Lemma above: take \(W'\) as the orthogonal complement to \(W\). We can construct an invariant Hermitian inner product. Taking any Hermitian inner product on \(V\), since \(G\) is finite we can `average' to get a new inner product 
+    \[\langle v,w \rangle_{\text{new}}=\frac{1}{\abs{G}} \sum_{g\in G} \langle g\cdot v, g\cdot w \rangle.\]
+\end{proof}
+
+\subsection{The unitary group}
+
+\begin{definition}
+    We define the \textbf{unitary group}  as 
+    \[U(n) = \left\{ A \in \gl_n(\CC) : \ol{A^{\top}}A  = \bm{1}_{\CC^n} \right\},\]
+    where \(\ol{A^{\top}}\) is the complex conjugate transpose of the matrix \(A\), called the \textbf{Hermitian conjugate} of \(A\).
+\end{definition}
+
+\begin{example}
+    The simplest example if \(U(1) =\CC^*\) with each \(z \in \CC^*\) with \(\norm{z}=1\). So, we can think of \(U(1)\) as the unit circle in \(\CC\).
+\end{example}
+
+\subsubsection{An alternate definition}
+
+We can say a matrix \(A\) belongs to \(U(n)\) if and only if it preserves the standard Hermitian inner product on \(\CC^n\):
+\[\langle v, w\rangle_{\text{standard}}=v_1\ol{w}_1+\cdots+v_n \ol{w}_n.\]
+
+\begin{definition}
+    We can reformulate the definition of the unitary group as follows:
+    \[U(n)=\left\{ A \in \gl_n(\CC) : \langle Av, Aw\rangle_{\text{standard}} =\langle v, w\rangle_{\text{standard}} \;\; \forall v,v,w \in \CC^n\right\}.\]
+\end{definition}
+
+\begin{proof}
+    We prove that the two definitions are equivalent. Let us write 
+    \[\langle v,w\rangle_\text{stand} = \begin{pmatrix}
+        v_1 & v_2 & \cdots & v_n \end{pmatrix} \begin{pmatrix}
+        \ol{w}_1 \\\ol{w}_2 \\ \vdots \\ \ol{w}_n \end{pmatrix}= v^{\top} \ol{w}.\] 
+    We can restate this as 
+    \[\langle v,w \rangle_{\text{stand}} = v^{\top}\bm{1}_{\CC^n}\ol{w}.\]
+    Using the above definition of the inner product, for any matrix \(A \in \gl_n(\CC)\) we have 
+    \[\langle Av,Aw \rangle_{\text{stand}}=v^{\top}A^{\top}\ol{A}\ol{w}.\]
+    Assume that \(A\) is a unitary matrix and so, \(\langle Av,Aw\rangle_{\text{stand}} = \langle v,w\rangle_{\text{stand}}\). This holds if and only if 
+    \[v^{\top}A^{\top}\ol{A}\ol{w}=v^{\top}\bm{1}_{\CC^n}\ol{w}\]
+    for all \(v,w \in \CC^n\). This implies the property that 
+    \[A^{\top}\ol{A}=\bm{1}_{\CC^n}\]
+    which is equivalent to \(\ol{A^{\top}\ol{A}}= \ol{A^{\top}}A=\ol{\bm{1}_{\CC_n}}=\bm{1}_{\CC^n}\).
+\end{proof}
+
+\begin{theorem}
+    Unitary matrices are diagonalisable.
+\end{theorem}
+
+\begin{proof}
+    Let \(A \in U(n)\), since \(\CC\) is algebraically closed then \(A\) has an eigenvalue \(\lambda\). Let \(V_{\lambda}\) be the eigenspace. Since \(A\) preserves the standard Hermitian inner product, the orthogonal complement \(W = V_{\lambda}^{\perp}\) is invariant under \(A\). It follows that \(A\) restricted to \(W\) i.e. \(A\vert_W\), is also unitary. We can apply induction on this argument. 
+\end{proof}
+
+\begin{mdprop}
+    Let \(G\) be a finite subgroup of \(\gl_n(\CC)\). Then \(G\) is conjugate to a subgroup of \(U(n)\).
+\end{mdprop}
+
+\begin{mdnote}
+    If we want to classify finite subgroups in \(\gl_n(\CC)\) it is enough to classify finite subgroups in \(U(n)\).
+\end{mdnote}
+
+\begin{proof}
+    In the proof of Maschke's theorem V1, we constructed a \(G\)-invariant Hermitian inner product on \(\CC^n\). We change the basis in \(\CC^n\) to a basis which is orthonormal for the inner product. In this new basis all elements of \(G\) are unitary matrices, and this change of basis is given by conjugation of a matrix. Hence, \(G\) is conjugate to a subgroup of \(U(n)\).
+\end{proof}
+
+\begin{mdcor}
+    Any matrix \(A \in \gl_n(\CC)\) of finite order is diagonalisable.
+\end{mdcor}
+
+\begin{proof}
+    By the Proposition above the matrix \(A\) is conjugate to a unitary matrix, and we know that all unitary matrices are diagonalisable.
+\end{proof}
+
+\section{Maschke's theorem Ver II}
+
+\begin{definition}
+    Let \(\KK\) be a field. 
+    \begin{itemize}
+        \item We say that \(\KK\) is of characteristic zero if all the elements of \(\KK: 1, 1+1,1+1+1,\ldots\) are non-zero. 
+        \item If some of these elements is zero, then there exists a minimal prime number \(p\) such that the sum \(\underbrace{1+\cdots+1}_{p \text{ times}}=0\). We say that that the characteristic of \(\KK\) is \(p\), denoted by \(\text{char}(\KK)=p\).
+    \end{itemize}
+\end{definition}
+
+\begin{mdthm}[Maschke's theorem V2]
+    Let \(G\) be a finite group and \(\KK\) a field for which \(\text{char}(K) \nmid \abs{G}\). Suppose \(V\) is a finite dimensional representation of \(G\) over \(\KK\). Then any invariant subspace of \(W\) of \(V\) has an invariant complement \(W'\).
+\end{mdthm}
+
+\begin{mdexample}[Bad example]
+    Consider \(C_5 =\langle x \mid x^5=e\rangle\) and the field \(\mathbb{F}_5\). Then there is a homomorphism 
+    \[\begin{aligned}
+        \rho : C_5 &\mapsto \gl_2(\mathbb{F}_5) \\
+        x &\mapsto \begin{pmatrix} 1 & 1 \\ 0 &1 \end{pmatrix} \\
+        x^2 &\mapsto \begin{pmatrix} 1 & 2 \\ 0 &1 \end{pmatrix} \\
+        &\vdots \\
+        x^5 &\mapsto \begin{pmatrix} 1 & 0 \\ 0 &1 \end{pmatrix}.
+    \end{aligned}\]
+    This has an invariant subspace which is the `\(x\)-axis': think of a unit square with the left most vertex being the origin, the bottom horizontal line is an invariant subspace. But the other two \(1\)-dimensional subspace given by the diagonal and the vertical line are not invariant subspace. Maschke's theorem does not apply here and yet.
+\end{mdexample}
+
+\begin{definition}
+    A linear map \(\pi:V \to V\) for which \(\pi \circ \pi =\pi\) is called a \textbf{projection operator}.
+\end{definition}
+
+\begin{example}
+    A simple projection operator is the identity map and the zero map.
+\end{example}
+
+\begin{proposition}
+    Some properties of projection operators.
+    \begin{enumerate}
+        \item Let \(\pi\) be a projection operator. Then 
+            \begin{enumerate}
+                \item The image of \(\pi\) consists of eigenvector with eigenvalue \(1\).
+                \item We can write \(V = \text{Im}(\pi)\oplus \ker(\pi)\). This is because for any \(v\in V\) we can write 
+                \[v= \pi(v)-(v-\pi(v)).\]
+                Clearly, \(\pi(v) \in \text{Im}(\pi)\) and \(v-\pi(v)\in \ker(\pi)\).
+            \end{enumerate}
+        \item Suppose \(W\) is a subspace of \(V\). The complements \(W'\) of \(W\) are in a one-to-one correspondence with projection operators \(\pi\) with image \(W\). 
+    \end{enumerate}
+\end{proposition}
+
+\begin{definition}
+    Let \(V\) and \(W\) be representations of \(G\). A \(G\)-\textbf{equivariant homomorphism} from \(V\) to \(W\) is a linear map \(\phi:V \to W\) such that \(\phi(g\cdot v)=g\cdot (\phi(v))\).
+\end{definition}
+
+\begin{lemma}
+    Let \(V\) be a representation of \(G\) and \(W\) be an invariant subspace. Suppose \(\pi:V \to V\) is a \(G\)-equivariant project operator with \(\pi(V)=W\). Then \(W'=\ker(\pi)\) is an invariant complemen to \(W\).
+\end{lemma}
+
+\begin{proof}
+    Since \(\pi\) is a projection operator we have that \(V =\text{Im}(\pi)\oplus \ker(\pi)\). Take \(v\in \ker(\pi)\) then 
+    \[\pi(g\cdot v)=g\cdot \pi(v)=0.\]
+\end{proof}
+
+\noindent We are now ready to prove Maschke's Theorem V2.
+
+\begin{proof}[Proof of Maschke's Theorem V2]
+    Choose a projection operator \(\pi\) with \(\text{Im}(\pi)=W\). (To construct \(\pi\) we take a complement \(W'\) to \(W\) in \(V\) and define \(\pi\) to be identical on \(W\) and zero on \(W'\)). Define \(\pi_{\text{new}:V \to V}\) as follows
+    \[\pi_{\text{new}}(v) = \frac{1}{\abs{G}} \sum_{g\in G} g\cdot \left( \pi(g\inv \cdot v) \right).\]
+    We show this map is indeed a projection operator. Note that 
+    \begin{enumerate}
+        \item \(\text{Im}(\pi_{text{new}})\subset W\). Because, \(W\) is invariant and so \(g\cdot \left( \pi(g\inv \cdot v) \right) \in W\) for all \(v \in V\) and \(g\in G\).
+        \item \(\pi_{\text{new}}\) is the identity on \(W\). This is because \(\pi\) is the identity on \(W\), and so \(g\cdot \left( \pi(g\inv \cdot v) \right) =w\) for all \(w\in W\) and \(v,g \in G\).
+    \end{enumerate}
+    By these observations it follows that \(\pi_{\text{new}}(\pi_{\text{new}}(v))=\pi_{\text{new}}(v)\) hence, it is a projection operator on \(W\). It is also equivariant. Hence, \(W'_{\text{new}}=\ker(\pi_{\text{new}})\) is an invariant complement to \(W\) by the above lemma.
+\end{proof}
+
+\section{Permutation representations}
+
+In this section we study permutation representations which correspond to actions of \(G\) on finite sets, or permutation of vectors of a certain basis.
+
+\begin{definition}
+    Let \(\KK\) be a field and let \(X\) be a finite \(G\)-set. The \textbf{permutation representation} of \(G\) associated to \(X\) is constructed as follows:
+    \begin{enumerate}
+        \item to every \(x\in X\) associate a symbol \(e_x\). Denote by \(\KK[X]\) the vector space of all \(\KK\)-linear combinations of the symbol \(e_x\).
+        \item Define an action of \(G\) on \(\KK[X]\) by setting 
+        \[g\cdot e_x =e_{g\cdot x}\]
+        and extending linearly.
+    \end{enumerate}
+\end{definition}
+
+\begin{mdexample}
+    Let \(D_6\) be the group of symmetries of an equilateral triangle. Let \(X = \left\{ A,B,C \right\}\) be the set of vertices of the triangle. Clearly \(D_6\) acts on \(X\). We now write the action as a representation of \(\RR[X]\) (the cardinality of this set is \(3\) since \(\abs{X}=3\)):
+    \begin{itemize}
+        \item \(D_6\) is generated by a rotation \(r\) and reflection \(s\).
+        \item \(r\) acts by rotating clockwise by \(120^{\circ}\).
+        \item \(s\) is a reflection that fixes \(A\) and swaps \(B\) with \(C\).
+    \end{itemize}
+    Consider now the vector space \(\RR[X]\) with basis \(e_A,e_B,e_C\). The elements of \(\RR[X]\) are linear combinations \(xe_A+ye_B+ze_C\) with \(x,y,z\in \RR\). We have that \(D_6\) acts as follows:
+    \[\begin{aligned}
+        r\cdot (xe_A+ye_B+ze_C)&=xe_B +ye_C + ze_A \\
+        s \cdot (xe_A+ye_B+ze_C) &= x e_A + ye_C +ze_B. 
+    \end{aligned}\]
+    We can identify \(\RR[X]\) with \(\RR\) by setting 
+    \[\begin{aligned}
+        e_A &\mapsto e_1 \\
+        e_B &\mapsto e_2 \\
+        e_C &\mapsto e_3, 
+    \end{aligned}\]
+    then \((xe_A+ye_B+ze_C) \mapsto (x,y,z)\). So we can write the representation using matrices 
+    \[\rho_{\RR[X]}(r) = \begin{pmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\0 & 1 & 0\end{pmatrix} \quad \text{and} \quad \rho_{\RR[X]}(s) =\begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0\end{pmatrix}.\]
+\end{mdexample}
+
+\begin{definition}
+    A \textbf{permutation matrix} is a matrix permuting the standard basis vectors \(e_i\). It has one \(1\) in each row and column and all other entries are zero.
+\end{definition}
+
+\subsection{The regular representation}
+
+\begin{definition}
+    Consider \(G\) as a \(G\)-set with the actio nof \(G\) by multiplication from the left. The \textbf{regular representation} of \(G\) is the permutation representation \(\CC[G]\) with action \(g\cdot e_h = e_{gh}\). This representation is denoted \(\CC[G]_{\text{reg}}\).
+\end{definition}
+
+\begin{example}
+    Consider a regular representation of \(C_4\). The basis is \(e_e,e_x,e_{x^2}\) and \(e_{x^3}\) and the action is 
+    \[\begin{aligned}
+        \rho_{\CC[C_4]}(e) &= \begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0& 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}, 
+        \quad \rho_{\CC[C_4]}(x) &= \begin{pmatrix} 0 & 0 & 0 & 1 \\ 1 & 0 & 0 & 0 \\ 0& 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{pmatrix}, \\
+        \rho_{\CC[C_4]}(x^2) &= \begin{pmatrix} 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \\ 1& 0 & 0 & 0 \\ 0 & 1& 0 & 0 \end{pmatrix}, \quad 
+        \rho_{\CC[C_4]}(x^3) &= \begin{pmatrix} 0 & 1 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0& 0 & 1 & 0 \\ 1 & 0 & 0 & 0 \end{pmatrix}.
+    \end{aligned}\]
+\end{example}
+
+\begin{lemma}
+    Let \(\KK\) be a field. Any finite group \(G\) is isomorphic to a subgroup of \(\gl_n(\KK)\) for \(n=\abs{G}\).
+\end{lemma}
+
+\begin{proof}
+    Order the elements of \(G\) with \(g_1=e\). Take the isomorphism \(\KK[G]\cong \KK^n\) that sends \(e_{g_k} \mapsto e_k\). Then the regular representation of \(G\) on \(\KK[G]\) defines a group homomorphism \(\rho_{\text{reg}}:G \to \gl_n(\KK)\). We want to show that this map is injective i.e. \(\rho_{\text{reg}}(g_i) \neq 1_{\CC^n}\) for \(i> 1\). We have that \(g_i \cdot e_{g_1}=e_{g_i\cdot g_1}=e_{g_i}\) and so \(\rho_{\text{reg}}(g_i)(e_i)=e_i\neq e_1\) for \(i >1\).
+\end{proof}
+
+\begin{definition}
+    A representation \(V\) is called \textbf{faithful} if \(\rho_V :G \to \gl(V)\) is an injective group homomorphism.
+\end{definition}
+
+\begin{mdcor}
+    Any finite group is isomorphic to a subgroup of the unitary group \(U(n)\) for large enough \(n\).
+\end{mdcor}
+
+\begin{proof}
+    Set \(n=\abs{G}\) and consider \(\CC[G]_{\text{reg}}\). This is a permutation representation so it preserves the standard Hermitian inner product. By the Lemma above \(\rho_{\text{reg}}:G \to U(n)\) is injective.
+\end{proof}
+
+\begin{mdlemma}
+    Any finite group \(G\) for which every complex irreducible representation is \(1\)-dimensional is abelian.
+\end{mdlemma}
+
+\begin{proof}
+    By the preceedigng lemma we may assume that \(G\) is a subgroup of \(\gl_n(\CC)\). By Maschke's theorem the corresponding representation of \(G\) on \(\CC^n\) is completely reducible. So, we can write \(\CC^n = V_1\oplus \cdots \oplus V_m\), where each \(V_i\) is an irreducible representation of \(G\). By our assumption of \(\dim(V_i)=1\) it follows that \(m=n\). Now, for any \(i \in \left\{ 1,\ldots,n \right\}\) we can choose a vector \(v_i \in V_i\), and construct a basis of \(\CC^n\) i.e. \(\left\{ v_1,\ldots,v_n \right\}\). In this basis each \(g\) is a diagonal matrix and since diagonal matrices commute it must be that \(G\) is also commutative.
+\end{proof}
+
+\section{Equivalence of representation and Schur's lemma}
+
+\begin{mdnote}
+    This section is about analysing the space of \(G\)-equivariant maps between two irreducible representations.
+\end{mdnote}
+
+\begin{definition}
+    Let \(V\) and \(W\) be representations of a group \(G\) over \(\KK\). A linear \(G\)-equivariant map \(\phi:V \to W\) is called a \(G\)-\textbf{equivariant homomorphism}  (or a \textbf{homomorphism of representations}).
+\end{definition}
+
+\begin{definition}
+    Representations \(V\) and \(W\) of \(G\) are called \textbf{equivalent} or \textbf{isomorphic} if there exists an isomorphism of vector spaces \(\phi:V \to W\) which is \(G\)-equivariant.
+\end{definition}
+
+\begin{mdremark}
+    Recall that isomorphism establish an equicalence relation.
+\end{mdremark}
+
+\begin{lemma}
+    Let \(V\) and \(W\) be equivalent representations of a group \(G\). Then there exists a basis \(\left\{ v_i \right\}\) of \(V\) and a bsis \(\left\{ w_i \right\}\) of \(W\) such that \(\rho_V(g)\) and \(\rho_W(g)\) are represented by the same matrices \(\rho_V(g)_{ij} = \rho_W(g)_{ij}\), for all \(g\in G\).
+\end{lemma}
+
+\begin{proof}
+    Consider an isomorphism of representations \(\phi:V \to W\). We choose a basis \(\left\{ v_i \right\}\) for \(V\). Define \(w_i = \phi(v_i)\) then, \(\left\{ w_i \right\}\) is a basis of \(W\). Let \(\rho_V(g)_{ij}\) be the matrix for \(\rho_V(g)\) in a basis \(v_i\). Let \(\rho_W(g)_{ij}\) be the matrix for \(\rho_W(g)\) in a basis \(w_i\). We have the following series of equalities:
+    \[\begin{aligned}
+        \sum_i \rho_W(g)_{ij} w_i &= g\cdot w_j\\
+        &= g\cdot \phi(v_j) \\
+        &=\phi(g\cdot v_j) \\
+        &= \phi \left( \sum_i \rho_V(g)_{ij}v_i \right) \\
+        &= \sum_i \rho_V(g)_{ij}w_i.
+    \end{aligned}\]
+    The third equality follows from the \(G\)-equivariance. It follows that for any \(i,j\) we have \(\rho_W(g)_{ij}=\rho_V(g)_{ij}\).
+\end{proof}
+
+\begin{definition}
+    Let \(V\) and \(W\) be representation of a group \(G\) over a field \(\KK\). We call \(V\) a \textbf{subrepresentation} of \(W\) if there is an injective \(G\)-equivariant homomorphism \(\phi:V \to W\).
+\end{definition}
+
+\subsection{Space of linear maps and equivariant linear maps}
+
+\begin{definition}
+    Denoe by \(\mat_{m,n}(\KK)\) the set of \(m \times n\) matrices with entries in \(\KK\). This is a vector space \(mn\). It has basis consistinf of matrices \(E_{i,j}\), where \(E_{i,j}\) the \((i,j)^{\text{th}}\)-entry is \(1\) and all other entries equal to \(0\).
+\end{definition}
+
+\begin{example}
+    \(\mat_{2,3}\) is a \(6\)-dimensional vector space with basis 
+    \[\left\{ 
+        \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix},
+        \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 0 \end{pmatrix},
+        \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix},
+        \begin{pmatrix} 0 & 0 & 0 \\ 1 & 0 & 0 \end{pmatrix},
+        \begin{pmatrix} 0 & 0 & 0 \\ 0 & 1 & 0 \end{pmatrix},
+        \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix}.\right\}\]
+    Where we can denote in the same order the basis as \(\left\{ E_{1,1},E_{1,2},E_{1,3},E_{2,1},E_{2,2},E_{2,3}  \right\}\).
+\end{example}
+
+\begin{mdremark}
+    An element of \(\mat_{m,n}(\KK)\) gives us a linear map \(\KK^n \to \KK^m\). For general \(\KK\)-vector spaces \(V,W\) we can also consider the space of linear maps \(\phi:V \to W\).
+\end{mdremark}
+
+\begin{definition}
+    Let \(V\) and \(W\) be vector spaces over a field \(\KK\). The set of all linear maps from \(V\) to \(W\) is denoted by \(\text{Hom}(V,W)\). A linear map between vector spaces is called a \textbf{homomorphism}. 
+\end{definition}
+
+\begin{mdprop}
+    The set \(\text{Hom}(V,W)\) has the structure of a \(\KK\)-vector space.
+\end{mdprop}
+
+\begin{proposition}
+    Suppose \(\dim(V)=n\) and \(\dim(W)=m\) then \(\dim(\text{Hom}(V,W))=mn\).
+\end{proposition}
+
+\begin{proof}
+    Choose bases for \(V\) and \(W\). This associates to each map \(\phi\in \text{Hom}(V,W)\) an \(m\times n\) matrix. This is an isomorphism 
+    \[\text{Hom}(V,W) \cong \mat_{m,n}(\KK).\]
+\end{proof}
+
+\begin{definition}
+    Let \(V\) and \(W\) be representations of \(G\). The set of all \(G\)-equivariant homomorphisms from \(V\) to \(W\) is denoted 
+    \[\text{Hom}_G(V,W) = \left\{ \phi \in \text{Hom}_G(V,W) : \phi(g\cdot v)=g\cdot \phi(v) \; \forall g\in G,v\in V \right\}.\]
+\end{definition}
+
+\begin{mdremark}
+    This set is never empty as it always contains the identity map. The set \(\text{Hom}_G(V,W)\) is a linear subspace of \(\text{Hom}(V,W)\).
+\end{mdremark}
+
+\begin{example}
+    Let \(X = \left\{ 1,2,3 \right\}\)  be the \(S_3\)-set. Consider the corresponding permutation representation of \(S_3\) on \(\CC[X] = \CC^3\). We have that \(\dim(\text{Hom}(\CC^3,\CC^3))=9\) and 
+    \[\dim(\text{Hom}_{S_3}(\CC^3,\CC^3))=2.\]
+    Namely, \(\text{Hom}_{S_3}(\CC^3,\CC^3)\) is the following subspace of \(\text{Hom}(\CC^3,\CC^3) =\mat_{3,3}(\CC)\):
+    \[\left\{ \begin{pmatrix}
+        a & b & b \\
+        b & a & b \\
+        b & b & a 
+    \end{pmatrix} : a,b \in \CC\right\}.\]
+\end{example}
+
+\subsection{Schur's lemma}
+
+\begin{lemma}
+    Suppose \(V\) is an irreducible representation of a finite group \(G\) over \(\CC\). Then \(\text{Hom}_G(V,V)=\left\{ \lambda \bm{1}_V : \lambda\in \CC \right\}\).
+\end{lemma}
+
+\begin{mdnote}
+    This is the first half of Schur's lemma.
+\end{mdnote}
+
+\begin{mdremark}
+    This lemma does not work over \(\RR\). The counterexample for this is the representation of \(C_4\) given by \(x \mapsto \begin{pmatrix}
+        0 & 1 \\
+        -1 & 0 
+    \end{pmatrix}\).
+\end{mdremark}
+
+\begin{proof}
+    Let \(f:V \to V\) be a \(G\)-equivariant homomorphism. Since \(\CC\) is algebraically closed, \(f\) has an eigenvalue \(\lambda\). Let \(V_{\lambda}\) denote the corresponding eigenspace for \(f\). We claim \(V_{\lambda}\) is an invariant subspace. Indeed, take \(v\in V_{\lambda}\) then 
+    \[f(g\cdot v)=g\cdot (f(v))=g\cdot(\lambda) =\lambda(g\cdot v).\]
+    Therefore, \(g\cdot v\in V_{\lambda}\). Since \(V\) is irreducible then \(V_{\lambda}=V\). So \(f=\lambda \bm{1}_V\).
+\end{proof}
+
+\begin{mdthm}[Schur's lemma]
+    Let \(V\) and \(W\) be irreducible representations over \(\CC\) of a finite group \(G\). Then we have 
+    \[\text{Hom}_G(V,W) \cong \begin{cases}
+        \CC &\text{if } V \cong W\\
+        0 &\text{if } V \not\cong W.
+    \end{cases}\]
+\end{mdthm}
+
+\begin{proof}
+    We consider two case.
+    \begin{enumerate}
+        \item If \(V \cong W\) then \(\text{Hom}_G(V,W)\cong \text{Hom}_G(V,V)\). By the lemma above it follows that \(\text{Hom}_G(V,W)\cong \CC\).
+        \item If \(V \not\cong W\). We need to show that any \(G\)-equivariant map \(f:V \to W\) is zero. We will use two claims:
+        \begin{enumerate}
+            \item \(\ker(f)\) is an invariant subspace of \(V\) and \(\Img{f}\) is an invariant subspace of \(W\).
+            \item \(V\) and \(W\) are irreducible and so they have no proper invariant subspaces.
+        \end{enumerate}
+        We now consider two possibilities for \(\ker(f)\).
+        \begin{enumerate}
+            \item \(\ker(f)=0\). Then \(\Img(f)\subset W\) is a non-zero invariant subspace. Hence, by \((2)\) \(\Img(f)=W\) and \(V\cong W\), which contradicts the assumption \(V \not\cong W\).
+            \item \(\ker(f)\neq 0\). Then since the kernel is an invariant subspace, by \((2)\) we have that \(\ker(f)=-\) and \(f=0\) so, \(\text{Hom}_G(V,W)=0\).
+        \end{enumerate}
+    \end{enumerate}
+\end{proof}
+
+\section{Character theory}
+
+\begin{mdnote}
+    The purpose of this section is to study and understand the trace of a complex representation.
+\end{mdnote}
+
+\begin{definition}
+    Let \(A:V \to V\) be a linear map. Define the \textbf{trace}, \(\text{tr}(A)\), as the trace of a the matrix corresponding to \(A\) for a given basis.
+\end{definition}
+
+\begin{mdremark}
+    \(\text{tr}(AB)=\text{tr}(BA)\).
+\end{mdremark}
+
+\begin{mdremark}
+    The value of the trace is independent from the choice of basis.
+\end{mdremark}
+
+\begin{mdnote}
+    Spoiler: two complex representation \(V\) and \(W\) of \(G\) are isomorphic if and only if \(\text{tr}(\rho_V(g))=\text{tr}(\rho_V(g))\).
+\end{mdnote}
+
+\begin{definition}
+    Let \(V\) be a representation of \(G\). The \textbf{character} of \(V\) is the function 
+    \[\begin{aligned}
+        \chi_V : G &\to \CC \\
+        g &\mapsto \text{tr}(\rho_V(g))
+    \end{aligned}\]
+\end{definition}
+
+\subsection{Basic properties fo characters}
+
+\begin{mdprop}
+    Let \(G\) be a finite group and \(V\) a complex representation of \(G\).
+    \begin{enumerate}
+        \item \(\chi_V(ghg\inv)=\chi_V(g)\) for all \(g,h\in G\).
+        \item \(\chi_V(e)=\dim(V)\).
+        \item \(\chi_V(g\inv)=\ol{\chi_V(g)}\).
+    \end{enumerate}
+\end{mdprop}
+
+\begin{proof}
+    We prove each statement separately.
+    \begin{enumerate}
+        \item \(\rho_V(h)\) and \(\rho_V(ghg\inv)\) are conjugate in \(\gl(V)\) so they have the same traces.
+        \item \(\rho_V(e)\) is the identity map. The trace of the identity is the dimension of the space.
+        \item Since \(G\) is finite \(\rho_V(g)\) has finite order and so is diagonalisable by some corollary. Choose a basis of \(V\) which is an eigenbasis for \(\rho_V(g)\). Let \(\lambda_1,\ldots,\lambda_n\) be the entries of the diagonal matrix for \(\rho_V(g)\). Sicne \(\rho_V(g)\) has finite order, for each \(\lambda_i\) we have \(\abs{\lambda_i}=1\). So, \(\lambda_i\inv=\ol{\lambda_i}\). We conclude \(\chi_V(g\inv)=\sum_i \lambda_i\inv =\ol{\sum_i \lambda_i}=\ol{\chi_V(g)}\).
+    \end{enumerate}
+\end{proof}
+
+\begin{lemma}
+    Let \(V_1\) and \(V_2\) be isomorphic representation tehn \(\chi_{V_1}=\chi_{V_2}\).
+\end{lemma}
+
+\begin{proof}
+    \todo[inline]{TO do}
+\end{proof}
+
+\subsection{Characters of permutation representations}
+
+\begin{lemma}
+    Let \(\CC[X]\) be the permutation representation of a finite group \(G\) associated to a finite \(G\)-set \(X\). We have that 
+    \[\chi_{\CC[X]}(g)=\abs{\text{Fix}_X(g)}.\]
+\end{lemma}
+
+\begin{proof}
+    We enumerate elements of \(X\) as \(x_1,\ldots,x_n\). Let \(g\in G\) and let \(\sigma\in S_n\) be the permutation given by the action of \(g\): 
+    \[g\cdot x_i = x_{\sigma(i)}.\]
+    The representation \(\CC[X]\) has basis \(e_{x_1},\ldots,e_{x_n}\), which can be identified with the basis of \(\CC^n\), that is \(e_1,\ldots,e_n\). Let \(A\) be the matrix for \(\rho_\CC[X](g)\). We have that \(A(e_i)=e_{\sigma(i)}\) thus, the \(i\)-th columen of \(A\) is equal to the vector \(e_{\sigma_i}\). We conclude that \(a_{ii}=1\) if and only if \(\sigma(i)=i\), which implies that \(x_i \in \text{Fix}_X(g)\). Therefore, \(\chi_{\CC[X]}(g)=\text{tr}(A)=\sum_i a_{ii} =\abs{\text{Fix}_X(g)}\).
+\end{proof}
+
+\begin{mdprop}
+    For a finite group \(G\) the character of teh regular representation is given by 
+    \[\chi_{\CC[G]}(g) = \begin{cases} \abs{G} &\text{if } g=e, \\ 0 &\text{if } g\neq 0.\end{cases}\]
+\end{mdprop}
+
+\begin{proof}
+    We consider two cases.
+    \begin{itemize}
+        \item Clearly, \(\chi_{\CC[G]}(e)=\abs{G}\) and \(\abs{G}=\dim(\CC[G])\).
+        \item If \(g\neq e\) we apply the lemma above.
+        \[\begin{aligned}
+            \chi_{\CC[G]}(g) &= \abs{\text{Fix}_G(g)} \\
+            &= \abs{\left\{ x\in G : g\cdot x = x \right\}}.
+        \end{aligned}\]
+        Since \(g\neq e\) then \(g\cdot x \neq x\) for any \(x\). Therefore, \(\text{Fix}_G(g)=\varnothing\).
+    \end{itemize}
+\end{proof}
+
+\section{External direct sums of representation}
+
+\begin{definition}
+    For vector spaces \(V_1,\ldots,V_n\) over \(\KK\) the (external) \textbf{direct sum} is defined to be the vector space of `tuples':
+    \[V_1 \oplus \cdots \oplus V_n \left\{ (v_1,\ldots,v_n) : v_i \in V_i \; \forall i \in \NN\setminus \{0\} \right\}.\]
+    The dimension of the external sum is \(\sum_i \dim(V_i)\).
+\end{definition}
+
+\begin{definition}
+    Let \(V_1,\ldots,V_n\) be representations of a group \(G\) over a field \(\KK\). The \textbf{direct sum representation} is the representation \(\rho_V\) of \(G\) on the vector space \(V= V_1\oplus \cdots V_n\) defined by 
+    \[\begin{aligned}
+        \rho_V(g)((v_1,\ldots,v_n)) &= (\rho_{V_1}(g)(v_1),\ldots,\rho_{V_n}(g)(v_n)) \\
+        &= (g\cdot v_1,\ldots,g\cdot v_n).
+    \end{aligned}\]
+\end{definition}
+
+\begin{example}
+    Let \(C_{\infty}\) be the infinite cyclic group, generated by \(g\). Let \(\rho_1,\rho_2,\rho_3\) be representations of \(C_{\infty}\) on \(\RR\) with \(\rho_i(g)\lambda_i\). The direct sum of the representations \(\rho_1,\rho_2,\rho_3\) is a representation of \(C_{\infty}\) on \(\RR^3 = \RR \oplus \RR \oplus \RR\). The element \(g\) acts on by the following matrix 
+    \[\rho_{\RR^3}(g) = \begin{pmatrix}
+        \lambda_1 & 0 & 0 \\
+        0 & \lambda_2 & 0 \\
+        0 & 0 & \lambda_3 \\
+    \end{pmatrix}.\]
+\end{example}
+
+\begin{definition}
+    Let \(A_i:V_i \to W_i\) be linear maps between \(\KK\)-vector spaces for \(i \in \NN\setminus\left\{ 0 \right\}\). We define the following linear map 
+    \[\begin{aligned}
+        A = A_1 \oplus \cdots \oplus A_n : V_1 \oplus \cdots \oplus V_n &\to W_1 \oplus \cdots \oplus W_n \\
+        (v_1,\ldots,v_n) &\mapsto (A_1(v_1),\ldots,A_n(v_n)).
+    \end{aligned}\] 
+\end{definition}
+
+\begin{example}
+    Let \(A_1 : \KK^3 \to \KK^2\) and \(A_2 : \KK^2 \to \KK^2\) where 
+    \[A_1 = \begin{pmatrix} 2 & 1 & 4 \\ 3 & 2 & 1 \end{pmatrix} \quad \text{and} \quad \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}.\]
+    Then \(\KK^3\oplus \KK^2 \cong \KK^5\) and \(\KK^2 \oplus \KK^2 \cong \KK^4\) and \(A_1 \oplus A_2\) is given by the \(4\times 5\) matrix 
+    \[A_1 \oplus A_2 \begin{pmatrix}
+        2 & 1 & 4 & 0 & 0 \\
+        3 & 2 & 1 & 0 & 0 \\
+        0 & 0 & 0 & 1 & 2 \\
+        0 & 0 & 0 & 3 & 4
+    \end{pmatrix}.\]
+\end{example}
+
+\begin{mdexample}
+    Let \(V = V_1 \oplus \cdots V_n\), for any \(g\) the linear map 
+    \[\begin{aligned}
+        \rho_V : V &\to V \\ 
+        \rho_V(g) &= \rho_{V_1(g)} \oplus \cdots \oplus \rho_{V_n}(g).
+    \end{aligned}\]
+\end{mdexample}
+
+\begin{mdlemma}
+    Suppose \(V_1,\ldots V_n\) are representations of \(G\) with characters \(\chi_{V_1},\ldots,\chi_{V_n}\). Then the direct sum representation \(V_1 \oplus \cdots \oplus V_n\) has character given by 
+    \[\chi_{V_1 \oplus \cdots \oplus V_n} = \chi_{V_1}+\cdots +\chi_{V_n}.\]
+\end{mdlemma}
+
+\begin{mdremark}
+    We cannot have \(\chi_{V_1} = -\chi_{V_2}\) for \(\chi_{V_1 \oplus V_2} =0\) since \(\chi_V(e) =\dim(V)\).
+\end{mdremark}
+
+\begin{proof}
+    Choose a basis in \(V = V_1 \oplus \cdots V_n\) where the first \(\dim(V_1)\) vectors belong to \(V_1\) and so on. Then the matrix \(\rho_V(g)\) is block diagonal and each block is given by the matrix \(\rho_{V_i}(g)\). Therefore, \(\text{tr}(\rho_V(g))=\sum_i \text{tr}(\rho_{V_i}(g))\).
+\end{proof}
+
+\section{The dual representation}
+
+\begin{lemma}
+    The map 
+    \[\begin{aligned}
+        \gl_n(\KK) &\to \gl_n(\KK) \\
+        A &\mapsto \left( A\inv \right)^{\top}
+    \end{aligned}\]
+    is a homomorphism.
+\end{lemma}
+
+\begin{mdnote}
+    By this lemma, for any representation \(\rho:G \to \gl_n(\KK)\) one can define a new representations. We do this by replacing each matrix \(\rho(g)\) by its inverse transpose.
+\end{mdnote}
+
+\begin{definition}
+    For a \(\KK\)-vector space \(V\), the \textbf{dual vector space} \(V^*\) is defined as 
+    \[V^* = \text{Hom}(V,\KK)\].
+\end{definition}
+
+\begin{mdremark}
+    \(V^*\) is the vector space of all linear maps \(V \to \KK\).
+\end{mdremark}
+
+\begin{definition}
+    Suppose \(V\) is a \(\KK\)-vector space with basis \(\left\{ v_1,\ldots,v_n \right\}\). The \textbf{basis for the dual} vector space \(V^*\) has basis \(\left\{ v_1^*,\ldots,v_n^* \right\}\) where \(v_i^* \in \text{Hom}(V,\KK)\) is the linear map 
+    \[v_i^*\left( \sum_j z_j v_j \right) = z_i\]
+    where \(z_j \in \KK\). 
+\end{definition}
+
+\begin{mdexample}
+    Let \(\left\{ e_1,\ldots,e_n \right\}\) be the standard basis \(\CC^n\). The dual basis \(\left( \CC^n \right)^*\) is denoted \(\delta_1,\ldots,\delta_n\). We present \(e_i\) as column vectors and \(\delta_j\) as row vectors.
+\end{mdexample}
+
+\subsection{Definition of dual representation}
+
+\begin{definition} 
+    Let \(\rho_V : G \to \gl(V)\) be a representation of a group \(G\) on \(V\). The \textbf{dual representation} is given by 
+    \[\begin{aligned}
+        \rho_{V^*}(g) : V^* &\to V^* \\
+        \phi &\mapsto \phi\circ \rho_V(g)\inv.
+    \end{aligned}\]
+\end{definition}
+
+\begin{mdlemma}
+    Let \(\rho_{\CC^n}(g)=A_g \in \gl_n(\CC)\) be a representation. Then in terms of the dual basis to the standard basis of \(\CC^n\) we have \(\rho_{(\CC^n)^*}(g) = \left( A_g\inv \right)^{\top}\).
+\end{mdlemma}
+
+\begin{corollary}
+    Let \(V\) be a complex representation of a finite groyo \(G\). The character of the dual representation \(V^*\) satisfies 
+    \[\chi_{V^*}(g)=\chi_V(g)\]
+    for all \(g\in G\).
+\end{corollary}
+
+\section{The orthogonality fo characters}
+
+\begin{definition}
+    Let \(\fun(G,\CC)\) be the set of all functions \(G \to \CC\).
+\end{definition}
+
+\begin{proposition}
+    The set \(\fun(G,\CC)\) is a vector space, with the usual addition \((f_1+f_2)(g)=f_1(g)+f_2(g)\).
+\end{proposition}
+
+\begin{proposition}
+    We have that \(\fun(G,\CC) \cong \CC[G]\). The isomorphism is given by 
+    \[\begin{aligned}
+        \phi:\fun(G,\CC) &\to \CC[G] \\ 
+        f &\mapsto \sum_{g\in G} f(g) e_g.
+    \end{aligned}\]
+\end{proposition}
+
+\begin{definition}
+    We will denote by \(\delta_g\) the fucntion that has value \(1\) on \(g\) and \(0\) on all other elements of \(G\). Furthermore, \(\phi(\delta_g)=e_g \in \CC[G]\).
+\end{definition}
+
+\begin{proposition}
+    The functions \(\delta_g\) form a basis for \(\fun(G,\CC)\).
+\end{proposition}
+
+\begin{definition}
+    We define the \textbf{Hermitian inner product on \(\fun(G,\CC)\)}. In the basis \(\delta_g\) we set 
+    \[\langle \delta_g,\delta_h \rangle =\begin{cases}
+        \frac{1}{\abs{G}} &\text{if } g=h \\
+        0 &\text{if } g\neq h
+    \end{cases}\]
+    for \(g,h\in G\).
+\end{definition}
+
+\begin{corollary}
+    By this definition it follows that 
+    \[\begin{aligned}
+        \langle f_1,f_2 \rangle &=\left\langle \sum_g f_1(g)\delta_g, \sum_g f_2(g)\delta_g \right\rangle \\
+        &= \frac{1}{\abs{G}} \sum_{g\in G} f_1(g)\ol{f_2(g)},
+    \end{aligned}\]
+    for \(f_1,f_2 \in \fun(G,\CC)\).
+\end{corollary}
+
+\begin{definition}
+    An element \(f\in \fun(G,\CC)\) is called a \textbf{class function} if it is constant on conjugacy classes. The space of all such function is called the \textbf{space of class functions} and is denoted by 
+    \[\mathcal{C}_G = \left\{ f\in \fun(G,\CC) \mid f(ghg\inv)=f(h) \text{ for all } g,h\in G \right\}.\]
+\end{definition}
+
+\begin{proposition}
+    The space \(\mathcal{C}_G\) is a linear subsapce of \(\fun(G,\CC)\); the Hermitian inner product of \(\fun(G,\CC)\) gives rise to a Hermitian inner product \(\mathcal{C}_G\) given by the same formula.
+\end{proposition}
+
+\begin{mdlemma}
+    The dimension \(\dim\left( \mathcal{C}_G \right)\) is equal to the number of conjugacy classes in \(G\).
+\end{mdlemma}
+
+\begin{proof}
+    Let \(C_1,\ldots,C_N\) be the conjugacy classes of \(G\) and let 
+    \[\delta_{C_i} : g \mapsto \begin{cases}
+        1 &\text{if } g\in C_i, \\
+        0 &\text{if } g\not\in C_i.
+    \end{cases}\]
+    The functions \(\delta_{C_1},\ldots,\delta_{C_N}\) are linearly independent and span \(\mathcal{C_G}\) so they form a basis.
+\end{proof}
+
+\subsection{The main result of character theory}
+
+\begin{mdthm}[Orthogonality of characters]
+    Let \(G\) be a finite group, and suppose \(V\) and \(W\) are irreducible representations of \(G\) over \(\CC\). Then 
+    \[\langle \chi_V, \chi_W \rangle = \begin{cases}
+        1 &\text{if } V \cong W \text{ as representations} \\
+        0 &\text{if } V \not\cong W \text{ as representations}
+    \end{cases}\]
+\end{mdthm}
+
+\begin{mdexample}
+    \todo[inline]{To do}
+\end{mdexample}
+
+\section{Application of orthogonality of characters}
+
+\begin{mdcor}
+    Let \(G\) be a finite group and let \(N\) be the number of conjugacy classes in \(G\).\ The group \(G\) has \ul{at most} \(N\) distinct equivalence calsses of irreducible complex representations.
+\end{mdcor}
+
+\begin{mdnote}
+    We can find at most \(N\) irreducible representations which are not isomorphic to each other.
+\end{mdnote}
+
+\begin{proof}
+    Let \(V_1,\ldots,V_m\) be pairwise non-isomorphic complex irreducible representations of \(G\). By the theorem above \(\chi_{V_1},\ldots,\chi_{V_m}\) are orthonormal vectors in the vector space \(\mathcal{C}_G\). By some lemma we know that \(\dim(\mathcal{C}_G) = N\). Furthermore, these vectors are linearly independent thus, \(m\leq \dim(\mathcal{C}_G)=N\).
+\end{proof}
+
+\begin{mdexample}
+    Let us apply this corollary to the group \(S_3\). First, we notice that \(S_3\) has \(3\) conjugacy classes, given by \([e],[(12)]\) and \([(123)]\). In the previous example we constructed \(3\) irreducible representations of \(S_3\): the trivial, standard and sign representations. Since the standard representation is of dimension \(2\) it cannot be isomorphic to the other representations since they are of dimension \(1\). To prove the remaining representations are not isomorphic we check the character of the representation: if they are isomorphic then they have the same character.
+\end{mdexample}
+
+\subsection{Construction of character table}
+
+For any finite group we acn write its irreducible characters in a ta ble. In this table we:
+\begin{itemize}
+    \item keep only one column per conjugacy class;
+    \item write the number of elements in the conjugacy class in a new top row.
+\end{itemize}
+
+\begin{mdexample}
+    The following is the character table of \(S_3\).
+    \begin{center}
+        \begin{tabular}{c|c|c|c}
+            \# elements in conj class & 1 & 3 & 2 \\ \hline
+            conjugacy class rep $\sigma$ in $S_3$ & $e$ & $(12)$ & $(123)$ \\
+            \hline
+            $\chi_{\text{triv}}$ & 1 & 1 & 1 \\
+            $\chi_{\text{sign}}$ & 1 & \(-1\) & 1 \\
+            $\chi_{\text{stand}}$ & 2 & 0 & \(-1\) \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{mdexample}
+
+\subsection{Criterion for irreducibility of a representation}
+
+\begin{mdprop}
+    Let \(W\) be a complex representation of a finite group \(G\). If \(\langle \chi_W, \chi_W \rangle =1\) then \(W\) is irreducible.
+\end{mdprop}
+
+\begin{proof}
+    For the sake of contradiction, suppose \(W\) is not irreducible. By Maschke's theorem we can write \(W\) as the direct sum of irreducible representations say,
+    \[W = W_1 \oplus \cdots \oplus W_m\]
+    for some \(m>1\). By the orthogonality of characters we have that 
+    \[\begin{aligned}
+        1 = \langle \chi_W,\chi_W \rangle &= \left\langle \sum_{j=1}^m \chi_{W_j}, \sum_{j=1}^{m} \chi_{W_j} \right\rangle \\
+        &= \sum_{j,k=1}^m \langle \chi_{W_j},\chi_{W_k}\rangle \\
+        &\geq \sum_{j=1}^m \langle \chi_{W_j},\chi_{W_j}\rangle \\
+        &= m.
+    \end{aligned}\]
+    Therefore, \(m=1\) which is a contradiction.
+\end{proof}
+
+\begin{definition}
+    If \(\chi \in \mathcal{C}_G\) is the character of an irreducible representation then, we call \(\chi\) and \textbf{irreducible character}.
+\end{definition}
+
+\subsection{Mutliplicity of irreducible subrepresentations}
+
+Let \(W\) be a complex representation of a finite group \(G\) and let \(V\) be a complex irreducible representation of \(G\). In this section we investigate the meaning of \(\langle \chi_V,\chi_W \rangle\). 
+
+If we decompose \(W\) in a sum of irreducible representations \(W = W_1 \oplus \cdots \oplus W_m\). Then, \(\chi_W=\sum_i \chi_{W_i} \) thus,
+\[\langle \chi_V,\chi_W \rangle =\sum_i \langle \chi_V,\chi_{W_i}\rangle.\]
+We deduce that by the orthogonality of characters this is the number of summands \(W_i\) isomorphic to \(V\).
+
+\begin{definition}
+    Let \(V\) be an irreducible complex representation of \(G\), and let \(W\) be an arbitrary complex representation. The \textbf{multiplicity} of \(V\) in \(W\) is defined to be \(\langle \chi_V,\chi_W \rangle\).
+\end{definition}
+
+\begin{mdlemma}
+    Suppose \(V_1,\ldots,V_m\) is a maximal list of non-isomorphic complex irreducible representations of \(G\). Let \(W\) be any complex representation of \(G\) then we have that 
+    \[W \cong \underbrace{V_1 \cdots V_1}_{m_1} \oplus \underbrace{V_2 \oplus \cdots V_2}_{m_2} \oplus \cdots \oplus V_m \oplus \cdots V_m,\]
+    where the number of summands \(V_i\) is given by \(m_i = \langle \chi_{V_i},\chi_{W}\rangle\).
+\end{mdlemma}
+
+\begin{proof}
+    By Maschke's theorem we know that \(W\) is indeed isomorphic to the given direct sum. But by the orthogonality of characters we have that \(m_i = \langle \chi_{V_i}, \chi_W \rangle\).
+\end{proof}
+
+\begin{mdcor}
+    If two complex representations \(W\) and \(W'\) of a finite group have the same character then \(W\) and \(W'\) are isomorphic.
+\end{mdcor}
+
+\begin{proof}
+    By Maschke's theorem we can decompose \(W\) and \(W'\) into direct sums of irreducible representations. We have that \(m_i = \langle \chi_{V_i},\chi_W \rangle = \langle \chi_{V_i}, \chi_{W} \rangle\). 
+\end{proof}
+
+\section{Multiplicities in permutation representation and the regular representation}
+
+\begin{proposition}
+    Let \(G\) be a finite group and \(X\) a finite \(G\)-set. The multiplicity of the trivial representation in \(\CC[X]\) is equal to the number of \(G\)-orbits in \(X\).
+\end{proposition}
+
+\begin{proof}
+    By the definition of multiplicity,
+    \[\begin{aligned}
+        \langle \chi_\text{trivial}, \chi_{\CC[X]} \rangle &= \frac{1}{\abs{G}} \sum_{g\in G} \chi_{\text{trivial}}(g) \chi_{\CC[X]}(g) \\
+        &= {1}{\abs{G}} \sum_{g\in G} \abs{\text{Fix}_X(g)}.
+    \end{aligned}\]
+    The second equality uses that \(\chi_\text{trivial}(g)=1\) and the formula for the character of a permutation representation. By the orbit-counting lemma we have that the last equality is precisely, the number of \(G\)-orbits.
+\end{proof}
+
+\begin{mdcor}
+    The multiplicity of the trivial representation in the regular representation \(\CC[G]\) is one.
+\end{mdcor}
+
+\begin{proof}
+    The action of \(G\) on \(X =G\) by left multiplication has one orbit. The statement follows from the proposition above.
+\end{proof}
+
+\begin{mdprop}
+    Suppsoe \(V\) is any complex irreducible representation of \(G\) then the multiplicity of \(V\) in \(\CC[G]\) is equal to \(\dim_{\CC}(V)\).
+\end{mdprop}
+
+\begin{proof}
+    Recall that \(\chi_{\CC[G]}(e)=\abs{G}\) and \(\chi_{\CC[G]}(g)=0\) for \(g\neq e\). We calculate the multiplicity of \(V\) in \(\CC[G]\):
+    \[\begin{aligned}
+        \langle \chi_V, \chi_{\CC[G]} \rangle &= \frac{1}{\abs{G}}\sum_{g\in G} \chi_V(g)\chi_{\CC[G]}(g) \\
+        &= \frac{1}{\abs{G}}\left( \chi_V(e) \abs{G} +0\right) \\
+        &= \chi_V(e) \\
+        &=\dim_{\CC}(V).
+    \end{aligned}\]
+\end{proof}
+
+\begin{corollary}
+    Suppose that \(V_1,\ldots,V_k\) is a maximal list of non-isomorphic complex irreducible representations of \(G\). Let \(n_i =\dim(V_i)\) thne we have that 
+    \[\chi_{\CC[G]}=\sum_{i=1}^k n+i \chi_{V_i} \quad \text{and} \quad \abs{G}=\sum_i n_i^2.\]
+\end{corollary}
+
+\begin{proof}
+    By the proposition above the multiplicity of \(V_i\) in \(\CC[G]\) is \(n_i=\dim(V_i)\) and since \(\CC[G]\) is a sume of \(V_i\) we have that \(\chi_{\CC[G]}= \sum_{i=1}^k n_i \chi_{V_i}\). We write \(\abs{G} =\chi_{\CC[G]}(e)=\sum_{i=1}^k n_i \chi_{V_i}(e)= \sum_i n_i^2\).
+\end{proof}
+
+\section{One dimensional characters}
+
+\begin{proposition}
+    One dimensional representations over \(\KK\) of any group \(G\) form a group.
+\end{proposition}
+
+\begin{proof}
+    We check the group axioms.
+    \begin{itemize}
+        \item The multiplication on this group is defined by the composition of representations. That is, if \(\rho_1 :G \to \KK^*\) and \(\rho_2:G \to \KK^*\) are \(1\)-dimensional representations of \(G\) acting \(\KK\) their product is \(\rho(g) = \rho_1(g) \circ \rho_2(g)\).
+        \item The identity element is given by \(\rho_{\text{trivial}}\).
+        \item The inverse of \(\rho\) is given by \(\rho\inv\). 
+    \end{itemize}
+\end{proof}
+
+\begin{mdremark}
+    This is only valid in one dimensional representations because, we require the multiplication we have defined to be a homomorphism, which requires the representations to commute. This is only possible if the representations are one dimensional as then they are elements of \(\KK^*\).
+\end{mdremark}
+
+\begin{mdexample}
+    We construct the character table of the cyclic group \(C_4\). There are four complex irreducible representation of one dimension. They are given by 
+    \[\rho_1(x)=1 \quad \rho_1(x)=i \quad \rho_3(x)=-1 \quad \rho_4(x)=-i.\]
+    The following is the character table.
+    \begin{center}
+        \begin{tabular}{c|c|c|c|c}
+            \# elmts in conj class & 1 & 1 & 1 & 1 \\
+            \hline
+            representative $\sigma$ & $e$ & $x$ & $x^2$ & $x^3$ \\
+            \hline
+            $\chi_{\rho_0}$ & 1 & 1 & 1 & 1 \\
+            $\chi_{\rho_1}$ & 1 & $i$ & $-1$ & $-i$ \\
+            $\chi_{\rho_2}$ & 1 & $-1$ & 1 & $-1$ \\
+            $\chi_{\rho_3}$ & 1 & $-i$ & $-1$ & $i$ \\
+            \end{tabular}
+    \end{center}
+    We know compute a few elements of the group of representations of \(C_4\). 
+    \[\begin{aligned}
+        \rho_0 \rho_2 &= \rho_2 \\
+        \rho_1\rho_2 &=\rho_3
+        \rho_3\rho_3 &\rho_2.
+    \end{aligned}\]
+    We have obtained the following by only considering how they act on \(x\). We notice that we have \(\rho_3\rho_3=\rho_{3+3 \Mod{4}} = \rho_2\). 
+
+    Furthermore, we can see this multiplication from the character table, for example \(\rho_1\rho_2 = \rho_3\) is equivalent to multiplying the rows \(\chi_{\rho_1}\) and \(\chi_{\rho_2}\) element wise and we obtain the row \(\chi_{\rho_3}\). 
+\end{mdexample}
+
+\begin{mdprop}
+    The group \(C_n\) has \(n\) irreducible \(1\)-dimensional representations \(\rho_k\) with \\ \(k \in \left\{ 0,1\ldots,n-1\right\}\) such that 
+    \[\rho_k(x) = e^{2\pi i k/n} \quad \text{and} \quad \rho_k(x^l)=e^{2\pi ikl/n}.\]
+    Furthermore we have that 
+    \[\rho_{k_1}\rho_{k_2} = \rho_{k_1+k_2 \Mod{n}};\]
+    which precisely corresponds to multiplying the row \(k_2\) with the row \(k_2\) to obtain the row \(k_1+k_2 \Mod{n}\) in the character table of \(C_n\).
+\end{mdprop}
+
+\subsection{Product with a one-dimensional character}
+
+\begin{mdlemma}
+    Suppose \(V\) and \(W\) are complex representations of a finite group \(G\) and assume that \(W\) is \(1\)-dimensional. Then 
+    \begin{enumerate}
+        \item The product \(\chi_W\chi_V\) defined by \((\chi_W\chi_V)(g)=\chi_W(g)\chi_V(g)\) is a character.
+        \item If \(V\) is irreducible then \(\chi_W\chi_V\) is an irreducible character.
+    \end{enumerate}
+\end{mdlemma}
+
+\begin{proof}
+    We prove each statement in turn.
+    \begin{enumerate}
+        \item We construct a representation \(\wt{\rho}\) with character \(\chi_W\chi_V\). 
+
+        Since \(W\) is one dimensional we have that \(W \cong \CC\) furthermore, \(\rho_W(f) : W \to W\) is multiplication by a complex number \(\lambda_g \in \CC^*\). We define 
+        \[\begin{aligned}
+            \wt{\rho} : G &\to \gl(V) \\
+            g &\mapsto \lambda_g \rho_V(g).
+        \end{aligned}\]
+        We hava that \(\wt{\rho}(g)\) is a group homomorphism because \(\lambda_{g_1g_2}=\lambda_{g_1}\lambda_{g_2}\). The character of this representation is given by \(\rho_{\wt{\rho}}(g)=\lambda_g \chi_V(g)= \chi_W\chi_V\). 
+        \item We now prove \(\wt{\rho}\) is irreducible. By some proposition we only need to check that \(\langle \chi_{\wt{\rho}},\chi_{\wt{\rho}} \rangle=1\).
+    \end{enumerate}
+\end{proof}
+
+\section{The character table of \texorpdfstring{\(S_4\)}{TEXT}}
+
+We recall the conjugacy classes in \(S_4\). They correspond to types of cycles, since elements in the conjugacy class must be of the same cycle lenght, and there are five different types of cycles:
+\begin{enumerate}
+    \item \(\mathcal{C}_{(1,1,1,1)}=\left\{ e \right\}\) of order \(1\),
+    \item \(\mathcal{C}_{(2,1,1)} = \left\{ (12),(13),(14),(23),(34) \right\}\) of order \(\binom{4}{2}=6\),
+    \item \(\mathcal{C}_{(2,2)} = \left\{ (12)(34),(13)(24),(14)(23) \right\}\) of order \(\half\binom{4}{2}=3\),
+    \item \(\mathcal{C}_{(3,1)} = \left\{ (123),(213),(124),(214),(134),(314),(234),(324) \right\}\) of order \(2\binom{4}{3}=8\),
+    \item \(\mathcal{C}_{(4)} = \left\{ (1234),(2134),(3214),(2314),(3124) \right\}\) of order \(\frac{4!}{4}=6\).
+\end{enumerate}
+
+We construct the character table of the representations of \(S_4\). The representation is a trivial row, next the sign representation takes odd permutations to \(-1\) and even to \(1\). The standard representation is constructed by considering the set \(X = \left\{ 1,2,3,4 \right\}\). Then \(\rho_{\CC[X]} = \rho_{\text{standard}}\oplus \rho_{\text{trivial}}\)  thus, \(\chi_{\text{standard}}=\chi_{\CC[X]}-\chi_{\text{trivial}}\). So we should take the difference \((4,2,0,1,0)-(1,1,1,1,1)\). 
+
+We saw that multiplying a 1-dimensional representation with another representation gives us a new irreducible representation. We only consider the representation corresponding to \(\chi_{\text{sign}}\chi_{\text{standard}}\) By some corollary the sum of squares of dimensions of all irreducible representation is \(24\) but 
+\[24>1^2+1^2+3^2+3^2 =20\]
+so, so there should be at least one more irreducible representation. The number of different irreducible representation \(\leq\) the number of conjugacy classes which are \(5\). We already have \(4\) so we should have one more. The dimension of this representation is given by \(\sqrt{24-20}=2\). 
+
+In conclusion, the character table is given by:
+
+\begin{center}
+    \begin{tabular}{c|ccccc}
+        \# elts in conj class & 1 & 6 & 3 & 8 & 6 \\
+        \hline
+        representative $\sigma$ & \(e\) & \((12)\) & \((12)(34)\) & \((123)\) & \((1234)\) \\
+        \hline
+        $\chi_{\text{triv}}$ & 1 & 1 & 1 & 1 & 1 \\
+        $\chi_{\text{sign}}$ & 1 & $-1$ & 1 & 1 & $-1$ \\
+        $\chi_{\text{stand}}$ & 3 & 1 & $-1$ & 0 & $-1$ \\
+        $\chi_{\text{stand}} \cdot \chi_{\text{sign}}$ & 3 & $-1$ & $-1$ & 0 & 1 \\
+        $\chi_{\text{missing}}$ & 2 & 0 & 2 & $-1$ & 0 \\
+    \end{tabular}    
+\end{center}
+
+\section{The standard representation of the symmetric group \texorpdfstring{\(S_n\)}{TEXT}}
+
+\begin{mdnote}
+    In this section we define the `standard representation' of \(S_n\) and show that it is irreducible.
+\end{mdnote}
+
+\begin{definition}
+    Consider the tautological action of \(S_n\) on \(X=\left\{ 1,\ldots,n \right\}\). Let \(\CC[X]\) be the associated permutation representation acting on \(\CC^n\). We have that \(\CC^n\) has an \((n-1)\)-dimensional invariant subspace, defined by 
+    \[V_{\text{standard}} = \left\{ (x_1,\ldots,x_n) \in \CC^n : \sum_{i=1}^n x_i=0 \right\}.\]
+    The representation of \(S_n\) on \(V_{\text{standard}}\) is called the \textbf{standard representation} of \(S_n\). We write \(\rho_{\text{standard}}\) for the group homomorphism \(S_n \to \gl\left( V_{\text{standard}} \right)\).
+\end{definition}
+
+\begin{mdlemma}
+    The character of the standard representation \(V_{\text{standard}}\) of \(S_n\) is given by 
+    \[\chi_{\text{standard}}(\sigma) = \#\left\{ \text{fixed points of \(\sigma\)} \right\}-1\]
+    for all \(\sigma \in S_n\). 
+\end{mdlemma}
+
+\begin{proof}
+    We can decompose the representation \(\CC^n = \CC[X]\) as \(\CC^n \cong V_{\text{standard}} \oplus V_{\text{trivial}}\).
+    Indeed, \(\langle (1,\ldots,1)\rangle = V_{\text{trivial}}\) which is invariant. Furthermore, \(V_{\text{standard}} \cap V_{\text{trivial}}=0\). So, \(\chi_{\CC^n}=\chi_{\text{standard}}+\chi_{\text{trivial}}\) and we are done since \(\chi_{\text{trivial}}(\sigma)=1\) and by some lemam we have that \(\chi_{\CC^n}(\sigma)=\#\left\{ \text{fixed points of \(\sigma\)} \right\}\).
+\end{proof}
+
+We now prove that \(\chi_{\text{standard}}\) is irreducible. 
+
+\begin{definition}
+    Let \(X\) be a \(G\)-set. The \textbf{diagonal action} of \(G\) on \(X \times X\) is the action given by \(g\cdot(x,x')=(g\cdot x,g\cdot x')\).
+\end{definition}
+
+\begin{lemma}
+    Let \(X\) be a \(G\)-set and \(\CC[X]\) be the associated representation. Consider the diagonal action of \(G\) on \(X \times X\). Then 
+    \[\left\langle \chi_{|CC[X]},\chi_{\CC[X]} \right\rangle = \#\left\{ G\text{-orbits in } X \times X \right\}.\]
+\end{lemma}
+
+\begin{proof}
+    By some lemma we have that \(\chi_{\CC[X]}(g)= \#\left[ \text{Fix}_X(g) \right]\). Using the orbit couting lemma we prove the statement.
+\end{proof}
+
+\begin{mdcor}
+    The standard representation of \(S_n\) is irreducible.
+\end{mdcor}
+
+\begin{proof}
+    It suffices to show that \(\langle \chi_{\text{standard}},\chi_{\text{standard}} \rangle =1\). Let \(X\) be the \(S_n\)-set \(X=\left\{ 1,2,\ldots,n \right\}\). Then \(\chi_{\text{standard}} = \chi_{\CC[X]}-\chi_{\text{trivial}}\) by the definition of \(\rho_{\text{stadard}}\). So,
+    \[\begin{aligned}
+        \langle \chi_{\text{standard}}, \chi_{\text{standard}}\rangle &= \langle \chi_{\CC[X]}-\chi_{\text{trivial}},\chi_{\CC[X]}-\chi_{\text{trivial}} \rangle \\
+        &= \langle \chi_{\CC[X]},\chi_{\CC[X]} \rangle -2 \langle \chi_{\text{trivial}},\chi_{\CC[X]} \rangle + \langle \chi_{\text{trivial}},\chi_{\text{trivial}} \rangle.
+    \end{aligned}\]
+    Clearly, \(\langle \chi_{\text{trivial}},\chi_{\text{trivial}} \rangle =1\). Next \(\langle \chi_{\text{trivial}}, \chi_{\CC[X]} \rangle=1\) by some proposition since \(S_n\) has one orbit in \(X\). By some lemma 
+    \[\langle \chi_{\CC[X]},\chi_{\CC[X]}\rangle = \#\left\{ S_n\text{-orbits in } \left\{ (i,j) : i,j=1,\ldots,n \right\} \right\}.\]
+    Note that there are two \(S_n\)-orbits in \(\left\{ (i,j) : i,j=1,\ldots,n \right\}\):
+    \begin{enumerate}
+        \item the set of pairs \((i,j)\) is an orbit;
+        \item the set of pairs \((i,j)\) iwth \(i\neq j\) is the second orbit.
+    \end{enumerate}
+    So \(\langle \chi_{\text{standard}}, \chi_{\text{standard}}\rangle=2-2+1=1 \).
+\end{proof}
+
+\section{Proof of the orthogonality of characters theorem}
+
+\todo[inline]{TO DO SeCTIon}
+
+\begin{lemma}
+    The projection operator \(\pi\) satisfies \(\text{tr}(\pi)=\langle \chi_W,\chi_V \rangle\).
+\end{lemma}
+
+\begin{proof}
+    We denote the action of \(g\in G\) on \(\text{Hom}(V,W)\) as \(\rho_{\text{Hom}(V,W)}(g)\). Then 
+    \[\text{tr}(\pi)= \frac{1}{\abs{G}} \sum_{g\in G} \text{tr}\left( \rho_{\text{Hom}(V,W)}(g) \right).\]
+    By some lemma from above we knwo that \(\text{tr}(\rho_{\text{Hom}(V,W)}(g)) = \ol{\chi_V(g)}\chi_W(g)\). Using this we have 
+    \[\begin{aligned}
+        \text{tr}(\pi) &= \frac{1}{\abs{G}} \sum_{g\in G} \text{tr}(\rho_{\text{Hom}(V,W)}(g)) \\
+        &= \frac{1}{\abs{G}} \sum_{g\in G} \ol{\chi_V(g)}\chi_W(g) \\
+        &= \langle \chi_W,\chi_V \rangle.
+    \end{aligned}\]
+\end{proof}
+
+We now prove the orthogonality theorem.
+
+\begin{proof}
+    By some lemma we can write \(\dim\left( \text(Hom)_G(V,W) \right) = \text{tr}(\pi)\) and by the lemma above we have tjat \(\text{tr}(\pi)=\langle \chi_W, \chi_V \rangle\). 
+\end{proof}
+
+\section{The character table is square}
+
+\begin{mdthm}[The character table is square]
+    Let \(G\) be a finite group. Then the irreducible characters of \(G\) form a basis of \(\mathcal{C}_G\).
+
+    In particular the number of equivalence classes of irreducible representations of \(G\) over \(\CC\) equals to the number of conjugacy classes of \(G\). We denote these numbers by \(M\) and \(N\) respectively.
+\end{mdthm}
+
+\begin{mdremark}
+    In fact \(N = \dim(\mathcal{C}_G)\).
+\end{mdremark}
+
+\subsection{Shorter proof of the square table theorem}
+
+\textbf{Idea of proof.} To each class function \(\phi\) on \(G\) associate an equivariant operator in any representation \(V\) of \(G\). Apply this to the regular representation on \(G\).
+
+\begin{lemma}
+    Let \(\rho: G \to \gl(V)\) be a complex representation and take \(\phi\in \mathcal{C}_G\). Let \(T : V \to V\) be 
+    \[T = \frac{1}{\abs{G}} \sum_{g\in G} \phi\left( g\inv \right) \rho(g).\]
+    Then 
+    \begin{enumerate}
+        \item \(T \in \text{End}_G(V)\) i.e.\ \(T\) is an equivariant operator and,
+        \item \(\text{tr}(T)=\langle \phi,\chi_\rho\rangle\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    We prove each statement in turn.
+    \begin{enumerate}
+        \item To prove this it suffices to show \(\rho(g_1)T\rho(g_1\inv)=T\) for all \(g_1\in G\). We compute this 
+        \[\begin{aligned}
+            \rho(g_1) \cdot T \cdot \rho(g_1\inv) &= \frac{1}{\abs{G}} \sum_{g\in G} \phi(g\inv) \rho(g_1 gg_1\inv) \\
+            &= \frac{1}{\abs{G}}\sum_{h\in G} \phi(g_1\inv h\inv g_1) \rho(h) \\
+            &= T,
+        \end{aligned}\]
+        where \(h=g_1gg_1\inv\) and the last equality uses \(\phi\in \mathcal{C}_G\).
+        \item We compute the trace:
+        \[\begin{aligned}
+            \text{tr}\left( \frac{1}{\abs{G}}\sum_{g\in G} \phi(g\inv)\rho(g) \right) &= \frac{1}{\abs{G}} \sum_{g\in G} \phi(g\inv)\chi_\rho(g) \\
+            &= \frac{1}{\abs{G}} \sum_{g\in G} \phi(g\inv)\ol{\chi_{\rho}(g\inv)} \\
+            &=  \frac{1}{\abs{G}} \sum_{g\in G} \phi(g)\ol{\chi_{\rho}(g)} \\
+            &=\langle \phi, \chi_\rho \rangle,
+        \end{aligned}\]
+        using the fact that \(\chi_{\rho}(g)=\ol{\chi_{\rho}(g\inv)}\).
+    \end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of square theorem]
+    By the orthogonality of characters theorem we know that the characters are orthonormal in \(\mathcal{C}_G\) thus, \(M\leq N=\dim(\mathcal{C}_G)\). We need to show that \(M = N\) i.e.\ irreducible characters span \(\mathcal{C}_G\).
+
+    If this was not the case, there woudl be a non-zero \(\phi\in \mathcal{C}_G\) orthogonal to all irreducible characters. It suffices to show that if \(\phi\in\mathcal{C}_G\) and \(\langle \phi,\chi_\rho\rangle =0\) for any irreducible representation \(\rho\) then \(\phi=0\).
+
+    We claim that for any irreducible representation \(\rho\) we have 
+    \[T_\rho = \frac{1}{\abs{G}} \sum_{g\in G} \phi(g\inv)\rho(g)=0.\]
+    By soem lemma this operator is equivariant and has trace \(\langle \phi,\chi_\rho \rangle=0\). Hence, it is zero by Schur's lemma. We apply this to the case when \(\rho = R\) is  the regular representation. Then 
+    \[\begin{aligned}
+    0 = T_R(e_1) &= \frac{1}{\abs{G}}\sum_{g\in G} \phi(g\inv) R(g)(e_1) \\
+    &=\frac{1}{\abs{G}} \sum_{g\in G}\phi(g\inv)e_g.
+    \end{aligned}\]
+    Hence, \(\phi(g\inv)=0\) for all \(g\in G\) i.e.\ \(g=0\).
+\end{proof}
+
+\begin{mdnote}
+    The equality holds for any representation \(\rho\), since any representation is the a direct sum of irreducible representations.
+\end{mdnote}
+
+\section{The Tensor product}
+
+\begin{definition}
+    The \textbf{tensor product} \(V \otimes W\) of two \(\KK\)-vector space \(V\) and \(W\) is the vector space spanned by elements \(v\otimes w\) labelled by pairs of vectors \(v\in V\) and \(w\in W\), modulo the following relations which hold for all \(\lambda \in \KK, v\in V\) and \(w\in W\):
+    \[\begin{aligned}
+        (v_1 +v_2)\otimes w &= v_1 \otimes w+v_2\otimes w \\
+        v\otimes (w_1+w_2) &=v\otimes w_1+ v\otimes w_2 \\
+        (\lambda v) \otimes w &= v\otimes (\lambda w) = \lambda (v\otimes w).
+    \end{aligned}\]
+\end{definition}
+
+\begin{mdremark}
+    Formally, \(V \otimes W\) is the quotient of the vector space with basis \(v\otimes w\) by the subspace spanned by the differences of left and right-hand sides of the above identities.
+\end{mdremark}
+
+\begin{definition}
+    An element of the form \(v\otimes w\) is called a \textbf{pure tensor}.
+\end{definition}
+
+\begin{mdexample}
+    Consider the tensor product in \(\CC^2 \otimes \CC^2\). The pure tensor in this space is of the following form  
+    \todo[inline]{To do cba now, Example 19.2}
+\end{mdexample}
+
+\begin{mdprop}
+    If \(\left\{ v_i \right\}\) is a basis of \(V\) and \(\left\{ w_j \right\}\) is a basis of \(W\), then \(\left\{ v_i \otimes w_j \right\}\) is a basis of \(V \otimes W\). In particular, \(\dim(V \otimes W) =\dim(V)\dim(W)\).
+\end{mdprop}
+
+\begin{proof}
+    We prove the following.
+    \begin{itemize}
+        \item \(v_1 \otimes w_j\) span \(V \otimes W\). Indeed, \(V \otimes W\) is spanned by pure tensor \(v\otimes w\) by definition. At the same time, if 
+        \[v= \sum_i x_i v_i \quad \text{and} w=\sum_j y_j w_j\]
+        then \(v\otimes w  = \sum_{ij} x_i y_j (v_i\otimes w_j)\).
+        \item \(v_i \otimes w_j\) are linearly independent. It is enough to find \(\dim(V)\dim(W)\) linear maps (or functions) \(L_{ij} :V \otimes W \to K\) such that 
+        \[L_{ij}(v_i\otimes w_j)=1 \quad \text{and} L_{ij}(v_k\otimes w_l) =0 \quad \text{if } (ij)\neq (kl).\]
+        We define \(L_{ij}\left( (x_1v_1+\cdots + x_n v_n) \otimes (y_1w_1 + \cdots y_m w_m) \right) =x_i y_j\). Thsi maps equal the values of each of the identities in the definition of the tensor product. So it is a well-defined linear map.
+    \end{itemize}
+\end{proof}
+
+\subsection{Tensor products of linear maps}
+
+\begin{definition}
+    Suppose \(V_1,V_2,W_1,W_2\) are linear maps over \(\KK\). Now suppose \(A :V_1 \to W_1\) and \(B : V_2 \to W_2\) are linear maps. Then, the \textbf{tensor product of the linear maps} \(A\) and \(B\) is the linear map 
+    \[\begin{aligned}
+        A \otimes B : V_1 \otimes V_2 &\to W_1 \otimes W_2 \\
+        (A\otimes B)(v_1 \otimes v_2) &= A(v_1)\otimes B(v_2)
+    \end{aligned}\]
+    which extend linearly.
+\end{definition}
+
+\todo[inline]{Do the example.}
+
+\subsection{Symmetric and anti-symmetric tensor squares.}
+
+\begin{mdnote}
+    Let \(V\) be an \(n\)-dimensional vector space over \(\KK\). Then \(\dim(V\otimes V)=n^2\). We can write 
+    \[n^2 = \frac{n(n+1)}{2}+\frac{n(n-1)}{2}.\]
+    In this section we study the decomposition of this space with the dimensions as above.
+\end{mdnote}
+
+\begin{mdremark}
+    We will assume the characteristic of the field \(\KK\) is not equal to \(2\). 
+\end{mdremark}
+
+\begin{definition}
+    Let \(V\) be a vector space over \(\KK\) where \(\text{char}(\KK)\neq 2\). We define the following linear automorphism  
+    \[\begin{aligned}
+        \tau: V \otimes V &\to V \otimes V \\
+        v\otimes v &\mapsto v'\otimes v.
+    \end{aligned}\]
+    The \textbf{symmetric tensor square} is a linear subspace 
+    \[S^2V  = \left\{ w \in V \otimes V : \tau(w)=w \right\} \subset V\otimes V.\] 
+    The \textbf{anti-symmetric tensor square} is the linear subspace 
+    \[\Lambda^2 V = V \wedge V= \left\{ w\in V \otimes V : \tau(w)=-w \right\} \subset V \otimes V.\]
+\end{definition}
+
+\begin{mdremark}
+    If the characteristic of \(\KK\) is \(2\) then these two spaces are the same as \(1=-1\) in such fields.
+\end{mdremark}
+
+\begin{mdexample}
+    Consider \(\CC^2\) with the basis \(\left\{ e_1,e_2 \right\}\) then 
+    \[S^2\CC^2 = \langle e_1\otimes e_1, e_2\otimes e_2, e_1\otimes e_2+e_2\otimes e_1\rangle_{\CC}\]
+    which is a \(3\)-dimensional subsapce of \(\CC^2 \otimes \CC^2\).  Whereas,
+    \[\Lambda^2\CC^2 = \langle e_1 \otimes e_2-e_2\otimes e_1 \rangle_{\CC}\]
+    which is \(1\)-dimensional.
+\end{mdexample}
+
+\begin{definition}
+    Let \(v,w \in V\) we define a new notation for elements of \(V \otimes V\):
+    \[\begin{aligned}
+        vw &= \half (v\otimes w+w\otimes v) \in S^2V, \\
+        v\wedge w &= \half(v\otimes w-w\otimes v) \in \Lambda^2 V.
+    \end{aligned}\]
+\end{definition}
+
+\begin{mdprop}
+    We have taht 
+    \begin{itemize}
+        \item \(vw=wv\);
+        \item \(v\wedge w = -w\wedge v\);
+        \item \(vv=v\otimes v\) and 
+        \item \(v \wedge v=0\).
+    \end{itemize}
+\end{mdprop}
+
+\begin{example}
+    In these new notations we have 
+    \[S^2\CC^2 = \langle e_1e_2,e_2e_2,e_1e_2 \rangle_{\CC} \quad \text{and} \quad \Lambda^2\CC^2 = \langle e_1\wedge e_2 \rangle_{\CC}.\]
+\end{example}
+
+\begin{mdlemma}
+    If \(\left\{ v_1,\ldots,v_n \right\}\) is a basis of \(V\), then 
+    \[\left\{ v_iv_j : 1\leq i\leq j \leq n \right\} \text{ is a basis of \(S^2V\)}\]
+    and 
+    \[\left\{ v_i \wedge v_j : 1\leq i<j\leq n \right\} \text{ is a basis of \(\Lambda^2V\)}.\]
+    Therefore, 
+    \[\dim S^2V = \frac{n(n+1)}{2} \quad \text{and} \quad \dim\Lambda^2V= \frac{n(n-1)}{2}.\]
+    Moreover, we have a direct sum decomposition 
+    \[V\otimes V = S^2V \oplus \Lambda^2 V.\]
+\end{mdlemma}
+
+\begin{mdremark}
+    Since \(\tau^2=1\) we have a representation \(\rho\) of \(S_2\) on \(V \otimes V\), \(\rho(12)=\tau\). This representation is a sum of \(\frac{n(n+1)}{2}\) trivial and \(\frac{n(n-1)}{2}\) sign representations.
+\end{mdremark}
+
+\begin{proof}
+    Consider the set 
+    \[\left\{ v_iv_j : 1\leq i\leq j \leq n \right\}\cup\left\{ v_i \wedge v_j : 1\leq i<j\leq n \right\}.\]
+    The elements of these set span \(V \otimes V\) because \(v_i \otimes v_j = v_iv_j +v_i \wedge v_j\). Since \(\dim(V \otimes V)=n^2\) then this is a basis of \(V \otimes V\). Hence, 
+    \[V\otimes V = \langle v_iv_j : 1\leq i\leq j \leq n \rangle_{\KK} \oplus \langle v_i \wedge v_j : 1\leq i<j\leq n \rangle_{\KK}.\]
+    Since \(S^2V\) contains the first summand and \(\Lambda^2V\) contains the second we have that \(\dim(S^2V)+\dim(\Lambda^2 V)\geq n^2\). However, \(S^2V\cap \Lambda^2V=0\) because \(\tau\) is equal to \(1\) on \(S^2V\) and to \(-1\) on \(\Lambda^2V\). So the two summands of\(V\otimes V\) coincide with \(S^2V\) and \(\Lambda^2V\).
+\end{proof}
+
+\begin{mdremark}
+    We have used the fact that if \(U,V \subset W\) and \(U \cap V=\varnothing\) then \(\dim U+\dim V \leq \dim W\).
+\end{mdremark}
+
+\subsection{Tensor products of representations}
+
+\begin{definition}
+    Suppose \(A : V \to V\) is a linear map. Then the map \(A \otimes A : V \otimes V \to V \otimes V\) sends \(\Lambda^2V\) to \(\Lambda^2V\) and \(S^2V\) to \(S^2V\). The first map is denoted by \(\Lambda^2(A)\) and the second is denoted \(S^2(A)\).
+\end{definition}
+
+\begin{mdprop}
+    We have that 
+    \[\Lambda^2(A)(v\wedge v')=A(v)\wedge A(v')\]
+    and 
+    \[S^2(A)(vv')=A(v)A(v')=\half \left( A(v)\otimes A(v')+A(v')+A(v) \right).\]
+\end{mdprop}
+
+\begin{definition}
+    Let \(V\) and \(W\) be representations of \(G\). Then \(G\) is acting on \(V \otimes W\) by setting 
+    \[g\cdot (v\otimes w)=g\cdot v\otimes g\cdot w,\]
+    and extending linearly. This representation is called \textbf{the tensor product of representations} \(V\) and \(W\) and is denoted \(V \otimes W\). 
+\end{definition}
+
+\begin{definition}
+    Let \(V\) be a representation of \(G\). Then the representation \(V \otimes V\) is called the \textbf{tensor square} of \(V\).
+\end{definition}
+
+\begin{mdexample}
+    Let \(V\) be a representation of \(G\), Take \(v\wedge w \in V\wedge V \subset V\otimes V\). Then 
+    \[\begin{aligned}
+        g\cdot (v\wedge w) &= g\cdot \left( \half (v\otimes w-w\otimes v) \right)\\
+        &= \half(gv\otimes gw -gw\otimes gv) \\
+        &= gv\wedge gw \in V\wedge V.
+    \end{aligned}\]
+    Similarly, \(g\cdot(vw)=(g\cdot v)(g\cdot w)\). We conclude that \(S^2V\) and \(\Lambda^2V\) are inavariant subsapces of the representation \(V \otimes V\).
+\end{mdexample}
+
+\begin{definition}
+    The representations \(S^2V\) and \(\Lambda^2 V\) of \(G\) are called \textbf{symmetric} and \textbf{anti-symmetric representations squares} of the representation \(V\).
+\end{definition}
+
+\begin{mdprop}[Character formulas]
+    Consider \(\CC\) and let \(V\) and \(W\) be representations of a group \(G\). The characters of \(V \otimes W , S^2 V\) and \(\Lambda^2 V\) are given by 
+    \[\begin{aligned}
+        \chi_{V \otimes W}(g) &= \chi_V(g)\chi_W(g), \\
+        \chi_{S^2V}(g) &= \half (\chi_V(g)^2 +\chi_V(g^2)),\\
+        \chi_{\Lambda^2} &= \half (\chi_V(g)^2-\chi_V(g^2)).
+    \end{aligned}\]
+\end{mdprop}
+
+\begin{proof}
+    Fix an element \(g\in G\).
+    \begin{enumerate}
+        \item To compute \(\chi_{V \otimes W}(g)\) we will choose a basis in \(V \otimes W\) and find \(\text{tr}(\rho_{V \otimes W}(g))\). We choose a basis \(e_1,\ldots,e_m\) in \(V\) and a basis \(e'_1,\ldots,e_n'\) in \(W\) for which \(\rho_V(g)\) and \(\rho_V(g)\) are diagonal. Thus, we can assume that \(\rho_V(g)(e_i)=\lambda_i e_i\) and \(p_W(g)(e_j') = \mu_j e_j'\). It is clear from the definition that \(e_i \otimes e_j'\) is an eigenbasis for \(\rho_{V \otimes W}(g)\) as \(\rho_{V\otimes W}(g)(e_i\otimes e_j')=\lambda_i\mu_j (e_i\otimes e'_j)\). We conclude that 
+        \[\chi_{V\otimes W}(g)=\sum_{i,j}\lambda_i\mu_j = \left( \sum_i \lambda_i \right) \left( \sum_j \mu_j \right) = \chi_V(g)\chi_W(g).\]
+        \item We do the same for \(\Lambda^2V\). This time the basis is \(e_i\wedge e_j\) for \(1\leq i<j\leq m\) so 
+        \[\chi_{\Lambda^2V}(g)=\sum_{i<j} \lambda_i \lambda_j = \half \left( \left( \sum_i \lambda_i \right)^2-\left( \sum_i \lambda^2 \right) \right) = \half \left( \chi_V(g)^2-\chi_V(g^2) \right).\]
+        \item The character \(\chi_{S^2V}(g)\) can be deduced by observing that \(\chi_{V \otimes V}=\chi_{S^2V}+\chi_{\Lambda^2V}\).
+    \end{enumerate}
+\end{proof}
+
+\section{Induction and restriction}
+
+\subsection{Restriction}
+
+\begin{definition}
+    Let \(V\) be a representation of \(G\) and let \(H\) be a subgroup of \(G\). The \textbf{restriction} \(\text{Res}_H^G V\) of \(V\) to \(H\) is defined to be the representation of \(H\) given by restricting the map \(\rho_V :G \to \gl(V)\) to \(H\). 
+\end{definition}
+
+\begin{proposition}
+    We have that \(\dim\text{Res}_H^G V=\dim(V)\) and \(\chi_{\text{Res}_H^G V}(h)=\chi_V(h)\) for all \(h\in H\). 
+\end{proposition}
+
+\begin{mdremark}
+    
+\end{mdremark}
+
+\begin{mdexample}
+    Let \(G =S_3\) and \(H = \left\{ e,(12) \right\}\). Let \(\chi_1,\chi_2,\chi_3\) be irreducible characters in \(S_3\) i.e.\ the trivial, sign and standard representations. Let \(\eps_1,\eps_2\) be the characters in \(S_2\) where \(\eps_1\) is the trivial character and \(\eps_2\) is the sign character. Then 
+    \[\begin{aligned}
+        \text{Res}_H^G(\chi_1)&=\eps_1, \\
+        \text{Res}_H^G(\chi_2)&=\eps_2, \\
+        \text{Res}_H^G(\chi_3)&=\eps_1+\eps_2,
+    \end{aligned}\]
+    so the matrix for the linear map \(\mathcal{C}_G \to \mathcal{C}_H\) in these bases is 
+    \[\begin{pmatrix}
+        1&0&1 \\
+        0&1&1
+    \end{pmatrix}.\]
+\end{mdexample}
+
+\subsection{Induced representation}
+
+\begin{mdnote}
+    Induction is a method to construct new representations. For any group, we have the regular representation, which contains every irreducible representation.
+\end{mdnote}
+
+\begin{definition}
+    Let \(H \subset G\) be a subgroup and let \(V\) be a representation of \(H\). The \textbf{induced representation \(\text{Ind}_H^G V\)} of \(G\)  is the subspace of \(\text{Maps}(G,V)\),
+    \[\text{Ind}_H^G V = \left\{ f : G \to V : f(xh\inv) = h\cdot f(x), h\in H, x\in G \right\}\]
+    with the action \((g\cdot f)(x)=f(g\inv x)\).
+\end{definition}
+
+\todo[inline]{Some extra stuff}
+
+\subsection{The character of the induced representations}
+
+\begin{mdthm}
+    Let \(H\) be a subgroup of a finite group \(G\) and let \(V\) be a representation of \(H\). Then the following formula holds.
+    \[\chi_{\text{Ind}_H^G V}(g) = \sum_{xH \mid gxH = xH} \chi_V(x\inv gx).\]
+\end{mdthm}
+
+\begin{mdnote}
+    By \(xH \mid gxH =xH\) we mean that we sum over the left cosets such which are stabilised by \(g\).
+\end{mdnote}
+
+\begin{mdremark}
+    We have the following.
+    \begin{enumerate}
+        \item The condition \(gxH =xH\) implies \(x\inv g x \in H\) hence, \(\chi_V(x\inv gx)\) is well-defined independent of the choice of \(x\in xH\).
+        \item If no conjugate of \(g\) lies in \(H\) then \(\chi_{\text{Ind}_H^G V}(g)=0\) because \(gxH \neq xH\) for all \(x\).
+    \end{enumerate}
+\end{mdremark}
+
+\begin{mdexample}
+    How to find \(\dim(\text{Ind}_H^G V) = \chi_{\text{Ind}_H^G V}(e)\). Now using the formula from the theorem we have 
+    \[\begin{aligned}
+        \sum_{xH \mid exH =xH} \chi_V(x\inv x) &= \sum_{xH } \chi_V(e) \\
+        &= \frac{\abs{G}}{\abs{H}}\dim V.
+    \end{aligned}\]
+\end{mdexample}
+
+\subsection{Frobenius reciprocity}
+
+\begin{definition}
+    Let \(H \subset G\) be a subgroup and let \(\psi\) be a class function of \(H\). Denote by \(\mathring{\psi}\) of \(\psi\) to \(G\) by zero. Define 
+    \[\psi^G(g) = \text{Ind}_H^G\left( \psi(g) \right) = \frac{1}{\abs{H}} \sum_{x\in G} \mathring{\psi}(x\inv gx).\]
+\end{definition}
+
+\begin{mdnote}
+    By extending to \(0\) we mean that everything that is outside of \(H\) is mapped to \(0\). Thus, \(\mathring{\psi}\) extends to the whole of \(G\) and any input that is not from \(H\) is mapped to \(0\).
+\end{mdnote}
+
+\begin{lemma}
+    We have that 
+    \begin{enumerate}
+        \item \(\text{Ind}_H^G (\psi(G))\) is a class function on \(G\);
+        \item we have the following equality \(\text{Ind}_H^G(\psi(g))= \sum_{xH \mid gxH=xH} \psi(x\inv gx)\) .
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{mdthm}[Frobenius reciprocity]
+    Let \(W\) be a complex representation of a finite group \(G\) and let \(V\) be a complex representation of a subgroup \(H\) of \(G\). Then we have 
+    \[\left\langle \chi_W,\chi_{\text{Ind}_H^G V} \right\rangle_G=\left\langle \chi_{\text{Res}_H^G W},\chi_{V} \right\rangle_H.\]
+\end{mdthm}
+
+\pagebreak
+
+\appendix
+
+\addcontentsline{toc}{section}{Appendix}
+\section*{Appendix}
+
+
+\end{document}
