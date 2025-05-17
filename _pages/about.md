@@ -27,3 +27,17 @@ latest_posts:
 ---
 
 Welcome to my website! I graduated with First Class Honours in Mathematics from King's College London and am currently pursuing a Master's in Pure Mathematics at Imperial College London. My research interests are focused on geometric and combinatorial group theory, and I am aspiring to continue my studies with a PhD in this field.
+
+<div style="border: 3px solid red; padding: 2rem; background-color: #fff3f3; border-radius: 10px; margin-bottom: 2rem;">
+  <h1 style="color: red; text-align: center;">⚠️ MASSIVE WARNING ⚠️</h1>
+  <p style="font-size: 1.2rem; text-align: center;">
+    This website is <strong>under heavy construction</strong> and currently being ignored because I am neck-deep in <strong>exam season™</strong>.
+  </p>
+  <p style="font-size: 1.1rem; text-align: center;">
+    Eventually, I’ll fix things up properly — but in the meantime, I am procrastinating productively by writing book reviews.
+  </p>
+  <p style="font-size: 1.1rem; text-align: center;">
+    👉 <a href="/books" style="font-weight: bold; color: darkred;">Check them out here</a> if you want to see what my brain does when it’s avoiding real work.
+  </p>
+  <p style="text-align: center; font-style: italic;">Thanks for your patience. Or your nosiness. Either way, you're welcome here.</p>
+</div>
