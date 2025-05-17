@@ -26,75 +26,75 @@ Despite all that, I hope you find something useful here. Use them, improve them,
 ## 📘 Year 1
 
 - **Calculus I**  
-  [PDF](assets/pdf/Calculus 1 Notes.pdf) | [TeX](assets/tex/Calculus 1 Notes.tex)
+  [PDF](/assets/pdf/Calculus_1_Notes.pdf) | [TeX](/assets/tex/Calculus_1_Notes.tex)
 
 - **Linear Algebra & Geometry I**  
-  [PDF](assets/pdf/Linear Algebra and Geometry 1 Revision Notes.pdf) | [TeX](assets/tex/Linear Algebra and Geometry 1 Revision Notes.tex)
+  [PDF](/assets/pdf/Linear_Algebra_and_Geometry_1_Revision_Notes.pdf) | [TeX](/assets/tex/Linear_Algebra_and_Geometry_1_Revision_Notes.tex)
 
 - **Sequences & Series**  
-  [PDF](assets/pdf/Sequences and Series Notes.pdf) | [TeX](assets/tex/Sequences and Series Notes.tex)
+  [PDF](/assets/pdf/Sequences_and_Series_Notes.pdf) | [TeX](/assets/tex/Sequences_and_Series_Notes.tex)
 
 - **Introduction to Abstract Algebra**  
-  [PDF](assets/pdf/IAA Notes.pdf) | [TeX](assets/tex/IAA Notes.tex)
+  [PDF](/assets/pdf/IAA_Notes.pdf) | [TeX](/assets/tex/IAA_Notes.tex)
 
 - **Calculus II**  
-  [PDF](assets/pdf/Calculus 2 Notes.pdf) | [TeX](assets/tex/Calculus 2 Notes.tex)
+  [PDF](/assets/pdf/Calculus_2_Notes.pdf) | [TeX](/assets/tex/Calculus_2_Notes.tex)
 
 - **Linear Algebra & Geometry II**  
-  [PDF](assets/pdf/LAG2 Complete Notes.pdf) | [TeX](assets/tex/LAG2 Complete Notes.tex)
+  [PDF](/assets/pdf/LAG2_Complete_Notes.pdf) | [TeX](/assets/tex/LAG2_Complete_Notes.tex)
 
 - **Introduction to Dynamical Systems**  
-  [PDF](assets/pdf/IDS Notes.pdf) | [TeX](assets/tex/IDS Notes.tex)
+  [PDF](/assets/pdf/IDS_Notes.pdf) | [TeX](/assets/tex/IDS_Notes.tex)
 
 - **Probability & Statistics I**  
-  [PDF](assets/pdf/Statistics 1 Notes.pdf) | [TeX](assets/tex/Statistics 1 Notes.tex)
+  [PDF](/assets/pdf/Statistics_1_Notes.pdf) | [TeX](/assets/tex/Statistics_1_Notes.tex)
 
 ---
 
 ## 📗 Year 2
 
 - **Real Analysis**  
-  [PDF](assets/pdf/Real Analysis Notes.pdf) | [TeX](assets/tex/Real Analysis Notes.tex)
+  [PDF](/assets/pdf/Real_Analysis_Notes.pdf) | [TeX](/assets/tex/Real_Analysis_Notes.tex)
 
 - **Classical Dynamics**  
-  [PDF](assets/pdf/Classical Dynamics Notes.pdf) | [TeX](assets/tex/Classical Dynamics Notes.tex)
+  [PDF](/assets/pdf/Classical_Dynamics_Notes.pdf) | [TeX](/assets/tex/Classical_Dynamics_Notes.tex)
 
 - **Groups & Symmetries**  
-  [PDF](assets/pdf/Groups and Symmetries Notes.pdf) | [TeX](assets/tex/Groups and Symmetries Notes.tex)
+  [PDF](/assets/pdf/Groups_and_Symmetries_Notes.pdf) | [TeX](/assets/tex/Groups_and_Symmetries_Notes.tex)
 
 - **Complex Analysis**  
-  [PDF](assets/pdf/Complex Analysis notes.pdf) | [TeX](assets/tex/Complex Analysis notes.tex)
+  [PDF](/assets/pdf/Complex_Analysis_notes.pdf) | [TeX](/assets/tex/Complex_Analysis_notes.tex)
 
 - **Introduction to Number Theory**  
-  [PDF](assets/pdf/NT Notes.pdf) | [TeX](assets/tex/NT Notes.tex)
+  [PDF](/assets/pdf/NT_Notes.pdf) | [TeX](/assets/tex/NT_Notes.tex)
 
 - **Metric Spaces & Topology**  
-  [PDF](assets/pdf/Metric Notes.pdf) | [TeX](assets/tex/Metric Notes.tex)
+  [PDF](/assets/pdf/Metric_Notes.pdf) | [TeX](/assets/tex/Metric_Notes.tex)
 
 - **Introductory Quantum Theory**  
-  [PDF](assets/pdf/QT Notes.pdf) | [TeX](assets/tex/QT Notes.tex)
+  [PDF](/assets/pdf/QT_Notes.pdf) | [TeX](/assets/tex/QT_Notes.tex)
 
 ---
 
 ## 📙 Year 3
 
 - **Geometric Topology**  
-  [PDF](assets/pdf/GT Notes.pdf) | [TeX](assets/tex/GT Notes.tex)
+  [PDF](/assets/pdf/GT_Notes.pdf) | [TeX](/assets/tex/GT_Notes.tex)
 
 - **Rings & Modules**  
-  [PDF](assets/pdf/RM Notes.pdf) | [TeX](assets/tex/RM Notes.tex)
+  [PDF](/assets/pdf/RM_Notes.pdf) | [TeX](/assets/tex/RM_Notes.tex)
 
 - **Galois Theory**  
-  [PDF](assets/pdf/Galois Notes.pdf) | [TeX](assets/tex/Galois notes.tex)
+  [PDF](/assets/pdf/Galois_Notes.pdf) | [TeX](/assets/tex/Galois_notes.tex)
 
 - **Advanced Quantum Mechanics**  
-  [PDF](assets/pdf/AQM Notes.pdf) | [TeX](assets/tex/AQM Notes.tex)
+  [PDF](/assets/pdf/AQM_Notes.pdf) | [TeX](/assets/tex/AQM_Notes.tex)
 
 - **Representation Theory of Finite Groups**  
-  [PDF](assets/pdf/Rep Theory Notes.pdf) | [TeX](assets/tex/Rep Theory Notes.tex)
+  [PDF](/assets/pdf/Rep_Theory_Notes.pdf) | [TeX](/assets/tex/Rep_Theory_Notes.tex)
 
 - **Algebraic Geometry**  
-  [PDF](assets/pdf/AG Notes.pdf) | [TeX](assets/tex/AG Notes.tex)
+  [PDF](/assets/pdf/AG_Notes.pdf) | [TeX](/assets/tex/AG_Notes.tex)
 
 ---
 
