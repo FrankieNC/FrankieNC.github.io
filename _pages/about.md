@@ -37,7 +37,7 @@ Welcome to my website! I graduated with First Class Honours in Mathematics from 
     Eventually, I’ll fix things up properly — but in the meantime, I am procrastinating productively by writing book reviews.
   </p>
   <p style="font-size: 1.1rem; text-align: center;">
-    👉 <a href="/books" style="font-weight: bold; color: darkred;">Check them out here</a> if you want to see what my brain does when it’s avoiding real work.
+     <a href="_pages/books.md" style="font-weight: bold; color: darkred;">Check my bookshelf</a> if you want to see what my brain does when it’s avoiding real work.
   </p>
   <p style="text-align: center; font-style: italic;">Thanks for your patience. Or your nosiness. Either way, you're welcome here.</p>
 </div>
