@@ -2,7 +2,7 @@
 layout: page
 title: Undergraduate Mathematics Notes
 description: My undergraduate maths notes from King's College London
-img:  # Replace with a suitable background image
+img: assets/img/KCL_background.jpeg  # Replace with a suitable background image
 importance: 1
 category: academic
 ---
