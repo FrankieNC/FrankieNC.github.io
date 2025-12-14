@@ -3,8 +3,8 @@ const ninja = document.querySelector('ninja-keys');
 
 // add the home and posts menu items
 ninja.data = [{
-    id: "nav-about",
-    title: "about",
+    id: "nav-",
+    title: "",
     section: "Navigation",
     handler: () => {
       window.location.href = "/";
@@ -37,7 +37,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-a-post-with-plotly-js",
+            },{id: "post-reflection-of-exam-season-at-imperial-college",
+        
+          title: "Reflection of exam season at Imperial College",
+        
+        description: "A retrospection of the exams I sat at Imperial college",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/reflection-on-exam-season/";
+          
+        },
+      },{id: "post-a-post-with-plotly-js",
         
           title: "a post with plotly.js",
         
@@ -476,11 +487,16 @@ ninja.data = [{
           description: "another project with an image 🎉",
           section: "Projects",handler: () => {
               window.location.href = "/projects/9_project/";
-            },},{id: "projects-undergraduate-mathematics-notes",
-          title: 'Undergraduate Mathematics Notes',
+            },},{id: "projects-undergraduate-mathematics-notes-king-39-s-college-london",
+          title: 'Undergraduate Mathematics Notes (King&amp;#39;s College London)',
           description: "My undergraduate maths notes from King&#39;s College London",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/BSc%20maths%20notes/";
+              window.location.href = "/projects/BSc%20Mathematics%20notes%20(King's%20College%20London)/";
+            },},{id: "projects-msc-pure-mathematics-notes-imperial-college-london",
+          title: 'MSc Pure Mathematics Notes (Imperial College London)',
+          description: "My postgraduate maths notes from Imperial College London",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/MSc%20Pure%20Mathematics%20notes%20(Imperial%20College%20London)/";
             },},{
         id: 'social-email',
         title: 'email',
@@ -501,13 +517,6 @@ ninja.data = [{
         section: 'Socials',
         handler: () => {
           window.open("https://www.linkedin.com/in/fchotuck", "_blank");
-        },
-      },{
-        id: 'social-rss',
-        title: 'RSS Feed',
-        section: 'Socials',
-        handler: () => {
-          window.open("/feed.xml", "_blank");
         },
       },{
       id: 'light-theme',
