@@ -25,21 +25,22 @@ latest_posts:
   scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
   limit: 3 # leave blank to include all the blog posts
 ---
-
 Welcome to my website! 
 
-<!-- I graduated with First Class Honours in Mathematics from King's College London and am currently pursuing a Master's in Pure Mathematics at Imperial College London. My research interests are focused on geometric and combinatorial group theory, and I am aspiring to continue my studies with a PhD in this field. -->
+I recently graduated with an MSc in Pure Mathematics from Imperial College London. I'm a mathematics enthusiast with a particular interest in formalisation using Lean4.
 
-<div style="border: 3px solid red; padding: 2rem; background-color: #fff3f3; border-radius: 10px; margin-bottom: 2rem;">
-  <h1 style="color: red; text-align: center;">⚠️ MASSIVE WARNING ⚠️</h1>
-  <p style="font-size: 1.2rem; text-align: center;">
-    This website is <strong>under heavy construction</strong> and currently being ignored because I am <strong>lazy™</strong>.
-  </p>
-  <p style="font-size: 1.1rem; text-align: center;">
-    Eventually, I’ll fix things up properly (hopefully I will be done before the end of 2025) — but in the meantime, I am procrastinating productively by writing book reviews.
-  </p>
-  <p style="font-size: 1.1rem; text-align: center;">
-    [Check my bookshelf](/_pages/books.md) if you want to see what my brain does when it’s avoiding real work.
-  </p>
-  <p style="text-align: center; font-style: italic;">Thanks for your patience. Or your nosiness. Either way, you're welcome here.</p>
-</div>
+---
+
+### 📚 Mathematics Notes
+
+I've compiled notes from my studies that are freely available:
+
+- **[Undergraduate Mathematics Notes (King's College London)](/projects/undergraduate-mathematics-notes-kings-college-london/)** — Lecture notes from my BSc covering various topics in pure mathematics.
+
+- **[MSc Pure Mathematics Notes (Imperial College London)](/projects/msc-pure-mathematics-notes-imperial-college-london/)** — Postgraduate notes on group theory, Lie algebras, manifolds, and more.
+
+---
+
+### 📖 Bookshelf
+
+Check out my **[bookshelf](/books/)** to see what I'm currently reading and my thoughts on various books.

@@ -5,7 +5,7 @@ permalink: /projects/
 description: A collection of projects I have worked on.
 nav: true
 nav_order: 3
-display_categories: [academic, work, fun]
+display_categories: [academic]
 horizontal: false
 ---
 
