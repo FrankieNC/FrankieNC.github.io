@@ -27,7 +27,7 @@ latest_posts:
 ---
 Welcome to my website! 
 
-I recently graduated with an MSc in Pure Mathematics from Imperial College London. I'm a mathematics enthusiast with a particular interest in formalisation using Lean4.
+I recently graduated with an MSc in Pure Mathematics from Imperial College London. I'm a mathematics enthusiast with a particular interest in formalisation using Lean 4.
 
 ---
 
