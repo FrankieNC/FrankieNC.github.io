@@ -35,11 +35,9 @@ I recently graduated with an MSc in Pure Mathematics from Imperial College Londo
 
 I've compiled notes from my studies that are freely available:
 
-- **[Undergraduate Mathematics Notes (King's College London)](/projects/undergraduate-mathematics-notes-kings-college-london/)** — Lecture notes from my BSc covering various topics in pure mathematics.
+- **[Undergraduate Mathematics Notes (King's College London)]({% link _projects/BSc Mathematics notes (King's College London).md %})** — Lecture notes from my BSc covering various topics in pure mathematics.
 
-- **[MSc Pure Mathematics Notes (Imperial College London)](/projects/msc-pure-mathematics-notes-imperial-college-london/)** — Postgraduate notes on group theory, Lie algebras, manifolds, and more.
-
----
+- **[MSc Pure Mathematics Notes (Imperial College London)]({% link _projects/MSc Pure Mathematics notes (Imperial College London).md %})** — Postgraduate notes on group theory, Lie algebras, manifolds, and more.
 
 ### 📖 Bookshelf
 
