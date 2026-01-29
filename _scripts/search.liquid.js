@@ -19,7 +19,14 @@ ninja.data = [
   },
   {%- assign sorted_pages = site.pages | sort: "nav_order" -%}
   {%- for p in sorted_pages -%}
-    {%- if p.nav and p.autogen == null -%}
+    {%- assign excluded = false -%}
+    {%- for exclude_path in site.exclude -%}
+      {%- if p.path contains exclude_path -%}
+        {%- assign excluded = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if p.nav and p.autogen == null and excluded == false -%}
       {%- if p.dropdown -%}
         {%- for child in p.children -%}
           {%- unless child.title == 'divider' -%}

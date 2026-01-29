@@ -1,1 +1,5 @@
-@FrankieNC
+# CODEOWNERS file
+# This file defines who owns the code in this repository
+
+# Default owner for everything in the repo
+* @FrankieNC
