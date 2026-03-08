@@ -1,0 +1,2768 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{francesco}
+\usepackage[colorlinks=true,
+            urlcolor=RubineRed,
+            linktoc=all, 
+            linkcolor=black,
+            pdfauthor={Francesco N. Chotuck},
+            pdftitle={Classical Dynamics Notes}
+            ]{hyperref}
+
+\newcommand{\LL}{\mathcal L}
+
+\usepackage{subfig}
+
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\Trace}{Tr}
+
+\pagestyle{fancy}
+\lhead{Francesco Chotuck}
+\rhead{5CCM231 Classical Dynamics}
+\setlength{\headheight}{15pt}
+
+\title{Classical Dynamics Notes}
+\date{}
+\author{Francesco Chotuck}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    This is KCL undergraduate module 5CCM231, instructed by Christopher P. Herzog. The formal name for this class is ``Classical Dynamics''.
+\end{abstract}
+
+\tableofcontents
+
+\pagebreak
+
+%% COMMON USED ITEMS 
+% \dot{\bm{r}}
+% \sum_{i=1}^N
+
+\addcontentsline{toc}{section}{Basics}
+\section*{Basics}
+
+\section{Scalars \& Vectors}
+
+\begin{definition}
+    A \textbf{scalar} is a single number, the value of which everyone agrees on.
+\end{definition}
+
+\begin{definition}
+    A \textbf{vector} in \(\RR^3\) is a triplet of numbers for example, 
+    \[\bm{v} = \begin{pmatrix} x \\ y \\ z\end{pmatrix} = \begin{pmatrix} r^1 \\ r^2 \\ r^3 \end{pmatrix}.\]
+\end{definition}
+
+\begin{mdnote}
+In these notes I shall use index notation \(v^a, a=1,2,3\) for the component of a vector \(\bm{v}\). In particular 
+\[v=x \quad v^2=y \quad v^3=z.\]
+\end{mdnote}
+
+\begin{theorem}
+    For vectors, we can set up a coordinate basis 
+    \[\bm{v} = x\bm{e}_x+y\bm{e}_y+z\bm{e}_z\]
+    where the values of \(v,v^2,v^3\) depend on the choice of basis.
+\end{theorem}
+
+\subsection{Scalar product}
+
+\begin{definition}
+    The \textbf{scalar product} (a.k.a. dot product and inner product) is a map that takes two vectors into a number and is defined as:
+    \[\bm{v}_1 \cdot \bm{v}_2 = x_1x_2+y_1y_2+z_1z_2.\]
+\end{definition}
+
+\begin{theorem}
+    A geometric interpretation of the scalar product is:
+    \[\bm{a}\cdot \bm{b}= \abs{a}\abs{b}\cos\theta.\]
+\end{theorem}
+
+\begin{mdthm}
+    Properties of the scalar product:
+    \begin{enumerate}
+        \item Symmetric: \(\bm{a} \cdot \bm{b} = \bm{b}\cdot \bm{a}\).
+        \item Distributive: \(\bm{a} \cdot (\bm{b}+\bm{c}) = \bm{a} \cdot \bm{b} +\bm{a} \cdot \bm{c}\).
+        \item Positive definite: \(\bm{v}\cdot \bm{v} \geq 0\) with equality if and only if \(\bm{v}=0\).
+        \item If property (3) holds then \(\abs{\bm{v}}=\sqrt{\bm{v}\cdot \bm{v}}\).
+    \end{enumerate}
+\end{mdthm}
+
+\subsection{Vector product}
+
+\begin{theorem}
+    A plane in three-dimensions has a \textbf{normal vector}, i.e. a vector which is orthogonal to every vector in the plane.
+\end{theorem}
+
+\begin{definition}
+    The \textbf{cross product} of two vectors \(\bm{a}\) and \(\bm{b}\) is defined (\textbf{only} in 3D space), as a vector \(\bm{c}\) that is orthogonal (perpendicular) to both \(\bm{a}\) and \(\bm{b}\), the direction of which is defined by the right-hand rule.
+\end{definition}
+
+\begin{theorem}
+    The cross product is defined by the formula 
+    \[\bm{a}\times\bm{b} =\abs{\bm{a}}\abs{\bm{b}}\sin\theta \:\wh{\bm{n}}.\]
+    The vector \(\wh{\bm{n}}\) is a unit vector perpendicular to the plane containing \(\bm{a}\) and \(\bm{b}\), in the direction indicated by the right-and rule.
+\end{theorem}
+
+
+\begin{definition}
+    The right-hand rule is defined as by the figure below:
+    \begin{figure}[H]
+        \caption{Right-hand rule}
+        \label{fig:RH rule}
+        \begin{center}
+            \includegraphics[scale=0.1]{./Resources/Right_hand_rule_cross_product.svg.png}
+            
+        \end{center}
+    \end{figure}
+\end{definition}
+
+\begin{mdthm}
+    Some fundamental properties of the vector product:
+    \begin{itemize}
+        \item \(\bm{v}\times \bm{v} =0\);
+        \item anti-symmetry: \(\bm{v}\times\bm{w} = -(\bm{w}\times \bm{v})\);
+        \item orthogonality: \(\bm{v} \cdot (\bm{v} \times \bm{w}) = \bm{w}\cdot (\bm{v}\times \bm{w})=0.\)
+    \end{itemize}
+\end{mdthm}
+
+\begin{theorem}
+    The value of \(\abs{\bm{a}\times \bm{b}}\) represents the area of a parallelogram with \(\bm{a}\) as its base and \(\bm{b}\) as the slant height.
+\end{theorem}
+
+\subsection{Triple product}
+
+\subsubsection{Scalar triple product}
+
+\begin{definition}
+    The \textbf{scalar triple product} of three vectors: 
+    \[\bm{a}\cdot (\bm{b} \times\bm{c})\]
+    which yields a scalar.
+\end{definition}
+
+\begin{theorem}
+    Geometrically \(\bm{a} \cdot (\bm{b} \times\bm{c})\) results in the volume (more accurately the absolute value gives the volume) of a parallelepiped with sides defined by \(\bm{a},\bm{b}\) and \(\bm{c}\) as labelled in the figure below.
+
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[scale=0.1]{./Resources/Parallelepiped-bf.svg.png}
+        \end{center}
+    \end{figure}
+
+\end{theorem}
+
+\begin{mdthm}
+    The scalar triple product can be written 
+    \[\bm{a}\cdot (\bm{b} \times \bm{c}) = \bm{c} \cdot (\bm{a} \times \bm{b}) = \bm{b} \cdot (\bm{c}\times \bm{a}),\]
+    that is, \textit{cyclic permutations} of the vectors \(\bm{a},\bm{b}\) and \(\bm{c}\) in a triple scalar product leaves its value unchanged.
+\end{mdthm}
+
+\subsubsection{Vector triple product}
+
+\begin{definition}
+    The \textbf{triple vector product} is an expression of the form 
+    \[\bm{a} \times (\bm{b} \times \bm{c})\]
+    which yields a vector.
+\end{definition}
+
+\begin{mdthm}
+    The vector triple vector product can be written as 
+    \[\bm{a} \times (\bm{b} \times \bm{c}) = (\bm{c} \cdot \bm{a}) \bm{b}- (\bm{b} \cdot \bm{a}) \bm{c}.\]
+\end{mdthm}
+
+\begin{mdnote}
+    A helpful way to remember is that the triple vector product is equal to \\ `CAB-BAC'.
+\end{mdnote}
+
+\section{Matrices}
+
+\begin{definition}
+    (In this course) Matrices are linear maps \(M:V\to V\) where \(V\) is a vector space. The linearity means that 
+    \[M(a\bm{r}_1+b\bm{r}_2)=aM(\bm{r}_1)+bM(\bm{r}_2).\] 
+\end{definition}
+
+\begin{mdthm}
+    The \(k^{\text{th}}\) entry of \(A\bm{v}\) is the dot product of the \(k^{\text{th}}\) row of \(A\) with \(\bm{v}\):
+    \[(A\bm{v})_k = \sum_{j=1}^{n} a_{kj}v_{j} = a_{k1} v_1 + a_{k2} v_2 +\cdots + a_{kn} v_n.\]
+\end{mdthm}
+
+\begin{mdthm}[Matrix multiplication]
+    If \(A = (a_{ij})\) and \(B = (b_{ij})\) then \(C=AB = (c_{ij})\) where 
+    \[c_{ij} = \sum_{k=1}^{n} a_{ik} b_{kj}\]
+    such that \(i = 1,\ldots, m\) and \(j=1,\ldots ,p\).
+\end{mdthm}
+
+\begin{proof}
+    Considering one arbitrary element on position \((i,j)\):
+    \[
+        \begin{pmatrix}
+        a_{11} & \cdots & a_{1n} \\
+        \vdots & \ddots & \vdots \\
+        \textcolor{blue}{a_{i1}} & \textcolor{blue}{\to} & \textcolor{blue}{a_{in}}  \\
+        \vdots & \ddots & \vdots \\
+        a_{m1} & \cdots & a_{mn}
+        \end{pmatrix}
+        \cdot
+        \begin{pmatrix}
+            b_{11} & \cdots & \textcolor{red}{b_{1j}} & \cdots & b_{1p} \\
+            \vdots & \ddots & \textcolor{red}{\downarrow} & \ddots & \vdots \\
+            b_{n1} & \cdots & \textcolor{red}{b_{nj}} & \cdots & b_{np}
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            c_{11} & \cdots & c_{1j} & \cdots & c_{1p} \\
+            \vdots & \ddots &         &        & \vdots \\
+            c_{i1} &        & \textcolor{purple}{c_{ij}} & & c_{ip} \\
+            \vdots & & & \ddots & \vdots \\
+            c_{m1} & \cdots & c_{mj} & \cdots & c_{mp}
+        \end{pmatrix},
+    \]
+    with element \(\textcolor{purple}{c_{ij}}\) equal to:
+    \[\textcolor{purple}{c_{ij}} = \textcolor{blue}{a_{i1}} \textcolor{red}{b_{1j}} + \textcolor{blue}{a_{i2}}\textcolor{red}{b_{2j}} + \cdots + \textcolor{blue}{a_{in}} \textcolor{red}{b_{nj}}.\]
+    In the sum above, the left index is always \(i\) (the \(i^{\text{th}}\) row of \(A\)) and the right index is always \(j\) (the \(j^{\text{th}}\) column of \(B\)). The inner indices run from \(1\) to \(n\) so, we can use a summation index \(l\) and write this sum as 
+    \[\textcolor{purple}{c_{ij}} = \sum_{k=1}^{n} \textcolor{blue}{a_{ik}} \textcolor{red}{b_{kj}}.\]
+    This gives us the element on position \((i,j)\) in the product matrix \(C = AB\) therefore, \(C\) is defined by letting \(i=1, \ldots, m\) and \(j=1, \ldots,p\).
+\end{proof}
+
+\subsection{Orthogonal matrices}
+
+\begin{definition}
+    An \textbf{orthogonal matrix} is one which is equal to its transpose i.e. 
+    \[O^{\top} = O.\]
+\end{definition}
+
+\begin{mdthm}
+    Properties of orthogonal matrices:
+    \begin{itemize}
+        \item \(O^{\top} O  = I\);
+        \item Orthogonal matrices leave the scalar product between two vectors invariant i.e. \(\left( O \bm{v} \right) \cdot \left( O \bm{w} \right) = \bm{v} \cdot \bm{w}\).
+    \end{itemize}
+\end{mdthm}
+
+\begin{mdexample}
+    An example of orthogonal matrices are \textbf{rotation matrices}:
+    \[O = \begin{pmatrix}
+        \cos\theta & -\sin\theta & 0 \\
+        \sin\theta & \cos\theta & 0 \\
+        0 & 0 & 1
+    \end{pmatrix}.\]
+\end{mdexample}
+
+\section{Tensors}
+
+\subsection{\texorpdfstring{\(\eps\)}{TEXT}-tensor}
+
+\begin{definition}
+    In three dimensions, the \(\eps\)-tensor (or the Levi-Civita symbol) is defined by 
+    \[\begin{aligned}
+        \eps_{ijk} =\begin{cases}
+            1 \quad &\text{if } (i,j,k) = (1,2,3),(2,3,1),(3,1,2)\\
+            -1 \quad &\text{if } (i,j,k) = (1,2,3),(2,3,1),(3,1,2)\\
+            0 \quad &\text{otherwise.}
+        \end{cases}
+    \end{aligned}\]
+\end{definition}
+
+\begin{mdnote}
+    That is \(\eps_{ijk}=1\) if \((i,j,k)\) are a clockwise (or even) permutation of \((1,2,3)\) whereas, \(\eps_{ijk}=-1\) if \((i,j,k)\) are an anti-clockwise (or odd) permutation of \((1,2,3)\) and \(0\) if any of the indices are the same.
+\end{mdnote}
+
+\subsection{Kronecker \texorpdfstring{\(\delta\)}{TEXT} function}
+
+\begin{definition}
+    The Kronecker delta function is defined as
+    \[\begin{aligned}
+        \delta_{ij} = \begin{cases}
+            0 \quad &\text{if } i \neq j \\
+            1 \quad &\text{if } i =j.
+        \end{cases}
+    \end{aligned}\]
+\end{definition}
+
+\begin{mdnote}
+    The function, \(\delta_{ij}\), can also be thought as the identity tensor.
+\end{mdnote}
+
+\subsection{Vector identities}
+
+\begin{mdthm}
+    The \(i^{\text{th}}\) component of the resultant vector of the cross product is given by 
+    \[(\bm{a} \times \bm{b})_i = \sum_{j=1}^{3} \sum_{k=1}^{3} \eps_{ijk} a_j b_k.\]
+\end{mdthm}
+
+\begin{mdnote}
+    By the \(i^{\text{th}}\) component we mean 
+    \[(\bm{a} \times \bm{b}) = 
+    \begin{pmatrix}
+        (\bm{a} \times \bm{b})_1 \\
+        (\bm{a} \times \bm{b})_2 \\
+        (\bm{a} \times \bm{b})_3
+    \end{pmatrix}.\]
+\end{mdnote}
+
+\section{Derivatives}
+
+\subsection{The chain rule}
+
+\begin{definition}
+    Given a function \(z=f(u_1,u_2,\ldots , u_n)\) the \textbf{differential}, \(dz\) or \(df\) is given by 
+    \[df = \diffp{f}{{u_1}} du_1+\diffp{f}{{u_2}} du_2 + \cdots + \diffp{f}{{u_n}} du_n.\]
+\end{definition}
+
+\begin{mdnote}
+    We can use \(\delta\) instead of \(d\) in differentials.
+\end{mdnote}
+
+\begin{mdthm}[Multivariable functions]
+    Suppose \(z = f(u_1(t), u_2(t), \ldots, u_n(t))\) then
+    \[\diff{z}{t} = \diffp{z}{{u_1}} \diff{{u_1}}{t} + \diffp{z}{{u_2}} \diff{{u_2}}{t} +\cdots + \diffp{z}{{u_n}} \diff{{u_n}}{t}.\]
+\end{mdthm}
+
+\begin{mdthm}[Paths]
+    Let \(f : \RR^m \to \RR\) and \(\bm{r}: \RR \to \RR^m\). Then 
+    \[\diff{}{t} f[\bm{r}(t)] = \nabla f[\bm{r}(t)] \cdot \bm{\dot{r}}(t).\]
+\end{mdthm}
+
+\section{Coordinate systems}
+
+\subsection{Polar coordinates}
+
+\begin{figure}[H]
+     \begin{center}
+         \includegraphics[scale=0.4]{./Resources/Polar coordinates.png}
+     \end{center}
+\end{figure}
+
+Consider a point \((x,y)\) in the Cartesian coordinate system, in the \textbf{polar coordinate system} this point can be represented by an ordered pair \((r,\theta)\), where \(r\) is the length of distance from the origin to the point and \(\theta\) is the angle between the positive \(x\)-axis and the line segment from the origin to the point; this is better illustrated in the figure above.
+
+\begin{mdthm}
+    Given a point \(P\) in the plane with Cartesian coordinates \((x,y)\) and polar coordinates \((r,\theta)\), the following hold true 
+    \[\begin{aligned}
+        x = r\cos\theta \quad &\text{and} \quad y=r\sin\theta \\
+        r^2 =x^2+y^2 \quad &\text{and} \quad \tan\theta = \frac{y}{x}.
+    \end{aligned}\]
+\end{mdthm}
+
+\subsection{Cylindrical coordinates}
+
+\begin{figure}[H]
+     \begin{center}
+         \includegraphics[scale=0.5]{./Resources/Cylindrical coordinates.png}
+     \end{center}
+\end{figure}
+
+\begin{definition}
+    In the \textbf{cylindrical coordinate system} a point in space is represented by the ordered triple \((r,\theta,z)\) where
+    \begin{itemize}
+        \item \((r,\theta)\) are the polar coordinates of the point's projection in the \(xy\)-plane;
+        \item \(z\) is the usual \(z\)-coordinate in the Cartesian coordinate system.
+    \end{itemize}
+\end{definition}
+
+\begin{mdthm}
+    The Cartesian coordinates \((x,y,z)\) and the cylindrical coordinates \((r,\theta,z)\) of a point are related as follows:
+    \[\begin{aligned}
+        x &= r\cos\theta \\
+        y &= r\sin\theta \\
+        z&=z 
+    \end{aligned}\]
+    and
+    \[\begin{aligned}
+        r^2 &= x^2+y^2 \\
+        \tan\theta &= \frac{y}{x} \\
+        z &= z.
+    \end{aligned}\]
+\end{mdthm}
+
+\subsection{Spherical coordinates}
+
+\begin{figure}[H]
+     \begin{center}
+         \includegraphics[width=7cm]{./Resources/Spherical coordinates.svg.png}
+     \end{center}
+\end{figure}
+
+\begin{definition}
+    In the \textbf{spherical coordinate system}, a point in space is represented by the ordered triple \((r,\theta,\phi)\) where
+    \begin{itemize}
+        \item \(r\) is the distance between the point and the origin;
+        \item \(\theta\) is the angle formed by the positive \(z\)-axis and the line segment from the origin to the point;
+        \item \(\phi\) is the same angle used to describe the location in cylindrical coordinates.
+    \end{itemize}
+\end{definition}
+
+\begin{mdthm}
+    The coordinates \((r,\theta,\phi)\) for 
+    \[r \in (0,\infty), \quad \theta \in (0,\pi) \quad \phi \in (0,2\pi),\]
+    are expressed as 
+    \[\begin{aligned}
+        x &= r\sin\theta\cos\phi \\
+        y &= r\sin\theta\sin\phi \\
+        z &= r\cos\theta.
+    \end{aligned}\]
+    in Cartesian coordinates.
+\end{mdthm}
+
+\section{Ordinary differential equations}
+
+\subsection{First order}
+
+\begin{theorem}
+    Explicit equations are solved by direct integration i.e. the solution to 
+    \[\diff{x}{t} = f(t),\]
+    is 
+    \[x(t) = \int f(t) \, dt.\]
+\end{theorem}
+
+\begin{theorem}
+    Separable equations are of the form 
+    \[\diff{x}{t} = f(t)g(x),\]
+    they are solved by evaluating the integrals
+    \[\int \frac{1}{g(x)} \, dx = \int f(t) \, dt.\]
+\end{theorem}
+
+\begin{theorem}
+    Linear ODEs are of the form 
+    \[\diff{x}{t} +xf(t) =g(t).\]
+    They are solved by using an \textbf{integrating factor} 
+    \[\mu(t)= e^{\int f(t) \, dt}.\]
+\end{theorem}
+
+\subsection{Second order}
+
+\begin{definition}
+    ODEs of the form 
+    \[\diff[2]{x}{t} + a \diff{x}{t}+ bx = \phi(t)\]
+    where \(a\) and \(b\) are constant are called second order linear ODEs.
+\end{definition}
+
+\begin{definition}
+    If the function \(\phi(t)\) is zero the equation is said to be \textbf{homogeneous linear}, otherwise it is called \textbf{inhomogeneous linear}.
+\end{definition}
+
+The homogeneous equation is solved with the help of solutions of the auxiliary equation. This method is based on the observation that the equation $\ddot{x}+a\dot{x}+bx=0$ is solved by functions of the form $$x(t)=x=e^{\lambda t}$$ \textbf{provided} $\lambda$ is properly chosen. The choice of $\lambda$ is obtained by the roots of the substituting the solution of the ODE, using $\dot{x}=\lambda e^{\lambda t}$ and $\ddot{x}=\lambda^2 e^{\lambda t},$ so we get $$\ddot{x}+a\dot{x}+bx=(\lambda^2+a\lambda+b)e^{\lambda t}=0.$$ Since $e^{\lambda t} \neq 0,$ we see that $e^{\lambda t}$ is a solution of the ODE provided that $$p(\lambda)=\lambda^2+a\lambda+b=0.$$ Since the auxiliary equation is a quadratic in $\lambda$ we have three possibilities 
+
+\begin{enumerate}
+	
+	\item[(i)] $a^2-4b \geq 0,$ the auxiliary equation has two distinct real solutions $\lambda_1,\lambda_2.$ So, it follows that $x_1=e^{\lambda_1t}$ and $x_2=e^{\lambda_2t}$ therefore, the general solution is a linear combination of these two solutions ($x_1$ and $x_2$ are complementary functions so $L(x_1)=L(x_2)=0$) i.e. $$x=x(t)=C_1e^{\lambda_1t}+C_2e^{\lambda_2t}.$$
+
+	\item[(ii)] $a^2-4b=0,$ the auxiliary equation has two repeated roots $\lambda_{1,2} =\lambda;$ in this case we that the general solution is $$x=C_1te^{\lambda t}+C_2e^{\lambda t}.$$
+
+	\item[(iii)] $a^2-4b=0,$ the auxiliary equation has two complex conjugate roots $\lambda_{\pm}=\mu \pm i\nu.$ This means that $x_{\pm}(t)=e^{(\mu \pm i\nu)t}$ are the solutions and the general solution using case (i) is $$C_1e^{(\mu + i\nu)t}+C_2e^{(\mu - i\nu)t},$$ where $C_1$ and $C_2$ are free parameters. This solution is fine but, we often want the general solution in terms of a \textit{real} function, so we have $$x=x(t)=C_1e^{\mu t}\cos{(\nu t)}+C_2e^{\mu t}\sin{(\nu t)},$$ where in this case $C_1$ and $C_2$ are free \textit{real} parameters. 
+
+\end{enumerate}
+
+\subsubsection*{Finding a particular integral}
+
+A guess is often called a “trial function” or an \textit{ansatz} (plural \textit{ansätze}) to make it sound better. This is often the fastest way. The reason this can be done is that the linear operator L in the equation $$L(x)=\phi,$$ maps polynomials to polynomials, trigonometric functions to trigonometric functions, exponential functions to exponential functions and so on.
+
+\begin{center}
+\begin{tabular}{|c|c|} 
+ \hline
+ $\mathbf{f(x)}$ & \textbf{Substitution} \\ \hline
+ $c$ & $\gamma$ \\ \hline
+ $bx+c$ & $\beta x+ \gamma$ \\ \hline
+ $ax^2+bx+c$ & $\alpha x^2+\beta x +\gamma$ \\ \hline
+ $Qe^{px}$ & $Qe^{px}$ (or $Qxe^{px}$ or $Qx^2e^{px}$) \\ \hline
+ $r\cos{(\omega x)}+s\sin{(\omega x)}$ & $\rho \cos{(\omega x)}+\sigma \sin{(\omega x)}$ \\ \hline
+\end{tabular}
+\end{center}
+
+\begin{mdnote}
+IMPORTANT: If there is a multiple of $f(x)$ in the complementary function then the usual choice of substitution will not work. So, multiply the substitution by $x$ until you find a substitution that works. (This is referring to the substitution of $Qe^{px}$)
+\end{mdnote}
+
+\begin{mdremark}
+If the inhomogeneous term is a polynomial in this course it is usual to `guess' a solution of the ODE to be a quadratic polynomial or higher, so that the second derivative has a non-zero term.
+\end{mdremark}
+
+\subsection{Coupled equations}
+
+The system we are considering are equations of the form $$\begin{pmatrix} \dot{x} \\ \dot{y} \end{pmatrix} = \begin{pmatrix} a&b \\ c&d \end{pmatrix} \begin{pmatrix} x\\y \end{pmatrix}$$ which we can also write as $$\dot{\bm{r}}=M\bm{r}, \text{ where } \bm{r}=\begin{pmatrix} x\\y \end{pmatrix}, M=\begin{pmatrix} a&b \\ c&d \end{pmatrix}.$$ As mentioned in the previous section we can write two coupled first order linear ODEs as second order linear ODE; we do this by eliminating $y$ and writing the ODE in terms of $x$, and we get $$\ddot{x}-\underbrace{(a+d)}_{t=\Trace(M)}\dot{x}+\underbrace{(ad-bc)}_{\Delta=\det(M)}=0.$$ We know from the previous section that we should for a solution of the $x=Ae^{\lambda t}$ where $\lambda$ satisfies $$\lambda-(a+d)\lambda+(ad-bc)=0.$$ Substituting $x=Ae^{\lambda t}$ (and after a bit of algebraic manipulation) we have $$M\bm{\xi}=\lambda\bm{\xi}, \text{ where } M= \begin{pmatrix} a&b \\ c&d \end{pmatrix}.$$ Therefore, to solve these types of ODEs we must find the eigenvectors and their eigenvalue obtained by the characteristic polynomial. Recall from LAG1, that for any real $2\times 2$ matrix $M,$ is similar to one of only three forms of Jordan form matrices so, exactly one of the following holds:
+
+\begin{itemize}
+	
+	\item[(i)] $M$ has two real eigenvalues, $\lambda_1,\lambda_2$, and we can find two linearly independent eigenvectors ($\bm{\xi}_1$ and $\bm{\xi}_2$) that span $\RR^2;$ so the general solution to the matrix differential equation is $$\begin{pmatrix} x(t) \\ y(t) \end{pmatrix}=\bm{r}(t)=C_1\bm{\xi}_1e^{\lambda_1 t}+C_2\bm{\xi}_2e^{\lambda_2 t}.$$
+
+	\item[(ii)] $M$ has only one real eigenvalue and only a one--dimensional space of eigenvectors; then one can always fine non-zero vectors $\bm{\xi}$ and $\bm{\zeta}$ such that $$M\bm{\xi}=\lambda \bm{\xi}, \quad M\bm{\zeta}=\lambda \bm{\zeta}+\bm{\xi}.$$ That is, $\bm{\xi}$ is an eigenvector and $\bm{\zeta}$ is another vector which is not an eigenvector. In this case the general solution is $$\begin{pmatrix} x(t) \\ y(t) \end{pmatrix}=\bm{r}(t)=C_1\bm{\xi}_1e^{\lambda t}+C_2(\bm{\zeta}+t\bm{\xi})e^{\lambda t}.$$
+
+	\item[(iii)] $M$ has two distinct complex conjugate eigenvalues ($\alpha\pm i\beta$) with complex conjugate eigenvectors. Then we can find a non-zero complex vector $\bm{\xi}$ such that $\bm{\xi}=\bm{\mu}+i\bm{\nu}$ and $\bm{\xi}^{*}=\bm{\mu}-i\bm{\nu}$ are corresponding eigenvectors (where $\alpha, \beta, \bm{\mu}$ and $\bm{\nu}$ are real) such that $$M\bm{\mu}=\alpha\bm{\mu}-\beta\bm{\nu}, \quad M\bm{\nu}=\beta\bm{\mu}+\alpha\bm{\nu}.$$ In this case the general solution is $$\begin{pmatrix} x(t) \\ y(t) \end{pmatrix}=\bm{r}(t)=C_1\left(\bm{\mu}\cos{(\beta t)}-\bm{\nu}\sin{(\beta t)}\right)e^{\alpha t}+C_2\left(\bm{\mu}\sin{(\beta t)}+\bm{\nu}\cos{(\beta t)}\right)e^{\alpha t}.$$ Another way to write this is $$\bm{r}(t)=\Re\left(D\bm{\xi}e^{\lambda t}\right),$$ where $D = C_1+iC_2$ is an arbitrary complex number.
+
+\end{itemize}
+
+Recall that in each case one can find a real matrix $P$ such that $P^{-1}MP$ is in one of the real Jordan canonical forms. The Jordan canonical form of each case are as follows:
+
+\begin{itemize}
+
+	\item[(i)] $$P^{-1}MP=\begin{pmatrix} \lambda_1&0\\0&\lambda_2 \end{pmatrix}, \quad P=(\bm{\xi}_1:\bm{\xi}_2).$$
+
+	\item[(ii)] $$P^{-1}MP=\begin{pmatrix} \lambda&1\\0&\lambda \end{pmatrix}, \quad P=(\bm{\xi}_1:\bm{\zeta}).$$
+
+	\item[(iii)] $$P^{-1}MP=\begin{pmatrix} \alpha&\beta\\-\beta&\alpha \end{pmatrix}, \quad P=(\bm{\mu}:\bm{\nu}).$$
+
+\end{itemize}
+
+% \begin{definition}
+%     Let \(\{v_1,v_2,v_3\}\) be a set of three real numbers defined in each coordinate system. Then \(\{v_1,v_2,v_3\}\) are said to be the components of a \textbf{vector} if their values in any pair of coordinate systems \(\mathcal{C}\) and \(\mathcal{C}'\) are related by the transformation formula
+%     \[\bm{v}'=A \cdot \bm{v}\]
+%     where \(A\) is the transformation matrix between \(\mathcal{C}\) and \(\mathcal{C}'\).
+% \end{definition}
+
+% \begin{definition}
+%     Generalised definition of a vector (i.e. definition of a vector in suffix form):
+%     \[v'_i=\sum_{j=1}^3 a_{ij} v_j\]
+%     for \(1 \leq i \leq 3\), were \(a_{pq}\) is the element in the \(p^{\text{th}}\) row and \(q^{\text{th}}\) column of the matrix \(A\).
+% \end{definition}
+
+% \begin{definition}
+%     Let \(\{t_{ij}\}\) with \(1 \leq i,j \leq 3\) be a set of nine real numbers define in each coordinate system. Then the \(\{t_{ij}\}\) are said to be the components of a tensor if their values 
+% \end{definition}
+
+% \section{Basics - OLD}
+
+% \subsection{Matrices}
+
+% \begin{definition}
+%     (In this course) Matrices are linear maps \(M:V\to V\) where \(V\) is a vector space. The linearity means that 
+%     \[M(a\bm{r}_1+b\bm{r}_2)=aM(\bm{r}_1)+bM(\bm{r}_2).\] 
+% \end{definition}
+
+% In terms of the component notation we will use:
+% \[(M\bm{r})^a = \bsum{b}{1}{3} {M^a}_b \bm{r}^b.\]
+% This can be read as follows: the \(a^{\text{th}}\) component of \(M\bm{r}\) is given by the scalar product of the \(a^{\text{th}}\)-row of \(M\) with \(\bm{r}\).
+
+% More concretely we have that:
+% \[{M^a}_b = \begin{pmatrix}
+%     {m^1}_1 & {m^1}_2 & {m^1}_3 \\
+%     {m^2}_1 & {m^2}_2 & {m^2}_3 \\
+%     {m^3}_1 & {m^3}_2 & {m^3}_3 
+% \end{pmatrix}.\]
+
+% So, \(a\) represents the row and \(b\) the column.
+
+% \subsection{Coordinate systems}
+
+% Cartesian coordinate system are used to compute vector products and derivatives. In this course we will consider systems with angular momentum or central potential therefore, we use a spherical coordinate system.
+
+% \begin{theorem}
+%     A vector described in Cartesian coordinate, \(\bm{r}=\{r,\theta, \phi\}\), we must take the transformations, with restrictions \(r \geq 0, 0 \leq \theta \leq \pi, 0 \leq \phi < 2\pi\):
+%     \[x=r \sin\theta\cos\phi, \quad y= r\sin\theta\sin\phi, \quad z=r\cos\theta.\]
+% \end{theorem}
+
+% The angles denoted are represented in the figure below:
+
+% \begin{figure}[H]
+%     \begin{center}
+%         \includegraphics[scale=0.7]{./Resources/Spherical coordinates diagram.png}
+%     \end{center}
+% \end{figure}
+
+\pagebreak
+
+\addcontentsline{toc}{section}{Newtonian mechanics of a single particle}
+\section*{Newtonian mechanics of a single particle}
+
+\section{Newton's Laws}
+
+\subsection{Newton's Laws of motion}
+
+\begin{definition}
+    A \textbf{particle} is an object whose shape and structure does not affect the dynamics of the system.
+\end{definition}
+
+\begin{mdthm}[Newtow's Laws of motion]
+    The laws of motion:
+    \begin{enumerate}
+        \item[(I)] A particle will stay at rest or move with constant velocity along a straight line unless acted upon by external force.
+        \item[(II)] The rate of change of momentum of a particle is equal to and in the direction of, the \textbf{net force} acting on it.
+        \item[(III)] Every action has an opposite and equal reaction.
+    \end{enumerate}
+\end{mdthm}
+
+\begin{mdnote}
+    I want to note here that \textbf{velocity is a vector} therefore the particle is moving along on a straight line if the velocity is constant.
+\end{mdnote}
+
+\begin{definition}
+    An \textbf{inertial frame} is a frame in which Newton's First law [NI] holds true.
+\end{definition}
+
+\subsection{Linear momentum}
+
+\begin{definition}
+    If a particle has mass \(m\) and velocity \(\dot{\bm{r}}\), then \(\bm{p}\), its \textbf{linear momentum} is defined to be
+    \[\bm{p}=m\dot{\bm{r}}\]
+\end{definition}
+
+\begin{mdthm}[Linear momentum principle]
+    Mathematically, Newton's Second Law states:
+    \[\bm{F}=\dot{\bm{p}},\]
+    where \(\bm{p}\) denotes linear momentum and \(\bm{F}\) the total external force acting on a particle.
+\end{mdthm}
+
+\begin{mdremark}
+    The more familiar \(\bm{F}=m\ddot{\bm{r}}\) arises when \(m\) is constant; in this module we will also consider cases when \(m\) is not constant.
+\end{mdremark}
+
+\begin{theorem}[Conservation of linear momentum]
+    In absence of a force acting on a particle the quantity of momentum is conserved.
+\end{theorem}
+
+\begin{proof}
+    In absence of any force we have that \(\bm{F}=\bm{0}\) therefore,
+    \[\bm{F}=\dot{\bm{p}}=\bm{0}.\]
+\end{proof}
+
+\begin{mdnote}
+    Generally speaking, in classical mechanics to check if a quantity is 'conserved' it suffices to check if its time derivative is \(0\), which implies the quantity is constant for all time i.e. it is conserved.
+\end{mdnote}
+
+\subsubsection{Collision theory}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=\textwidth]{./Resources/Collision theory.png}
+    \end{center}
+\end{figure}
+
+Consider the collision shown in the figure above. A particle of mass \(m_1\) and initial velocity \(\bm{u}\) is incident upon another particle, which has mass \(m_2\) and is at rest. Suppose after the collision the masses of the particles does not change and, their new velocities are now \(\bm{u}_1\) and \(\bm{u}_2\) respectively. Since the two particles are in an isolated system (i.e. there are no external forces acting on the system), their total linear momentum is conserved, i.e.
+\[m_1\bm{u}_1 = m_1\bm{u}_1+m_2\bm{u}_2.\]
+By this linear relation it implies that these three velocities must lie in the same plane thus, scattering processes are \textbf{two-dimensional}.
+
+\begin{mdnote}
+    This process is not energy preserving unless it is an elastic collision where all the energy is transferred.
+\end{mdnote}
+
+\subsection{Friction}
+
+\begin{definition}
+    \textbf{Friction} is the force resisting the relative motion of solid surfaces, fluid layers, and material elements sliding against each other.
+\end{definition}
+
+\begin{mdthm}
+    The frictional force 
+    \[\bm{F}_F=-\nu \dot{\bm{r}}.\]
+    Where \(\nu>0\) is the friction coefficient. The minus sign indicates that the friction acts in the opposite direction to the velocity.
+\end{mdthm}
+
+% \begin{mdthm}[The Law of Gravitation]
+%     There exists a force of attraction between two bodies given by 
+%     \[\bm{F} = -\frac{G_N M m}{\abs{\bm{r}}^2} \frac{\bm{r}}{\abs{\bm{r}}},\]
+%     where \(\bm{r}=\bm{r}_2-\bm{r}_1\) and \(G_N\) is Newton's constant.
+% \end{mdthm}
+
+\section{Angular motion}
+
+\subsection{Angular momentum and torque}
+
+\begin{definition}
+    Suppose a particle \(P\) of mass \(m\) has position vector \(\bm{r}\) and velocity \(\dot{\bm{r}}\). Then \(\bm{L}\), the \textbf{angular momentum} of \(P\) about a point is defined to be
+    \[\begin{aligned}
+        \bm{L}&=\bm{r} \times (m\dot{\bm{r}}) \\
+            &= \bm{r} \times \bm{p}.
+    \end{aligned}\]
+    The vector \(\bm{L}\) always points in a direction orthogonal to both \(\bm{r}\) and \(\bm{p}\).
+\end{definition}
+
+\begin{mdremark}
+    In angular motion the linear momentum is \textbf{not} (necessarily) conserved however, angular momentum is conserved.
+\end{mdremark}
+
+\begin{definition}
+    The \textbf{torque}, \(\bm{N}\), of a particle acting upon it is defined by
+    \[\bm{N}=\bm{r} \times \bm{F}.\]
+\end{definition}
+
+\begin{mdnote}
+    Torque is analogous to the force acting on a particle in linear motion.
+\end{mdnote}
+
+\begin{mdremark}
+    In some texts torque is known as the \textbf{moment of a force} (about a point).
+\end{mdremark}
+
+\begin{mdremark}
+    Both \(\bm{L}\) and \(\bm{N}\) can take different value depending on where the 'origin' is defined.
+\end{mdremark}
+
+\begin{mdthm}[Angular momentum principle]
+    If we have a point particle with fixed mass \(m\) and momentum \(\bm{p}=m\dot{\bm{r}}\) then
+    \[\bm{N}=\dot{\bm{L}}.\]
+\end{mdthm}
+
+\subsection{Conservation of angular momentum}
+
+\begin{mdthm}
+    In any motion of a system in which there is no torque acting on the particle, the angular momentum (about any point) is conserved.
+\end{mdthm}
+
+\begin{proof}
+    Recall that \(\bm{N}=\dot{\bm{L}}\), so if \(\bm{N}=\bm{0}\) then \(\dot{\bm{L}} = 0\) therefore, \(\bm{L}=\text{constant}\) for all time.
+\end{proof}
+
+\begin{mdcor}
+    Conservation of angular momentum implies that the motion of the particle in on a plane.
+\end{mdcor}
+
+\begin{proof}
+    As \(\bm{r} \cdot \bm{L} = \bm{0}\) the position vector is orthogonal to tha angular momentum vector. Since \(\bm{L}\) is constant \(\bm{r}\) lies in a plane perpendicular to \(\bm{L}\) for all time.
+\end{proof}
+
+\begin{proof}
+    Angular momentum is given by a vector \(\bm{L}=\bm{r} \times m\bm{\dot{r}}\). As the vector cross product is used in the definition of angular momentum it implies that both \(\bm{r}\) and \(\bm{\dot{r}}\) should be orthogonal to \(\bm{L}\). Therefore, both \(\bm{r}\) and \(\bm{\dot{r}}\) lie in the plane orthogonal to \(\bm{L}\). As \(\bm{L}\) is constant for all time so is the plane.
+\end{proof}
+
+\subsection{Circular motion}
+
+In circular motion a particle moves in a circle thus, \(\abs{\bm{r}}\) is constant (for all time). We can choose \(\bm{r}\) as
+\[\bm{r}=\begin{pmatrix}
+    r\cos\theta(t) \\ r\sin\theta(t) \\0
+\end{pmatrix}.\]
+Circular motion means that \(r=\abs{\bm{r}}\) is constant but note that \(\theta(t)\) is not necessarily constant for all time. If we restrict \(\dot{\theta}(t)=\omega\) to be a constant we have the following definitions.
+
+\begin{definition}
+    The \textbf{angular velocity}, \(\omega\), is defined to be \[\omega = \dot{\theta}\]
+    and \(\abs{\omega}\) is called the \textbf{angular speed}.
+\end{definition}
+
+\begin{definition}
+    The \textbf{angular velocity vector} of a body is defined to be
+    \[\bm{\omega}=\pm \omega \hat{\bm{n}},\]
+    where the sign is taken to be \(\pm\) on whether the sense of rotation (relative to the vector \(\hat{\bm{n}}\)) is right or left-handed. The direction of \(\bm{\omega}\) is defined by the right-hand rule illustrated by the figure below.
+\end{definition}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[scale=0.5]{./Resources/Angular-Velocity.png}
+    \end{center}
+\end{figure}
+
+\begin{mdthm}
+    In circular motion there is a force pointing inwards to the centre of motion defined by
+    \[\bm{F}=-m\omega^2 \bm{r},\]
+    where \(m\) is the mass of the particle.
+\end{mdthm}
+
+\section{Central forces}
+
+\begin{definition}
+    If a force, \(\bm{F}(\bm{r})\), is directed towards or away from a fixed point, it is called a \textbf{central force}. Mathematically, 
+    \[\begin{aligned}
+        \bm{F} &\propto \bm{r}, \\
+        \bm{F} &= \bm{r}f(\bm{r}),
+    \end{aligned}\]
+    where \(f(\bm{r})\) is a scalar quantity.
+\end{definition}
+
+\begin{mdremark}
+    Some texts may define a central force as a force that is directed towards or away from a point; it has the form
+    \[\bm{F} = F(\abs{\bm{r}})\hat{\bm{r}}.\]
+\end{mdremark}
+
+\begin{mdnote}
+    Since \(\bm{F}=k\bm{r}\) for some scalar \(k\) we can deduce that central forces act on the line connecting the two bodies.
+\end{mdnote}
+
+\begin{theorem}
+    For a \textit{conservative force} that is derived from a \(V(\bm{r})\) potential, then it being a \textit{central force} implies that \(V\) is only a function of \(\abs{\bm{r}}\) (for some choice of the origin) i.e. \(V=V\left(\abs{\bm{r}}\right)\).
+\end{theorem}
+
+\begin{mdthm}
+    The angular momentum is conserved for a central force (i.e. the torque vanishes).
+\end{mdthm}
+
+\begin{proof}
+    \[\begin{aligned}
+        \diff{}{t}\bm{L} &= \diff{}{t} \left( \bm{r} \times \bm{p} \right) \\
+        &= \bm{\dot{r}} \times \bm{p} +\bm{r} \times \bm{\dot{p}} \\
+        &= \bm{\dot{r}} \times m\bm{\dot{r}} + \bm{r}\times \bm{F} \\
+        &= \bm{0}+\bm{r}\times \bm{r}f(\bm{r}) \\
+        &= \bm{r} \times k\bm{r} \\
+        &= \bm{0}.
+    \end{aligned}\]
+    We take \(k=f(\bm{r})\) to emphasise that it is a scalar quantity.
+\end{proof}
+
+\section{Energy}
+
+\subsection{Defining energy}
+
+\begin{definition}
+    The \textbf{kinetic energy} \(T\) of a non-rotating body of mass \(m\) moving with speed \(\bm{\dot{r}}\) is the scalar quantity
+    \[T=\half m (\dot{\bm{r}} \cdot \dot{\bm{r}}) = \half m \abs{\dot{\bm{r}}}^2.\]
+\end{definition}
+
+\begin{definition}
+    The scalar quantity
+    \[\begin{aligned}
+        W &= \int_{\bm{r}(t_1)}^{\bm{r}(t_2)} \bm{F} \cdot d\bm{r} \\
+         &= \int_{t_1}^{t_2} \bm{F} \cdot \dot{\bm{r}} \, dt
+    \end{aligned}\]
+    is called the \textbf{work done} by the force \(\bm{F}\) during the time interval \([t_1,t_2]\).
+\end{definition}
+
+\begin{mdthm}[Energy principle for a particle]
+    In any motion of a particle, the increase in kinetic energy of the particle in a given time interval is \textbf{equal} to the total work done by the applied forces during this time interval. That is, over the time interval \([t_1,t_2]\) we have
+    \[T_2-T_1 = \int_{t_1}^{t_2} \bm{F} \cdot \dot{\bm{r}} \, dt\]
+    where \(T_1\) and \(T_2\) are the kinetic energy of a particle at times \(t_1\) and \(t_2\) respectively.
+\end{mdthm}
+
+\begin{mdnote}
+    Mathematically we can interpret the theorem as \(\Delta T =\Delta W\).
+\end{mdnote}
+
+\begin{proof}
+    Suppose a particle \(P\) of mass \(m\) moves under the influence of a force \(\bm{F}\). Then its equation of motion is 
+    \[m\bm{\ddot{r}}=\bm{F}.\]
+    We place no restriction on \(\bm{F}\) i.e. it may depend on the position of \(P\), the velocity of \(P\), the time etcetera; if more than one force is acting on \(P\), then \(\bm{F}\) means the \textit{resultant vector} of these forces. On taking the scalar dot product of both sides of the equation of motion with \(\bm{\dot{r}}\), we obtain
+    \[m\bm{\dot{r}} \cdot \bm{\ddot{r}} = \bm{F} \cdot \bm{\dot{r}}.\]
+    Recall that by [NII] we can express \(\bm{F}=\bm{\dot{p}}\). Thus, we can write
+    \[\begin{aligned}
+        \bm{F} \cdot \bm{\dot{r}} &= \bm{\dot{p}} \cdot \bm{\dot{r}} \\
+        &= m\bm{\ddot{r}} \cdot \bm{\dot{r}} \\
+        &= \diff{}{t} \left( \half m \abs{\bm{\dot{r}}}^2 \right) \\
+        &= \diff{T}{t}.
+    \end{aligned}\]
+    Therefore, 
+    \[\diff{T}{t} = \bm{F} \cdot \bm{\dot{r}};\]
+    integrating this equation over the time interval \([t_1,t_2]\), we obtain 
+    \[T_2-T_1 = \int_{t_1}^{t_2} \bm{F} \cdot \bm{\dot{r}} \, dt\]
+    where \(T_1\) and \(T_2\) are the kinetic energies of \(P\) at times \(t_1\) and \(t_2\) respectively.
+\end{proof}
+
+\subsection{Conservative forces}
+
+\begin{definition}
+    If the \textit{work done} by a force is path independent, such force is called \textbf{conservative}.
+\end{definition}
+
+\begin{mdthm}
+    If \(\bm{F}\) is a conservative force then it can be expressed in the form
+    \[\bm{F}=-\nabla V(\bm{r}),\]
+    where \(V(\bm{r})\) is a scalar function of position. The function \(V\) is said to be the \textbf{potential energy} function for \(\bm{F}\).
+\end{mdthm}
+
+\begin{proof}
+    Suppose \(\bm{F}=-\nabla V(\bm{r})\) is a conservative force acting on a particle over the path \(\mathcal{C} : \bm{r}(t)\) for \(t \in [t_1,t_2]\).  We prove the work done by such \(\bm{F}\) is \textit{path independent}. The work done by \(\bm{F}\) is 
+    \[\begin{aligned}
+        W &= \int_{\mathcal{C}} \bm{F} \cdot d\bm{r}\\
+        &= \int_{\mathcal{C}} - \nabla V(\bm{r}) \cdot d\bm{r} \\
+        &= - \int_{\bm{r}(t_1)}^{\bm{r}(t_2)} \nabla V(\bm{r}) \cdot d\bm{r}.
+    \end{aligned}\]
+    Since \(\bm{\dot{r}} = \diff{\bm{r}}{t}\) we have that 
+    \[\begin{aligned}
+        W &= - \int_{t_1}^{t_2} \nabla V(\bm{r}) \cdot \diff{\bm{r}}{t} \, dt \\
+        &= - \int_{t_1}^{t_2} \nabla V(\bm{r}) \cdot \bm{\dot{r}} \, dt.
+    \end{aligned}\]
+    By the chain rule (for paths), we know that \(\diff{}{t} V(\bm{r}) = \nabla V(\bm{r}) \cdot \bm{\dot{r}}\) so,
+    \[\begin{aligned}
+        W &= - \int_{t_1}^{t_2} \diff{}{t} V(\bm{r}) \, dt \\
+        &= V(\bm{r}(t_1)) -V(\bm{r}(t_2)) \\
+        &=V(\bm{r}_1)-V(\bm{r}_2).
+    \end{aligned}\]
+    Therefore, the work done by a particle only depends on its endpoints and not the path taken.
+\end{proof}
+
+\begin{mdthm}
+    If \(\bm{F}\) is conservative then \(\nabla \times \bm{F}=\bm{0}\).
+\end{mdthm}
+
+\begin{mdnote}
+    This is because `curl(grad)\(=0\)'.
+\end{mdnote}
+
+\subsection{Conservation of energy}
+
+\begin{definition}
+    The sum of the kinetic and potential energy of a particle is called the \textbf{total energy}, i.e.
+    \[E=T+V.\]
+\end{definition}
+
+\begin{mdthm}
+    The total energy of a conserved system is conserved i.e. the total energy of a system for which \(\bm{F}=-\nabla V(\bm{r})\) is constant for all time.
+\end{mdthm}
+
+\begin{proof}
+    We need to show \(E\) is constant for all time hence, it suffices to show that \(\dot{E}=0\).
+    \[\begin{aligned}
+        \diff{}{t} E &= \diff{}{t} \left( \half m \abs{\bm{\dot{r}}}^2 +V(\bm{r}) \right) \\
+        &= m \bm{\dot{r}} \cdot \bm{\ddot{r}} + \nabla V(\bm{r}) \cdot \bm{\dot{r}} \\
+        &= \left( \bm{F} + \nabla V(\bm{r}) \right) \cdot \bm{\dot{r}} \\
+        &= 0.
+    \end{aligned}\]
+    Since, \(\bm{F}=-\nabla V(\bm{r})\).
+\end{proof}
+
+\subsection{Effective potentials}
+
+\begin{definition}
+    If a particle has conserved angular momentum and conserved energy then the \textbf{effective potential} is defined as the quantity
+    \[V_{\text{eff}}(r) = \frac{\ell^2}{2mr^2}+V(r),\]
+    where
+    \begin{itemize}
+        \item \(l\) is the angular momentum of the particle;
+        \item \(m\) is the mass of the particle and 
+        \item \(r\) is the distance from the (defined) origin.
+    \end{itemize}
+\end{definition}
+
+\begin{proof}
+    The angular momentum of the particle in motion is conserved thus, the motion of the particle is restricted to a plane, i.e.
+    the plane orthogonal to \(\bm{L}\). We choose coordinates where the plane is 
+    \[\bm{r} = \begin{pmatrix} r\cos\theta(t) \\ r\sin\theta(t) \\ 0 \end{pmatrix}.\]
+    Therefore, the angular momentum is 
+    \[\begin{aligned}
+        \bm{L} &= \bm{r} \times m\bm{\dot{r}} \\
+        &= \begin{pmatrix}
+            0 \\ 0 \\ mr^2 \dot{\theta}
+        \end{pmatrix}.
+    \end{aligned}\]
+    Since, \(\bm{L}\) is conserved we can fix 
+    \[\ell=mr^2 \dot{\theta} \quad \then \quad \dot{\theta}=\frac{\ell}{mr^2}\]
+    where \(l\) is a constant. The energy is also conserved thus, we can write 
+    \[\begin{aligned}
+        E_0 &= \half m \abs{\bm{\dot{r}}}^2 +V(r) \\
+        &= \half m \left( \dot{r}^2+r^2\dot{\theta}^2 \right) +V(r) \\
+        &= \half m \dot{r}^2 + \frac{\ell^2}{2mr^2} +V(r) \\
+        &= \half m \dot{r}^2 + V_{\text{eff}}(r),
+    \end{aligned}\]
+    where 
+    \[V_{\text{eff}}(r) = \frac{\ell^2}{2mr^2} +V(r).\]
+\end{proof}
+
+% \subsection{Conservation of energy in linear motion}
+
+% Suppose that the particle \(P\) moves along the \(x\)-axis under the force \(F\) acting in the positive \(x\)-direction. In this case, the 'work done' integral reduces to
+% \[W = \int_{t_1}^{t_2} F \dot{x} \, dt,\]
+% where \(\dot{x}\) is the velocity of \(P\) in the positive \(x\)-direction. For the case in which \(F\) is a \textbf{force field} (i.e. \(F = F(x)\)), the work done becomes
+% \[W=\int_{x_1}^{x_2} F(x) \, dx,\]
+% where \(x_1=x(t_1)\) and \(x_2=x(t_2)\).
+
+% \begin{theorem}
+%     Suppose \(P\) is a particle moving over the interval \([x_1,x_2]\) of the \(x\)-axis, the work done by the field \(F\) is given by
+%     \[W=\int_{x_1}^{x_2} F(x) \, dx.\]
+% \end{theorem}
+
+% \begin{definition}
+%     Let 
+%     \[V(x) = \int -F(x) \, dx,\]
+%     such \(V\) is called the \textbf{potential energy} function of the force field \(F\). We have that 
+%     \[F=-\diff{}{x}V(x).\]
+% \end{definition}
+
+% \begin{mdthm}[Energy conservation in linear motion]
+%     When a particle undergoes linear motion in a force field, the sum of its kinetic and potential energy remains constant in the motion, i.e.
+%     \[T+V(x)=E.\]
+% \end{mdthm}
+
+% \subsection{Conservation of energy in a conservative field}
+
+% Suppose now that the particle is in \textbf{general three-dimensional motion} under the force \(\bm{F}\) and that, in the time interval \([t_A,t_B]\), \(P\) moves from the point \(A\) to the point \(B\) along the path \(\mathcal{C}\) as shown in Figure \ref{fig:integral path}.
+
+% \begin{figure}[H]\label{fig:integral path}
+%     \begin{center}
+%         \includegraphics[scale=0.5]{./Resources/Integral Path.png}
+%         \caption{The particle \(P\) is in general motion under the force \(\bm{F}\). The arc \(\mathcal{C}\) is the path taken by \(P\) between the points \(A\) and \(B\).}
+%     \end{center}
+% \end{figure}
+
+% \begin{mdthm}[Energy principle in 3D]
+%     Over the time interval \([t_A,t_B]\) we have
+%     \[T_B-T_A = \int_{t_A}^{t_B} \bm{F}\cdot \dot{\bm{r}} \, dt,\]
+%     where \(T_A\) and \(T_B\) are the kinetic energies of a particle when \(t=t_A\) and \(t=t_B\) respectively.
+% \end{mdthm}
+
+% \begin{definition}
+%     The expression
+%     \[W = \int_{\mathcal{C}} \bm{F}(\bm{r}) \cdot d\bm{r}\]
+%     is called the \textbf{work done} by the force field \(\bm{F}(\bm{r})\) when its points of application moves from \(A\) to \(B\) along any path \(\mathcal{C}\).
+% \end{definition}
+
+% \begin{definition}
+%     A force is called a \textbf{conservative force} if its work done is \textbf{path independent}.
+% \end{definition}
+
+% \begin{proof}
+%     Suppose \(\bm{F}\) is a conservative force i.e. \(\bm{F}=-\nabla V\). Observe,
+%     \[\begin{aligned}
+%         W&=\int_{\bm{r}(t_1)}^{\bm{r}(t_2)} \bm{F} \cdot d\bm{r} \\
+%         &= -\int_{\bm{r}(t_1)}^{\bm{r}(t_2)} \nabla V\cdot d\bm{r} \\
+%         &= -\int_{t_1}^{t_2} \nabla V \cdot \dot{\bm{r}} \, dt \\
+%         &= - \int_{t_1}^{t_2} \diff{}{t}V(\bm{r}(t)) \, dt \\
+%         &=V(\bm{r}(t_1)) -V(\bm{r}(t_2)) \\
+%         &= V(\bm{r}_1)-V(\bm{r}_2).
+%     \end{aligned}\]
+%     Therefore, the work done by a particle only depends on its endpoints.
+% \end{proof}
+
+% \begin{mdthm}
+%     If \(\bm{F}\) is a conservative force then it can be expressed in the form
+%     \[\bm{F}=- \grad V =-\nabla V,\]
+%     where \(V=V(\bm{r})\), a scalar function of position. The function \(V\) is said to be the \textbf{potential energy} function for \(\bm{F}\).
+% \end{mdthm}
+
+% \begin{theorem}
+%     For a closed path, the work done vanishes:
+%     \[\oint \bm{F} \cdot d\bm{r} = \iff \nabla \times \bm{F}=0.\]
+% \end{theorem}
+
+% \begin{mdnote}
+%     To check if a force is conservative it is enough to show \(\nabla \times \bm{F} =0\) since '\(\text{curl(grad)}=0\)'.
+% \end{mdnote}
+
+% \begin{mdthm}[Energy conservation in 3D]
+%     When a particle moves in a \textbf{conservative force field}, the sum of its kinetic and potential energies remains constant in the motion, i.e.
+%     \[T+V(\bm{r})=E.\]
+% \end{mdthm}
+
+\section{Planetary motion}
+
+\subsection{The Law of Gravitation}
+
+\begin{mdthm}[Newton's universal law of gravitation]
+    There exists a force of attraction between two bodies given by
+    \[\bm{F}= - \frac{G_N M m}{\abs{\bm{r}}^2} \hat{\bm{r}},\]
+    where \(\bm{r}=\bm{r}_2-\bm{r}_1\) i.e. the distance between the two bodies, the vector \(\hat{\bm{r}}=\frac{\bm{r}}{\abs{\bm{r}}}\) and \(G_N\) is Newton's constant.
+\end{mdthm}
+
+\begin{mdnote}
+    The unit vector \(\hat{\bm{r}}\) indicates the direction of the force, \(\bm{F}\).
+\end{mdnote}
+
+\begin{mdremark}
+    The force illustrated by the law of gravitation is a central force.
+\end{mdremark}
+
+\begin{mdthm}
+    A planet orbiting the sun has potential 
+    \[V(\abs{\bm{r}_1-\bm{r}_2}) = - \frac{G_N Mm}{\abs{\bm{r}_1-\bm{r}_2}}\]
+    and effective potential 
+    \[V_{\text{eff}} = \frac{\ell^2}{2mr^2} -\frac{G_N Mm}{\abs{\bm{r}_1-\bm{r}_2}}.\]
+\end{mdthm}
+
+\subsection{Kepler's Laws}
+
+\begin{mdthm}
+    The laws of planetary motion:
+    \begin{enumerate}
+        \item[(KI)] The planets move in an ellipse with the sun at one focus.
+        \item[(KII)] The line joining a given planet to the sun sweeps out equal areas over equal times.
+        \item[(KIII)] The square of a planet's orbital period is proportional to the cube of the semi-major axis.
+    \end{enumerate}
+\end{mdthm}
+
+\begin{mdnote}
+    From Kepler's Second Law, [KII], we deduce a planet moves slower when it is close to the Sun and faster when it is away from the Sun.
+\end{mdnote}
+
+\begin{mdnote}
+    Mathematically (KIII) can be interpreted as \(T^2 \propto r^3\).
+\end{mdnote}
+
+\begin{proof}
+    The proofs of Kepler's laws 
+    \begin{itemize}
+        \item Proof of [KI].
+        \item Proof of [KII].
+        \begin{figure}[H]
+             \begin{center}
+                 \includegraphics[scale=0.5]{./Resources/Kepler 2.png}
+             \end{center}
+        \end{figure}
+        Restrict the motion to a plane 
+    \[\bm{r} = \begin{pmatrix}
+        r\cos\theta \\
+        r\sin\theta \\
+        0   
+    \end{pmatrix}\]
+    then, after an infinitesimal time step \(dt\) the plane sweetps out a triangle (as shown in the figure above)
+    \[dA = \half (r)(r d\theta) = \half r^2 d\theta.\]
+    Therefore, 
+    \[\diff{A}{t} = \half r^2 \dot{\theta}.\]
+    On the other hand,
+    \[\begin{aligned}
+        \bm{L} &= m\begin{pmatrix}
+            r\cos\theta \\
+            r\sin\theta \\
+            0   
+        \end{pmatrix}
+        \times 
+        \begin{pmatrix}
+            \dot{r}\cos\theta -r\dot{\theta}\sin\theta \\
+            \dot{r}\sin\theta +r\dot{\theta}\cos\theta \\
+            0
+        \end{pmatrix} \\
+        &= m \begin{pmatrix}
+            0 \\0 \\ r^2 \dot{\theta}
+        \end{pmatrix}.
+    \end{aligned}\]
+    So, we have 
+    \[\diff{A}{t} = \frac{1}{2m} \abs{\bm{L}}.\]
+        \item Proof of [KIII].
+        The area of the ellipse is also given by 
+        \[\begin{aligned}
+            \text{Area of ellipse} &= \int_0^T \diff{A}{t} \, dt \\
+            &= \int_0^T \frac{1}{2m} \abs{\bm{L}} \, dt \\
+            &= \frac{T}{2m} \abs{\bm{L}}
+        \end{aligned}\]
+        since \(\abs{\bm{L}}\) is constant. Given that the area of the ellipse is proportional to \(R^{\frac{3}{2}}_{\text{smaj}}\) where \(R_{\text{smaj}}\) is the semi-major axis of the ellipse, we can write 
+        \[\begin{aligned}
+            \text{Area of ellipse} &\propto R^{\frac{3}{2}}_{\text{smaj}} \\
+            \then T^2 &\propto R^{3}_{\text{smaj}}.
+        \end{aligned}\]
+    \end{itemize}
+\end{proof}
+
+\begin{mdthm}
+    ADD PROOFS
+\end{mdthm}
+
+\section{Solving one dimensional dynamics}
+
+Conservation of energy is enough information for us to solve for the motion of a particle in one-dimension with conservative forces. In this case the position vector \(\bm{r}\) is just a scalar \(r\in \RR\). Let the potential be \(V(r)\) so that the total energy is 
+\[E=\half m\left(\diff{r}{t}\right)^2 + V(r).\]
+
+Consider the reformulation of the energy equation:
+\[\left(\diff{r}{t}\right)^2 = \frac{2}{m}(E-V(r)).\]
+From this reformulation we gather that \(E \geq V(r)\) as there is no such thing as negative kinetic energy. Furthermore, \(E=V(r)\) if and only if \(\diff{r}{t}=0\) meaning the particle is at rest. Conceptually, regardless of the origin of the system, we can think of it as a particle moving in a potential \(V(r)\) (we can imagine \(V(r)\) being the height of a hill) then we can think of the particle moving along the hill.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[scale=0.6]{./Resources/Potential graph.png}
+    \end{center}
+    \caption{Potential Graph}
+\end{figure}
+
+\noindent Given that the total energy is fixed along the motion we can fix \(E=E_0\), a constant. We can rewrite the energy equation as
+\[\begin{aligned}
+    \diff{r}{t} &= \pm \sqrt{\frac{2}{m}(E_0-V(r))} \\
+    dt &= \pm \frac{dr}{\sqrt{\frac{2}{m}(E_0-V(r))}}\\
+    t-t_0 &= \pm \dint{r(t)}{r(t_0)} \frac{1}{\sqrt{\frac{2}{m}(E_0-V(r'))}} \, dr'
+\end{aligned}\]
+
+\begin{definition}
+    A dynamical system reached a \textbf{turning point} precisely when \(E_0= V(r)\).
+\end{definition}
+
+\noindent At a turning point all the energy is potential energy, i.e. \textbf{no} kinetic energy. Therefore, the particle is at rest at that point; such point can be illustrated by the left-most point in the figure above.
+
+\pagebreak
+
+\addcontentsline{toc}{section}{Multi-particle systems}
+\section*{Multi-particle systems}
+
+\section{Configuration of a multi-particle system}
+
+\begin{definition}
+    A \textbf{multi-particle system} may consist of any number of particles \(P_1,P_2,\ldots, P_n\), with masses \(m_1,m_2,\ldots, m_n\) respectively.
+\end{definition}
+
+\begin{definition}
+    \textbf{External forces} are those originating from outside the system, \\ denoted by \(\bm{F}_i^{\text{ext}}\) i.e. the external force acting on the \(i^{\text{th}}\) particle.
+\end{definition}
+
+\begin{mdremark}
+    In the case of a single particle system, these are the only forces that act on the particle.
+\end{mdremark}
+
+\begin{definition}
+    \textbf{Internal forces} (or inter particle forces) are interactions between the particles in the system. These forces are denoted by \(\bm{F}_{ij}^{\text{int}}\) i.e. the force induced by the \(j^{\text{th}}\) particle on the \(i^\text{th}\) particle.
+\end{definition}
+
+\begin{theorem}
+    Newton's Third Law, [NIII], implies that \(\bm{F}_{ij}^{\text{int}} = -\bm{F}_{ji}^{\text{int}}\) and also that \(\bm{F}_{ii}^{\text{int}} =\bm{0}\).
+\end{theorem}
+
+\subsection{Centre of mass}
+
+\begin{definition}
+    The \textbf{centre of mass} of this system of particles is the \textbf{point of space} whose position vector \(\bm{R}\) is defined by
+    \[\bm{R} = \frac{m_1 \bm{r}_1+m_2 \bm{r}_2 + \cdots +m_N \bm{r}_N}{m_1+m_2+\cdots m_N} = \frac{\sum_{i=1}^N m_i \bm{r}_i}{\sum_{i=1}^N m_i} = \frac{\sum_{i=1}^N m_i \bm{r}_i}{M},\]
+    where \(M\) is the \textbf{total mass} of the system.
+\end{definition}
+
+\section{Energy}
+
+\subsection{Defining energy}
+
+\begin{definition}
+    The \textbf{total kinetic energy} of a multi-particle system is defined as the sum of the kinetic energy of the individual particles:
+    \[T=\sum_{i=1}^N \half m_i \abs{\bm{\dot{r}}_i}^2\]
+\end{definition}
+
+\begin{definition}
+    The \textbf{total work done} is defined as the sum of the of individual work done by each particle: 
+    \[W = \sum_{i=1}^N \int_{t_1}^{t_2} \bm{F}_i \cdot \bm{\dot{r}}_i \, dt\]
+\end{definition}
+
+\begin{mdthm}[Energy principle for a multi-particle system]
+    In any motion of a system, the increase in the total kinetic energy of the system in a given time interval is equal to the total work done by all the external and internal forces during this time interval. That is, over the time interval \([t_1,t_2]\) we have
+    \[\sum_{i=1}^N \left[ T_i(t_2) - T_i(t_1) \right] = \sum_{i=1}^N \int_{t_1}^{t_2} \bm{F}_i \cdot \bm{\dot{r}}_i \, dt,\]
+    where \(T_i(t_1)\) and \(T_i(t_2)\) are the kinetic energies of the \(i^{\text{th}}\) particle at time \(t_1\) and \(t_2\) respectively.
+\end{mdthm}
+
+\begin{proof}
+    \[\begin{aligned}
+        W &= \sum_{i=1}^N \int_{t_1}^{t_2} \bm{F}_i \cdot \bm{\dot{r}}_i \, dt \\
+        &= \sum_{i=1}^N \int_{t_1}^{t_2} m_i \bm{\ddot{r}}_i \cdot \bm{\dot{r}}_i \, dt \\
+        &= \sum_{i=1}^N \diff{}{t} \left( \half m_i \abs{\bm{\dot{r}}_i}^2 \right) \, dt \\
+        &= \sum_{i=1}^{N} \left[ T_i(t_2) -T_i(t_1) \right].
+    \end{aligned}\]
+\end{proof}
+
+\begin{mdcor}
+    If the system is under the influence of conservative forces then the work done is path independent.
+\end{mdcor}
+
+\subsection{Conservation of energy}
+
+\begin{definition}
+    In a multi-particle systems \textbf{conservative forces} are defined as 
+    \begin{itemize}
+        \item external forces: \(\bm{F}_i^{\text{ext}} = -\nabla_i V_i(\bm{r}_1, \ldots, \bm{r}_N)\);
+        \item internal forces: \(\bm{F}_{ij}^{\text{int}} = -\nabla_i V_{ij}(\bm{r}_1, \ldots, \bm{r}_N)\),
+    \end{itemize}
+    where \(\nabla_i \equiv \diffp{}{{\bm{r}_i}}\).
+\end{definition}
+
+\begin{mdthm}
+    If the internal and external forces are conservative then the \textbf{total energy} is defined as 
+    \[E=\sum_{i=1}^N \half m_i \abs{\bm{\dot{r}}_i}^2 + \sum_{i=1}^{N} V_{\text{ext}}+\sum_{j=1}^{N} \sum_{i=1}^N V_{ij}^{\text{int}}.\]
+\end{mdthm}
+
+\begin{mdthm}
+    If a multi-particle system is under the influence of \textit{conservative forces} then the total energy of the system is conserved.
+\end{mdthm}
+
+\begin{mdnote}
+    The total energy is constant for all time as, \(\dot{E}=0\).
+\end{mdnote}
+
+\begin{proof}
+    Recall that 
+    \[E=\sum_{i=1}^N \half m_i \abs{\bm{\dot{r}}_i}^2 + \sum_{i=1}^{N} V_{\text{ext}}+\sum_{j=1}^{N} \sum_{i=1}^N V_{ij}^{\text{int}}.\]
+    Therefore,
+    \[\begin{aligned}
+        \diff{}{t} E &= \sum_{i=1}^{N} m_i \bm{\dot{r}}_i \cdot \bm{\ddot{r}}_i + \sum_{i=1}^{N} \nabla_i V^{\text{ext}} \cdot \bm{\dot{r}}_i + \sum_{j=1}^{N} \sum_{i=1}^{N} \nabla_i V_{ij}^{\text{int}} \cdot \bm{\dot{r}}_i \\
+        &= \sum_{i=1}^{N} \bm{\dot{r}}_i \cdot \left( m_i \bm{\ddot{r}} + \nabla_i V^{\text{ext}} +\sum_{j=1}^{N} \nabla_i V_{ij}^{\text{int}} \right) \\
+        &= \sum_{i=1}^{N} \bm{\dot{r}}_i \cdot \left( m_i \bm{\ddot{r}} - \bm{F}_i^{\text{ext}} -\sum_{j=1}^{N} \bm{F}_{ij}^{\text{int}} \right) \\
+        &= 0.
+    \end{aligned}\]
+\end{proof}
+
+\section{Angular motion}
+
+\subsection{Linear momentum}
+
+\begin{definition}
+    For a multi-particle system consisting of particles \(P_1,P_2,\ldots, P_n\), with masses \(m_1,m_2,\ldots, m_n\) and velocities \(\dot{\bm{r}}_1,\dot{\bm{r}}_2,\ldots,\dot{\bm{r}}_N\) respectively. The \textbf{total linear \\ momentum}, \(\bm{P}\), of the system to be the vector sum of the linear momenta of the individual particles, that is,
+    \[\bm{P}=\sum_{i=1}^N \bm{p}_i = \sum_{i=1}^N m_i \dot{\bm{r}}_i.\]
+\end{definition}
+
+\begin{theorem}
+    Newton's Second Law, [NII], implies that the \textbf{total external force} of a system can be written in terms of linear momentum in the form
+    \[\bm{F}^{\text{ext}}=\diff{}{t}\bm{P} = \bm{\dot{P}}.\]
+\end{theorem}
+
+\begin{proof}
+    The momentum of the \(i^{\text{th}}\) particle is given by 
+    \[\diff{}{t}\bm{p}_i = \bm{F}_{i}^{\text{ext}} + \sum_{j=1}^{N} \bm{F}_{ij}^{\text{int}}.\]
+    Therefore, summing the individual momenta to obtain the total momentum, we have 
+    \[\begin{aligned}
+        \diff{}{t} \sum_{i=1}^{N} \bm{p}_i &= \sum_{i=1}^{N}\bm{F}_i^{\text{ext}} +\sum_{i=1}^{N} \sum_{j=1}^{N} \bm{F}_{ij}^{\text{int}} \\
+        &= \sum_{i=1}^{N}\bm{F}_i^{\text{ext}} - \sum_{i=1}^{N} \sum_{j=1}^{N} \bm{F}_{ji}^{\text{int}} \quad \text{(using \(\bm{F}_{ij}=-\bm{F}_{ji}\))} \\
+        &= \sum_{i=1}^{N}\bm{F}_i^{\text{ext}} - \sum_{j=1}^{N} \sum_{i=1}^{N} \bm{F}_{ij}^{\text{int}} \quad \text{(switching \(i \to j\) and \(j \to i\))}\\
+        &=\sum_{i=1}^{N}\bm{F}_i^{\text{ext}} - \sum_{i=1}^{N} \sum_{j=1}^{N} \bm{F}_{ij}^{\text{int}} \quad \text{(permuting the sums)}\\
+        &= \sum_{i=1}^{N}\bm{F}_i^{\text{ext}}.
+    \end{aligned}\]
+    We have used the fact that 
+    \[\sum_{i=1}^{N} \sum_{j=1}^{N} \bm{F}_{ij}^{\text{int}} =- \sum_{i=1}^{N} \sum_{j=1}^{N} \bm{F}_{ij}^{\text{int}}\]
+    i.e. a positive number is equal to its negative thus, it must be zero.
+\end{proof}
+
+\begin{theorem}
+    We can express linear momentum of a system in terms of its centre of mass:
+    \[\bm{P}=M \dot{\bm{R}},\]
+    where \(M\) is the total mass.
+\end{theorem}
+
+\begin{mdthm}[Linear momentum principle]
+    In any motion of a system, the rate of increase of its linear momentum is equal to the total external force acting upon it.
+    By Newton's Second Law:
+    \[\bm{F}^\text{ext}= \dot{\bm{P}} = M\ddot{\bm{R}},\]
+    where \(M\) is the total mass.
+\end{mdthm}
+
+\begin{mdnote}
+    Thus, the centre of mass is only dependent on the external forces acting on the system.
+\end{mdnote}
+
+\subsection{Angular momentum and torque}
+
+\begin{definition}
+    For a multi-particle system consisting of particles \(P_1,P_2,\ldots, P_n\), with masses \(m_1,m_2,\ldots, m_n\) and velocities \(\dot{\bm{r}}_1,\dot{\bm{r}}_2,\ldots,\dot{\bm{r}}_N\) respectively. Then the \textbf{angular momentum} of the system (about a point) is defined to be the vector sum of the angular momenta of the individual particles, i.e.
+    \[\begin{aligned}
+        \bm{L} &= \sum_{i=1}^N \bm{r}_i \times (m_i \dot{\bm{r}}_i ) \\
+            &= \sum_{i=1}^N \bm{r}_i \times \bm{p}_i .
+    \end{aligned}\]
+\end{definition}
+
+\begin{definition}
+    For a multi-particle system consisting of particles \(P_1,P_2,\ldots, P_n\), with position vectors \(\bm{r}_1, \bm{r}_2, \ldots, \bm{r}_N\) are acted upon by the system of forces \(\bm{F}_1,\bm{F}_2,\ldots, \bm{F}_N\) respectively. Then \(\bm{N}\), the \textbf{torque} of the system (about a point) is defined to be the vector sum of the torques of the individual forces, i.e.
+    \[\bm{N}=  \sum_{i=1}^N \bm{r}_i \times \bm{F}_i\]
+\end{definition}
+
+\begin{theorem}[Angular momentum principle]
+    Similar to the single particle case, in a multi particle system we have
+    \[\bm{N}=\dot{\bm{L}}.\]
+\end{theorem}
+
+\subsection{Motion relative to the centre of mass}
+
+Sometimes it is easier to consider motion relative to the centre of mass, as such we consider the following formulation of the position vector, \(\bm{r}_i\) of each particle:
+\[\bm{r}_i=\bm{r'}_i+\bm{R},\]
+where \(\bm{R}\) is the position vector of the centre of mass and \(\bm{r'}_i\) is the vector denoting the distance from the centre of mass to the \(i^{\text{th}}\) particle.
+
+\begin{figure}[H]
+    \begin{center}
+        \include{./Resources/Relative motion.tex}
+    \end{center}
+    \caption{Illustration of relative vectors}
+\end{figure}
+
+\begin{mdthm}
+    The centre of mass of any system moves as if it were a particle of mass the total mass, and all the \textbf{external forces} acted upon it.
+\end{mdthm}
+
+\subsubsection{Angular motion}
+
+
+
+% \begin{definition}
+%     The angular momentum in respect to the \textbf{spin}, \(\bm{L}_{\text{spin}}\), of a particle (about a point) is given by
+%     \[\bm{L}_{\text{spin}} = \sum_{i=1}^N m_i \bm{r}'_i \times \dot{\bm{r}}'_i,\]
+%     where \(\bm{r'}_i\) is the distance (of each particle) from the centre of mass to the position of (said) particle.
+% \end{definition}
+
+% \begin{definition}
+%     The angular momentum in respect to the centre of mass of a\\ (multi-particle) system is called the \textbf{spin} angular momentum and is given by
+%     \[\bm{L}_{\text{spin}} = \sum_{i=1}^N m_i \bm{r}'_i \times \dot{\bm{r}}'_i\]
+% \end{definition}
+
+% \begin{definition}
+%     The angular momentum in respect to the \textbf{orbit}, \(\bm{L}_{\text{orbital}}\), of a particle (about a point) is given by
+%     \[\bm{L}_{\text{orbital}} = M\bm{R} \times \bm{R},\]
+%     where \(M\) is the total mass and \(\bm{R}\) is the position vector of the centre of mass.
+% \end{definition}
+
+% \begin{definition}
+%     The angular momentum of a particle in a (multi-particle) system in respect to the centre of mass is called the \textbf{orbital} angular momentum and is given by
+%     \[\bm{L}_{\text{orbital}} = M\bm{R} \times \bm{R},\]
+%     where \(M\) is the total mass and \(\bm{R}\) is the position vector of the centre of mass.
+% \end{definition}
+
+\begin{mdthm}
+    Suppose the system is influenced by central forces then the torque is given by 
+    \[\bm{N}=\dot{\bm{L}}=\sum_{i=1}^N\bm{r}_i \times  \bm{F}_i^{\text{ext}}.\]
+\end{mdthm}
+
+\begin{mdremark}
+    By central force we mean \(\bm{F}_{ij} =f_{ij}(\abs{\bm{r}_i-\bm{r}_j})(\bm{r}_i-\bm{r}_j)\), where \(f_{ij}\) is a scalar function of the distance between the particles.
+\end{mdremark}
+
+\begin{mdcor}
+    If the system is influenced by central force the total torque vanishes thus, angular momentum is conserved.
+\end{mdcor}
+
+\begin{mdnote}
+    This is similar to the one particle system case.
+\end{mdnote}
+
+\begin{mdthm}
+    The total angular momentum (relative to the centre of mass) is given by
+    \[\begin{aligned}
+        \bm{L}&=\sum_{i=1}^N m_i \bm{r}'_i \times \dot{\bm{r}}'_i + M \bm{R}\times \dot{\bm{R}} \\ 
+        &= \bm{L}_{\text{spin}} + \bm{L}_{\text{orbital}}
+    \end{aligned}\]
+\end{mdthm}
+
+\begin{mdremark}
+    The total angular momentum under this definition is still conserved if the system is induced by central forces.
+\end{mdremark}
+
+\begin{proof}
+    First we note:
+    \[\begin{aligned}
+        M\bm{R} &= \sum_{i=1}^{N} m_i \bm{r}_i \\
+        &= \sum_{i=1}^{N} m_i \left( \bm{r}'_i + \bm{R} \right) \\
+        &= \sum_{i=1}^{N} m_i \bm{r}'_i +M\bm{R}.
+    \end{aligned}\]
+    Which implies that 
+    \[\sum_{i=1}^{N} m_i \bm{r}'_i =0 \quad \then \quad \sum_{i=1}^{N} m_i \bm{\dot{r}}'_i =0.\]
+    Recall that angular momentum is 
+    \[\sum_{i=1}^{N} \bm{r}_i \times (m_i \bm{{\dot{r}}}_i).\]
+    Therefore, using \(\bm{r}_i =\bm{r}'_i +\bm{R}\) we have that
+    \[\begin{aligned}
+        \bm{L} &= \sum_{i=1}^{N} (\bm{r}'_i+\bm{R}) \times m(\bm{\dot{r}}'_i+\bm{\dot{R}}) \\
+        &= \sum_{i=1}^{N} m_i \left( \bm{r}'_i \times \bm{\dot{r}}'_i \right) + \underbrace{\sum_{i=1}^{N} m_i \left( \bm{r}'_i \times \bm{\dot{R}} \right)}_{0} +\underbrace{\sum_{i=1}^{N} m_i \left( \bm{R} \times \bm{\dot{r}}'_i \right)}_{0} + \sum_{i=1}^{N} m_i \left( \bm{R} \times \bm{\dot{R}} \right) \\
+        &=\sum_{i=1}^{N} m_i \left( \bm{r}'_i \times \bm{\dot{r}}'_i \right) +M \bm{R} \times \bm{\dot{R}} \\
+        &= \bm{L}_{\text{spin}} +\bm{L}_{\text{orbital}}.
+    \end{aligned}\]
+\end{proof}
+
+\begin{definition}
+    The sum of the individual angular momenta of each particle about the centre of mass is called the \textbf{spin angular momentum}, denoted by \(\bm{L}_{\text{spin}}\).
+\end{definition}
+
+\begin{definition}
+    The angular momentum of the centre of mass is called the \textbf{orbital angular momentum}, denoted by \(\bm{L}_{\text{orbital}}\).
+\end{definition}
+
+% \subsection{Central forces}
+
+% Let us focus on a simpler situation: a dynamical system with two particles and no external forces. In this case, the total torque will be
+% \[\bm{N} = \bm{r}_1 \times \bm{F}_{12}^{\text{int}} + \bm{r}_2 \times \bm{F}_{21}^{\text{int}}.\]
+% By Newton's Third Law, we must have \(\bm{F}_{12}^{\text{int}} = -\bm{F}_{21}^{\text{int}}\), hence
+% \[\begin{aligned}
+%     \bm{N} &= \bm{r}_ \times \bm{F}_{12}^{\text{int}} - \bm{r}_2 \times \bm{F}_{12}^{\text{int}} \\
+%             &= (\bm{r}_1 -\bm{r}_2) \times \bm{F}_{12}^{\text{int}}.
+% \end{aligned}\]
+% From this expression we can deduce that if \(\bm{F}_{12}^{\text{int}}\) is parallel to the line joining the two particles (i.e. the vector \(\bm{r}_1-\bm{r}_2\)) then the torque will vanish.
+
+% \begin{definition}
+%     A force which is parallel to the vector joining two particles (i.e. \(\bm{F} \parallel (\bm{r}_1-\bm{r}_2)\)) then it is called a \textbf{central force}. One can write such force as
+%     \[\bm{F}_{12}^{\text{int}} =\abs{\bm{r}_1-\bm{r}_2}f_{12}(\abs{\bm{r}_1-\bm{r}_2}),\] where \(f_{12}\) is a scalar function of the distance between the two particles.
+% \end{definition}
+
+% \begin{mdremark}
+%     This idea can be extended to \(n\) particles; in a system with no external force and only central internal forces, the total torque vanishes.
+% \end{mdremark}
+
+% \begin{mdthm}
+%     Isolated systems (i.e. systems with no external forces), subject to only internal \textbf{central forces} have conserved total angular momentum.
+% \end{mdthm}
+
+% \begin{proof}
+%     The torque in such a system vanishes so,
+%     \[\bm{N}=\bm{0} \then \dot{\bm{L}}=\bm{0}.\]
+%     Hence, \(\bm{L}\) is constant for all time.
+% \end{proof}
+
+% \begin{mdthm}
+%     For a system with central internal forces and external force the torque is given by 
+%     \[\bm{N}=\dot{\bm{L}}=\bm{r}_i \times \sum_{i=1}^N \bm{F}_i^{\text{ext}}.\]
+% \end{mdthm}
+
+\section{Rigid body motion}
+
+\begin{definition}
+    A body is said to be a \textbf{rigid body} if the distance between any pair of its particles remains constant. That is, if \(P_i\) and \(P_j\) are typical particles of the body with position vectors \(\bm{r}_i(t)\) and \(\bm{r}_j(t)\) at time \(t\), then 
+    \[\abs{\bm{r}_i(t)-\bm{r}_j(t)} = \text{constant}.\]
+\end{definition}
+
+\begin{mdnote}
+    We can think of a rigid body as an idealization of a body that does not deform or change shape.
+\end{mdnote}
+
+\begin{mdremark}
+    In rigid body motion we can \textbf{ignore} all the internal forces.
+\end{mdremark}
+
+\begin{theorem}
+    External forces on a rigid body act on the centre of mass, i.e.
+    \[\bm{F}=M\ddot{\bm{R}},\]
+    where \(M\) is the total mass and \(\bm{R}\) is the position vector of the centre of mass.
+\end{theorem}
+
+\subsection{Rotation of rigid bodies}
+
+\begin{theorem}
+    The total angular momentum can be decomposed into an orbital and spin part, i.e.
+    \[\bm{L}=\bm{L}_{\text{spin}}+\bm{L}_{\text{orbital}}.\]
+\end{theorem}
+
+\begin{theorem}
+    A rotating rigid body spins about the axis given by the direction of the angular velocity vector, \(\bm{\omega}\).
+    The magnitude indicates at which rate the body is spinning; it has units of \(\unit{\radian\per\second}\).
+\end{theorem}
+
+\begin{mdthm}
+    The velocity of the \(i^{\text{th}}\) particle relative to the centre of mass is given by 
+    \[\bm{\dot{r}}'_i=\bm{v}'_i = \bm{\omega} \times \bm{r}'_i,\]
+    where \(\bm{r}'_i\) is the distance from the \(i^{\text{th}}\) particle to the centre of mass i.e. \(\bm{r}_i = \bm{r}'_i+\bm{R}\).
+\end{mdthm}
+
+\begin{proof}
+    As shown by the figure below, let the angle between \(\bm{\omega}\) and \(\bm{r}'_i\) be \(\theta\). Then the distance of the \(i^{\text{th}}\) particle from the axis of rotation is \(\abs{\bm{r}'_i}\sin\theta\). If the object is rotating at \(\abs{\bm{\omega}} \unit{\radian\per\second}\), then the \(i^{\text{th}}\) particle must be travelling at a speed of \(\abs{\bm{r}'_i}\abs{\bm{\omega}}\sin\theta\) in a direction orthogonal to the plane defined by \(\omega\) and \(\bm{r}'_i\) i.e. \(\bm{v}'_i=\bm{\omega} \times \bm{r}'_i\).
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[scale=0.5]{./Resources/Rigid body rotation.png}
+        \end{center}
+    \end{figure}
+\end{proof}
+
+% \begin{mdcor}
+%     If \(\bm{r}_i=\bm{r}'_i+\bm{R}\), where \(\bm{r}'_i\) is the distance of the \(i^{\text{th}}\) particle from the centre of mass and \(\bm{R}\) is the position vector of the centre of mass. Then the velocity of \(\bm{r}'_i\), i.e. \(\bm{r}'_i=\dot{\bm{r}'}_i=\bm{v}'_i\) is given by
+%     \[\bm{v}_i=\bm{\omega} \times \bm{r}'_i.\]
+% \end{mdcor}
+
+\subsection{The moment of inertia tensor}
+
+% Recall that the spin angular momentum is 
+% \[\bm{L}_{\text{spin}} = \sum_{i=1}^{N} \bm{r}'_i \times m_i \bm{\dot{r}}'_i.\]
+% Using angular velocity, the spin angular momentum can written in the form 
+% \[\bm{L}_{\text{spin}} = \sum_{i=1}^{N} m_i \bm{r}'_i \times \left( \bm{\omega} \times \bm{r}'_i \right),\]
+% using the `CAB-BAC' identity this becomes:
+% \[\bm{L}_{\text{spin}} = \sum_{i=1}^{N} m_i \left[ \left( \bm{r}'_i \cdot \bm{r}'_i \right) \bm{\omega} - \left( \bm{r}'_i \cdot \bm{\omega} \right)\bm{r}'_i \right].\]
+
+% We now focus only on the \(x\)-component of the vector:
+% \[\begin{aligned}
+%     L_x &= m_i \left[ \left( x_i^2 + y_i^2 +z_i^2 \right)\omega_x -(x_i \omega_x +y_i \omega_y +z_i \omega_z)x \right] \\
+%     &= m(y_i^2+z_i^2) \omega_x 
+% \end{aligned}\]
+
+\begin{definition}
+    The \textbf{moment of inertia} tensor (about a point) is defined by
+    \[\mathcal{I}_{ij}=\sum m \left( \left( \sum_{k=1}^3 x^2_k \right) \delta_{ij} -x_ix_j \right),\]
+    where \(\delta_{ij}\) is the Kronecker delta function.
+\end{definition}
+
+\begin{mdremark}
+    The moment of inertia tensor is \textbf{symmetric}, i.e. \(\mathcal{I}_{ij}=\mathcal{I}_{ji}\).
+\end{mdremark}
+
+\begin{theorem}
+    The moment of inertia tensor can be written as a matrix:
+    \[\mathcal{I}= \begin{pmatrix}
+        I_{11} & I_{12} & I_{13} \\
+        I_{21} & I_{22} & I_{23} \\
+        I_{31} & I_{32} & I_{33} \\
+    \end{pmatrix} = \begin{pmatrix}
+        I_{xx} & I_{xy} & I_{xz} \\
+        I_{yx} & I_{yy} & I_{yz} \\
+        I_{zx} & I_{zy} & I_{zz} \\
+    \end{pmatrix}.\]
+\end{theorem}
+
+\begin{corollary}
+    Since \(\mathcal{I}\) is a symmetric matrix it can be diagonalised as
+    \[\mathcal{I}=\begin{pmatrix}
+        I_{xx} & 0 & 0 \\
+        0 & I_{yy} & 0 \\
+        0 & 0 & I_{zz} \\
+    \end{pmatrix},\]
+    where, \(I_{xx},I_{yy},I_{zz} \in \RR\).
+\end{corollary}
+
+\begin{definition}
+    The diagonal elements of \(\mathcal{I}\) are called the \textbf{principal moments of inertia}.
+\end{definition}
+
+\subsection*{The elements of the inertia tensor}
+
+\begin{proposition}
+    The \textbf{diagonal} elements of \(\mathcal{I}\) are given by
+    \[\begin{aligned}
+        \mathcal{I}_{11} &= \sum m \left( x_2^2+x^2_3 \right) \\
+        \mathcal{I}_{22} &= \sum m \left( x_1^2+x^2_3 \right) \\
+        \mathcal{I}_{33} &= \sum m \left( x_1^2+x^2_2 \right), \\
+    \end{aligned}\]
+    where the sum is taken over all the particles in the body.
+\end{proposition}
+
+\begin{proposition}
+    The \textbf{off-diagonal} element of \(\mathcal{I}\) are given by
+    \[\begin{aligned}
+        \mathcal{I}_{12} &= \mathcal{I}_{21} = - \sum m \; x_1 x_2 \\
+        \mathcal{I}_{23} &= \mathcal{I}_{32} = - \sum m \; x_2 x_3 \\
+        \mathcal{I}_{31} &= \mathcal{I}_{13} = - \sum m \; x_2 x_1, \\
+    \end{aligned}\]
+    where the sum is taken over all the particles of the body.
+\end{proposition}
+
+\noindent In this course we will think of rigid bodies having a continuous mass distribution; in which case there exists a density function \(\rho(x,y,z)\) and an infinitesimal mass element \(\rho(x,y,z)dxdydz\) that replaces the point mass \(m_i\).
+
+\begin{proposition}
+    Suppose the rigid body \(\mathcal{B}\) has a continuous mass distribution with density function \(\rho(x,y,z)\). Then the \textbf{off-diagonal} element of \(\mathcal{I}\) are given by
+    \[\begin{aligned}
+        \mathcal{I}_{xx} &= \int_{\mathcal{B}} \left( y^2+z^2 \right) \rho(x,y,z) \, dx \, dy \, dz \\
+        \mathcal{I}_{yy} &= \int_{\mathcal{B}} \left( x^2+z^2 \right) \rho(x,y,z) \, dx \, dy \, dz \\
+        \mathcal{I}_{zz} &= \int_{\mathcal{B}} \left( x^2+y^2 \right) \rho(x,y,z) \, dx \, dy \, dz, \\
+    \end{aligned}\]
+\end{proposition}
+
+\begin{proposition}
+    Suppose the rigid body \(\mathcal{B}\) has a continuous mass distribution with density function \(\rho(x,y,z)\). Then the \textbf{off-diagonal} element of \(\mathcal{I}\) are given by
+    \[\begin{aligned}
+        \mathcal{I}_{xy} &= \mathcal{I}_{yx} = - \int_{\mathcal{B}} \; [xy] \rho(x,y,z) \, dx \, dy \, dz, \\
+        \mathcal{I}_{yz} &= \mathcal{I}_{zy} = - \int_{\mathcal{B}} \; [yz] \rho(x,y,z) \, dx \, dy \, dz, \\
+        \mathcal{I}_{zx} &= \mathcal{I}_{xz} = - \int_{\mathcal{B}} \; [yx] \rho(x,y,z) \, dx \, dy \, dz, , \\
+    \end{aligned}\]
+\end{proposition}
+
+\begin{mdthm}
+    The angular momentum about the centre of mass, \(\bm{L}_{\text{spin}}\), is given by
+    \[\bm{L}_{\text{spin}} = \mathcal{I} \cdot \bm{\omega},\]
+    where \(\mathcal{I}\) is the moment of inertia tensor and \(\bm{\omega}\) is the angular velocity.
+\end{mdthm}
+
+\begin{mdnote}
+    When doing problems we should choose a coordinate basis such that \(\bm{\omega}\) is aligned with one of the axes, for example \(\bm{\omega} = \omega_x \bm{e}_x\).
+\end{mdnote}
+
+\subsection{Parallel axes theorem}
+
+\begin{mdthm}[Parallel axes theorem]
+    Let \(I_{R}\) be the principal moment of inertia of a body about some axis through its centre of mass \(R\), and let \(I\) be the moment of inertia of the body about a \textbf{parallel} axis (in respect to the original axis). Then 
+    \[I=I_R +Md^2,\]
+    where \(M\) is the mass of the body and \(d\) is the distance between the two parallel axes.
+\end{mdthm}
+
+\begin{mdnote}
+    The theorem says we can shift the principal moments of inertia by a factor of \(Md^2\), if the new axis is parallel to the original one.
+\end{mdnote}
+
+\subsection{Kinetic energy of a rotating body}
+
+\begin{mdthm}
+    The \textbf{rotational kinetic energy} of a body is given by 
+    \[\begin{aligned}
+        T_{\text{rot}} &= \half \bm{\omega} \cdot \bm{L}_{\text{spin}} \\
+        T_{\text{rot}} &= \half \left( I_{xx}\omega_1^2 +I_{yy}\omega_2^2+I_{zz}\omega_3^2 \right).
+    \end{aligned}\]
+\end{mdthm}
+
+\begin{mdremark}
+    Notice that the rotational kinetic energy can also be written as 
+    \[T_{\text{rot}} = \frac{L_1^2}{2I_1} +\frac{L_2^2}{2I_2}+\frac{L_3^2}{2I_3}.\]
+\end{mdremark}
+
+\begin{proof}
+    Consider the kinetic energy of a rigid body: 
+    \[T =\half \sum_{i=1}^{N} m_i \abs{\bm{\dot{r}}_i}^2.\]
+    We will rewrite the kinetic energy in terms of the contributions of the centre of mass motion and rotation about the centre of mass by introducing \(\bm{r}_i = \bm{R}+\bm{r}'_i\) and its derivative \(\bm{\dot{r}}_i = \bm{\dot{R}}+\bm{\dot{r}}'_i\)
+    \[\begin{aligned}
+        T &= \half \sum_{i=1}^{N} m_i \abs{\bm{\dot{R}} +\bm{\dot{r}}'_i}^2 \\
+        &= \half \sum_{i=1}^{N} \left( m_i \abs{\bm{\dot{R}}}^2 + m_i \bm{\dot{r}}'_i \cdot \bm{R} + M_i \abs{\bm{\dot{r}}'_i}^2 \right).
+    \end{aligned}\]
+    As shown previously we know that \(\sum_{i=1}^{N} m_i \bm{r}'_i =0\) hence, \(\sum_{i=1}^{N} m_i \bm{\dot{r}}'_i=0\). Thus, we can separate the kinetic energy as 
+    \[T = \half M \abs{\bm{\dot{R}}} + \half \sum_{i=1}^{N} m_i \abs{\bm{\dot{r}}'_i}^2.\]
+    Focusing only on the rotational part we have 
+    \[\begin{aligned}
+        T_{\text{rot}} &= \half \sum_{i=1}^{N} m_i  \abs{\bm{\dot{r}}'_i}^2 \\
+        &= \half \sum_{i=1}^{N} m_i \left( \bm{\omega} \times \bm{r}'_i \right) \cdot \left( \bm{\omega} \times \bm{r}'_i \right).
+    \end{aligned}\]
+    Using the vector identity 
+    \[(\bm{a} \times \bm{b}) \cdot \bm{c} = \bm{a} \cdot \left( \bm{b}\times \bm{c} \right),\]
+    where \(\bm{a} = \bm{\omega}, \bm{b}=\bm{r}'_i\) and \(\bm{c}=\bm{\omega} \times \bm{r}'_i\). We obtain 
+    \[\begin{aligned}
+        T_{\text{rot}} &= \half \sum_{i=1}^{N} m_i \bm{\omega} \cdot \left[ \bm{r}'_i \times \left( \bm{\omega} \times \bm{r}'_i \right) \right] \\
+        &= \half \bm{\omega} \cdot \sum_{i=1}^{N} m_i \left[ \bm{r}'_i \times \left( \bm{\omega} \times \bm{r}'_i \right)\right].
+    \end{aligned}\]
+    This sum is precisely the definition of \(\bm{L}_{\text{spin}}\) thus,
+    \[T_{\text{rot}} = \half \bm{\omega} \cdot \bm{L}_{\text{spin}}.\]
+\end{proof}
+
+\begin{mdthm}
+    The \textbf{total kinetic energy} of a rotating body is given by 
+    \[T = \half M \abs{\bm{\dot{R}}}^2 +\half \bm{\omega} \cdot \bm{L}_{\text{spin}}.\]
+\end{mdthm}
+
+\section{Gyroscopes}
+
+\begin{figure}[H]
+    \centering
+    \subfloat[\centering Gyroscope]{{\includegraphics[width=5cm]{./Resources/Gyroscope.jpg}}}%
+    \qquad \qquad
+    \subfloat[\centering Force diagram of a gyroscope]{{\includegraphics[scale=0.6]{./Resources/Gyroscope diagram.png} }}%
+\end{figure}
+
+Suppose we have an idealised gyroscope i.e. it consists of a massless rod fixed at one end to a post. On this rod at some distance from the post, is a rapidly spinning, massive cylinder. There are two external forces acting on the rod and the cylinder: gravity pushing down on the cylinder and there is an upward normal force at the post at the end of the rod.
+
+Imagine a situation where the downward force of gravity, \(\bm{F}_g\), is exactly balanced by the upward normal force from the rod, \(\bm{F}_n\), i.e. \(\bm{F}_g+\bm{F}_n = 0\). The normal force does not exert any torque as it is located at fixed point, but the gravitational force will exert a torque. Suppose the centre of mass of the cylinder is located at distance \(\bm{R}\) out along the rod, then the torque about the pivot (the post) will be \(\bm{N} = \bm{R} \times \bm{F}_g\). The torque will point orthogonal to the plane established by \(\bm{R}\) and \(\bm{F}_g\) and will act to change the angular momentum.
+
+The angular momentum, \(\bm{L}\), is oriented outward (by choice) parallel to the rod. The torque, because it is orthogonal to \(\bm{L}\) cannot change the magnitude of \(\bm{L}\). However, the torque will change the direction of the angular momentum. The net effect is that the gyroscope will slowly spin around the post, a process called \textbf{precession}.
+
+Suppose the gyroscope is spinning about a principal axis, then we can write \(\abs{\bm{L}} = I \omega\) where \(I\) is one of the principal components of the moment of inertia tensor. Furthermore, the magnitude of the torque is \(\abs{\bm{N}} = mgR\). Our `ansatz' is that the gyroscope should move in a circle and that the torque always points orthogonally to the angular momentum. So, we can write 
+\[\begin{aligned}
+    \bm{L} &= I\omega \left[ \bm{e}_x \cos(\Omega t) +\bm{e}_y \sin(\Omega t) \right], \\
+    \bm{N} &= mgR \left[ -\bm{e}_x\sin(\Omega t) + \bm{e}_y \cos(\Omega t) \right].
+\end{aligned}\]
+
+Therefore, we have a solution to \(\bm{N} = \diff{}{t} \bm{L}\),provided that  
+\[I\omega \Omega = mgR.\]
+
+In other words, the \textbf{precession frequency} is 
+\[\Omega = \frac{mgR}{I\omega}.\]
+
+\section{The two body problem}
+
+Suppose that we have two particles with positions \(\bm{r}_1\) and \(\bm{r}_2\) which move subject to an external force, \(\bm{F}^{\text{ext}}\), as well as an internal force \(\bm{F}_{12} = - \bm{F}_{21}\). We have seen that the centre of mass, \(\bm{R}\), is only dependent on \(\bm{F}^{\text{ext}}\). We now change the variable to 
+\[\bm{r}_{12} = \bm{r}_1 - \bm{r}_2\]
+where 
+\[\bm{R} = \frac{m_1 \bm{r}_1 +m_2 \bm{r}_2}{m_1+m_2} \quad \text{and} \quad M=m_1+m_2.\]
+We need to invert this to find \(\bm{r}_1\) and \(\bm{r}_2\) as functions of \(\bm{R}\) and \(\bm{r}_{12}\). Furthermore, we have that 
+\[M \bm{R} = m_1 \bm{r}_1 +m_2(\bm{r}_1-\bm{r}_{12}).\]
+Rearranging gives 
+\[\begin{aligned}
+    \bm{r}_1 &=  \frac{M\bm{R} + m_2 \bm{r}_{12}}{M} \\
+            &= \bm{R} + \frac{m_2}{M}\bm{r}_{12}
+\end{aligned}\]
+and 
+\[\begin{aligned}
+    \bm{r}_2 &= \bm{r}_1 - \bm{r}_{12} \\
+    &= \frac{M\bm{R} - m_1 \bm{r}_{12}}{M} \\
+    &= \bm{R} - \frac{m_1}{M}\bm{r}_{12}.
+\end{aligned}\]
+
+The conserved energy is 
+\[\begin{aligned}
+    E &= \half m_1 \abs{\bm{\dot{r}}_1}^2 + \half m_2 \abs{\bm{\dot{r}}_2}^2 + V^{\text{ext}} +V_{12} \\
+    &= \half m_1 \abs{\bm{\dot{R}}+ \frac{m_2}{M} \bm{\dot{r}}_{12}}^2 + \half m_2 \abs{\bm{\dot{R}}- \frac{m_1}{M}\bm{\dot{r}}_{12}}^2 +V^{\text{ext}} + V_{12} \\
+    &= \half M \abs{\bm{\dot{R}}}^2 + \half \frac{m_1 m_2}{M} \abs{\bm{r}_{12}}^2 +V^{\text{ext}}+V_{12} \\
+\end{aligned}\]
+
+\begin{definition}
+    The quantity \(\mu\), defined by
+    \[\mu = \frac{m_1m_2}{m_1+m_2},\]
+    is called the \textbf{reduced mass}.
+\end{definition}
+
+\begin{mdremark}
+    Consider when \(m_1 \gg m_2\) then 
+    \[\begin{aligned}
+        M &= m_1 +m_2 \approx m_1 \\
+        \mu &= \frac{m_1 m_2}{m_1+m_2} \approx m_2.
+    \end{aligned}\]
+    Therefore, we fix a particle \(m_1\) as the origin and treat \(m_2\) on its own -- similar to the case of planetary motion where the sun is the origin.
+\end{mdremark}
+
+\subsection{From two body to one body problem}
+
+\begin{mdthm}
+    If the external potential only depends on \(\bm{R}\) and the internal potential only depends on \(\bm{r}_{12}=\bm{r}_1-\bm{r}_2\) i.e. 
+    \[V^{\text{ext}} = V^{\text{ext}}(\bm{R}) \quad \text{and} \quad V_{12}^{\text{int}} = V_{12}^{\text{int}}(\bm{r}_1 - \bm{r}_2),\]
+    then we can reduce the two body problem into two, one body problems: one for \(\bm{R}\) and one for \(\bm{r}_{12}\).
+\end{mdthm}
+
+We now illustrate the process. The equation of motions for \(\bm{r}_1\) and \(\bm{r}_2\) are 
+\[\begin{aligned}
+    m_1 \bm{\ddot{r}}_1 &= -\nabla_1 V^{\text{ext}} - \nabla_1 V_{12} \\
+    m_2 \bm{\ddot{r}}_2 &= -\nabla_2 V^{\text{ext}} - \nabla_2 V_{12}.
+\end{aligned}\]
+
+The equation of motion for \(\bm{R}\) is obtained by summing the two equations above. 
+\[\begin{aligned}
+    M\bm{\ddot{R}} &= \left( -\nabla_1 V^{\text{ext}} - \nabla_1 V_{12} \right) + \left( -\nabla_2 V^{\text{ext}} - \nabla_2 V_{12} \right) \\
+    &= \left( -\nabla_1 V^{\text{ext}} - \nabla_1 V_{12} \right) + \left( -\nabla_2 V^{\text{ext}} - [-\nabla_1 V_{12}] \right) \\
+    &= -\nabla_1 V^{\text{ext}}-\nabla_2 V^{\text{ext}} \\
+    &= -\frac{m_1}{M} \nabla_R V^{\text{ext}} - \frac{m_2}{M} \nabla_R V^{\text{ext}} \\
+    &= - \nabla_R V^{\text{ext}} \\
+    &= \sum_{i=1}^{N} \bm{F}_i^{\text{ext}}.
+\end{aligned}\]
+
+Here we have used [NIII] to deduce 
+\[\nabla_1 V_{12} = -\nabla_2 V_{12},\]
+as well as the chain rule to write 
+\[\nabla_1 V^{\text{ext}} = \frac{m_1}{M} \nabla_R V^{\text{ext}} \quad \text{and} \quad \nabla_2 V^{\text{ext}} = \frac{m_2}{M} \nabla_R V^{\text{ext}}\]
+(assuming that \(V^{\text{ext}}\) only depends on \(\bm{R}\)). Therefore, we have 
+\[M\bm{\ddot{R}}=  - \nabla_R V^{\text{ext}}(\bm{R}).\]
+
+\subsection*{Easier way}
+
+Suppose we have 
+\[\begin{aligned}
+    m_1 \bm{\ddot{r}}_1 &= \bm{F}_1^{\text{ext}}+\bm{F}_{12}^{\text{int}} \\
+    m_2 \bm{\ddot{r}}_2 &= \bm{F}_2^{\text{ext}}+\bm{F}_{21}^{\text{int}}.
+\end{aligned}\]
+
+We now proceed as follows, consider 
+\[\begin{aligned}
+    m_1 m_2 \bm{\ddot{r}}_1 &= m_2\bm{F}_1^{\text{ext}}+m_2\bm{F}_{12}^{\text{int}} \\
+    m_1 m_2 \bm{\ddot{r}}_2 &= m_1\bm{F}_2^{\text{ext}}+m_1\bm{F}_{21}^{\text{int}},
+\end{aligned}\]
+
+then we have,
+\[\begin{aligned}
+    m_1 m_2 (\bm{\ddot{r}}_1-\bm{\ddot{r}}_2) &= m_2\bm{F}_1^{\text{ext}}-m_1 \bm{F}_2^{\text{ext}}+ m_2\bm{F}_{12}^{\text{int}}+m_1\bm{F}_{12}^{\text{int}} \\
+    &= \bm{F}^{\text{ext}}+(m_1+m_2)\bm{F}_{12}^{\text{int}}
+\end{aligned}\]
+where \(\bm{F}^{\text{ext}}=m_2\bm{F}_1^{\text{ext}}-m_1 \bm{F}_2^{\text{ext}}\). Therefore, we have
+
+\[\begin{aligned}
+    \mu \bm{\ddot{r}}_{12} = \wt{\bm{F}}^{\text{ext}}+\bm{F}_{12}^{\text{int}}
+\end{aligned}\]
+
+where, \(\mu\) is the reduced mass and \(\wt{\bm{F}}^{\text{ext}} = \frac{\bm{F}^{\text{ext}}}{m_1+m_2}\).
+
+Now that we know \(\bm{\ddot{r}}_{12}\) we can solve for \(\bm{r}_{12}\); from above we know that 
+\[\bm{r}_1 = \bm{R}+\frac{m_2}{M}\bm{r}_{12}\]
+and 
+\[\bm{r}_{12}=\bm{r}_1-\bm{r}_2\]
+thus, we can solve for both by just knowing \(\bm{r}_{12}\).
+
+\begin{mdthm}
+    Suppose \(M\bm{\ddot{R}}=  - \nabla_R V^{\text{ext}}(\bm{R})\), then the total energy of the centre of mass is given by 
+    \[E_{\text{cm}} = \half M \abs{\bm{\dot{R}}}^2 +V^{\text{ext}}(\bm{R}).\]
+    The energy, \(E_{\text{cm}}\) is a conserved quantity.
+\end{mdthm}
+
+\begin{proof}
+    \[\begin{aligned}
+        \dot{E}_{\text{cm}} &= M\bm{\dot{R} \cdot \bm{\ddot{R}}} +\nabla_R V^{\text{ext}}(\bm{R}) \cdot \bm{\dot{R}} \\ 
+        &= \left( M\bm{\ddot{R}} +V^{\text{ext}}(\bm{R}) \right) \cdot \bm{\dot{R}} \\
+        &= 0.
+    \end{aligned}\]
+    Since \(M\bm{\ddot{R}} =- \nabla_R V^{\text{ext}}(\bm{R})\)
+\end{proof}
+
+To obtain an equation for the relative position we consider the equations of motions for \(\bm{r}_1\) and \(\bm{r}_2\), as before but written as 
+\[\begin{aligned}
+    m_1 m_2 \bm{\ddot{r}}_1 &= m_2 \left( -\nabla_1 V^{\text{ext}} - \nabla_1 V_{12} \right) \\
+    m_1 m_2 \bm{\ddot{r}}_2 &= m_1 \left( -\nabla_2 V^{\text{ext}} - \nabla_2 V_{12} \right).
+\end{aligned}\]
+
+Note that \(M\mu = m_1 m_2\); subtracting the two equations we have 
+\[M\mu \bm{\ddot{r}}_{12} = -m_2 \nabla_1 V^{\text{ext}} + m_1 \nabla_2 V^{\text{ext}} -m_2 \nabla_1 V_{12} +m_1 \nabla_2 V_{12}.\]
+
+Supposing that \(V^{\text{ext}} = V^{\text{ext}}(\bm{R})\) then we can use the chain rule to express 
+\[\begin{aligned}
+    -m_2 \nabla_1 V^{\text{ext}} + m_1 \nabla_2 V^{\text{ext}} &= - \frac{m_1 m_2}{M} \nabla_R V^{\text{ext}} + \frac{m_1 m_2}{M} \nabla_R V^{\text{ext}} \\
+    &=0.
+\end{aligned}\]
+
+Furthermore, if \(V_{12} = V_{12}(\bm{r}_{12})\) then we can write 
+\[\begin{aligned}
+    \nabla_2 V_{12} &= -\nabla_1 V_{12} \\
+    &= -\nabla_{12} V_{12}.
+\end{aligned}\]
+
+Therefore, the equation of motion for \(\bm{r}_{12}\) becomes,
+\[\mu \bm{\ddot{r}}_{12} = - \nabla_{12} V_{12}(\bm{r}_{12}).\]
+
+\begin{mdthm}
+    The total energy for relative motion is given by
+    \[E_{12} = \half \mu \abs{\bm{\dot{r}}_{12}}^2 +V_{12}(\bm{r}_{12}).\]
+    The energy, \(E_{12}\), is a conserved quantity.
+\end{mdthm}
+
+\begin{mdcor}
+    The total energy of the system, \(E = E_{\text{cm}}+E_{12}\), is a conserved quantity.
+\end{mdcor}
+
+\begin{proof}
+    Both \(E_{\text{cm}}\) and \(E_{12}\) are conserved thus, the sum of two conserved quantities is also conserved i.e. \(\dot{E}= \dot{E}_{\text{cm}}+\dot{E}_{12} = 0\).
+\end{proof}
+
+\begin{mdthm}
+    If \(V_{12} = V_{12}(\abs{\bm{r}_{12}})\) then the energy and angular momentum of the relative system will be conserved leading to a single one-dimensional problem:
+    \[E_{12} = \half \mu \abs{\bm{\dot{r}}_{12}}^2 + V_{\text{eff}}^{\text{int}} \quad \text{and} \quad V_{\text{eff}}^{\text{int}} = V_{12}(\abs{\bm{r}_{12}})+ \frac{\ell^2_{12}}{2\mu \abs{\bm{r}_{12}}^2}.\]
+\end{mdthm}
+
+\begin{mdthm}
+    If \(V^{\text{ext}} = V^{\text{ext}}(\abs{\bm{R}})\) then 
+    \[E_{\text{cm}} = \half M \abs{\bm{\dot{R}}}^2 + V_{\text{eff}}^{\text{ext}} \quad \text{and} \quad V_{\text{eff}}^{\text{ext}} = V^{\text{ext}}(\abs{\bm{R}}) + \frac{\ell_{\text{cm}}^2}{2M \abs{\bm{R}}^2}.\]
+\end{mdthm}
+
+\pagebreak
+
+\addcontentsline{toc}{section}{Analytical mechanics}
+\section*{Analytical mechanics}
+
+\section{Lagrangian mechanics}
+
+\begin{mdthm}
+    REMARK!!!! \\
+    (For our course) The Lagrangian formulation is only true when the system is influenced by \ul{\textbf{conservative forces}}!!
+\end{mdthm}
+
+\subsection{Generalised coordinates}
+
+Consider a rigid body composed of many particles, \(N\). The positions of all the particles may be specified by \(3N\) coordinates. However, these \(3N\) coordinates cannot all vary independently but are subject to constraints.
+
+\begin{mdremark}
+    Further explanation:
+    \begin{itemize}
+        \item By saying the generalised coordinates must be \textbf{independent variables}, we mean that there must be \textit{no functional relation connecting them}. Therefore, if one of the coordinates were to be removed, the remaining \(n-1\) coordinates would still determine the configuration of the system.
+        \item When we say the generalised coordinates \(q_1,q_2,\ldots q_n\) \textbf{determine the configuration} of the system \(\mathcal S\), we mean that, when the values of the coordinates \(q_1,q_2,\ldots q_n\) are given, the position of every particle of \(\mathcal S\) is determined. That is, the position vectors \(\{\bm{r}_i\}\) of the particles must be known functions of the independent variables \(q_1,q_2,\ldots q_n\) such that
+        \[\bm{r}_i=\bm{r}_i(q_1,q_2,\ldots q_n) \quad \text{for } i=1,2,\ldots n.\]
+    \end{itemize}
+\end{mdremark}
+
+\begin{mdremark}
+    Generalised coordinates are scalars and not vectors.
+\end{mdremark}
+
+\begin{definition}
+    Let \(\mathcal S\) be a dynamical system defined by a set of generalised coordinates. Then the \textbf{number} of generalised coordinates needed to specify the configuration of \(\mathcal S\) is called the number of \textbf{degree of freedom} of \(\mathcal S\).
+\end{definition}
+
+\subsection{Constraints}
+
+A general mechanical system \(\mathcal{S}\) consists of any number of particles \(P_1,P_2, \ldots, P_n\). The particles of \(\mathcal{S}\) may have interconnections of various kinds (light strings, springs and so on) and also be subject to external connections and constraints. These could include features such as a particle being forced to remain on a fixed surface or suspended from a fixed point by a light inextensible string.
+
+\begin{definition}
+    A `position' in which a particle in a dynamical system are at time \(t\) is called a \textbf{configuration}.
+\end{definition}
+
+\begin{definition}
+    If the configuration of a system \(\mathcal S\) is determined by the values of a set of independent variables \(q_1,q_2,\ldots, q_n\) is said to be a set of \textbf{generalised coordinates} for \(\mathcal S\).
+\end{definition}
+
+\subsubsection{Unconstrained systems}
+
+\begin{definition}
+    Particles in a dynamical system which are free to move anywhere in space \textit{independently of each other} are said to be in an \textbf{unconstrained system}.
+\end{definition}
+
+\begin{theorem}
+    In an unconstrained system the equations of motion for the system are given by Newton's approach i.e.
+    \[m_i \dot{\bm{r}_i} = \bm{F}_i\]
+    (for \(i=1,\ldots, N\)), where \(\bm{F}_i\) is the force acting on the particle \(P_i\).
+\end{theorem}
+
+\subsubsection{Constrained systems}
+
+\begin{definition}
+    Systems in which the particles are which are subject to geometrical or kinematical constraints are called \textbf{constrained systems}.
+\end{definition}
+
+\begin{definition}
+    \textbf{Kinematical constraints} are those that involve the position and velocity vectors \(\{\bm{r}_i, \dot{\bm{r}_i} \}\).
+\end{definition}
+
+\begin{definition}
+    \textbf{Geometrical constraints} are those that involve only the position vectors \(\{\bm{r}_i\}\). We will call these constraints \textbf{holonomic constraints}.
+\end{definition}
+
+\begin{mdremark}
+    Constraints which are not holonomic are called \textbf{non-holonomic}.
+\end{mdremark}
+
+\begin{mdthm}
+    A holonomic constraint takes the form
+    \[C(q_i,t)=0.\]
+\end{mdthm}
+
+\begin{mdremark}
+    In general each holonomic constraint reduces the number of degrees of freedom of the system by one.
+\end{mdremark}
+
+\begin{mdprop}
+    TYPICAL QUESTION: when asked why a constraint is holonomic it is enough to say: ``the constraints allows for algebraic elimination of one coordinate''.
+\end{mdprop}
+
+\subsection{The Lagrangian}
+
+\begin{definition}
+    We define the \textbf{Lagrangian} as a (linearly) independent quantity defined by
+    \[\begin{aligned}
+        \mathcal{L}&=T-V \\
+        &= \half m \abs{\dot{\bm{r}}}^2 - V(\bm{r}).
+    \end{aligned}\]
+\end{definition}
+
+\begin{mdremark}
+    The Lagrangian is not a functional because it depends on \(\bm{r}\) and \(\dot{\bm{r}}\) at a single time.
+\end{mdremark}
+
+\subsection{The principle of least action}
+
+\begin{definition}
+    The quantity
+    \[S[q_i] = \int_{t_1}^{t_2} \mathcal{L}(q_i, \dot{q_i},t) \, dt\]
+    is called the \textbf{action (functional)} corresponding to the Lagrangian \(\mathcal{L}(q_i, \dot{q_i},t)\) (for the time interval \([t_1,t_2]\)).
+\end{definition}
+
+\begin{mdnote}
+    \textbf{Functionals} are functions with functions as their inputs; in this case the functional \(S\) depends on the whole \(q_i(t)\).
+\end{mdnote}
+
+\begin{mdthm}[Principle of least action]
+    Particles move to extremise the action \(S\) as a functional of all possible paths between \(\bm{r}_1(t)\) and \(\bm{r}_2(t)\).
+\end{mdthm}
+
+\begin{mdnote}
+    The principle of least action is in other words saying: a particle with a fixed energy moving from point \(A\) to \(B\) (these endpoints are fixed) during a time interval \([t_1,t_2]\) will choose the path that uses the \textbf{least} amount of energy. That is, the functional \(S\) is always a minimum; mathematically we can determine when \(S\) is a minimum with derivatives. Therefore, mathematically the principle of least action says
+    \[\diffp{S}{{q(t)}} = 0.\]
+\end{mdnote}
+
+\begin{mdthm}[Euler-Lagrange equations]
+    The vector function \(q_i\) makes the action functional minimised if and only if \(q_i\) satisfies the \textbf{Euler-Lagrange} differential equations
+    \[\diff{}{t}\left( \diffp{{\mathcal{L}}}{{\dot{q_i}}} \right) - \diffp{{\mathcal{L}}}{{q_i}} =0.\]
+\end{mdthm}
+
+\begin{mdnote}
+    The E-L equations are equivalent to \(F =ma\).
+\end{mdnote}
+
+\begin{proof}
+    This proof will be for a single particle, but it can be simply extended to multiple particles. The principle of least action requires the action to be minimised thus, we need \(\delta S=0\). Recall the total differential
+    \[dF = \diffp{F}{x} dx + \diffp{F}{y} dy +\cdots\]
+    We want to set \(\delta S =0\) so, we need to evaluate \(\delta S\) first:
+    \[\delta S = \int_{t_1}^{t_2} \delta \mathcal{L}(q,\dot{q}) \, dt.\]
+    We have 
+    \[\delta \mathcal{L}(q,\dot{q}) =  \diffp{\mathcal{L}}{q} \delta q+ \diffp{\mathcal{L}}{{\dot{q}}} \delta \dot{q}\]
+    therefore,
+    \[\begin{aligned}
+        \delta S &= \int_{t_1}^{t_2}  \diffp{\mathcal{L}}{q} \delta q+ \diffp{\mathcal{L}}{{\dot{q}}} \delta \dot{q} \\
+        &= \int_{t_1}^{t_2} \left( \diffp{\mathcal{L}}{q} \delta q \right) \, dt +\int_{t_1}^{t_2} \left( \diffp{\mathcal{L}}{{\dot{q}}} \delta \dot{q} \right) \, dt \\
+        &= \underbrace{\int_{t_1}^{t_2} \left( \diffp{\mathcal{L}}{q} \delta q \right) \, dt}_{I_1} +\underbrace{\int_{t_1}^{t_2} \left( \diffp{\mathcal{L}}{{\dot{q}}} \diff{(\delta q)}{t} \right) \, dt}_{I_2}.
+    \end{aligned}\]
+    Recall `integration by parts':
+    \[\int_{a}^{b} u\diff{v}{x} \, dx = [uv]_a^b - \int_{a}^{b} v\diff{u}{x} \, dx,\]
+    evaluating \(I_2\) we have
+    \[\begin{aligned}
+        &= - \int_{t_1}^{t_2} \left( \diff{}{t} \diffp{\mathcal{L}}{{\dot{q}}}  \right) \delta q \, dt.
+    \end{aligned}\]
+    The first term is \(0\) since we take the endpoints to be fixed we have that \(\delta q(t_1) = \delta q(t_2)=0\). Finally, we have 
+    \[\begin{aligned}
+        \delta S &= I_1 + I_2 \\
+                &= \int_{t_1}^{t_2} \left( \diffp{\mathcal{L}}{q} - \diff{}{t} \diffp{\mathcal{L}}{{\dot{q}}} \right) \delta q \, dt
+    \end{aligned}\]
+    which implies \(\delta S =0\) if and only if
+    \[\diff{}{t} \left( \diffp{\mathcal{L}}{{\dot{q}}} \right) - \diffp{\mathcal{L}}{q}=0.\]
+\end{proof}
+
+\begin{mdnote}
+    In this course to denote small changed in variables we use \(\delta\) and \(d\)\\ interchangeably.
+\end{mdnote}
+
+\subsection{Conjugate momenta}
+
+\begin{definition}
+    Consider a holonomic mechanical system with Lagrangian \\ \(\mathcal{L}=\mathcal{L}(q_i,\dot{q}_i,t)\). Then the scalar quantity \(p_j\), defined by 
+    \[p_j = \diffp{\mathcal{L}}{{\dot{q}_j}}\]
+    is called the \textbf{conjugate momentum} corresponding to the coordinate \(q_j\). 
+\end{definition}
+
+\begin{mdremark}
+    We can think of 
+    \[\bm{F}_i=\diffp{\LL}{{q_i}}\]
+    then the Euler-Lagrange equation reads 
+    \[\diff{}{t}p_i = \bm{F}_i.\]
+\end{mdremark}
+
+\begin{mdexample}
+    Consider a system with Lagrangian
+    \[\mathcal{L}=\half M \dot{x}^2+\half m \left( \dot{x}^2 +\dot{y}^2 +2\dot{x}\dot{y} \cos(\alpha) \right) +mg y \sin(\alpha).\]
+    Find the conjugate momenta.
+    \begin{solution}
+        With this Lagrangian, the momenta \(p_x\) and \(p_y\) are given by 
+        \[\begin{aligned}
+            p_x &= \diffp{\mathcal{L}}{{\dot{x}}} = M\dot{x}+m\left( \dot{x}+\dot{y} \cos\alpha \right), \\
+            p_y &= \diffp{\mathcal{L}}{{\dot{y}}} = m\left( \dot{y}+\dot{x}\cos\alpha\right).
+        \end{aligned}\]
+    \end{solution}
+\end{mdexample}
+
+\subsubsection{Conservation of conjugate momenta}
+
+% In terms of the conjugate momentum \(p_j\), the \(j^{\text{th}}\) Lagrangian equation can be written as 
+% \[\diff{{p_j}}{t}=\diffp{\mathcal{L}}{{q_j}},\]
+
+\begin{definition}
+    If \(\diffp{\mathcal{L}}{{q_j}} = 0\) (i.e. if the coordinate \(q_j\) is absent from the Lagrangian) then \(q_j\) is said to be an \textbf{ignorable} (or \textbf{cyclic}) coordinate.
+\end{definition}
+
+\begin{mdremark}
+    Definition from the lecture notes: \\
+    If 
+    \[\diff{}{t} \left( \diffp{\LL}{{\dot{q}_i}} \right) =0\]
+    then, \(q_i\) is said to be ignorable.
+\end{mdremark}
+
+\begin{theorem}
+    If \(q_i\) is an ignorable coordinate then,
+    \[\diff{}{t} p_i =0.\]
+\end{theorem}
+
+\begin{mdcor}[Conservation of momentum]
+    If \(q_i\) is an \textit{ignorable} coordinate (in the sense that it does not appear in the Lagrangian) then \(p_j\), the conjugate momentum to \(q_j\), is constant in any motion.
+\end{mdcor}
+
+\begin{mdremark}
+    That is, to say the conjugate momentum is conserved.
+\end{mdremark}
+
+\begin{mdexample}
+    Consider a Lagrangian given by 
+    \[\mathcal{L}=\half ma^2 \left[ \dot{\theta}^2 + \left( \dot{\phi} \sin\theta \right)^2\right] +mga\cos\theta.\]
+    Verify that \(\phi\) is an ignorable coordinate and find the corresponding conjugate \\ momentum.
+    \begin{solution}
+        Since \(\diffp{\mathcal{L}}{\phi}=0\), the coordinate \(\phi\) is ignorable. It follows that the conjugate momentum, \(p_{\phi}\), is conserved, where 
+        \[p_{\phi} = \diffp{\mathcal{L}}{{\dot{\phi}}} = ma^2\sin^2(\theta \dot{\phi}).\]
+    \end{solution}
+\end{mdexample}
+
+\pagebreak
+
+\subsection{Symmetries}
+
+\begin{definition}
+    A \textbf{symmetry} is a transformation 
+    \[\begin{aligned}
+        q_i &\to q'_i \\
+        \dot{q}_i &\to \dot{q}'_i \\
+        t &\to t'
+    \end{aligned}\]
+    such that
+    \begin{enumerate}
+        \item the Lagrangian is invariant i.e. 
+        \[\mathcal{L}(q'_i,\dot{q}'_i,t')=\mathcal{L}(q_i,\dot{q}_i,t);\]
+        \item it is a symmetry of the action 
+        \[\mathcal{L}(q'_i,\dot{q}'_i,t')=\mathcal{L}(q_i,\dot{q}_i,t) + \diff{J}{t}.\]
+    \end{enumerate}
+\end{definition}
+
+\begin{mdremark}
+    We allow for a shift by a total derivative of \(J\) as after taking the integral for the action, the term will disappear, i.e. it leaves the action invariant.
+\end{mdremark}
+
+\begin{proposition}
+    For a continuous symmetry it is enough (and simpler) to study them for infinitesimal transformations:
+    \[\begin{aligned}
+        q_i &\to q_i +\eps T_i(q,t) =q'_i  \\
+        \dot{q}_i &\to \dot{q}_i+\eps\dot{T}(q,t) =\dot{q}'_i
+    \end{aligned}\]
+    for \(\eps \ll 1\).
+\end{proposition}
+
+\begin{mdprop}
+    If \(q_*\) is an ignorable coordinate of the Lagrangian then, there exists a symmetry of the Lagrangian 
+    \[\LL(q_i',\dot{q}_i',t)=\LL(q_i,\dot{q}_i,t)\]
+    where
+    \[\begin{aligned}
+        q_i &\to q_i' = q_i \quad \text{for } i\neq * \\
+        \dot{q}_i &\to  \dot{q}'_i = \dot{q}_i \quad \text{for } i\neq* \\
+        q_* &\to  q_*' =q_* + \eps \\
+        \dot{q}_* &\to  \dot{q}_*' = \dot{q}_*.
+    \end{aligned}\]
+\end{mdprop}
+
+\pagebreak
+
+\subsection{Noether's theorem}
+
+\begin{mdthm}[Noether's theorem -- Lagrangian]
+    For each symmetry of the Lagrangian, 
+    \[\begin{aligned}
+        q_i \to q'_i &= q_i + \eps T_i(q,t) \\
+        \dot{q}_i \to \dot{q}'_i &= \dot{q}_i+\eps \dot{T}_i(q,t)
+    \end{aligned}\]
+    there is a conserved quantity:
+    \[Q = \sum_{i=1}^{N} \diffp{\mathcal{L}}{{\dot{q}_i}} T_i(q,t).\]
+    The quantity \(Q\), we call \textbf{Noether's charge}.
+\end{mdthm}
+
+\begin{proof}
+    We want to show that \(Q\) is a conserved quantity i.e. \(\diff{Q}{t}=0\), we now compute 
+    \[\begin{aligned}
+        \diff{Q}{t} &= \sum_{n=1}^{N} \left[ \diff{}{t}\left( \diffp{\mathcal{L}}{{\dot{q}_i}} \right)T_i+\diffp{\mathcal{L}}{{\dot{q}_i}}\diff{{T_i}}{t} \right] \\
+        &= \sum_{n=1}^{N} \left[ \diffp{\LL}{{q_i}} T_i +\diffp{\LL}{{\dot{q}_i}} \dot{T}_i \right]
+    \end{aligned}\]
+    where in the second equality we have used to Euler-Lagrange equations. For each symmetry
+    \[\begin{aligned}
+        q_i &\to q_i +\eps T_i \\
+        \dot{q}_i &\to \dot{q}_i+\eps \dot{T}_i
+    \end{aligned}\]
+    we have, \(\LL(q_i +\eps T_i,\dot{q}_i+\eps \dot{T}_i,t)=\LL(q_i,\dot{q}_i,t)\). Expanding with the Taylor series we must have 
+    \[\begin{aligned}
+    \LL(q_i,\dot{q}_i,t) &= \LL(q_i +\eps T_i,\dot{q}_i+\eps \dot{T}_i,t)\\
+    &= \LL(q_i,\dot{q}_i,t) + \eps \sum_{n=1}^{N} \left[ \diffp{\LL}{{q_i}} T_i +\diffp{\LL}{{\dot{q}_i}} \dot{T}_i \right]+O(\eps^2)
+    \end{aligned}\]
+    which implies 
+    \[\sum_{n=1}^{N} \left[ \diffp{\LL}{{q_i}} T_i +\diffp{\LL}{{\dot{q}_i}} \dot{T}_i \right] =0\]
+    hence, \(\diff{Q}{t}=0\).
+\end{proof}
+
+\begin{mdthm}[Noether's theorem -- Action]
+    For each symmetry of the action
+    \[\begin{aligned}
+        q_i \to q'_i &= q_i + \eps T_i(q,t) \\
+        \dot{q}_i \to \dot{q}'_i &= \dot{q}_i+\eps \dot{T}_i(q,t)
+    \end{aligned}\]
+    such that
+    \[\mathcal{L}(q'_i,\dot{q}'_i,t)=\mathcal{L}(q_i,\dot{q}_i,t) + \eps\diff{J}{t},\]
+    there is a conserved quantity:
+    \[Q = \sum_{i=1}^{N} \diffp{\mathcal{L}}{{\dot{q}_i}} T_i(q,t) -J.\]
+\end{mdthm}
+
+\begin{mdremark}
+    This keeps the action invariant i.e. \(S[q'_i]=S[q_i]\) but not the Lagrangian.
+\end{mdremark}
+
+\begin{proof}
+    We compute 
+    \[\begin{aligned}
+        \diff{Q}{t} &= \diff{}{t} \left[ \sum_{i=1}^{N} \diffp{\mathcal{L}}{{\dot{q}_i}} T_i -J \right] \\
+        &= \sum_{i=1}^{N}\left[ \diff{}{t}\left( \diffp{\LL}{{\dot{q}_i}} \right) T_i + \diffp{\LL}{{\dot{q}_i}}\dot{T}_i \right] -\diff{J}{t} \\
+        &= \sum_{n=1}^{N} \left[ \diffp{\LL}{{q_i}}T_i +\diffp{\LL}{{\dot{q}_i}}\dot{T}_i \right]-\diff{J}{t}.
+    \end{aligned}\]
+    For each symmetry we have, \(\LL(q_i,\dot{q}_i,t)+ \eps\diff{J}{t}=\LL(q_i +\eps T_i,\dot{q}_i+\eps \dot{T}_i,t)\) therefore, using a Taylor expansion we have 
+    \[\begin{aligned}
+         \LL(q_i,\dot{q}_i,t) + \eps\diff{J}{t} &= \LL(q_i +\eps T_i,\dot{q}_i+\eps \dot{T}_i,t) \\
+        &= \LL(q_i,\dot{q}_i,t) + \eps \sum_{n=1}^{N} \left[ \diffp{\LL}{{q_i}} T_i +\diffp{\LL}{{\dot{q}_i}} \dot{T}_i \right]+O(\eps^2),
+    \end{aligned}\]
+    from which we imply 
+    \[\sum_{n=1}^{N} \left[ \diffp{\LL}{{q_i}}T_i +\diffp{\LL}{{\dot{q}_i}}\dot{T}_i \right] = \diff{J}{t}.\]
+    In conclusion, \(\diff{Q}{t}=0\).
+\end{proof}
+
+\subsubsection{Symmetry and conservation principles}
+
+\begin{mdthm}[Invariance under spatial translation]
+    Suppose that the kinetic and potential energy only depends on the seperation between any two pairs of particle (e.g. \(T = T(\bm{r}_i-\bm{r}_j)\) and \(V=V(\bm{r}_i-\bm{r}_j)\)). Then, there is an overall \textbf{translational symmetry}: 
+    \[\bm{r}_i \to \bm{r}_i +\eps \bm{a} \quad \text{and} \quad \bm{\dot{r}}_i \to \bm{\dot{r}}_i,\]
+    where \(\bm{a}\) is a fixed vector. Translational symmetry implies there is conservation of the \textbf{total momentum} of the system.
+\end{mdthm}
+
+\begin{mdremark}
+    This symmetry reflects the \textbf{homogeneity} of space, namelly that there is no preferred location.
+\end{mdremark}
+
+\begin{proof}
+    Suppose
+    \[\bm{r}_i \to \bm{r}_i +\eps \bm{a} \quad \text{and} \quad \bm{\dot{r}}_i \to \bm{\dot{r}}_i,\]
+    where \(\bm{a}\) is a constant. Then, \(\bm{r}_i-\bm{r}_j\) remains invariant and \(\bm{\dot{a}}=\bm{0}\). Therefore, the Lagrangian will be invaraint under the transformation and by Noether's theorem the quantity 
+    \[\begin{aligned}
+        Q &= \sum_{i=1}^{N} \diffp{\mathcal{L}}{{\dot{q}_i}} T_i \\
+        &= \sum_{i=1}^{N} \diffp{\mathcal{L}}{{\dot{q}_i}} \bm{a} \\
+        &= \sum_{i=1}^{N} \bm{p}_i \cdot \bm{a} \\
+        &= \bm{P} \cdot \bm{a},
+    \end{aligned}\]
+    is conserved. (Note that we take \(T_i = \bm{a}\)).
+\end{proof}
+
+\begin{mdthm}[Invariance under rotation]
+    Suppose that the kinetic and potential energy only depends on the distance \(\abs{\bm{r}_i - \bm{r}_j}\) between any two pairs of particles (and not the direction). Then we can cosider a rotation of all the particles:
+    \[\bm{r}_i \to \bm{r}_i + \eps T \bm{r}_i \quad \text{and} \quad \dot{\bm{r}}_i \to \dot{\bm{r}}_i +\eps \dot{T} \dot{\bm{r}}_i,\]
+    where \(T\) is a constant anty-symmetric matrix (i.e. \(T^{\top}=-T\)). Rotational symmetry implies there is conservation of the \textbf{total angular momentum} of the system.
+\end{mdthm}
+
+\begin{mdremark}
+    This symmetry reflects the \textbf{isotropy} of space, namely that it looks the same in all directions.
+\end{mdremark}
+
+\begin{proof}
+    We must show that under the symmetry transformation the length is preserved i.e. \(\delta(\abs{\bm{r}_i-\bm{r}_j}^2)\). We now compute this:
+    \[\begin{aligned}
+        \delta(\abs{\bm{r}_i-\bm{r}_j}^2) &= \delta((\bm{r}_i-\bm{r}_j)\cdot (\bm{r}_i-\bm{r}_j)) \\
+        &= 2(\bm{r}_i-\bm{r}_j) \cdot \delta(\bm{r}_i-\bm{r}_j) \\
+        &= 2\eps (\bm{r}_i-\bm{r}_j) \cdot \mathbb{T} \cdot (\bm{r}_i-\bm{r}_j) \\
+        &= 2\eps (\bm{r}_i-\bm{r}_j)^{\top} \cdot \mathbb{T} \cdot (\bm{r}_i-\bm{r}_j),
+    \end{aligned}\]
+    where \(\mathbb{T}\) is an anti-symmetric matric. Denote \(\Delta \bm{r}=\bm{r}_i-\bm{r}_j\) then, 
+    \[\begin{aligned}
+        (\Delta \bm{r})^{\top} \mathbb{T} \Delta \bm{r} &= \left( (\Delta \bm{r})^{\top} \mathbb{T} \Delta \bm{r} \right) \\
+        &= (\Delta \bm{r})^{\top} \mathbb{T}^{\top} \Delta \bm{r} \\
+        &= -(\Delta \bm{r})^{\top} \mathbb{T}\Delta \bm{r}.
+    \end{aligned}\]
+    Therefore, we must have that \((\Delta \bm{r})^{\top}\mathbb{T}\Delta \bm{r}=0\) which implies \(\delta(\abs{\bm{r}_i-\bm{r}_j}^2) =0\); by similar reasoning we can show \(\delta(\abs{\bm{\dot{r}}_i-\bm{\dot{r}}_j})=0\). We now show the conserved quantity is indeed the total angular momentum. Parametrise the matrix such that 
+    \[\mathbb{T} = \begin{pmatrix}
+        0 & -T_3 & T_2 \\
+        T_3 & 0 & -T_1 \\
+        -T_2 & T_1 & 0
+    \end{pmatrix}\]
+    so, that we can write 
+    \[\mathbb{T}_{ab} = -\sum_{c=1}^{3} \eps_{abc} T_c.\]
+    Applying Noether's theorem we know the conserved quantity is 
+    \[\begin{aligned}
+        Q &= \sum_{i=1}^N \diffp{\LL}{{\bm{\dot{r}}_i}} \cdot \mathbb{T} \bm{r}_i \\
+        &= \sum_{i=1}^{N} \bm{p}_i \mathbb{T}\bm{r}_i \\
+        &= \sum_{i=1}^{N} \sum_{ab} \bm{p}_i^a \cdot \mathbb{T}_{ab} \bm{r}_i^b \\
+        &= - \sum_{i=1}^{N} \sum_{abc} p_i^a \eps_{abc} r^{b}_i T_c \\
+        &= \mathbb{T} \cdot \sum_{i=1}^{N} \bm{r}_i \times \bm{p}_i \\
+        &= \mathbb{T} \cdot \bm{L},
+    \end{aligned}\]
+    which is the total angular momentum along the direction of \(\mathbb{T}\).
+\end{proof}
+
+\begin{mdexample}
+    If there is a rotational symmetry then, the continuous infinitesimal symmetry is given by 
+    \[\begin{aligned}
+        x &\to x-\eps y \\
+        y&\to y+\eps x.
+    \end{aligned}\]
+    That is the infinitesimal version of 
+    \[\begin{pmatrix} x \\ y\end{pmatrix} = \begin{pmatrix} \cos\theta &-\sin\theta \\ \sin\theta & \cos\theta\end{pmatrix}\begin{pmatrix} x \\ y\end{pmatrix}\]
+    where \(\theta = \eps\).
+\end{mdexample}
+
+\begin{mdthm}[Invariance under time translations]
+    Suppose the Lagrangian does not have any explicit time dependence:
+    \[\diffp{\mathcal{L}}{t}=0.\]
+    Then, the \textbf{total energy} of the system is conserved.
+\end{mdthm}
+
+\begin{proof}
+    First we notice that this is a symmetry of the action. Since the Lagrangian has no explicit time dependence we have that \(\LL=\LL(q_i,\dot{q}_i)\). A translation in time means a shift 
+    \[\begin{aligned}
+        t_1 &\to t_1 +\eps \\
+        t_2 &\to t_2 +\eps.
+    \end{aligned}\]
+    Therefore, we have that 
+    \[\begin{aligned}
+        \delta S &= \int_{t_1+\eps}^{t_2+\eps} \LL(q_i(t),\dot{q}_i(t)) \, dt - \int_{t_1}^{t_2}\LL(q_i(t),\dot{q}_i(t)) \, dt \\
+        &= \int_{t_1}^{t_2} \LL(q_i(t+\eps),\dot{q}_i(t+\eps))-\LL(q_i(t),\dot{q}_i(t)) \, dt,
+    \end{aligned}\]
+    where we have used a change of variable for the first term \(t'=t+\eps\). As such the symmetry is given by 
+    \[\begin{aligned}
+        q_i(t) &\to q_i(t+\eps) =q_i(t)+\eps\dot{q}_i +\cdots \quad &\then \delta q_i =\eps\dot{q}_i \\
+        \dot{q}_i(t) &\to \dot{q}_i(t+\eps)+\dot{q}_i(t)+\eps\ddot{q}_i+\cdots \quad &\then \delta \dot{q}_i =\eps\ddot{q}_i
+    \end{aligned}\]
+    so, \(T_i =\dot{q}_i\) (since \(\delta q_i =\eps T_i\)). Next we have that (by the Taylor expansion):
+    \[\LL(q_i(t+\eps),\dot{q}_i(t+\eps))=\LL(q_i(t),\dot{q}_i(t))+\eps \diff{\LL}{t}\]
+    where 
+    \[\diff{\LL}{t} = \sum_{i=1}^{N} \diffp{\LL}{{q_i}}\dot{q}_i +\diffp{\LL}{{\dot{q}_i}}\ddot{q}_i.\]
+    This implies that 
+    \[\delta S = \eps \int_{t_1}^{t_2} \diff{\LL}{t} \, dt.\]
+    Applying Noether's theorem we know the conserved quantity, i.e. the charge \(Q\), is given by
+    \[\begin{aligned}
+        Q &= \sum_{i=1}^{N} \diffp{\LL}{{\dot{q}_i}}T_i -J \\
+        &= \sum_{i=1}^{N} \diffp{\LL}{{\dot{q}_i}}\dot{q}_i-\LL \\
+        &= \sum_{i=1}^{N}p_i \dot{q}_i-\LL \\
+        &= E.
+    \end{aligned}\]
+\end{proof}
+
+\subsection{Symmetry in the potential}
+
+\subsubsection{2-dimensional}
+
+In this section we explore in which type of potential we have symmetries for.
+
+\begin{mdthm}
+    If the potential takes the form of 
+    \begin{itemize}
+        \item \(V(x,y)=f(x)\) then, \(y\) is ignorable and all translations in \(y\) are preserved;
+        \item \(V(x,y)=f(y)\) then, \(x\) is ignorable and all translation in \((x)\) are preserved;
+        \item \(V(x,y) = f(\sqrt{x^2+y^2})=f(r)\) then, \(\theta\) is ignorable, and all rotations are preuserved;
+        \item \(V\) without any explicit time dependence implies conservation of energy.
+    \end{itemize}
+\end{mdthm}
+
+\subsubsection{3-dimensional}
+
+\begin{mdthm}
+    If the potential takes the form of 
+    \begin{itemize}
+        \item \(V=V(\bm{r}_i-\bm{r}_j)\) the symmetry is \(\bm{r}_i \to \bm{r}_i + \eps \bm{a}\), which implies conservation of \textbf{total momentum};
+        \item \(V=(\abs{\bm{r}_i-\bm{r}_j})\) the symmetry is \(\bm{r}_i \to \bm{r}_i +\eps T \bm{r}_i\) (where \(T\) is an anti-symmetric matrix), which implies conservation of \textbf{total angular momentum};
+        \item \(V\) without any explicit time dependence the symmetry is \(t \to t+\eps\), which implies conservation of energy.
+    \end{itemize}
+\end{mdthm}
+
+
+\section{Hamiltonian Mechanics}
+
+In Hamiltonian mechanics, the conjugate momenta \(p_i \equiv \diffp{\mathcal{L}}{{\dot{q}_i}}\) are `promoted' to \\ coordinates on equal footing with the generalised coordinates \(q_i\). 
+
+\begin{definition}
+    The coordinates \((q,p)\) are \textbf{canonical variables.}
+\end{definition}
+
+\subsection{Legendre transforms}
+
+\begin{definition}
+    The process to convert Lagrangian formulation to a Hamiltonian formulation is called \textbf{Legendre transforms}.
+\end{definition}
+
+Consider a function \(F(x,y)\) which we want to swap with a new function \(\wt{F}(x,u)\) without losing any information. To do this we note that the total differential of \(F\) is given by
+\[dF = \diffp{F}{x}dx + \diffp{F}{y}dy.\]
+Now, we introduce a new function 
+\[\wt{F}(x,y,u) = uy-F(x,y),\]
+which is initially a function of \((x,y,u)\) so that 
+\[d\wt{F} = y du +u dy -\diffp{F}{x} dx - \diffp{F}{y} dy.\]
+However, if we let 
+\[u = \diffp{F}{y}\]
+then the \(dy\) term in \(d\wt{F}\) disappears, as such \(\wt{F}\) is now only a function of \((x,u)\):
+\[\wt{F}(x,u) = uy(x,u)- F(x,y(x,u)).\]
+
+\begin{mdthm}[Legendre transform]
+    Suppose that 
+    \[v_i = \nabla_{u_i} F(u_i,w_i)\]
+    and 
+    \[u_i = \nabla_{v_i} G(v_i,w_i)\]
+    where the function \(G(v_i,w_i)\) is related to the function \(F(u_i,w_i)\) by the formula 
+    \[G(v_i,w_i) = \sum_{i=1}^{N} u_i v_i -F(u_i,w_i).\]
+    Furthermore, the derivatives of \(F\) and \(G\) with respect to \(\{w_i\}\) are related by 
+    \[\nabla_{w_i} F(u_i,w_i) = - \nabla_{w_i} G(v_i,w_i).\]
+    The relationship between the functions \(F\) and \(G\) is symmetrical and each is said to be the Legendre transform of the other.
+\end{mdthm}
+
+\begin{mdnote}
+    By \(F(u_i,w_i)\) we mean \(F = F(u_1,u_2, \ldots, u_n, w_1, \ldots, w_n)\). Similarly,\\ for \(G(v_i,w_i)\).
+\end{mdnote}
+
+\begin{definition}
+    The function \(H(q_i,p_i,t)\) which is the Legendre transform of the \\ Lagrangian function \(\mathcal{L}(q_i,\dot{q}_i,t)\) is called the \textbf{Hamiltonian function}.
+\end{definition}
+
+\begin{mdthm}
+    The Hamiltonian function is related to the Lagrangian function by 
+    \[H(q_i,p_i,t) = \sum_{i=1}^{N} p_i \dot{q}_i - \mathcal{L}(q_i,\dot{q}_i,t).\]
+    The derivatives are related as such 
+    \[\nabla_{q_i} \mathcal{L}(q_i,\dot{q}_i,t) = - \nabla_{q_i} H(q_i, p_i,t).\]
+\end{mdthm}
+
+\subsection{Hamilton's equations}
+
+\begin{mdthm}[Hamilton's equations]
+    The \(n\) Lagrange equations (from Euler-Lagrange) are equivalent to the system of \(2n\) first order ODEs
+    \[\dot{q}_i = \diffp{H}{{p_i}} \quad \text{and} \quad \dot{p}_i = - \diffp{H}{{q_i}}.\]
+\end{mdthm}
+
+\begin{proof}
+    We evaluate the total differential of the Hamiltonian and then examine the results. Firstly, as \(H \equiv H(q_i,p_i,t)\) then 
+    \[dH = \sum_{i=1}^{N} \left( \diffp{H}{{q_i}} d{q_i} + \diffp{H}{{p_i}} d{p_i} +\diffp{H}{t} dt \right).\]
+    Secondly, we also know \(H = \sum_{i=1}^{N} \dot{q}_i p_i- \mathcal{L}\) so, we have 
+    \[\begin{aligned}
+        dH &= \sum_{i=1}^{N} \left( p_i d\dot{q}_i +\dot{q}_i d{p_i} - \diffp{\mathcal{L}}{{q_i}} d{q_i} - \diffp{\mathcal{L}}{{\dot{q}_i}} d \dot{q}_i - \diffp{\mathcal{L}}{t} dt\right) \\
+        &= \sum_{i=1}^{N} \left( \dot{q}_i d{p_i}- \diffp{\mathcal{L}}{{q_i}} d{q_i} - \diffp{\mathcal{L}}{t} d{t} \right)
+    \end{aligned},\]
+    where we have used the definition of conjugate momentum, \(p_i = \diffp{\mathcal{L}}{{\dot{q}_i}}\) to eliminate the first and fourth term of the first line. By comparing coefficients in the rwo expressions for \(dH\) we find 
+    \[\begin{aligned}
+        \dot{q}_i &= \diffp{H}{{p_i}}, \\
+        -\diffp{\mathcal{L}}{{q_i}} &= \diffp{H}{{q_i}}, \\
+        \diffp{H}{t} &= - \diffp{\mathcal{L}}{t}.
+    \end{aligned}\]
+    Note that by the Euler-Lagrange equations we have that \(\dot{p}_i = \diffp{\mathcal{L}}{{q_i}}\) so, the first two equations give 
+    \[\dot{q}_i = \diffp{H}{{p_i}} \quad \text{and} \quad \dot{p}_i = - \diffp{H}{{q_i}}.\]
+\end{proof}
+
+\subsection{Properties of the Hamiltonian}
+
+\begin{mdthm}
+    When \(H\) has no explicit time dependence then \(H\) is a constant of the motion.
+\end{mdthm}
+
+\begin{proof}
+    Suppose that \(H = H(q_i,p_i)\) and that \(\{q_i(t),p_i(t)\}\) is a motion of the system. Then, in this motion 
+    \[\begin{aligned}
+        \diff{H}{t} &= \sum_{i=1}^{N} \diffp{H}{{q_i}} \dot{q}_i + \sum_{i=1}^{N} \diffp{H}{{p_i}} \dot{p}_i \\
+        &= \sum_{i=1}^{N} \diffp{H}{{q_i}} \left( \diffp{H}{{p_i}} \right) + \sum_{i=1}^{N} \diffp{H}{{p_i}} \left( -\diffp{H}{{q_i}} \right) \\
+        &=0.
+    \end{aligned}\]
+\end{proof}
+
+\begin{mdcor}
+    For a conservative system with a Hamiltonian function, \(H = H(q_i,p_i)\) the total energy is given by \(H\).
+\end{mdcor}
+
+\begin{mdthm}
+    If \(q_i\) is an ignorable coordinate (does not appear in the Hamiltonian) then \(p_i\), the generalised momentum conjugate to \(q_i\), is constant in any motion i.e. momentum is conserved.
+\end{mdthm}
+
+\subsection{Hamiltonian phase space}
+
+Suppose a mechanical system \(\mathcal{S}\) has generalised coordinates \(q_i\), conjugate momenta \(p_i\) and Hamiltonian \(H(q_i,p_i,t)\). If the initial values of \(q_i\) and \(p_i\) are known then the subsequent motion of \(\mathcal{S}\), described by the functions \(\{q_i(t),p_i(t)\}\), is uniquely determined by Hamilton's equations. This motion can be represented geometrically by the motion of a `point' (called a \textbf{phase point}) in Hamiltonian \textbf{phase space}. Hamiltonian phase space is a real space of \(2n\) dimensions in which a `point' is a set of values \((q_1,q_2,\ldots, q_n, p_1,p_2,\ldots,p_n)\) of the independent variables \(\{q_i,p_i\}\). Each motion of the system then corresponds to the motion of a phase point through the phase space.
+
+\begin{definition}
+    The \textbf{phase space} is a \(2N\) dimensional space with a basis made from the \(N\) generalised coords \(\{q_i\}\) and their conjugate momenta \(\{p_i\}\).
+\end{definition}
+
+\subsubsection{The phase fluid}
+
+The paths of phase points have a simpler structure when the Hamiltonian is not explicitly dependent on \(t\). In this case, \(H\) is a constant of the motion, so that each phase path must lie on a `surface' of constant energy within the phase space. Thus, the phase space is filled with the non-intersecting level surfaces of \(H\) i.e. each phase path is restricted to one of these level surfaces.
+
+\begin{mdnote}
+    If the phase space has dimension six, then a `surface' of constant \(H\) has dimension five.
+\end{mdnote}
+
+\begin{mdthm}
+    For a system with Hamiltonian, \(H = H(q_i,p_i)\) there can only be one phase path passing through any point of the phase space.
+\end{mdthm}
+
+\begin{proof}
+    Suppose there is one phase point situated at \((q_i,p_i)_0\) at time \(t_1\), and another phase point is at \((q_i,p_i)_0\) at time \(t_2\). Then, since \(H\) is independent of \(t\), the second motion can be obtained from the first by making the substitution \(t \to t+t_1-t_2\), a shift in the origin of time. Therefore, the two phase points travel along the same path with the second point delayed relative to the first by the constant time \(t_2-t_1\). Hence, \textbf{phase paths cannot intersect}.
+\end{proof}
+
+This means that the phase space is filled with non-intersecting phase paths like the streamliens oof a fluid in steady flow. Each motion of the system corresponds to a phase point moving along on eof these paths, just as the real particels of a fluid move along the fluid streamline. Because of this analogy with fluid mechanics, the motion of phase points in phase space is called the \textbf{phase flow}.
+
+\subsection{Poisson brackets}
+
+We constructed the phase space to be always even-dimensional, as a result there exists a skew-symmetric structure known as a \textbf{symplectic structure} which is determined by Poisson brackets.
+
+\begin{definition}
+    Suppose that \(f(q_i,p_i)\) and \(g(q_i,p_i)\) are any two functions of position in the phase space of a mechanical system. Then the \textbf{Poisson bracket}, \(\{f,g\}\) of \(f\) and \(g\) is defined by 
+    \[\begin{aligned}
+        \{f,g\} &= \nabla_{q_i} f \cdot \nabla_{p_i} g - \nabla_{p_i} f \cdot \nabla_{q_i} g \\
+        &= \sum_{i=1}^{N} \left( \diffp{f}{{q_i}} \diffp{g}{{p_i}} -\diffp{g}{{q_i}}\diffp{f}{{p_i}}\right).
+    \end{aligned}\]
+\end{definition}
+
+\begin{mdthm}
+    Properties of Poisson brackets:
+    \begin{itemize}
+        \item \(\{f,f\}=0\);
+        \item \(\{f,g\} = -\{g,f\}\);
+        \item \(\{af+bg,h\}=a\{f,h\}+b\{g,h\}\), for \(a,b \in \RR\);
+        \item \(\{h,af+bg\}=a\{h,f\}+b\{h,g\}\), for \(a,b \in \RR\);
+        \item \(\{fg,h\}=\{f,h\}g+f\{g,h\}\);
+        \item \(\{f,gh\} = \{f,g\}h+g\{f,h\}\).
+    \end{itemize}
+\end{mdthm}
+
+\begin{theorem}
+    The equations of motion can be written with Poisson brackets as 
+    \[\dot{q}_i = \{q_i,H\} = \diffp{H}{{p_i}} \quad \text{and} \quad \dot{p}_i = \{p_i,H\} = - \diffp{H}{{q_i}}.\]
+\end{theorem}
+
+\begin{corollary}
+    For any function \(f(q_i,p_i)\) on phase space we have that \(\dot{f} = \{f,H\}.\)
+\end{corollary}
+
+\begin{proof}
+    \[\begin{aligned}
+        \{f,H\} &= \sum_{i=1}^{N} \left( \diffp{f}{{q_i}} \diffp{H}{{p_i}} - \diffp{H}{{q_i}} \diffp{f}{{p_i}} \right) \\
+        &= \sum_{i=1}^{N} \left( \diffp{f}{{q_i}} \diff{{q_i}}{t} + \diff{{p_i}}{t} \diffp{f}{{p_1}} \right) \\
+        &= \diff{f}{t},
+    \end{aligned}\]
+    if \(f = f(q_i,p_i)\).
+\end{proof}
+
+\subsection{Canonical transformations and symmetries}
+
+\begin{definition}
+    The following set of Poisson brackets are known as \textbf{fundamental} (or \textbf{canonical}) \textbf{Poisson brackets}. 
+    \[\begin{aligned}
+        \{q_i,p_j\} &= \delta_{ij} \\
+        \{q_i,q_j\} &= 0 \\
+        \{p_i,p_j\} &= 0.
+    \end{aligned}\]
+\end{definition}
+
+\begin{definition}
+    The transformations 
+    \[q_i \to q'_i \quad \text{and} \quad p_i \to p'_i\]
+    are known as \textbf{canonical transformations} if they preserve fundamental Poisson brackets i.e. if 
+    \[\begin{aligned}
+        \{q'_i,p'_j\} &= \delta_{ij} \\
+        \{q'_i,q'_j\} &= 0 \\
+        \{p'_i,p'_j\} &= 0.
+    \end{aligned}\]
+\end{definition}
+
+\begin{definition}
+    A \textbf{symmetry} in the Hamiltonian formulation is a canonical \\ transformation 
+    \[q_i \to q'_i(q_i,p_i) \quad \text{and} \quad p_i \to p'(q_i,p_i)\]
+    such that 
+    \[H(q'_i,p'_i) = H(q_i,p_i).\]
+\end{definition}
+
+\begin{mdthm}
+    An infinitesimal canonical transformation is generated by any arbitrary function \(f(q_i,p_i)\) (called a \textbf{generating function}) on a phase space via
+    \[\begin{aligned}
+        q_i &\to q_i' = q_i + \eps\{q_i,f\} \equiv q_i +\delta q_i \\
+        p_i &\to p_i' = p_i +\eps\{p_i,f\} \equiv p_i +\delta p_i
+    \end{aligned}\]
+    to first order in \(\eps\) for any function \(f\).
+\end{mdthm}
+
+\begin{proof}
+    We check that to first order the fundamental Poisson brackets are preserved.
+    Firstly, 
+    \[\begin{aligned}
+        \{q_i',p_j'\} &= \delta_{ij} +O(\eps^2)
+    \end{aligned}\]
+    \begin{mdthm}
+        TO FINIHS
+    \end{mdthm}
+\end{proof}
+
+\subsection{Noether's theorem - Hamiltonian formulation}
+
+\begin{mdthm}[Noether's theorem -- Hamiltonian]
+    If an infinitesimal canonical transformation generated by a function \(f\) on the phase space is symmetry then, \(f\) is conserved.
+\end{mdthm}
+
+\begin{proof}
+    Let \(\delta q_i =\eps\{q_i,f\}\) and \(\delta p_i = \eps\{p_i,f\}\) then, we have that
+    \[\begin{aligned}
+        \delta H &= H(q_i +\delta q_i,p_i +\delta p_i) -H(q_i,p_i) \\
+        &= \sum_{i=1}^{N} \left( \diffp{H}{{q_i}}\delta q_i +\diffp{H}{{p_i}}\delta p_i \right) \\
+        &= \eps \sum_{i=1}^{N} \left( \diffp{H}{{q_i}} \{q_i,f\}+\diffp{H}{{p_i}}\{p_i,f\} \right) \\
+        &= \eps \sum_{i=1}^N \left( \diffp{H}{{q_i}}\diffp{f}{{p_i}}-\diffp{H}{{p_i}}\diffp{f}{{q_i}} \right) \\
+        &= \eps\{H,f\} \\
+        &=-\eps \diffp{f}{t}.
+    \end{aligned}\]
+    Therefore, \(\delta H =0 \iff \diffp{f}{t}=0\) i.e \(f\) is a conserved quantity.
+\end{proof}
+
+\subsection{Liouville's theorem and Poincare Recurrence}
+
+\begin{figure}[H]
+     \begin{center}
+        \includegraphics[scale=0.7]{./Resources/Liouville's theorem.png}
+    \end{center}
+\end{figure}
+
+Consider phase point that at some instant, occupy the region \(\mathcal{R}_0\) of the phase space, as shown by in the figure above. As \(t\) increases, tehse points move along their various phase paths in accordance with Hamilton's equations and, after time \(t\), will occupy some new region \(\mathcal{R}_t\) of the phase space. This new region will have a different shape to \(\mathcal{R}_0\), but \textbf{Liouville's theorem} states that the volumes of the regions are equal.
+
+\begin{mdthm}[Liouville's theorem]
+    The volume of a region of phase spcae is constant along a Hamiltonian flow. 
+\end{mdthm}
+
+\begin{mdremark}
+    By the volume of the region \(\mathcal{R}\) we mean
+    \[\text{Volume}(\mathcal{R}) = \int_{\mathcal{R}} dq_1 \cdots dq_N \, dp_1 \cdots dp_N = \int_{\mathcal{R}} dV.\] 
+    So, in general it is a high-dimensional integral in \(2N\) dimensions.
+\end{mdremark}
+
+\begin{proof}
+    Yah 
+\end{proof}
+
+\begin{mdthm}[Poincare Recurrence theorem]
+    If the phase space of a system is bounded then given any open neighbourhood \(\mathcal{B}\) of a point \((q_i,p_i)\) then a system that at \((q_i,p_i)\) will return to \(\mathcal{B}\) in a finite time.
+\end{mdthm}
+
+\begin{mdremark}
+    A system either repeats its motion in phase spcae or evolves to fill up a subregion of the phase space, or all of it. In the last case the system is said to be \textbf{ergodic}.
+\end{mdremark}
+
+\begin{proof}
+    Let \(\mathcal{R}_1\) be the region occupied by the points after time \(\tau\). Suppose that \(\mathcal{R}_1\) does not overlap with \(\mathcal{R}_0\) so that all the points that lay in \(\mathcal{R}_0\) at time \(t=0\) have left \(\mathcal{R}_0\) at time \(t=\tau\). We must show that some of them eventually return to \(\mathcal{R}_0\). Let \(\mathcal{R}_2,\mathcal{R}_3, \ldots, \mathcal{R}_n\) be the regions occupied by the same points after times \(2\tau,3\tau, \ldots, n \tau\). By Liouville's theorem, all of these regions have the same volume. Therefore, if they never overlap, their total volume will increase without limit. But, by the assumption, all these regions lie within some finite volume, so that eventually one of them must overlap a previous one. Now we show that it must overlap with original region \(\mathcal{R}_0\).
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\pagebreak
+
+\appendix
+
+\addcontentsline{toc}{section}{Appendix}
+\section*{Appendix}
+
+% \section{Derivations}
+
+% \subsection{Kinetic energy}
+
+% Suppose a particle \(P\) of mass \(m\) moves under the influence of a force \(\bm{F}\). Then its equation of motion is
+% \begin{equation}
+%     m\dot{\bm{r}}=\bm{F}, \label{eq: N2}
+% \end{equation}
+% where \(\dot{\bm{r}}\) is the velocity of \(P\) at time \(t\). Taking the scalar product of both sides of equation (\ref{eq: N2}) with \(\dot{\bm{r}}\) we obtain the scalar equation
+% \[m(\bm{r} \cdot \dot{\bm{r}}) = \bm{F} \cdot \bm{r}.\]
+% Since, 
+% \[m(\bm{r} \cdot \dot{\bm{r}}) = \diff{}{t} \left( \half m \dot{\bm{r}} \cdot \dot{\bm{r}} \right),\]
+% this can be written in the form 
+% \[\diff{T}{t}=\bm{F} \cdot \dot{\bm{r}},\]
+% where \(T = \half m \dot{\bm{r}} \cdot \dot{\bm{r}}\).
+
+% \subsection{Angular momentum in relative motion}
+
+% \begin{theorem}
+%     The total angular momentum (relative to the centre of mass) is given by
+%     \[\begin{aligned}
+%         \bm{L}&=\sum_{i=1}^N m_i \bm{r}'_i \times \dot{\bm{r}}'_i + M \bm{R}\times \dot{\bm{R}} \\ 
+%         &= \bm{L}_{\text{spin}} + \bm{L}_{\text{orbital}}
+%     \end{aligned}\]
+% \end{theorem}
+
+% \begin{proof}
+%     By separating out the centre of mass motion, we have 
+%     \[\bm{r}_i = \bm{r}'_i+\bm{R}.\]
+%     Now we note that
+%     \[\bm{R} =\frac{1}{M}\sum_{i=1}^N  m_i \bm{r}_i\]
+%     where \(M\) is the total mass. So, we can rearrange and substitute,
+%     \[\begin{aligned}
+%         M\bm{R} &= \sum_{i=1}^N  m_i \bm{r}_i \\
+%                 &= \sum_{i=1}^N  m_i(\bm{r'}_i+\bm{R}) \\
+%                 &= \sum_{i=1}^N  m_i\bm{r'}_i +M\bm{R}.
+%     \end{aligned}\]
+%     Therefore,
+%     \[\sum_{i=1}^N  m_i \bm{r'}_i = \bm{0} \then \sum_{i=1}^N  m_i \dot{\bm{r}_i}' =\bm{0}.\]
+%     The total angular momentum is
+%     \[\begin{aligned}
+%         \bm{L} &= \sum_{i=1}^N \bm{r}_i \times (m\dot{\bm{r}_i}) \\
+%                 &= \sum_{i=1}^N m_i (\bm{r}'_i + \bm{R}) \times (\dot{\bm{r}_i}' + \dot{\bm{R}}) \\
+%                 &= \sum_{i=1}^N  m_i \bm{r}'_i \times \dot{\bm{r}_i}'+ \underbrace{\sum_{i=1}^N  m_i \bm{r}'_i \times \dot{\bm{R}}}_{\bm{0}}+\underbrace{\sum_{i=1}^N  m_i \bm{R}\times \dot{\bm{r}_i}'}_{\bm{0}}+\sum_{i=1}^N  m_i\bm{R}\times \dot{\bm{R}} \\
+%                 &= \sum_{i=1}^N  m_i \bm{r}'_i \times \dot{\bm{r}_i} +M\bm{R} \times \dot{\bm{R}} \\
+%                 &=\bm{L}_{\text{spin}}+\bm{L}_{\text{orbital}}.
+%     \end{aligned}\]
+% \end{proof}
+
+\section{REMINDER}
+
+\begin{itemize}
+    \item The conic section in the BOOK is in the section called 7.3 \\ \textbf{THE PATH EQUATION};
+    \item FINISH THE TENSOR SECTION -- VECTOR IDENTITIES
+\end{itemize}
+
+\section{Multivariable Taylor theorem}
+
+\begin{mdthm}
+    Taylor Theorem for two variable about the point \((a,b)\)
+    \[f(x,y)= f(a,b)+f_x(a,b)(x-a)+f_y(a,b)(y-b)+\cdots \]
+\end{mdthm}
+
+\section{Line integrals}
+
+\subsection{Line integral of a vector field}
+
+\begin{definition}
+    The \textbf{vector line integral} of vector field \(\bm{F}\) along an oriented smooth curve \(C\) is
+    \[\int_C \bm{F} \cdot \hat{\bm{T}} \, ds,\]
+    where \(\hat{\bm{T}}\) is the \textbf{unit tangent vector}.
+\end{definition}
+
+\begin{mdnote}
+    Imagine a particle moving along the path of curve \(C\) in which this curve is subjected to forces from a vector field, \(\bm{F}\). As the particle moves along the path, \textbf{work} is done by the particle. In the simplest case (one-dimensional linear motion), the work done by a particle is given by the force acting on the particle multiplied by the distance that it travels; this idea of \textit{work} is then extended to higher dimensions with vector line integrals. In a vector field the force acting on the curve are all in different directions thus, to evaluate the \textit{work done} we need forces which act \textbf{along} the path of curve \(C\), such forces are the ones which are \textbf{tangent} to the curve i.e. \(\bm{F} \cdot \hat{\bm{T}}\). The distance travelled by the particle is the \textit{arc length} of \(C\) i.e. \(ds\). Hence, the work done by the particle over a \(C\) in a vector field \(\bm{F}\), is the \textit{sum} of the force multiplied by the distance travelled i.e.
+    \[\int_C \bm{F} \cdot \hat{\bm{T}} \, ds.\]
+\end{mdnote}
+
+\begin{mdthm}
+    The vector line integral is equivalently defined as
+    \[\int_C \bm{F} \cdot d\bm{r} = \int_C \bm{F} \cdot \dot{\bm{r}} \, dt.\]
+\end{mdthm}
+
+\begin{proof}
+    The vector line integral is defined as 
+    \[\begin{aligned}
+        \int_C \bm{F} \cdot \hat{\bm{T}} \, ds &= \int_C \bm{F} \cdot \diff{\bm{r}}{s} \diff{s}{t} \, dt\\
+        &= \int_C \bm{F} \cdot \dot{\bm{r}} \, dt.
+    \end{aligned}\]
+\end{proof}
+
+\section{Stuff}
+
+\begin{figure}[H]
+     \begin{center}
+         \includegraphics{./Resources/Ellipse-def0.svg.png}
+     \end{center}
+\end{figure}
+
+\begin{figure}[H]
+     \begin{center}
+         \includegraphics[width=\textwidth]{./Resources/orbit-3_0.jpg}
+     \end{center}
+\end{figure}
+
+\section{Diagonalisation}
+
+\section{Links}
+
+\begin{itemize}
+    \item \href{https://www.youtube.com/watch?v=HxH7fAQjt70}{Moment of inertia tensor}  
+    \item \href{https://www.youtube.com/watch?v=r2Qb0vsxa8Y}{Parallel axes theorem}
+    \item \href{https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/}{MIT Classical Mechanics}
+    \item \href{https://math.stackexchange.com/questions/2063241/matrix-multiplication-notation}{Matrices summation notation}
+    \item \href{https://youtube.com/playlist?list=PLzhedHRpzyNuhFKs4GsZ-RQEYUklG9INh}{Kepler's laws}
+\end{itemize}
+
+% Inertia tensor - https://www.youtube.com/watch?v=HxH7fAQjt70
+% Parallel axis theorem - https://www.youtube.com/watch?v=r2Qb0vsxa8Y
+% MIT OpenCourseWare - https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/
+
+\end{document}
+
