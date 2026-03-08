@@ -491,7 +491,7 @@ ninja.data = [{
           title: 'Undergraduate Mathematics Notes (King&amp;#39;s College London)',
           description: "My undergraduate maths notes from King&#39;s College London",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/bsc-mathematics-notes-kcl.md/";
+              window.location.href = "/projects/bsc-mathematics-notes-kcl/";
             },},{id: "projects-msc-pure-mathematics-notes-imperial-college-london",
           title: 'MSc Pure Mathematics Notes (Imperial College London)',
           description: "My postgraduate maths notes from Imperial College London",
