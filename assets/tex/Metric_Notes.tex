@@ -1,0 +1,2503 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{francesco}
+\usepackage[pdfauthor={Francesco N. Chotuck},
+            pdftitle={Metric Spaces and Topology Notes},
+            ]{hyperref}
+\hypersetup{urlcolor=RubineRed,linktoc=all, linkcolor=black, hidelinks}
+%\usepackage[none]{hyphenat}
+
+\newcommand{\UU}{\mathcal U}
+\newcommand{\VV}{\mathcal V}
+
+\pagestyle{fancy}
+\lhead{Francesco Chotuck}
+\rhead{5CCM226A Metric Spaces \& Topology Notes}
+\setlength{\headheight}{15pt}
+
+\title{Metric Spaces \& Topology Notes}
+\date{}
+\author{Francesco Chotuck}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    This is KCL undergraduate module 5CCM226A, instructed by Dr Zoe Wyatt. The formal name for this class is ``Metric Spaces \& Topology''.
+\end{abstract}
+
+\tableofcontents
+
+\pagebreak
+
+\section{Preliminaries}
+
+\subsection{Sets}
+
+\begin{mdthm}
+    The laws of the algebra of sets.
+    \begin{itemize}
+        \item Associative laws:
+        \[\begin{aligned}
+            A \cup (B \cup C) &= (A \cup B) \cup C \\
+            A \cap (B \cap C) &= (A \cap B) \cap C.
+        \end{aligned}\]
+        \item Commutative laws:
+        \[\begin{aligned}
+            A \cup B &= B \cup A \\
+            A \cap B &= B \cap A.
+        \end{aligned}\]
+        \item Distributive laws:
+        \[\begin{aligned}
+            A \cap (B \cup C) &= (A \cap B) \cup (A \cap C) \\
+            A \cup (B \cap C) &= (A \cup B) \cap (A \cup C) \\
+        \end{aligned}\]
+        \item De Morgan's laws:
+        \[\begin{aligned}
+            \overline{(A \cup B)} &= \overline{A} \cap \overline{B} \\
+            \overline{(A \cap B)} &= \overline{A} \cup \overline{B}.
+        \end{aligned}\]
+    \end{itemize}
+\end{mdthm}
+
+\section{Metric Spaces}
+
+\begin{definition}
+    Let \(X\) be a non-empty set. A function \(d : X \times X \to \RR\) is called a \textbf{metric} on \(X\) if it satisfies 
+    \begin{itemize}
+        \item \(d(x,y) \geq 0\) (\textbf{non-negative});
+        \item \(d(x,y) = 0 \iff x = y\) (\textbf{non-degeneracy});
+        \item \(d(x,y)=d(y,x)\) (\textbf{symmetric});
+        \item \(d(x,z) \leq d(x,y)+d(y,z)\) (\textbf{the triangle inequality}),
+    \end{itemize}
+    for \(x,y,z \in X\).
+    We say that \((X,d)\) is a \textbf{metric space}.
+\end{definition}
+
+\begin{mdnote}
+    A metric can be thought as a distance operator.
+\end{mdnote}
+
+\begin{mdremark}
+    We can combine the first two bullet points into the following condition:
+    \[d(x,y) \geq 0 \text{ with } d(x,y)=0 \iff x=y.\]
+    This statement has the following implications:
+    \begin{itemize}
+        \item \(d(x,y) \geq 0\);
+        \item if \(x=y\) then \(d(x,y)=d(x,x)=0\);
+        \item if \(d(x,y)=0\) then \(x=y\).
+    \end{itemize}
+    \begin{example}
+        Define \(d(x,y)=\abs{\sin(x-y)}\) on \(\RR\). This is \textbf{NOT} a metric as \(d(2\pi,0)=\abs{\sin(2\pi)}=0\).
+    \end{example}
+\end{mdremark}
+
+\begin{definition}
+    Let \((X,d)\) be a metric space and suppose that \(A \subset X\). Then \((A,d)\) is a metric space, which we call a \textbf{metric subspace} of \((X,d)\).
+\end{definition}
+
+\begin{example}
+    \(\RR\) with the usual (Euclidean) metric \(d(x,y)=\abs{x-y}\):
+    \begin{itemize}
+        \item \(\abs{x-y} \geq 0\) and \(\abs{x-y} = 0 \iff x=y\);
+        \item \(d(x,y) = \abs{x-y}=\abs{y-x} = d(y,x)\);
+        \item \(d(x,y) = \abs{x-y} = \abs{x-z+z-y} \leq \abs{x-z}+\abs{z-y}\).
+    \end{itemize}
+\end{example}
+
+\begin{definition}
+    If \(S \subset \RR\) is then, \(B(S)\)  is the \textbf{set of bounded functions} i.e. 
+    \[B(S) = \{f : S \to \RR : \exists M < \infty \text{ with } \abs{f(x)} \leq M \, \forall x \in S\}.\]
+\end{definition}
+
+\begin{definition}
+    Let \(C[a,b]\) denote the set of all (real or complex) continuous functions on the interval \([a,b]\).
+\end{definition}
+
+\begin{mdnote}
+    The space \(C[a,b]\) is strictly smaller than \(B[a,b]\) as every continuous function on \([a,b]\) is bounded, but there are bounded functions that are not continuous.
+\end{mdnote}
+
+\begin{definition}
+    Given any non-empty set \(X\), define the metric \(d\) metric by 
+    \[\begin{aligned}
+        d(x,y) = \begin{cases}
+            1 &\text{if } x \neq y \\
+            0 &\text{if } x =y.
+        \end{cases}
+    \end{aligned}\]
+    We call this a \textbf{discrete metric}.
+\end{definition}
+
+\begin{definition}
+    If \((X,d)\) is a metric space and \(A \subset X\) then we define 
+    \[d(x,A) = \inf_{a \in A} d(x,a)\]
+\end{definition}
+
+\begin{mdremark}
+    This metric defines the distance between a point and a set.
+\end{mdremark}
+
+\begin{mdnote}
+    To do this we take the distance between a fixed point \(x\) and all the elements of the set \(A\) then take the infimum of this new set, as we want the metric to define the shortest distance.
+\end{mdnote}
+
+\begin{mdexample}
+    Some common metrics in \(\RR^n\) and \(\CC^n\).
+    \[\begin{aligned}
+        d_1(x,y) &= \abs{x_1-y_1}+\abs{x_2-y_2}+ \cdots + \abs{x_n -y_n} \\
+        d_2(x,y) &= \left( \sum_{i=1}^{n} \abs{x_i-y_1}^2 \right) ^{\frac{1}{2}} \\
+        d_{\infty}(x,y) &= \max\{\abs{x_i - y_i} : 1 \leq i \leq n\},
+    \end{aligned}\]
+    where \(x_1\) and \(y_1\) are coordinates of the points \(x\) and \(y\) respectively.
+\end{mdexample}
+
+\begin{mdnote}
+    Note we can write 
+    \[d_1(x,y) = \left( \sum_{i=1}^{n} \abs{x_i-y_i}^1 \right)^{\frac{1}{1}},\]
+    so, the notation for the metrics \(d_1\) and \(d_2\) denote the powers of the absolute value and the denominator of the fraction which is the exponent of the sum.
+\end{mdnote}
+
+\subsection{Convergence}
+
+\begin{definition}
+    A sequence \(x_n\) of elements of a metric space \((X,d)\) is said to \textbf{converge} to \(x \in X\) if for all \(\eps>0\) there exists \(N_{\eps} \in \NN\) such that \(d(x_n,x) < \eps\) for all \(n > N_{\eps}\).
+    We write this as 
+    \begin{itemize}
+        \item \(x_n \xrightarrow{d} x\) as \(n \to \infty\), 
+        \item or \(x_n \to x\) in \((X,d)\) 
+        \item or \(x_n \to x\).
+    \end{itemize}
+\end{definition}
+
+\begin{mdlemma}
+    A sequence, \(x_n\), converges to \(x\) in \((X,d)\) if and only if \(d(x_n,x) \to 0\) in \(\RR\).
+\end{mdlemma}
+
+\begin{lemma}
+    If \(r_n \geq 0\) such that \(r_n \to 0\) in \(\RR\) and \(d(x_n,x) < r_n\) for all (sufficiently large) \(n\) then \(x_n\) converges to \(x\) in \((X,d)\).
+\end{lemma}
+
+\begin{proof}
+    By definition, the sequence of real numbers \(r_n\) converges to zero if and only if for all \(\eps>0\) there exists \(N_{\eps} \in \NN\) such that \(r_n <\eps\) for all \(n >N_{\eps}\). Then as \(d(x_n,x)<r_n\) we also have \(d(x_n,x)<r_n<\eps\) for all \(n >N_{\eps}\) which means that \(d(x_n, x) \to 0\).
+\end{proof}
+
+\begin{example}
+    Choose \(r_n = \frac{1}{\sqrt{n}}\) and \(d(x_n,x)=\frac{1}{n}\) then clearly \(d(x_n,x) \leq r_n\) for \(n\) large.
+\end{example}
+
+
+\begin{lemma}[Uniqueness of limits]
+    Let \(x_n\) be a sequence in \((X,d)\) and suppose that \(x_n \to x\) and \(x_n \to y\) as \(n \to \infty\) then, \(x=y\).
+\end{lemma}
+
+\begin{proof}
+    By the triangle inequality, we have that for all \(n\)
+    \[0 \leq d(x,y) \leq d(x_n,x) + d(x_n,y).\]
+    Both \(d(x_n,x) \to 0\) and \(d(x_n,y) \to 0\) as \(n \to \infty\), therefore, by the Squeeze theorem \(d(x,y)=0\) which only happens when \(x=y\).
+\end{proof}
+
+\begin{mdremark}
+    This allows us to write \(\lim_{n \to \infty} x_n =x\).
+\end{mdremark}
+
+\begin{mdexample}
+    Suppose \(X = \RR^2\), and we have sequence \(a_n =(1-\frac{1}{n},\frac{2}{n})\) which converges to \(a = (1,0)\) and define the metrics
+    \[\begin{aligned}
+        d_1(x,y) &= \abs{x_1-y_1}+\abs{x_2-y_2}, \\
+        d_2(x,y) &= \sqrt{(x_1-y_1)^2+(x_2-y_2)^2}, \\
+        \overline{d} &\text{ is the discrete metric}.
+    \end{aligned}\]
+    Compute \(d_1(a_n,a) , d_2(a_n,a)\) and \(\overline{d}(a_n,a)\) also, determine whether the sequence converges in each metric.
+    \begin{solution}
+        We compute each metric case by case. We take \(\bm{x} = (1-\frac{1}{n},\frac{2}{n})\) and \(\bm{y}=(1,0)\). Therefore, \(x_1 = 1- \frac{1}{n}, y_1 = 1, x_2 = \frac{2}{n}\) and \(y_2= 0\).
+        \begin{itemize}
+            \item For \(d_1\) we have
+            \[\begin{aligned}
+                d_1(a_n,a) &= \abs{1-\frac{1}{n} - 1} + \abs{\frac{2}{n} - 0} \\
+                &= \frac{1}{n} + \frac{2}{n} \\
+                &= \frac{3}{n} \\
+                &\to 0 \quad \text{as } n\to \infty.
+            \end{aligned}\]
+            Therefore, \(a_n\) converges in \((\RR_2,d_1)\).
+            \item For \(d_2\) we have 
+            \[\begin{aligned}
+                d_2(a_n,a) &= \sqrt{\left( 1-\frac{1}{n} - 1 \right)^2 + \left( \frac{2}{n} - 0 \right)} \\
+                &= \sqrt{\frac{1}{n^2} + \frac{4}{n^2}} \\
+                &= \frac{\sqrt{5}}{n} \\
+                &\to 0 \quad \text{as } n\to \infty.
+            \end{aligned}\]
+            Therefore, \(a_n\) converges in \((\RR_2,d_2)\).
+            \item For \(\overline{d}\) we have 
+            \[\begin{aligned}
+                \overline{d}(a_n,a) &= 1 \\
+                &\nrightarrow 0 \quad \text{as } n\to \infty.
+            \end{aligned}\]
+            Therefore, \(a_n\) \textbf{does not converge} in \((\RR_2,\overline{d})\).
+        \end{itemize}
+    \end{solution}
+\end{mdexample}
+
+\begin{definition}
+    We say that the metrics \(d\) and \(\rho\) defined on the same set \(X\) are \textbf{equivalent} if 
+    \[x_n \to x \text{ in } (X,d) \iff x_n \to x \text{ in } (X,\rho).\]
+    We denote this \(d\sim \rho\).
+\end{definition}
+
+\begin{mdnote}
+    That \((X,d)\) and \((X,\rho)\) have the same convergent sequences.
+\end{mdnote}
+
+\begin{mdthm}
+    Let \(X\) be non-empty and suppose that \(\rho\) and \(d\) are metrics on \(X\). If there exists constants \(L,M>0\) such that for all \(x,y \in X\) we have 
+    \[L\rho(x,y) \leq d(x,y) \leq M\rho(x,y)\]
+    then \(\rho \sim d\).
+\end{mdthm}
+
+\begin{definition}
+    A sequence of (bounded) functions \(f_n \in B(S)\) converges to \(f \in B(S)\) \textbf{pointwise} if for all \(x \in S\) and for all \(\eps>0\) there exists an \(N_{\eps,x} \in \NN\) such that \(\abs{f(x)-f_n(x)} < \eps\) for all \(n>N_{\eps,x}\). 
+\end{definition}
+
+\begin{definition}
+    The sequence \(f_n\) \textbf{converges uniformly} on \(S\) to \(f\) if for all \(\eps >0\) there exist an \(N(\eps) \in \NN\) such that for all \(n>N(\eps)\) we have \(\abs{f_n(x)-f(x)}<\eps\) for all \(x \in S\).
+\end{definition}
+
+\begin{mdlemma}
+    Let \(f_n \in B(S)\) be a sequence and \(f \in B(S)\). Then, \(f_n \to f\) uniformly on \(S\) if and only if it converges in the metric space \((B(S),d)\) where \(d\) is defined as
+    \[d(f,g) = \sup_{x\in S} \abs{f(x)-g(x)}.\]
+    We call this metric the \textbf{uniform metric}.
+\end{mdlemma}
+
+\begin{proof}
+    \hphantom{yeah}
+    \begin{itemize}
+        \item Proof of \((\then)\).  \\
+        Suppose \(f_n \to f\) uniformly on \(S\), that is \(\abs{f(x)-f_n(x)} <\eps\) for all \(x \in S\). By the definition, the supremum is the least upper bound therefore, for all \(\delta>0\) there exists \(x_{\delta} \in S\) such that 
+        \[\sup_{x\in S} \abs{f(x)-f_n(x)} \leq \delta + \abs{f(x_{\delta})-f_n(x_{\delta})} \leq \delta+\eps.\]
+        Since \(\delta\) can be chosen to be arbitrarily small, this implies that \(\sup_{x\in S} \abs{f(x)-f_n(x)} <\eps\).
+        \item Proof of \((\Leftarrow)\). \\
+        Suppose \(f_n \to f\) in \((B(S),d)\) then \(d(f_n,f) = \sup_{x\in S} \abs{f(x)-f_n(x)} < \eps\) so,
+        \[\abs{f(x)-f_n(x)} \leq \sup_{x\in S} \abs{f(x)-f_n(x)} < \eps, \quad \text{for all } x\in S.\]
+    \end{itemize}
+\end{proof}
+
+From now on, unless specifically stated otherwise, we will assume that the space \(B(S)\) is equipped with the metric above, in particular we will assume that \(C[a,b]\) always carries this metric.
+
+\section{Open and Closed sets}
+
+\subsection{Balls}
+
+\begin{definition}
+    Let \((X,d)\) be a metric space and \(r>0\). If \(x_0 \in X\) then the set 
+    \[B_r(x_0) = \{x \in X : d(x,x_0)<r\}\]
+    is called the \textbf{open ball} of centre \(x_0\) and radius \(r\).
+\end{definition}
+
+\begin{definition}
+    Let \((X,d)\) be a metric space and \(r>0\). If \(x_0 \in X\) then the set 
+    \[B_r[x_0] = \{x \in X : d(x,x_0) \leq r\}\]
+    is called the \textbf{closed ball} of centre \(x_0\) and radius \(r\).
+\end{definition}
+
+\begin{mdremark}
+    If there is a need to emphasise the metric, we write \(B^d_r(x_0)\) and \(B^d_r(x_0)\).
+\end{mdremark}
+
+\begin{example}
+    Some examples of open and closed balls.
+    \begin{itemize}
+        \item In \(\RR\) with the modulus metric we have 
+        \[\begin{aligned}
+            B_r(x_0) &= (x_0 - r,x_0+r) \\
+            B_r[x_0] &= [x_0-r,x_0+r].
+        \end{aligned}\]
+        \item In \(\RR^2\) with modulus metric (of \(\RR^2\)) we have that \(B_r(x_0)\) is an open disc centred at \(x_0\) of radius \(r\). Similarly, \(B_r[x_0]\) is a closed disc centred at \(x_0\) of radius \(r\).
+    \end{itemize}
+\end{example}
+
+\begin{mdexample}
+    Suppose \(X\) is any non-empty set and \(d\) is the discrete metric i.e.
+    \[\begin{aligned}
+        d(x,y) = \begin{cases}
+            0 &\text{if } x = y \\
+            1 &\text{if } x \neq y.
+        \end{cases}
+    \end{aligned}\]
+    We consider the open ball in the metric space \((X,d)\):
+    \[B_r(x_0) = \{x \in X : d(x_0,x) <r\}.\]
+    We consider \(3\) cases for the value of \(r\).
+    \begin{itemize}
+        \item If \(r<1\) then \(B_r(x_0) = \{x \in X : d(x_0,x)<1\}\), since the discrete metric can only take values of \(0\) and \(1\) the condition \(d(x_0,x)<1\) becomes \(d(x_0,x)=0\). The only element at `distance' \(0\) away from \(x_0\) is \(x_0\) itself. Thus, \(B_{r<1} = \{x_0\}\).
+        \item If \(r=1\) the condition \(d(x_0,x)<r=1\) becomes \(d(x_0,x)=0\). Thus, \(B_{r=1} = \{x_0\}\).
+        \item If \(r>1\). We consider an example where \(r>1\) first to illustrate this case. Suppose \(r=2\) then we have the condition \(d(x_0,x)<2\); this condition encompasses both cases of the discrete metric. Hence, if \(r>1\) then the condition \(d(x_0,x)<r\) becomes \(d(x_0,x) = 0\) or \(1\). We conclude that \(B_{r>1} = X\).
+    \end{itemize}
+    Therefore, we have 
+    \[\begin{aligned}
+        B_r(x_0) = \begin{cases}
+            \{x_0\} &\text{if } r\leq 1 \\
+            X &\text{if } r>1.
+        \end{cases}
+    \end{aligned}\]
+    Whereas, (by similar reasoning as above)
+    \[\begin{aligned}
+        B_r[x_0] = \begin{cases}
+            \{x_0\} &\text{if } r< 1 \\
+            X &\text{if } r \geq 1.
+        \end{cases}
+    \end{aligned}\]
+\end{mdexample}
+
+\subsection{Open sets}
+
+\begin{definition}
+    A set \(\mathcal{U} \subseteq X\) is said to be a \textbf{neighbourhood} of \(x_0 \in X\) if there exists an \(r>0\) such that \(B_r(x_0) \subset \mathcal{U}\).
+\end{definition}
+
+\begin{example}
+    The balls \(B_r(x_0)\) and \(B_r[x_0]\) are neighbourhoods of the point \(x_0\).
+\end{example}
+
+\begin{definition}
+    We say \(\mathcal{U}\) is an \textbf{open set in} \(X\). If \(\forall x \in \mathcal{U}\) there exists an \(r>0\) such that \(B_r(x) \subset \mathcal{U}\).
+\end{definition}
+
+\begin{mdnote}
+    That is, the set \(\mathcal{U}\) contains a ball about each of its points.
+\end{mdnote}
+
+\begin{mdremark}
+    We could use \(B_r[x_0]\) in the definitions above.
+\end{mdremark}
+
+\begin{theorem}
+    Some properties of open sets:
+    \begin{itemize}
+        \item A set \(\mathcal{U}\) is open in \((X,d)\) if and only if \(\mathcal{U}\) is a neighbourhood of all its points.
+        \item We have 
+        \[x_0 \in B_{r-\eps}(x_0) \subseteq B_r(x_0) \subseteq B_r[x_0] \subseteq B_{r+\eps}(x_0)\]
+        for every \(r>\eps>0\).
+    \end{itemize}
+\end{theorem}
+
+\begin{example}
+    Consider \(\RR\) with the usual metric. Then \(B_{\eps}(0)=(-\eps,\eps)\) so, \(\{0\}\) is not open as \(B_{\eps}(0) \not\subseteq \{0\}\) for any \(\eps>0\).
+\end{example}
+
+\begin{lemma}
+    The open ball, \(B_r^d(x)\) is open in \((X,d)\).
+\end{lemma}
+
+\begin{proof}
+    Let \(y \in B_{r}(x)\); we want to prove \(B_{\eps}(y) \subset B_r(x)\). Below we have an illustration of \(B_r(x)\).
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+    
+            \draw[fill=lightgray!45,dashed, thick] (0,0) circle (2cm);
+            
+            \draw[Stealth-Stealth,red] (0,0) -- node[below right]{$r$} (1.4142135623731,1.4142135623731);
+
+            \draw[Stealth-Stealth,blue] (0,0) -- node[below left]{$d(x,y)$} (-1,1);
+            
+            \node at (-1,0.7){\(y\)};
+
+            \filldraw (-1,1) circle (1pt);
+
+            \filldraw (0,0) circle (1pt);
+            
+            \node at (0,-0.3){$x$};
+            
+        \end{tikzpicture}
+    \end{figure}
+    Set \(\eps:= r-d(x,y)>0\). For any \(z \in B_{\eps}(y)\) we have 
+    \[\begin{aligned}
+        d(z,x) &\leq d(z,y)+d(y,x) \\
+                &\leq d(z,y)+d(x,y) \\
+                &<\eps+d(x,y) \\
+                &= r.
+    \end{aligned}\]
+    So, we have \(d(z,x)<r\) which implies \(z \in B_r(x)\).
+\end{proof}
+
+\begin{mdlemma}
+    The following statements are equivalent:
+    \begin{enumerate}
+        \item \(x_n \to x\) in \((X,d)\).
+        \item For all neighbourhoods of \(x\), say \(\mathcal{U}\),  there exists an \(N_{\mathcal{U}}\) such that for all \(n>N_{\mathcal{U}}\) we have \(x_n \in \mathcal{U}\).
+        \item For all \(\eps>0\) there exists \(N_{\eps}\in \NN\) such that for all \(n>N_{\eps}\) we have \(x_n \in B_{\eps}(x)\).
+    \end{enumerate}
+\end{mdlemma}
+
+\begin{proof}
+    We split the proof into parts.
+    \begin{itemize}
+        \item Proof of \((1 \then 2)\). \\
+        Given a neighbourhood of \(x\), say \(\mathcal{U}\), there exists \(\eps>0\) such that \(B_{\eps}(x) \subset \mathcal{U}\). Furthermore, \(x_n \xrightarrow{d} x\) means that there exists \(N_{\eps} \in \NN\) such that \(\forall n >N_{\eps}\) we have \(x_n \in B_{\eps}(x) \subset \mathcal{U}\).
+        \item Proof of \((2 \then 3)\). \\
+        The proof is clear since \(B_{\eps}\) is a neighbourhood of \(x\).
+        \item Proof of \((3 \then 1)\). \\
+        The proof is clear since \(x_n \in B_{\eps}(x)\) means exactly \(d(x_n,x)<\eps\).
+    \end{itemize}
+\end{proof}
+
+\begin{proposition}
+    Some properties of unions and intersections:
+    \begin{itemize}
+        \item \(x \in \bigcup_{i \in I} A_i\) if \(x \in A_i\) \textbf{for some} \(i\).
+        \item \(x \in \bigcap_{i \in I} A_i\) if \(x \in A_i\) \textbf{for all} \(i\).
+    \end{itemize}
+\end{proposition}
+
+\begin{example}
+    Suppose \(x \not\in \bigcap_{i \in I} A_i\) then \(x\) is not in \textbf{one} of the \(A_i\).
+\end{example}
+
+\begin{definition}
+    The \textbf{topology of a metric space} \((X,d)\) is the family/collection of all open subsets of \(X\).
+\end{definition}
+
+\begin{mdthm}
+    The topology of a metric space satisfies the following properties:
+    \begin{enumerate}
+        \item The whole space \(X\) and the empty set \(\varnothing \) are both open in \((X,d)\).
+        \item The union of any collection of open subsets of \(X\) is open in \((X,d)\).
+        \item The intersection of any finite collection of open subsets of \(X\) is open in \((X,d)\).
+    \end{enumerate}
+\end{mdthm}
+
+\begin{mdnote}
+    The infinite (or finite) union of open subsets is open in \((X,d)\) whereas, \textbf{only} the finite intersection of open subsets is open in \((X,d)\).
+\end{mdnote}
+
+\begin{proof}
+    We prove each statement in turn.
+    \begin{enumerate}
+        \item The whole space is open because it contains all open balls. The empty set is open because it does not contain any points.
+        \item We want to prove \(B_r(x) \subset \bigcup_{i \in I} \mathcal{U}_i\). Pick \(x \in \bigcup_{i \in I} \mathcal{U}_i\) then, \(x \in \mathcal{U}_j\) for some \(j \in I\). Since \(\mathcal{U}_j\) is open there exists an \(r>0\) such  that \(B_r(x) \subset \mathcal{U}_j \subset \bigcup_{i \in I} \mathcal{U}_i\).
+        \item We prove the case: if \(\mathcal{U}\) and \(\mathcal{V}\) are open then so is \(\mathcal{U} \cap \mathcal{V}\). Pick \(x \in \mathcal{U} \cap \mathcal{V}\). Since \(\mathcal{U}\) and \(\mathcal{V}\) are open there exists \(r,s>0\) such that \(B_r(x) \subset \mathcal{U}\) and \(B_s(x) \subset \mathcal{V}\). Take \(\eps:= \min(r,s)>0\) then \(B_{\eps}(x) = B_r(x) \cap B_s(x) \subset \mathcal{U} \cap \mathcal{V}\).
+    \end{enumerate}
+\end{proof}
+
+\begin{example}
+    Let \(\mathcal{U}= \left( -\frac{1}{n},\frac{1}{n} \right)\) on \(\RR\) with the usual metric (i.e. the Euclidean distance). Since, \(\mathcal{U}=B_{\frac{1}{n}}(0)\) we have that \(\mathcal{U}\) is an open set \((\RR,d)\). We also have
+    \begin{itemize}
+        \item \(\bigcup_{i=1}^N \left( -\frac{1}{n},\frac{1}{n} \right) = \left( -\frac{1}{N}, \frac{1}{N} \right)\) which is an open set.
+        \item \(\bigcap_{i=1}^{\infty} \left( -\frac{1}{n},\frac{1}{n} \right)= \{0\}\) which is not an open set.
+    \end{itemize}
+\end{example}
+
+\begin{mdremark}
+    By `not open' we are not saying the set is `closed'. 
+\end{mdremark}
+
+\begin{lemma}
+    A set is open if and only if it is the union of a collection of open balls.
+\end{lemma}
+
+\begin{proof}
+    We prove the lemma in two parts:
+    \begin{itemize}
+        \item Proof of \((\then).\) \\
+        If \(\mathcal{U}\) is open, then for every point \(x \in \mathcal{U}\) there exists a ball \(B_{r_x}(x) \subset \mathcal{U}\). We claim \(\mathcal{U} = \bigcup_{x \in \mathcal{U}} B_{r_x}(x)\). Indeed, the union \(\bigcup_{x \in \mathcal{U}} B_{r_x}(x)\) is a subset of \(\mathcal{U}\) because every ball \(B_{r_x}(x)\) is a subset of \(\mathcal{U}\) and the union contains every point \(x \in \mathcal{U}\) because \(x \in B_{r_x}(x)\).
+        \item Proof of \((\Leftarrow)\). \\
+        As discussed previously, the union of open balls is open.
+    \end{itemize}
+\end{proof}
+
+\begin{mdprop}
+    Let \((A,d)\) be a metric subspace of \((X,d)\). A set \(\mathcal{U}\) is open in \((A,d)\) if and only if \(\mathcal{U}=A \cap O\) for some \(O\) which is open in \((X,d)\).
+\end{mdprop}
+
+\begin{proof}
+    First we notice that an open ball in \(A\);
+    \[\begin{aligned}
+        B_r(x_0,A) &= \{x \in A: d(x_0,x)<r\} \\
+        &= A \cap \{x \in X : d(x_0,x)<r\} \\
+        &= A \cap B_r(x_0,X).
+    \end{aligned}\]
+    We will prove it in two parts.
+    \begin{itemize}
+        \item Proof of \((\Leftarrow)\). \\
+        Suppose \(O\) is open in \(X\) and pick \(x_0 \in A\cap O\) which implies \(x_0 \in O\). Since, \(O\) is open in \(X\) there exists an \(r>0\) such that \(B_r(x_0,X) \subseteq O\). Then \(B_r(x_0,A) = A \cap B_r(x_0,X) \subseteq A \cap O\) thus, \(A \cap O\) is open in \(A\).
+        \item Proof of \((\then)\). \\
+        Let \(\mathcal{U}\) open in \(A\). We can write \(\mathcal{U}\) as the union of open balls in \(A\) i.e. \(\mathcal{U} = \bigcup_{i \in I} B_i(A)\) (the notation \(B(A)\) means an open ball in the set \(A\)). Using the observation above we can write each of these open balls in \(A\) as \(B_i(A) = A \cap B_i(X)\) where \(B_i(X)\) are open balls in \(X\). So, 
+        \[\begin{aligned}
+            \mathcal{U} &= \bigcup_{i\in I} B_i(A) \\
+            &= A \cap \left( \bigcup_{i \in I} B_i(X) \right) \\
+            &= A \cap O,
+        \end{aligned}\]
+        where \(O:= \bigcup_{i \in I} B_i(X)\) which is open in \(X\).
+    \end{itemize}
+\end{proof}
+
+The figure below illustrates the proposition. The triangle is the set \(A\) and the circle (with imaginary dotted lines) is the open set \(O\). Their intersection, namely \(A \cap O\) -- shaded in red -- is an open set in the metric space \((A,d)\).
+
+\begin{figure}[H]
+     \begin{center}
+         \includegraphics[scale=0.5]{./Resources/Metric stuff.png}
+     \end{center}
+\end{figure}
+
+\begin{mdexample}
+    Suppose the metric space is \(\RR\) with the usual metric. Let \(A = [-1,1]\) be a metric subspace and \(\mathcal{U} = (0,1]\). Choose \(O=(0,2)\), clearly \(O\) is an open set; we have that \(\mathcal{U} =A \cap O\) hence, \(\mathcal{U}\) is open in \((A,d)\).
+\end{mdexample}
+
+\begin{example}
+    Suppose the metric space is \(\RR\) with the usual metric. Let \(A =\{0,1\}\) and \(\mathcal{U} = \{0\}\). We have that \(\mathcal{U}\) is open in \((A,d)\) because, \(\mathcal{U} = A \cap O\) where \(O=(-1,1)=B_1(0)\) is open in \((X,d)\).
+\end{example}
+
+\begin{definition}
+    Given \((X,d)\) and \(A \subseteq X\). We say \(x \in A\) is an \textbf{interior point} of \(A\) if there exists an \(r>0\) such that \(B_r(x) \subset A\).
+\end{definition}
+
+\begin{definition}
+    The \textbf{interior of a set} \(A\) in \(X\) is the union of all open sets in \(X\) contained in \(A\). This is denoted \(\text{int}(A)\) or \(A^{\circ}\).
+\end{definition}
+
+\begin{theorem}
+    We can write 
+    \[\text{int}(A) = \bigcup \{\mathcal{U} \subset X : \mathcal{U} \text{ is open in } X \text{and } \mathcal{U} \subset A\}.\]
+\end{theorem}
+
+\begin{mdremark}
+    We have the following:
+    \begin{itemize}
+        \item \(\text{int}(A)\) is the largest open set contained in \(A\). 
+        \item \(\text{int}(A) \subseteq A\).
+    \end{itemize}
+\end{mdremark}
+
+\begin{example}
+    Suppose the metric space is \(\RR\) with the usual metric 
+    \begin{enumerate}
+        \item \(A = [1,2]\) then \(\text{int}(A)=(1,2) = B_{\frac{1}{2}}(1.5)\).
+        \item \(A=(0,1] \cup \{3\}\) then \(\text{int}(A)=(0,1)=B_{\frac{1}{2}}(0.5)\).
+    \end{enumerate}
+\end{example}
+
+\begin{mdprop}
+    The metrics \(d\) and \(\rho\) are equivalent on \(X\) if and only if 
+    \begin{itemize}
+        \item for every open ball \(B_r^d(x) \subset X\) there exists \(s>0\) such that \(B_s^{\rho}(x) \subseteq B_r^d(x)\) and 
+        \item for every open ball \(B_s^{\rho}(x) \subset X\) there exists \(t>0\) such that \(B_t^d(x) \subseteq B_s^{\rho}(x)\).
+    \end{itemize}
+\end{mdprop}
+
+
+\begin{proof}
+    We split the proof into two parts.
+    \begin{itemize}
+        \item Proof of \((\Leftarrow)\). \\
+        Suppose \(x_n \xrightarrow{d} x\) then, for any \(s>0\) there exists a \(t>0\) such that \(B_t^d(x) \subseteq B_s^{\rho}(x)\). Furthermore, there exists \(N_t \in \NN\) such that \(x_n \in B_t^d(x)\) for all \(n\geq N_t\) which implies \(x_n \in B_s^{\rho}(x)\) for all \(n>N_t\) i.e. \(x_n \xrightarrow{\rho} x\).
+        \item Proof of \((\then)\). \\
+        Assume \(\rho \sim d\) but, for the sake of contradiction, assume there exists an open ball \(B_r^{\rho}(x)\) with \underline{\textbf{NO}} open ball \(B_s^d(x)\) for all \(s>0\) inside it. Pick a sequence \(s_n \to 0\) and let \(x_n \in B_{s_n}^d(x)\) and \(x_n \not\in B_r^{\rho}(x)\) then, \(x_n \xrightarrow{d} x\). However, the sequence \(x_n\) does not converge to \(x\) in the metric \(\rho\) because \(x_n \not\in B_r^{\rho}(x)\) for all \(n\). Therefore, \(\rho\) and \(d\) are not equivalent metrics which is a contradiction of the initial assumption.
+    \end{itemize}
+\end{proof}
+
+% \begin{proof}
+%     We will prove it in two parts.
+%     \begin{itemize}
+%         \item Proof of \((\then).\) \\
+%         Assume, for the sake of contradiction, that the metrics are equivalent by there exists an open ball \(B_r^{\rho}(x)\) which contains \textbf{no} open ball \(B_s^{d}(x)\). Choose a sequence \(s_n \to 0\) and let \(x_n \in B_{s_n}^d(x)\) and \(x_n \not\in B_r^{\rho}(x)\). Then \(x_n \xrightarrow{d} x\). However, \(x_n \not\xrightarrow{\rho} x\) (that is, \(x_n\) does not converge to \(x\) in the metric \(\rho\)) because \(x_n \not\in B_r^{\rho}(x)\) for all \(n\). Therefore, the metrics \(\rho\) and \(d\) are not equivalent, and we obtain a contradiction.
+%         \item Proof of \((\Leftarrow).\) \\
+%         If every open ball \(B_r^{\rho}(x)\) contains an open ball \(B_s^d(x)\) and \(x_n \xrightarrow{d} x\) then for any \(r>0\) we can choose \(s>0\) and \(n_s\) such that 
+%         \[x_n \in B_s^d(x) \subseteq B_r^{\rho}(x) \quad \forall n >n_s.\]
+%         This implies that \(x_n \xrightarrow{\rho} x\). Similarly, if every open ball \(B_s^d(x)\) contains an open ball \(B_r(x)\) then, \(x_n \xrightarrow{\rho} x\) implies \(x_n \xrightarrow{d} x\). Hence, the metrics are equivalent.
+%     \end{itemize}
+% \end{proof}
+
+\subsection{Closed sets}
+
+\begin{definition}
+    A point \(x \in X\) is a \textbf{limit point} of a set \(A\) if every ball about \(x\) contains a point of \(A\) distinct from \(x\). That is,
+    \[\left( B_r(x) \cap A \right) \backslash \{x\} \neq \varnothing \quad \forall r>0.\]
+\end{definition}
+
+\begin{mdremark}
+    Other terms for ``limit points'' are: accumulation point or cluster point.
+\end{mdremark}
+
+\begin{definition}
+    The \textbf{set of limit points} of \(A\) is denoted by \(A'\).
+\end{definition}
+
+\begin{mdexample}
+    Define the metric space \((\RR,d)\) where \(d\) is the usual metric of \(\RR\).
+    \begin{enumerate}
+        \item Suppose \(A = [0,1]\) then \(0\) is a limit point of \(A\), written \(0 \in A'\).
+        \item Suppose \(A = (0,1]\) then \( 0\in A'\) even though \(0 \not\in A\).
+        \begin{figure}[H]
+             \begin{center}
+                \resizebox{10cm}{!}{%
+                    \begin{tikzpicture}
+
+                    \draw[-Stealth] (-1,0) -- (2,0) node[right]{$\mathbb{R}$};
+                    
+                    \fill[blue] (1,0) circle (0.6 mm);
+                    
+                    \draw[blue] (0,0) -- (1,0);
+                    
+                    \node[blue] at (0,0) {$\circ$};
+                    
+                    \fill[white] (0,0) circle (0.52mm);
+                    
+                    \draw[red] (-0.5,0.3) -- (0.5,0.3);
+                    
+                    \node[red] at (0.5,0.3) {$\circ$};
+                    
+                    \node[red] at (-0.5,0.3) {$\circ$};
+                    
+                    \fill[white] (-0.5,0.3) circle (0.52mm);
+                    \fill[white] (0.5,0.3) circle (0.52mm);
+                    
+                    \end{tikzpicture}}
+             \end{center}
+        \end{figure}
+        The blue line represents \(A\) and the red line represents \(B_r(0)\); as we can see the intersection between \(A\) and the open ball about \(0\) is always non-empty.
+        \item Suppose \(A = (0,1]\cup \{-1\}\) then, \(-1 \not\in A'\) because we have \(\left( B_r(-1) \cap A \right) \backslash \{-1\} =\varnothing\) for all \(r>0\).
+        \begin{figure}[H]
+             \begin{center}
+                \resizebox{10cm}{!}{%
+                    \begin{tikzpicture}
+
+                        \draw[-Stealth] (-2,0) -- (2,0) node[right]{$\mathbb{R}$};
+                        
+                        \fill[blue] (1,0) circle (0.6 mm);
+                        
+                        \draw[blue] (0,0) -- (1,0);
+                        
+                        \node[blue] at (0,0) {$\circ$};
+                        
+                        \fill[white] (0,0) circle (0.52mm);
+                        
+                        \fill[blue] (-1,0) circle (0.52mm);
+                        
+                        \draw[red] (-1.5,0.3) -- (-0.5,0.3);
+                        
+                        \node[red] at (-1.5,0.3) {$\circ$};
+                        
+                        \node[red] at (-0.5,0.3) {$\circ$};
+                        
+                        \fill[white] (-0.5,0.3) circle (0.52mm);
+                        \fill[white] (-1.5,0.3) circle (0.52mm);
+                        
+                        \end{tikzpicture}
+                }
+             \end{center}
+        \end{figure}
+        The blue line represents \(A\) and the red line represents the open ball \(B_r(-1)\), clearly only for selected \(r>0\) the intersection between the open ball and \(A\) is not empty but not for all \(r>0\). As such, \(-1\) is not a limit point.
+    \end{enumerate}
+\end{mdexample}
+
+\begin{mdlemma}
+    The point \(x \in X\) is a limit point of \(A\) if and only if there exists a sequence \((x_n) \subset A\) such that \(x_n \neq x\) and \(x_n \xrightarrow{d} x\).
+\end{mdlemma}
+
+\begin{proof}
+    We will prove it in two parts.
+    \begin{itemize}
+        \item Proof of \((\then)\). \\
+        If every ball about \(x\) contains a point of \(A\) distinct from \(x\), then there exists a sequence of points \(x_n \in A\) distinct from \(x\) and lying in the balls \(B_{\frac{1}{n}}(x)\) which implies \(x_n \to x\).
+        \item Proof of \((\Leftarrow)\). \\
+        If \(x_n \to x\) then by a previous lemma \(x_n \in B_{\eps}(x)\).
+    \end{itemize}
+\end{proof}
+
+\begin{example}
+    Suppose \(A = (0,1) \cup \{2\}\) then, \(2 \not\in A'\) because there is no sequence \(x_n \neq 2 \in A\) such that \(x_n \to 2\).
+\end{example}
+
+\begin{definition}
+    A set is \textbf{closed} in \((X,d)\) if it contains all of its limit points. That is \(A\) is closed if \(A' \subset A\).
+\end{definition}
+
+\begin{mdlemma}
+    A set \(A\) is closed in \((X,d)\) if and only if for all sequences \((x_n) \subseteq A\) that converge in \(X\) we have \(\lim_{n \to \infty} x_n \in A\).
+\end{mdlemma}
+
+\begin{proof}
+    We will prove it in two parts.
+    \begin{itemize}
+        \item Proof of \((\then)\). \\
+        Given a sequence \((x_n) \subset A\) then either \(\lim_{n \to \infty} x_n = x_k\) for some \(k\) (i.e. the limit is one of the points in the sequence) or it is a limit point of \(A\) which implies \(\lim_{n \to \infty} x_n \in A\).
+        \item Proof of \((\Leftarrow)\).\\
+        Every limit point is the limit of some sequence \((x_n) \subseteq A\) and \(\lim_{n \to \infty} x_n \in A\) hence, the limit points are contained in \(A\).
+    \end{itemize}
+\end{proof}
+
+\begin{mdexample}
+    Suppose the metric space is \((\RR,d)\) where \(d\) is the usual metric of \(\RR\).
+    \begin{enumerate}
+        \item Let \(A = (0,1) \cup \{3\}\) then \(A' = [0,1]\) which is not contained in \(A\) so, \(A\) is not closed.
+        \item Let \(A = [0,1] \cup \{3\}\) then \(A'=[0,1]\) which is contained in \(A\) so, \(A\) is closed.
+        \item Let \(A = \{2\}\) then \(A' = \varnothing\) so, \(A\) is closed as \(\varnothing \in S\) for any set \(S\).
+    \end{enumerate}
+\end{mdexample}
+
+\begin{lemma}
+    Closed balls in a metric space \((X,d)\) are closed.
+\end{lemma}
+
+\begin{proof}
+    Fix a closed ball \(B_r[y]\) and let \(x_n\) be a convergent sequence lying in \(B_r[y]\) with \(x\) as its limit. Then, by the triangle inequality,
+    \[\begin{aligned}
+        d(x,y) &\leq d(x,x_n)+d(x_n,y) \\
+        &\leq d(x,x_n)+r \quad \forall n \in \NN.
+    \end{aligned}\]
+    Since \(x_n \to x\), we can make \(d(x,x_n)\) arbitrarily small by choosing a large \(n\). This implies that \(d(x,y) \leq r\) so, \(x \in B_r[y]\).
+\end{proof}
+
+\begin{mdthm}
+    In \((X,d)\)
+    \begin{enumerate}
+        \item \(A \subseteq X\) is open if and only if \(X \backslash A\) is closed.
+        \item \(A \subseteq X\) is closed if and only if \(X \backslash A\) is open.
+    \end{enumerate}
+\end{mdthm}
+
+\begin{proof}
+    We will prove each bullet point.
+    \begin{enumerate}
+        \item If \(A \subseteq X\) is open, then for every point of \(A\) there exists a ball about this point lying in \(A\). Clearly, such ball does not contain any points from \(X \backslash A\). Therefore, any point in \(A\) cannot be a limit point of \(X \backslash A\) which implies \(X \backslash A\) must contain all its limit points so, \(X \backslash A\) is closed.
+        \item If \(A\) is closed, then it contains all its limit points, so no point \(x \in X \backslash A\) is a limit point of \(A\). This means that for any \(x \in X \backslash A\) there exists a ball \(B_r(x) \subset X \backslash A\) so, \(X \backslash A\) is open.
+    \end{enumerate}
+\end{proof}
+
+\begin{mdexample}
+    Suppose the metric space is \((X,d)\) where \(d\) is the discrete metric and \(A \subseteq X\). We have that \(A\) is open because for any \(x \in A\) there exists \(B_1^d(x)= \{x\} \subset A\). Therefore,
+    \begin{itemize}
+        \item every subset of \(X\) is open in \(X\) and
+        \item every subset of \(X\) is closed in \(X\) (using the theorem above).
+    \end{itemize}
+\end{mdexample}
+
+\begin{mdremark}
+    We have this property for the discrete metric only.
+\end{mdremark}
+
+\begin{mdcor}
+    In \((X,d)\)
+    \begin{itemize}
+        \item \(A \subseteq X\) is not open if and only if \(X \backslash A\) is not closed.
+        \item \(A \subseteq X\) is not closed if and only if \(X \backslash A\) is not open.
+    \end{itemize}
+\end{mdcor}
+
+\begin{proof}
+    Contrapositive of the theorem above.
+\end{proof}
+
+\begin{mdremark}
+    Not open/closed does not imply it is closed/open. A set can be open, closed or neither. For example \((0,1]\) is neither open nor closed.
+\end{mdremark}
+
+\begin{mdexample}
+    (From Exercise 3.55) Suppose the metric space is \((\RR^2,d)\) where \(d\) is the usual metric of \(\RR^2\). Let 
+    \[A = \bigcup_{q \in \QQ} \underbrace{\{(x,y) : y =qx\}}_{\substack{\text{lines with} \\ \text{rational gradients}}} \cup \underbrace{\{(0,y): y \in \RR\}}_{y\text{-axis}}.\]
+    In a metric space \((X,d)\)
+    \begin{itemize}
+        \item the whole space \(X\) and the empty set \(\varnothing\) are both closed,
+    \end{itemize}
+    We have that \(\RR^2 \backslash A\) is not closed: choose \(\bm{p}_n = \left( 1,1+\frac{\sqrt{2}}{n} \right) \in \RR^2 \backslash A\); we have that \(\bm{p}_n \to (1,1) \in A\) but, \(1+\frac{\sqrt{2}}{n} \neq q \in \QQ\). Therefore, \(\RR^2 \backslash A\) does not contain all its limit points so, \(\RR^2 \backslash A\) is not closed which implies \(A\) is not open. Furthermore, \(A\) is not closed because we can choose \(q_n \in \QQ\) with \(q_n \to \sqrt{2}\). Then, \(\bm{p}_n=(1,q_n) \in A\) but \(\bm{p}_n \to (1,\sqrt{2}) \not\in A\).
+\end{mdexample}
+
+\begin{mdthm}
+    In a metric space \((X,d)\):
+    \begin{itemize}
+        \item the whole space \(X\) and the empty set \(\varnothing\) are both closed,
+        \item the intersection of any collection of closed sets is closed,
+        \item the union of any finite collection of closed sets is closed.
+    \end{itemize}
+\end{mdthm}
+
+\begin{proof}
+    Consider the complement of the sets.
+\end{proof}
+
+\begin{definition}
+    The \textbf{closure of a set} \(A\) is the intersection of all closed sets containing \(A\)
+    \[\text{Cl}(A) = \bigcap \{F \subseteq X : F \text{ is closed in } X \text{ and } A \subseteq F\}.\]
+\end{definition}
+
+\begin{mdremark}
+    The closure of \(A\) is the smallest closed set containing \(A\), i.e. \(A \subseteq \text{Cl}(A)\).
+\end{mdremark}
+
+\begin{mdremark}
+    The closure is denoted \(\text{Cl}_{(X,d)}(A)\) or \(\overline{A}\).
+\end{mdremark}
+
+\begin{mdthm}
+    \[\text{Cl}(A) = A \cup A'.\]
+\end{mdthm}
+
+\begin{corollary}
+    \[\text{Cl}(A) = \{x \in X : \text{there exists } (x_n) \subset A \text{ such that } x_n \xrightarrow{d} x\}.\]
+\end{corollary}
+
+\begin{proof}
+    To prove equality we have to prove the double inclusion of the sets.
+    \begin{itemize}
+        \item Proof of \(\text{Cl}(A) \subseteq \text{RHS}\): \\
+        IF \(x \in \text{Cl}(A)\) then \(x \in A\) or \(x \in A'\) (by the theorem above). If \(x \in A\) then the sequence \(\{x,x,x, \ldots \} \subseteq A\) converges to \(x\). If \(x \in A'\) we have \(x_n \to x\) by a Lemma \(3.31\).
+        \item Proof of \(\text{RHS} \subseteq \text{Cl}(A)\):\\
+        Take a sequence \((x_n) \subseteq A\) which converges to \(x\). If \(x_n =x\) for some \(n\) then \(x \in A\). If \(x_n\) are distinct from \(x\) then, by a Lemma we know that \(x \in A'\). Therefore, \(x \in A \cup A' = \text{Clos}(A)\).
+    \end{itemize}
+\end{proof}
+
+\begin{mdexample}
+    Suppose the metric space is \((\RR,d)\) where \(d\) is the usual metric. Work out the closure of \(A\).
+    \begin{itemize}
+        \item \(A = (0,1)\). We have that \(A'=[0,1]\) so, \(\text{Cl}(A) = A \cup A' = [0,1]\).
+        \item \(A = (0,1) \cup \{2\}\). We have that \(A'=[0,1]\) so, \(\text{Cl}(A) = [0,1] \cup \{2\}\).
+        \item \(A =\{2\}\). We have that \(A = \varnothing\) so, \(\text{Cl}(A) = \{2\}\).
+    \end{itemize}
+\end{mdexample}
+
+\begin{mdcor}
+    \[\text{Cl}(A) = \{x \in X : \forall \text{ nbhds } \mathcal{U} \text{ of } x, \mathcal{U} \cap A \neq \varnothing\}.\]
+\end{mdcor}
+
+\begin{proof}
+    We prove double inclusion of sets.
+    \begin{itemize}
+        \item Proof of \(\supseteq\): \\
+        If \(\UU \cap A \neq \varnothing\) then, for every nbhd \(\UU\) of \(x\) either \(x \in A\) or \(\UU \cap A\) contains a point different to \(x\) for every \(\UU\) hence, \(x\) is a limit point of \(A\).
+        \item Proof of \(\subseteq\): \\
+        Using the contrapositive statement. If there exists a neighbourhood of \(\mathcal{U}\) of \(x\) with \(\mathcal{U} \cap A = \varnothing\) then by definition of a neighbourhood, there exists an open ball \(B_r(x) \subset \mathcal{U}\). Thus, \(B_r(x) \cap A = \varnothing\) and so \(A \subseteq X \backslash B_r(x)\). Since, \(X \backslash B_r(x)\) is closed it follows that \(\text{Cl}(A) \subset X \backslash B_r(x)\) and thus \(x \not\in \text{Cl}(A)\).
+    \end{itemize}
+\end{proof}
+
+\begin{mdremark}
+    Since \(B_r(x) \subseteq B_r[x]\) it implies that \(\text{Cl}(B_r(x)) \subseteq \text{Cl}(B_r[x]) = B_r[x]\). \\
+    It is possible that \(\text{Cl}(B_r(x)) \subsetneq B_r[x]\); for example in a metric space equipped with the discrete metric. The open ball \(B_1(x) = \{x\}\), as shown previously all subsets in a metric space with the discrete metric are closed which implies \(\text{Cl}(B_1(x))= B_1(x)\) but, \(B_1[x] = X\) (i.e. the closed ball is the whole set) which implies \(\{x\} \subsetneq X\).
+\end{mdremark}
+
+\begin{mdcor}
+    \[\text{Cl}(A) = \{x \in X: d(x,A)=0\}.\]
+\end{mdcor}
+
+\begin{proof}
+    We have that \(d(x,A)=\inf_{a\in A} d(x,a) =0\) if and only if there exists a sequence \(\{x_n\} \subseteq A\) with \(d(x_n,x) \to 0\).
+\end{proof}
+
+\section{Topological spaces}
+
+\begin{definition}
+    The set \(\mathcal{P}(X)\) is called the \textbf{power set}, it is the set of all subsets of \(X\). It is sometimes denoted \(2^X\) (as it contains \(2^{\abs{X}}\) elements).
+\end{definition}
+
+\begin{definition}
+    Let \(X\) be a non-empty set. A collection \(\tau\) of subsets of \(X\) (i.e. \(\tau \subset \mathcal{P}(X)\)) is called a \textbf{topology} on \(X\) if it satisfies:
+    \begin{itemize}
+        \item \(\varnothing, X \in \tau\),
+        \item \(U_i \in \tau\) for every \(i \in I\) implies that \(\bigcup_{i \in I} U_i \in \tau\),
+        \item \(U_1,U_2, \ldots, U_n \in \tau\) implies that \(\bigcap_{i=1}^n U_i \in \tau\).
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    We say that \((X,\tau)\) is a \textbf{topological space}. The elements of \(\tau\) are called the \(\tau\)-\textbf{open sets} of the space \((X,\tau)\).
+\end{definition}
+
+\begin{mdexample}
+    Some examples of topologies:
+    \begin{itemize}
+        \item Suppose \(X \neq \varnothing\) then \(\tau =\mathcal{P}(X)\) defines a topology, called the \textbf{discrete topology}.
+        \item \(\tau =\{\varnothing, X\}\) is called the \textbf{trivial topology}.
+        \item Let \((X,d)\) be a metric space and let 
+        \[\begin{aligned}
+            \tau &= \{\mathcal{U} \subset X : \forall x \in \mathcal{U}, \exists r>0 \text{ such that } B_r(x) \subset \mathcal{U}\} \\
+            &= \{\text{open sets in } X\}.
+        \end{aligned}\]
+        We call \(\tau\) the \textbf{metric topology} or also the topology induced by the metric \(d\). Sometimes, it is useful to call the elements of this topology, \underline{\(d\)-open sets} i.e. \(\mathcal{U}\) is a \(d\)-open set.
+    \end{itemize}
+\end{mdexample}
+
+\begin{theorem}
+    Equivalent metrics induce the same topology i.e. if \(\rho \sim d\) then \(d\)-open if only and if \(\rho\)-open.
+\end{theorem}
+
+\begin{mdexample}
+    Which of the following are topologies on \(X = \{0,1,2\}\):
+    \[\begin{aligned}
+        \tau_1 &= \{ \varnothing, \{1\}, \{2\}, \{1,2\}, \{0,1,2\} \}, \\
+        \tau_2 &= \{\varnothing, \{0\}, \{2\}, \{0,1,2\} \}, \\
+        \tau_3 &= \{\varnothing, \{0,1\}, \{1,2\}, \{0,1,2\} \}.
+    \end{aligned}\]
+    \begin{solution}
+        We have that 
+        \begin{itemize}
+            \item \(\tau_1\) is a topology on \(X\) as all the properties are satisfied.
+            \item \(\tau_2\) is not because \(\{0\} \cup \{2\} = \{0,2\} \not\in \tau_2\).
+            \item \(\tau_3\) is not because \(\{0,1\} \cap \{1,2\} = \{1\} \not\in \tau_3\).
+        \end{itemize}
+    \end{solution}
+\end{mdexample}
+
+\begin{definition}
+    We say that \(\tau\) is \textbf{induced by a metric} \(d\)  if, for all \(\mathcal{U} \subset X\) we have that \(\mathcal{U}\) is \(\tau\)-open if and only if \(\mathcal{U}\) is \(d\)-open.
+\end{definition}
+
+\begin{mdnote}
+    We have that \(\tau = \{\mathcal{U}_1, \ldots, \mathcal{U}_n\}\) is a topology if and only if \(\mathcal{U}_i\) are \(d\)-open
+\end{mdnote}
+
+\begin{example}
+    Let \(X = \{0,1,2\}\) with \(\tau = \text{trivial topology} = \{\varnothing, X\}\). Suppose \(d\) is a metric on \(X\). Let \(r = d(0,1) >0\) then \(\mathcal{U} = B_r^d(0)\) is \(d\)-open but, \(1 \notin \mathcal{U} \neq X\). Therefore, \(\mathcal{U}\) is not \(\tau\)-open i.e. \(\mathcal{U} \not\in \tau\). We conclude that the trivial topology is not induced by a metric.
+\end{example}
+
+\begin{definition}
+    Given two topologies \(\tau_1,\tau_2\) on \(X\). We say that \(\tau_1\) is \textbf{coarser than} \(\tau_2\) if \(\tau_1 \subsetneq \tau_2\).
+\end{definition}
+
+\begin{definition}
+    Given two topologies \(\tau_1,\tau_2\) on \(X\). We say that \(\tau_2\) is \textbf{finer than} \(\tau_1\) if \(\tau_1 \subsetneq \tau_2\).
+\end{definition}
+
+\begin{mdnote}
+    In these terminologies \textbf{coarser} means \underline{smaller} and \textbf{finer} means \underline{bigger}.
+\end{mdnote}
+
+\begin{mdexample}
+    Suppose \(X = \{0,1\}\) and that 
+    \[\begin{aligned}
+        \tau_1 &= \text{discrete topology} = \mathcal{P}(X) \\
+        &=\{\varnothing, \{0\}, \{1\}, \{0,1\} \} \\
+        \tau _2 &= \text{Sierpiński topology}  \\
+        &= \{ \varnothing, \{1\}, \{0,1\} \} \\
+        \tau_3 &= \text{trivial topology} \\
+        &= \{\varnothing, \{0,1\} \}.
+    \end{aligned}\]
+    We have that 
+    \[\tau_3 \subsetneq \tau_2 \subsetneq \tau_1.\]
+\end{mdexample}
+
+\begin{mdremark}
+    The Sierpiński topology is not a Hausdorff space.
+\end{mdremark}
+
+\begin{definition}
+    Let \((X,\tau)\) be a topological space. We call \(A \subseteq X\) a \textbf{neighbourhood} of \(x \in X\) if there exists \(\mathcal{U}\) which is \(\tau\)-open with \(x \in \mathcal{U} \subseteq A\).
+\end{definition}
+
+\begin{mdnote}
+    We can think of a nbhd in a topological space as a set \(\mathcal{U} \in \tau\) which contains \(x\).
+\end{mdnote}
+
+\begin{example}
+    Suppose \(X = \{0,1\}\) with \(\tau = \{\varnothing, \{0\}, \{1\}, \{0,1\} \}\). Then \(A = \{0,1\}\) is a neighbourhood of \(0\) with \(\mathcal{U} = \{0\}\) (our \(\tau\)-open set).
+\end{example}
+
+\begin{mdprop}
+    Let \((X,\tau)\) be a topological space and let \(\UU \subseteq X\). Then, \(\UU\) is open (i.e. \(\UU \in \tau\))  if and only if it is a neighbourhood of all of its points.
+\end{mdprop}
+
+\begin{proof}
+    We split the proof into parts:
+    \begin{itemize}
+        \item Proof of \((\then)\). \\
+        Suppose \(\UU \in \tau\) and let \(x \in \UU\). Then, \(x \in \UU \subseteq \UU\) which shows \(\UU\) is a neighbourhood of \(x\).
+        \item Proof of \((\Leftarrow)\). \\
+        Suppose \(\UU\) is a neighbourhood of each of its points. Therefore, for each \(x \in \UU\) there exists \(\UU_x \in \tau\) such that \(x \in \UU_x \subset \UU\). Then, \(\UU = \bigcup_{x \in X} \UU_x\) which implies \(\UU \in \tau\).
+    \end{itemize}
+\end{proof}
+
+\begin{definition}
+    Given \((X, \tau)\) and \(A \subseteq X\) the \textbf{subspace topology} (or the \textbf{relative topology}) on \(A\) is 
+    \[\tau_A = \{\mathcal{U} \cap A : \mathcal{U} \in \tau\}.\]
+\end{definition}
+
+\begin{definition}
+    Given \((X,\tau)\) a topological space, the \textbf{interior of a set} \(A \subset X\) is the union of all \(\tau\)-open sets contained in \(A\):
+    \[\text{int}(A) = \bigcup \{\mathcal{U} \subset X : \mathcal{U} \text{ is } \tau\text{-open and } \mathcal{U} \subset A\}.\]
+\end{definition}
+
+\subsection{Sequence and Hausdorff spaces}
+
+\begin{definition}
+    We say that a sequence \((x_n)_{n=1}^{\infty}\) \textbf{converges to a point} \(x\) in a topological space \((X,\tau)\), and we write \(x_n \to x\) as \(n \to \infty\) if 
+    \begin{itemize}
+        \item for every neighbourhood \(A\) of \(x\) there exists \(N_A \in \NN\) such that \(x_n \in A\) for all \(n \geq N_A\), \\
+        or equivalently,
+        \item for every \(\tau\)-open set \(\mathcal{U}\) containing \(x\) there exists \(N_{\mathcal{U}}\) such that \(x_n \in \mathcal{U}\) for all \(n \geq N_{\mathcal{U}}\).
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    Consider the topological space \((\RR,\tau)\) where \(\tau\) is the trivial topology i.e. \(\tau = \{\varnothing, \RR\}\). Consider the sequence \(x_n = \frac{1}{n}\) and \(x = \pi\). Clearly, the only \(\tau\)-open sets are \(\varnothing\) and \(\RR\). Thus, take \(\mathcal{U} = \RR\) so, \(\pi \in \mathcal{U}\). Take \(N =1\) then for \(n \geq N\) we have \(x_n \in \mathcal{U}\). Therefore, \(x_n \to x\) i.e. \(\frac{1}{n} \to \pi\), as \(n \to \infty\).
+\end{example}
+
+\begin{mdremark}
+    We have no \(\tau\)-open set that distinguish \(\pi\) from any other part so, we make the following definition.
+\end{mdremark}
+
+\begin{definition}
+    We say that a topological space \((X,\tau)\) is a \textbf{Hausdorff space} if given \(x,y \in X\) such that \(x \neq y\) we can find \(\mathcal{U}\) and \(\mathcal{V}\) which are \(\tau\)-open sets such that \(x \in \mathcal{U}\), \(y \in \mathcal{V}\) and \(\mathcal{U} \cap \mathcal{V} = \varnothing\).
+\end{definition}
+
+\begin{mdnote}
+    We can think of Hausdorff as `housed-off' i.e. the elements have their own house.
+\end{mdnote}
+
+\begin{mdexample}
+    Let the topological space be \((\RR,\tau)\) where 
+    \[\tau = \{ \varnothing \} \cup \{ \mathcal{U} \subseteq \RR : \RR \backslash \mathcal{U} \text{ is finite} \},\]
+    we call this the \textbf{cofinite topology} on \(\RR\) (the `co' in ``cofinite'' indicates that we are dealing with the complement of a set). Let 
+    \[\begin{aligned}
+        \mathcal{U} &= (-\infty,0) \cup (0,\infty) \\
+        \mathcal{V} &= (-\infty,2].
+    \end{aligned}\]
+    We have that \(\mathcal{U}\) is the only \(\tau\)-open set i.e. \(\mathcal{U} \in \tau\), since \(\RR \backslash \mathcal{U} = \{0\}\).
+\end{mdexample} 
+
+\begin{mdthm}
+    If a topological space \((X,\tau)\) is not Hausdorff then there does not exist a metric \(d\) such that \(\tau\) is induced by \(d\).
+\end{mdthm}
+
+\begin{example}
+    We claim that the topological space \((\RR,\tau)\) with \(\tau\) as defined above is not Hausdorff.
+    \begin{proof}
+        Assume the topological space is Hausdorff. Pick \(x=1\) and \(y=2\) and suppose there exists \(\mathcal{U},\mathcal{V} \in \tau\) with \(1 \in \mathcal{U}\) and \(2 \in \mathcal{V}\) such that \(\mathcal{U} \cap \mathcal{V} = \varnothing\). We must have \(\mathcal{U} \subseteq \RR \backslash \mathcal{V}\), by the definition of \(\tau\) we know that \(\RR \backslash \mathcal{U}\) and \(\RR \backslash \mathcal{U}\) are finite thus, \(\mathcal{U}\) is finite. Since, \(\RR \backslash \mathcal{U}\) is finite we have that \(\RR = \mathcal{U} \cup \left( \RR \backslash \mathcal{U} \right)\).
+    \end{proof}
+\end{example}
+
+\begin{mdprop}
+    Every metric space is Hausdorff.
+\end{mdprop}
+
+\begin{proof}
+    If \(X\) is a singleton then there is nothing to prove. Otherwise, let \(x,y \in X\) with \(x \neq y\). Choose, \(r= d(x,y)>0\) and consider \(\mathcal{U} = B_{\frac{r}{2}}(x)\) and \(\mathcal{V} = B_{\frac{r}{2}}(y)\). We need to prove that \(\mathcal{U} \cap \mathcal{V} = \varnothing\). Suppose, \(z \in \mathcal{U} \cap \mathcal{V}\) then 
+    \[\begin{aligned}
+        r = d(x,y) &\leq d(x,z) + d(z,x) \\
+        &< \frac{r}{2} +\frac{r}{2} \\
+        &= r.
+    \end{aligned}\]
+    We have proved that \(r<r\) which is a contradiction.
+\end{proof}
+
+\begin{mdcor}
+    Every topology induced by a metric space is Hausdorff.
+\end{mdcor}
+
+\begin{proof}
+    For the sake of contradiction, suppose that \((X,\tau)\) is \textbf{\ul{NOT}} a Hausdorff space but is induced by a metric \(d\). By the proposition above, we know every metric space is Hausdorff but \((X,\tau)\) is not. Hence, we have a contradiction.
+\end{proof}
+
+\begin{lemma}
+    Suppose \((X,\tau)\) is a Hausdorff space and \(x_n \to x\) and \(x_n \to y\) then \(x=y\).
+\end{lemma}
+
+\begin{proof}
+    If \(x \neq y\) then by the topological space being Hausdorff there exists \(\mathcal{U}\) and \(\mathcal{V}\) which are  \(\tau\)-open sets, such that \(\mathcal{U} \cap \mathcal{V} = \varnothing\) and \(x \in \mathcal{U}\) and \(y \in \mathcal{V}\). Since, \(x_n \to x\) there exists \(N_1\) such that \(x_n \in \mathcal{U}\) for all \(n \geq N_1\). Since, \(x_n \to y\) there exists \(N_2\) such that \(x_n \in \mathcal{V}\) for all \(n \geq N_2\). Therefore, we choose \(N = \max(N_1,N_2)\) then, \(x_n \in \mathcal{U} \cap \mathcal{V} = \varnothing\) hence, we have a contradiction.
+\end{proof}
+
+\begin{mdnote}
+    A space which is Hausdorff implies that the limit of a sequence is unique.
+\end{mdnote}
+
+\subsection{Closed sets}
+
+\begin{definition}
+    Given a topological space \((X,\tau)\). A point \(x \in X\) is called a \textbf{limit point of a set} \(A \subseteq X\) if every \(\tau\)-open neighbourhood of \(x\) contain a point of \(A\) distinct from \(x\). That is, for all \(\mathcal{U}\) open neighbourhoods of \(x\) 
+    \[(\mathcal{U} \cap A) \backslash \{x\} \neq \varnothing.\]
+    The set of limit points of \(A\) is denoted by \(A'\).
+\end{definition}
+
+\begin{definition}
+    A set \(A \subseteq X\) is closed in \((X,\tau)\) if \(A' \subset A\).
+\end{definition}
+
+\begin{mdthm}
+    In a topological space \((X,\tau)\) we have that
+    \begin{itemize}
+        \item \(A\) is open in \((X,\tau)\) if and only if \(X\backslash A\) is closed in \((X,\tau)\).
+        \item \(A\) is closed in \((X,\tau)\) if and only if \(X \backslash A\) is open in \((X,\tau)\).
+    \end{itemize}
+\end{mdthm}
+
+\begin{proof}
+    We only prove the first statement.
+    \begin{itemize}
+        \item Proof of \((\then)\). \\
+        If \(A\) is open then \(A\) is a neighbourhood about all its points \(x \in A\). Therefore, no point \(A\) can be a limit point of \(X \backslash A\) i.e. \(X \backslash A\) must contain all its limit points hence, \(X \backslash A\) is closed.
+        \item Proof of \((\Leftarrow)\). \\
+        (We show that \(A\) being closed implies its complement is open). If \(A\) is closed then \(A'\subset A\) so, there are no \(x \in X \backslash A\) which are limit points of \(A\). Therefore, there exists an open set \(\mathcal{U}\) such that \(x \in \mathcal{U} \subseteq X \backslash A\) and \((\mathcal{U} \cap A) \backslash \{x\} = \varnothing\). Therefore, \(X \backslash A\) is a neighbourhood of \(x\) which implies \(X \backslash A\) is open.
+    \end{itemize}
+\end{proof}
+
+\begin{lemma}
+    Let \(A \subseteq X\) be a closed set in a topological space \(X\). Let \(x_n \to x\) as \(n \to \infty\) and suppose that \(x_n \in A\) for every \(n\). Then \(x \in A\).
+\end{lemma}
+
+\begin{mdremark}
+    In a metric space this lemma was an `if and only if'. Whereas, in a topological space the lemma is an `if then'.
+\end{mdremark}
+
+\begin{proof}
+    Suppose \(x_n \in A\) and \(x_n \to x\). For the sake of contradiction, assume that \(x \not\in A\) and let \(U = X \backslash A\). Then, \(U\) is open in \(X\) and \(x \in U\). Since, \(x_n \to x\) there must exist \(N \in \NN\) such that \(x_n \in U = X \backslash A\) for all \(n>N\). However, this contradicts the assumption that \(x_n \in A\) for every \(n\).
+\end{proof}
+
+\begin{definition}
+    The \textbf{closure of a set} \(A\) is the intersection of all closed sets containing \(A\). That is,
+    \[\bigcap \{F \subseteq X : F \text{ is closed in } (X,\tau) \text{ and } A \subseteq F\}.\]
+\end{definition}
+
+\begin{mdthm}
+    \[\text{Cl}(A) = A \cup A'.\]
+\end{mdthm}
+
+\section{Continuity}
+
+\subsection{Sequential continuity}
+
+Recall: a function \(f : \RR \to \RR\) is continuous at \(\alpha \in \RR\) if 
+\[\forall \eps>0 \; \exists \delta>0 \text{ such that } \abs{x-\alpha} <\delta \then \abs{f(x)-f(\alpha)}<\eps.\]
+
+\begin{definition}
+    Let \((X,\rho)\) and \((Y,d)\) be metric spaces. A map \(f : X \to Y\) is said to be \textbf{continuous} at \(\alpha \in X\) if 
+    \[\forall \eps>0 \; \exists \delta>0 \text{ such that } \rho(x,\alpha) <\delta \then d(f(x),f(\alpha))<\eps.\]
+\end{definition}
+
+\begin{definition}
+    We say \(f\) is a \textbf{continuous function} if it is continuous at all \(\alpha \in X\).
+\end{definition}
+
+\begin{mdthm}[Sequential continuity]
+    A map \(f:(X,\rho) \to (Y,d)\) is continuous at \(\alpha \in X\) if and only if for every sequence \(x_n \xrightarrow{\rho} \alpha\) the sequence \(f(x_n) \xrightarrow{d} f(\alpha)\).
+\end{mdthm}
+
+\begin{proof}
+    We prove the theorem in two parts.
+    \begin{itemize}
+        \item Proof of \((\then)\). \\
+        Suppose \(f\) is continuous at \(\alpha\) therefore, for any \(\eps>0\) there exists \(\delta>0\) such that \(\rho(x_n, \alpha)<\delta \then d(f(x_n),f(\alpha))<\eps\). Suppose \(x_n \xrightarrow{\rho} \alpha\). Since the sequence \(x_n\) converges, there exists \(N_{\delta}\) such that \(\rho(x_n,\alpha)<\delta\) for all \(n > N_{\delta}\). Hence, for all \(n > N_{\delta}\) we get \(d(f(x_n),f(\alpha))<\eps\) which means \(f(x_n) \xrightarrow{d} f(\alpha)\).
+        \item Proof of \((\Leftarrow)\). \\
+        We do a proof by contradiction. We first assume that every \(x_n \xrightarrow{\rho} \alpha\) with \(f(x_n) \xrightarrow{d} f(\alpha)\). Suppose \(f\) is not continuous then there exists \(\eps_0>0\) such that for any \(\delta>0\) we can find \(x \in X\) for which \(\rho(x,\alpha)<\delta\) and \(d(f(x), f(\alpha))\geq \eps_0\). We choose a sequence \(x_n \in X\) such that \(\rho(x_n, \alpha)<\frac{1}{n}\) and \(d(f(x_n),f(\alpha))\geq \eps_0\). Then \(x_n \xrightarrow{\rho} \alpha\) but \(f(x_n) \not{\xrightarrow{d}} f(\alpha)\) thus, we have a contradiction.
+    \end{itemize}
+\end{proof}
+
+\begin{theorem}
+    If a map \(f:(X,\rho) \to (Y,d)\) is continuous at \(\alpha \in X\) and a map \(g :(Y,d) \to (Z,\sigma)\) is continuous at \(f(\alpha)\), then \(g \circ f : (X,\rho) \to (Z,\sigma)\) is continuous at \(\alpha\).
+\end{theorem}
+
+\begin{proof}
+    Let \(\alpha \in X\) with an arbitrary \(x_n \xrightarrow{\rho} \alpha\). Since, \(f\) is continuous we have that \(f(x_n) \xrightarrow{d} f(\alpha)\) but, \(g\) is also continuous therefore, \(g(f(x_n)) \xrightarrow{\sigma} g(f(\alpha))\) which implies that \(g \circ f\) is continuous at \(\alpha\).
+\end{proof}
+
+\begin{mdlemma}
+    If \((X,d)\) is a metric space and \(A \subset X\) is a fixed subset, then 
+    \[\begin{aligned}
+        f: X &\to \RR \\
+        x &\mapsto d(x,A) = \inf_{a \in A} d(x,a),
+    \end{aligned}\]
+    is a continuous map from \((X,d) \to \RR\).
+\end{mdlemma}
+
+\begin{proof}
+    If \(x,y \in X\) then by the triangle inequality we have 
+    \[d(x,A)-d(y,A) \leq d(x,y).\]
+    Interchanging \(x \leftrightarrow y\) we have 
+    \[\abs{d(x,A)-d(y,A)} \leq d(x,y).\]
+    In particular,
+    \[\begin{aligned}
+        \abs{f(x_n)-f(\alpha)} &= \abs{d(x,A)-d(y,A)} \\
+        &\leq d(x_n,\alpha)
+    \end{aligned}\]
+    therefore, \(f(x_n) \to f(\alpha)\) whenever \(x_n \to \alpha\).
+\end{proof}
+
+\begin{lemma}
+    If \((X,d)\) is a metric open and \(A \subset X\) is a fixed subset, then \(f : x \mapsto d(x,x_0)\) is a continuous map from \((X,d) \to \RR\).
+\end{lemma}
+
+\begin{proof}
+    Use proof from before with \(A = \{x_0\}\).
+\end{proof}
+
+\subsection{Continuity using open sets}
+
+\begin{definition}
+    Given a map \(f : X \to Y\) and a subset \(A \subset Y\), the 
+    \textbf{pre-image} of \(A\) under \(f\) is 
+    \[f\inv(A) = \{x \in X : f(x) \in A\}.\]
+    \begin{figure}[H]
+         \begin{center}
+             \includegraphics[scale=0.24]{./Resources/Pre-image.png}
+         \end{center}
+    \end{figure}
+\end{definition}
+
+\begin{mdnote}
+    Do not mistake \(f\inv\) for the inverse of the function \(f\).
+\end{mdnote}
+
+\begin{mdremark}
+    \(f\inv(A)\) is always well-defined irrespective of whether \(f\) has any inverse.
+\end{mdremark}
+
+\begin{mdexample}
+    Examples of pre-images. Suppose \(f : \RR \to \RR\):
+    \begin{itemize}
+        \item let \(f(x)=x\) and \(A =[0,1]\) then, \(f\inv(A)=[0,1]\);
+        \item let \(f(x)= \abs{x}\)  and \(A=[-\infty,0]\) then, \(f\inv(A)=\varnothing\);
+        \item let \(f(x)=x^2\) and \(A=(4,\infty)\) then \(f\inv(A)=(-\infty,-2) \cup (2,\infty)\).
+    \end{itemize}
+\end{mdexample}
+
+\begin{definition}
+    Let \((X,\rho)\) and \((Y,d)\) be metric spaces. A map \(f:X \to Y\) is said to be \textbf{continuous} at \(\alpha \in X\) if for any open ball \(B_{\eps}^d(f(\alpha))\) about \(f(\alpha)\) there exists a ball \(B_{\delta}^{\rho}(\alpha)\) about \(\alpha\) such that \(B_{\delta}^{\rho}(\alpha) \subset f\inv(B_{\eps}^d(f(\alpha)))\).
+    \begin{figure}[H]
+         \begin{center}
+             \includegraphics[scale=0.24]{./Resources/Pre-image with balls.png}
+         \end{center}
+    \end{figure}
+\end{definition}
+
+\begin{mdthm}[Pre-image characterisation of continuity]
+    Let \((X,\rho)\) and \((Y,d)\) be metric spaces and let \(f :X \to Y\). Then the following statements are equivalent:
+    \begin{enumerate}
+        \item \(f\) is continuous,
+        \item for any \(\mathcal{U} \subset Y\) open set then \(f\inv(\mathcal{U}) \subseteq X\) is open,
+        \item for any \(\mathcal{V} \subset Y\) closed set, \(f\inv(\mathcal{V}) \subseteq X\) is closed.
+    \end{enumerate}
+\end{mdthm}
+
+\begin{mdnote}
+    We have that: 
+    \begin{itemize}
+        \item the pre-image(open set) = open set,
+        \item the pre-image(closed set) = closed set.
+    \end{itemize}
+\end{mdnote}
+
+\begin{proof}
+    We split the proofs into parts.
+    \begin{itemize}
+        \item Proof of \((3) \iff (2)\). \\
+        We have that \(f\inv(Y \backslash \UU) = X \backslash f\inv(\UU)\), and we are done, as \(\UU\) is open if and only if \(X \backslash \UU\) is closed.
+        \item Proof of \((1) \then (2)\). \\
+        Suppose \(f\) is continuous and take \(\mathcal{U} \subset Y\) to be an open set with \(x \in f\inv(\mathcal{U})\). Since, \(\mathcal{U}\) is an open set then there exists \(B_{\eps}^d(f(x)) \subset \UU\) and since \(f\) is continuous there exists \(B_{\delta}^{\rho}(x)\subset f\inv(B_{\eps}^d (f(x))) \subset f\inv(\UU)\) which implies for every \(x \in f\inv(\mathcal{U})\) there exists \(B_{\delta}^{\rho}(x) \subset f\inv(\UU)\) i.e. \(f\inv(\UU)\) is open.
+        \item Proof of \((2) \then (1)\). \\
+        Let \(x \in X\) then there exists an open ball \(B_{\eps}^d(f(x))\) about \(f(x) \in Y\). By the hypothesis \(f\inv(\text{open set}) = \text{open set}\) and so \(f\inv(B_{\eps}^d(f(x)))\) is open and \(x \in f\inv(B_{\eps}^d(f(x)))\) which implies there exists \(B_{\delta}^{\rho}(x) \subset f\inv(B_{\eps}^d(f(x)))\) i.e. by the definition above \(f\) is continuous.
+    \end{itemize}
+\end{proof}
+
+\begin{theorem}
+    Let \((X,d)\) be a metric space and let \(A\) and \(B\) be disjoint closed sets. There exists disjoint open sets \(\mathcal{U}\) and \(\mathcal{V}\) with \(A \subset \mathcal{U}\) and \(B \subset \mathcal{V}\).
+\end{theorem}
+
+\begin{mdnote}
+\begin{figure}[H]
+     \begin{center}
+         \includegraphics[scale=0.24]{./Resources/Stuff.png}
+     \end{center}
+\end{figure}
+\end{mdnote}
+
+\begin{proof}
+    Let \(A\) and \(B\) be disjoint closed sets and suppose that 
+    \[\begin{aligned}
+        \mathcal{U} &= \{x \in X : d(x,B)-d(x,A)>0\}, \\
+        \mathcal{V} &= \{x \in X : d(x,A)-d(x,B)>0\}.
+    \end{aligned}\]
+    Clearly, \(\mathcal{U} \cap \mathcal{V} = \varnothing\) thus, \(\mathcal{U}\) and \(\mathcal{V}\) are disjoint. We prove \(A \subset \mathcal{U}\). Let \(x \in A\) which implies \(x \not\in B\) and since \(A\) is closed we know \(A = \text{Clos}(A)= \{x \in X : d(x,A)=0\}\), which implies \(d(x,B)>0 = d(x,A)\) and so, \(x \in \mathcal{U}\). By a similar argument we prove \(B \subset \mathcal{V}\). We now prove \(\mathcal{U}\) and \(\mathcal{V}\) are open sets. Define \(f : X \to \RR\) with \(x \mapsto d(x,A)-d(x,B)\). Then, by a Lemma above we know \(f\) is continuous and since \((0,\infty)\) is open we have that \(\mathcal{U} = f\inv((0,\infty))\) is open. Similarly, \((-\infty,0)\) is open so, \(\mathcal{V}=f\inv((-\infty,0))\) is open.
+\end{proof}
+
+\begin{definition}
+    Let \((X,\tau)\) and \((Y,\sigma)\) be topological spaces. We say that a map \(f:X \to Y\) is \textbf{continuous} if for any \(\sigma\)-open set, \(\mathcal{U} \subset Y\) we have that \(f\inv(\mathcal{U})\) is a \(\tau\)-open subset of \(X\).
+\end{definition}
+
+\begin{mdexample}
+    Examples of this property.
+    \begin{itemize}
+        \item Let \(f : \underbrace{([0,1], \text{usual metric})}_{(X,\tau)} \to \underbrace{([0,1], \text{usual metric})}_{(X,\tau)}\) with 
+        \[x \mapsto \begin{cases}
+            0 &\text{if } x <0 \\
+            1 &\text{if } x\geq 0.
+        \end{cases}\]
+        We have that \(\left(\frac{1}{2},\frac{3}{2}\right) \subset Y\) is a \(\sigma\)-open set however, \(f\inv\left( \frac{1}{2},\frac{3}{2} \right) = [0,\infty)\) is not a \(\tau\)-open set therefore, \(f\) is not continuous.
+        \item Let \(f : \underbrace{([0,1], \text{usual metric})}_{(X,\tau)} \to \underbrace{([0,1],\sigma=\text{trivial topology})}_{(Y,\sigma)}\). We have that \(f\inv(\varnothing) = \varnothing\) and \(f\inv([0,1])=[0,1]\) which are both \(\tau\)-open sets thus, \(f\) is continuous.
+        \item Let \(A \subseteq X\) and define \(f_A :(X,\tau) \to (Y,\sigma = \{\varnothing, \{1\}, \{0,1\}\})\) 
+        \[\begin{aligned}
+            x \mapsto \begin{cases}
+                1 &\text{if } x \in A \\
+                0 &\text{if } x \not\in A.
+            \end{cases}
+        \end{aligned}\]
+        (this is the indicator function). Then \(f\inv(\varnothing)=\varnothing\), \(f\inv(\{0,1\})=X\) and \(f\inv(\{1\})=A\). Therefore, \(f_A\) is continuous if \(A\) is a \(\tau\)-open set. 
+        \begin{figure}[H]
+             \begin{center}
+                 \includegraphics[scale=0.24]{./Resources/Indicator function.png}
+             \end{center}
+             \caption{The indicator function.}
+        \end{figure}
+    \end{itemize}    
+\end{mdexample}
+
+\subsection{Isometries and Homeomorphisms}
+
+\begin{mdremark}
+    Maps that preserve structure.
+\end{mdremark}
+
+\begin{definition}
+    Let \((X,d)\) and \((Y,\rho)\) be metric spaces. We say that a map \(f:X \to Y\) is an \textbf{isometry} if 
+    \[d(x,y) =\rho(f(x),f(y)) \quad \forall x,y \in X.\]
+    If the map \(f\) is bijective then we say the spaces \(X\) and \(Y\) are \textbf{isometric}.
+\end{definition}
+
+\begin{mdremark}
+    \hphantom{wham}
+    \begin{itemize}
+        \item Two metrics being equivalent does imply not that \((X,d)\) and \((X,\rho)\) are isometric. For example:
+        \[\begin{aligned}
+            d(x,y) &= \abs{x-y} \\
+            \rho(x,y) &= \frac{d(x,y)}{1+d(x,y)}. 
+        \end{aligned}\]
+        We have that \(d \sim \rho\), but the two metrics are not isometric be because in \(d\) the `distance' is unbounded whereas, in \(\rho\) the `distance' is bounded by \(1\) as 
+        \[\begin{aligned}
+            \rho(x,y) &=\frac{d(x,y)}{1+d(x,y)} \\
+            &= 1 - \frac{1}{1+d(x,y)} \\
+            &< 1.
+        \end{aligned}\]
+        \item Isometries are always injective but not all isometrics are surjective. For example, let 
+        \[\begin{aligned}
+            f:(\RR,d) &\to (\RR^2,d_2) \\
+            x &\mapsto (x,0).
+        \end{aligned}\]
+        Here, \(d\) represents the usual metric. Clearly, \(f\) is injective but not surjective as the \(y\) values of \(\RR^2\) are not mapped.
+    \end{itemize}
+\end{mdremark}
+
+\begin{example}
+    An example of an isometry is given by \(f : (\RR^2, d_2) \to (\CC, \abs{\, \cdot \,})\) with \((x,y) \mapsto x+iy\).
+\end{example}
+
+\begin{definition}
+    Let \((X,d)\) and \((Y,\rho)\) be metric spaces. We say that a map \(f : X \to Y\) is a \textbf{homeomorphisms} if 
+    \begin{itemize}
+        \item \(f\) is a bijection,
+        \item \(f\) is continuous,
+        \item the inverse map, \(f\inv :Y \to X\), is continuous.
+    \end{itemize}
+    We say that the spaces \(X\) and \(Y\) are \textbf{homeomorphic} and denote this by \(X \equiv Y\).
+\end{definition}
+
+\begin{mdremark}
+    This definition is valid with topological spaces.
+\end{mdremark}
+
+\begin{mdnote}
+    We note that \textit{homeo} means `same' and \textit{morhphism} means `shape' so, in some sense for to spaces to be homeomorphic means to be the `same shape'.
+\end{mdnote}
+
+\begin{mdremark}
+    The third condition is required as there exists maps which are bijective and continuous but, their inverse map is not continuous. For example, 
+    \[\begin{aligned}
+        f:[0,2\pi) &\to \mathbb{S}^1 \\
+        \theta &\mapsto (\cos\theta,\sin\theta).
+    \end{aligned}\]
+    The inverse of this map is not continuous.
+\end{mdremark}
+
+\begin{mdprop}
+    The metrics \(d\) and \(\rho\) (in the metric spaces \((X,d)\) and \((X,\rho)\)) are equivalent if and only if \(\mathcal{U} \subset X\) is \(d\)-open and \(\rho\)-open.
+\end{mdprop}
+
+\begin{proof}
+    We split the proof in parts.
+    \begin{itemize}
+        \item Proof of \((\Leftarrow)\). \\
+        For any \(s>0\) there exists a \(B_s^{\rho}(x)\), a \(\rho\)-open set. By assumption, this ball is \(d\)-open thus, there exists \(t>0\) such that \(B_t^d(x) \subseteq B_s^{\rho}(x)\). Now, suppose \(x_n \xrightarrow{d} x\) then there exists \(N_t \in \NN\) such that \(x_n \in B_t^d(x)\) for all \(n \geq N_t\) which implies, \(x \in B_s^{\rho}(x)\) for all \(n \geq N_t\). Hence, \(x_n \xrightarrow{\rho} x\).
+        \item Proof of \((\then)\). \\
+        We provide a proof by contradiction. Suppose \(\rho \sim d\) and \(\exists \mathcal{U} \subseteq X\) with \(\mathcal{U}\) being \(\rho\)-open but not \(d\)-open. Without loss of generality, we can assume \(\exists B_r^{\rho}(x)\) \(\forall r>0\) with \underline{no} \(B_s^d(x)\) for all \(s>0\) inside. Choose \(s_n \to 0\) and \(x_n \in X\) such that \(x_n \in B_{s_n}^d(x)\) and \(x_n \not\in B_r^{\rho}(x)\). This implies, \(x_n \xrightarrow{d} x\) however, \(x_n \not\xrightarrow{\rho} x\) which contradicts the assumption of \(d \sim \rho\).
+    \end{itemize}
+\end{proof}
+
+\begin{mdexample}
+    Examples of homeomorphisms.
+    \begin{enumerate}
+        \item Let \(X=(0,1)\) and \(Y=(1,\infty)\) then \(f(x) = \frac{1}{x}\) is a homeomorphism.
+        \item Bijective isometry implies homeomorphism. However, the converse does not hold.
+        \item Two metric spaces \((X,d)\) and \((X,\rho)\) are equivalent if and only if the identity map
+        \[\id : (X,d) \to (X,\rho)\]
+        is a homeomorphism.
+        \item Let \(X = (-r,r)\) for \(r>0\) and \(Y=\RR\). Then 
+        \[\begin{aligned}
+            f:(-r,r) &\to \RR \\
+            x &\mapsto \tan\left( \frac{\pi}{2} \frac{x}{r} \right)
+        \end{aligned}\]
+        is a homeomorphism.
+    \end{enumerate}
+\end{mdexample}
+
+\section{Completeness}
+
+\subsection{Cauchy sequences}
+
+\begin{definition}
+    A sequence \(x_n\) of elements of a metric space \((X,d)\) is called a \textbf{Cauchy sequence} if 
+    \[\forall \eps>0, \, \exists N_{\eps} \in \NN \text{ such that } d(x_m,x_n) <\eps \quad \forall m,n>N_{\eps}.\]
+\end{definition}
+
+\begin{lemma}
+    Every convergent sequence is a Cauchy sequence.
+\end{lemma}
+
+\begin{proof}
+    If \(x_n \to x\) then 
+    \[\forall \eps >0, \, \exists N_{\eps} \in \NN \text{ such that } d(x_n,x)<\frac{\eps}{2} \quad \forall n\geq N_{\eps}.\]
+    Applying the triangle inequality, we obtain 
+    \[\begin{aligned}
+        d(x_m,x_n) &\leq d(x_m,x) + d(x_n,x) \\
+        &< \frac{\eps}{2} + \frac{\eps}{2} \\
+        &= \eps
+    \end{aligned}\]
+    for all \(m,n > N_{\eps}\). This implies that \(x_n\) is a Cauchy sequence.
+\end{proof} 
+
+\begin{lemma}
+    If a Cauchy sequence has a convergent subsequence, then it is convergent to the same limit.
+\end{lemma}
+
+\begin{proof}
+    Let \(x_n\) be a Cauchy sequence and \(x_{n_k} \to x\) be a convergent subsequence. Then
+    \[\forall \eps >0, \, \exists N_{\eps} \in \NN \text{ such that } d(x_n,x_{n_k})<\frac{\eps}{2} \text{ and } d(x_{n_k},x)< \frac{\eps}{2} \quad \forall n,n_k\geq N_{\eps}.\]
+    Applying the triangle inequality, we obtain 
+    \[\begin{aligned}
+        d(x_n,x) &\leq d(x_{n_k},x)+d(x_n,x_{n_k}) \\
+        &<\frac{\eps}{2} + \frac{\eps}{2}\\
+        &= \eps
+    \end{aligned}\]
+    for all \(n >N_{\eps}\). Since, \(\eps\) is an arbitrary positive number, this implies that \(x_n \to x\).
+\end{proof}
+
+\subsection{Complete metric spaces}
+
+\begin{definition}
+    A metric space \((X,d)\) is said to be \textbf{complete} if every Cauchy sequence \(\{x_n\} \subset X\) converges to a limit \(x \in X\).
+\end{definition}
+
+\begin{mdremark}
+    Completeness is a property of metric spaces and not topological spaces. For example, we have \((-1,1) \equiv \RR\)
+    clearly \(\RR\) is complete whereas, \((-1,1)\) is incomplete.
+\end{mdremark}
+
+\begin{mdexample}
+    We present some examples and non-examples of complete metric spaces.
+    \begin{itemize}
+        \item Let \(X=(0,1)\) equipped with the usual metric, this is not complete (we can say \textbf{incomplete}) as \(x_n = \frac{1}{n} \to 0 \not\in X\). 
+        \item \(X =\RR\) equipped with the usual metric is complete.
+        \item \(X =\QQ\) equipped with the usual metric is incomplete as we can take a sequence \(x_n \to \sqrt{2} \not\in \QQ\).
+    \end{itemize}
+\end{mdexample}
+
+\begin{mdremark}
+    Completeness of a metric space depends on the metric equipped on the set. For example, any set equipped with the discrete metric is complete.
+\end{mdremark}
+
+\begin{proposition}
+    Let \((X,d)\) be a \textit{complete} metric space and suppose that \(A \subset X\) is closed. Then, the subspace \((A,d)\) is complete.
+\end{proposition}
+
+\begin{proof}
+    Let \(\{x_n\} \subset A\) be a Cauchy sequence. Then, \(\{x_n\}\) is also a Cauchy sequence in \(X\) and so, \(x_n \to x \in X\) by the completeness of \(X\). But, since \(x_n \in A\) for all \(n \in \NN\) and \(A\) is closed we must have \(x \in A\) (by Lemma 3.34 of lecture notes) hence, \(A\) is complete.
+\end{proof}
+
+\begin{example}
+    If \(X = \RR\) equipped with the usual metric then \(A=[0,1]\) is complete.
+\end{example}
+
+\begin{mdprop}
+    Let \((A,d)\) be a subspace of a metric space \((X,d)\) and suppose that \((A,d)\) is complete. Then \(A\) is a closed subset of \(X\).
+\end{mdprop}
+
+\begin{proof}
+    Let \(\{x_n\} \subset A\) be a sequence such that \(x_n \to x \in X\). We only need to show that \(x \in A\) (by lemma 3.34 of lecture notes). Since, the sequence \(\{x_n\}\) is convergent in \(X\) it must be a Cauchy sequence and therefore, a Cauchy sequence in \(A\) also. The completeness of \((A,d)\) forces \(x \in A\).
+\end{proof}
+
+\begin{mdthm}
+    Let \((X,d)\) be an arbitrary \textit{incomplete} metric space. Then there exists a complete metric space \((\wt{X},\wt{d})\) such that 
+    \begin{itemize}
+        \item \(X \subset \wt{X}\);
+        \item \(d(x,y)=\wt{d}(x,y)\) \(\forall x,y \in X\);
+        \item \(\forall \wt{x} \in \wt{X}\) there exists \(\{x_n\} \subset X\) such that \(x_n \xrightarrow{\wt{d}} \wt{x}\).
+    \end{itemize}
+    The metric space \((\wt{X},\wt{d})\) is called the \textbf{completion} of \((X,d)\).
+\end{mdthm}
+
+\begin{mdnote}
+    We can illustrate this theorem in the figure below.
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[scale=0.24]{./Resources/Completion of set.png}
+        \end{center}
+   \end{figure}
+\end{mdnote}
+
+\begin{mdremark}
+    The necessity of the second condition is due to \(d\) not being defined outside \(X\) thus, we need a new metric which is valid in \(\wt{X}\) but is the same in \(X\) to maintain the structure of the metric space \((X,d)\).
+\end{mdremark}
+
+\begin{mdthm}
+    Let \((A,d)\) be a subspace of a complete metric space \((X,d)\) and let \(\text{Cl}(A)\) be the closure of \(A\) in \((X,d)\) Then, \((\text{Cl}(A),d)\) is the completion of \((A,d)\).
+\end{mdthm}
+
+\begin{mdexample}
+    Some examples of completion of sets.
+    \begin{itemize}
+        \item Let \(A = (0,1)\subset \RR\) equipped with the usual metric, the completion of \(A\) is \(\text{Cl}(A)=[0,1]\).
+        \item The completion of \(\QQ\) equipped with the usual metric is \(\RR\).
+    \end{itemize}
+\end{mdexample}
+
+\begin{theorem}
+    Let \(S \subset \RR\), then \(B(S)\) with the uniform metric is complete.
+\end{theorem}
+
+\begin{proof}
+    Let \(\{f_n\} \in B(S)\) be a Cauchy sequence, this implies 
+    \[\forall \eps>0, \, \exists N_{\eps} \in \NN \text{ such that } \sup_{x \in S} \abs{f_m(x)-f_n(x)} <\frac{\eps}{2} \quad \forall m,n \geq N_{\eps}.\]
+    Fix \(x \in S\) the numbers \(f_n(x)\) form a Cauchy sequence of real numbers since, \(\RR\) is complete this sequence has a limit. Denote this limit by \(f(x)\) then, \(f_n(x) \to f(x)\) for each fixed \(x\in S\) i.e. 
+    \[\forall \eps>0, \, \exists N_{\eps,x} \in \NN \text{ such that } \abs{f_n(x)-f(x)} <\frac{\eps}{2} \quad \forall n \geq N_{\eps,x}.\]
+    For any \(m,n \in \ZZ\) we have 
+    \[\begin{aligned}
+        \abs{f_n(x)-f(x)} &= \abs{f_n(x) -f_m(x)+f_m(x)-f(x)} \\
+        &\leq \abs{f_n(x) -f_m(x)} + \abs{f_m(x)-f(x)} \\
+        &< \frac{\eps}{2} +\frac{\eps}{2} \\
+        &= \eps.
+    \end{aligned}\]
+    That is, \(\abs{f_n(x)-f(x)} <\eps\) for all \(n \geq N_{\eps}\), which means that \(\sup_{x \in S} \abs{f_n(x)-f(x)}<\eps\) so, \(f_n \xrightarrow{d} f\) (where \(d\) denotes the uniform metric). 
+    It remains to prove that \(f\) is bounded. Choosing \(n \geq N_{\eps}\) we obtain 
+    \[\begin{aligned}
+        \sup_{x\in S} \abs{f(x)} &= \sup_{x\in S} \abs{f_n(x)-f_n(x)+f(x)} \\
+        &\leq \sup\left( \abs{f_n(x)} + \abs{f_n(x)-f(x)} \right) \\
+        &\leq \sup_{x\in S} \abs{f_n(x)}+\sup_{x\in S}\abs{f_n(x)-f(x)} \\
+        &\leq \sup_{x\in S} \abs{f_n(x)} +\eps.
+    \end{aligned}\]
+    Since \(f_n\) is bounded, this estimate implies that \(f\) is also bounded.
+\end{proof}
+
+\begin{mdcor}
+    The set \(C[a,b]\) equipped with the uniform metric is complete.
+\end{mdcor}
+
+\begin{proof}
+    Clearly, \(C[a,b] \subsetneq B[a,b]\) by the boundedness theorem, this implies that the set is indeed complete. It remains to prove that the limit which we denote by \(f\) is continuous. We have 
+    \[\begin{aligned}
+        \abs{f(x)-f(y)} &= \abs{f(x)-f_n(x)+f_n(x)-f_n(y)+f_n(y)-f(y)} \\ 
+        &\leq \abs{f(x)-f_n(x)} + \abs{f_n(x)-f_n(y)+f_n(y)-f(y)} \\
+        &\leq \abs{f(x)-f_n(x)} + \abs{f_n(x)-f_n(y)} +\abs{f_n(y)-f(y)},
+    \end{aligned}\]
+    by applying the triangle inequality twice.
+    Since \(f_n \to f\) in \(B(S)\), we can choose \(n\) such that \(\abs{f(x)-f_n(x)} <\frac{\eps}{3}\) and \(\abs{f(y)-f_n(y)}<\frac{\eps}{3}\). Since, the function \(f_n\) is continuous there exists \(\delta>0\) such that \(\abs{f_n(x)-f_n(y)} <\frac{\eps}{3}\) whenever \(\abs{x-y}<\delta\). Therefore,
+    \[\begin{aligned}
+        \abs{f(x)-f(y)}&<\frac{\eps}{3}+\frac{\eps}{3}+\frac{\eps}{3} \\
+        &= \eps,
+    \end{aligned}\]
+    whenever \(\abs{x-y}<\delta\).
+\end{proof}
+
+\begin{mdexample}
+    The set \(C[0,1]\) with \(\rho(f,g)=\int_0^1 \abs{f(x)-g(x)} \, dx\) is incomplete. Consider the function 
+    \[\begin{aligned}
+        f_n(x) = \begin{cases}
+            0 & 0 \leq x \leq \half \\
+            n\left( x-\half \right) & \half \leq x < \half + \frac{1}{n} \\
+            1 & \half + \frac{1}{n} \leq x \leq 1
+        \end{cases}
+    \end{aligned}\]
+    \begin{figure}[H]
+         \begin{center}
+             \includegraphics[width=\textwidth]{./Resources/Incomplete C set.png}
+         \end{center}
+    \end{figure}
+    Clearly, this is a continuous function and the function sequence \(\{f_n\}\) is Cauchy. However, the limit function which is 
+    \[\begin{aligned}
+        f(x) = \begin{cases}
+            0 & 0\leq x \leq \half \\
+            1 & \half <  x \leq 1.
+        \end{cases}
+    \end{aligned}\]
+    This function is not continuous therefore, the set \(C[0,1]\) with the metric \(\rho\) is incomplete.
+\end{mdexample}
+
+\subsection{Contraction}
+
+\begin{definition}
+    A map \(T : (X,d) \to (X,d)\) is called a \textbf{contraction} if 
+    \[\begin{aligned}
+        d(T(x),T(y)) \leq c \cdot d(x,y) \quad \text{for } &c \in [0,1) \text{ and}\\
+        &\forall x,y \in X.
+    \end{aligned}\]
+\end{definition}
+
+\begin{proposition}
+    Suppose that \(T : (X,d) \to (X,d)\) is a contraction then \(T\) is continuous.
+\end{proposition}
+
+\begin{proof}
+    We want \(\forall \eps>0\) \(\exists \delta>0\) such that \(d(x,y)<\delta \then d(T(x),T(y))<\eps\). Since, \(T\) is a contraction we know \(d(T(x),T(y)) \leq cd(x,y)<c\delta=\eps\). Therefore, we pick \(\delta = \frac{\eps}{c}\) for \(c \in [0,1)\).
+\end{proof}
+
+\begin{mdthm}[Contraction Mapping Theorem (CMT)]
+    Let \((X,d)\) be a complete metric space and let \(T : (X,d) \to (X,d)\) be a contraction. Then \(T\) has a unique fixed point i.e. there is a unique \(x \in X\) such that \(T(x)=x\).
+\end{mdthm}
+
+\begin{proof}
+    Pick an arbitrary point \(x_0 \in X\) and define \(\{x_n\}\) recursively by \(x_n = T(x_{n-1})\). Thus, \(x_n = T(T(\ldots,T(x_0)\ldots))=T^n(x_0)\). We prove \(\{x_n\}\) is a Cauchy sequence; for any \(n \in \NN\) we have 
+    \[\begin{aligned}
+        d(x_n,x_{n+1}) &= d(T(x_{n-1}),T(x_n)) \\
+        &\leq cd(x_{n-1},x_n) \\
+        &\vdots \\
+        &\leq c^n d(x_0,x_1).
+    \end{aligned}\]
+    We conclude, \(d(x_n,x_{n+1}) \leq c^n d(x_0,x_1)\) for all \(n \in \NN\). So, for any \(m,n \in \NN\) with \(n \geq m\) we have 
+    \[\begin{aligned}
+        d(x_m,x_n) &\leq d(x_m,x_{m+1})+d(x_{m+1},x_{m+2})+\cdots+ d(x_{n-1},x_n) \\
+        &\leq (c^m +c^{m+1} + \cdots + c^{n-1}) d(x_0,x_1) \\
+        &= \frac{c^m-c^n}{1-c} d(x_0,x_1) \\
+        &\leq \frac{c^m}{1-c} d(x_0,x_1).
+    \end{aligned}\]
+    Since \(\frac{c^m}{1-c} d(x_0,x_1) \to 0\) as \(m \to \infty\), for any \(\eps>0\) there exists \(N_{\eps} \in \NN\) such that for \(n \geq m \geq N_{\eps}\)
+    \[d(x_m,x_n) \leq \frac{c^m}{1-c} d(x_0,x_1) < \eps.\]
+    So, the sequence \(\{x_n\}\) is Cauchy and since \((X,d)\) is a complete space, we have that \(x_n \xrightarrow{d} x\) for some \(x \in X\). We also know, \(T\) is continuous therefore, \(T(x_n) \to T(x)\) as \(n \to \infty\), we also have \(T(x_n)=x_{n+1} \to x\). Hence, \(T(x)=x\).
+
+    Finally, if \(x\) and \(y\) are two unique fixed points then 
+    \[0 \leq d(x,y) \leq d(T(x),T(y)) \leq cd(x,y).\]
+    Since \(c \in [0,1)\), we have that \(d(x,y)=0\) which is only true if and only if \(x=y\). We conclude that the fixed point is unique.
+\end{proof}
+
+\begin{mdcor}[Error estimate]
+    Let \((X,d)\) be a complete metric space and let \(T : (X,d) \to (X,d)\) be a contraction. We have that 
+    \[d(x_m,x) \leq \frac{c^m}{1-c} d(x_0,x_1) \quad \forall x_0 \in X \text{ and } \forall m \in \NN.\]
+\end{mdcor}
+
+\begin{proof}
+    From the proof above we have,
+    \[d(x_m,x_n) \leq \frac{c^m}{1-c} d(x_0,x_1),\]
+    by letting \(n \to \infty\) we have the desired inequality.
+\end{proof}
+
+\subsection{Picard's existence theorem for ODEs}
+
+Let \(f\) be a real-valued function defined on some closed rectangle \(\Omega \subseteq \RR^2\). Consider the ordinary differential equation 
+\[\diff{u}{t} = f(t,u(t)), \quad u(t_0)=y_0\]
+
+Where \(t\) is a one dimensional variable, \(u\) is a function of \(t\) and \(y_0\) is some constant.
+
+\begin{mdthm}[Picard-Lindelöf theorem]
+    Let \(a,b,R \in \RR\) with \(a<b\), \(R>0\), \(y_0 \in \RR\) and \(f\) a continuous function 
+    \[f: [a,b] \times B_R[y_0] \to \RR.\]
+    Suppose there exists some constant \(L>0\) such that 
+    \[\begin{aligned}
+        \abs{f(t,x)-f(t,y)} \leq L\abs{x-y} \quad &\forall t \in [a,b] \text{ and}\\
+        &x,y \in B_R[y_0].
+    \end{aligned}\]
+    Then there exists \(\eps>0\) such that for any \(t_0 \in [a,b]\) the ODE
+    \[\diff{u}{t} = f(t,u(t)), \quad u(t_0)=y_0\]
+    has a \textbf{unique solution} on the interval \([t_0-\eps,t_0+\eps] \cap [a,b]\).
+\end{mdthm}
+
+\begin{mdremark}
+    The condition 
+    \[\abs{f(t,\alpha)-f(t,\beta)} \leq L \abs{\alpha-\beta}\]
+    for \(L >0\) is called the condition of Lipschitz continuity in the second variable.
+\end{mdremark}
+
+\begin{mdremark}
+    Proof is not going to be examined 
+\end{mdremark}
+
+\section{Connectedness}
+
+\begin{definition}
+    We say that \(I \subseteq \RR\) is an \textbf{interval} if \(x<y<z\) and \(x,z \in I \then y \in I\).
+\end{definition}
+
+\begin{example}
+    The following are intervals:
+    \begin{itemize}
+        \item \((0,1)\);
+        \item \([2,\infty)\);
+        \item \(\{1\} ``=[1,1]''\).
+    \end{itemize}
+\end{example}
+
+\begin{theorem}[Intermediate value theorem]
+    Let \(f:I \to \RR\) be a continuous function on the interval \(I\). Given \(x<z\) with \(x, z \in I\) and \(c \in \RR\) strictly between \(f(x)\) and \(f(z)\), then there exists \(y \in (x,z)\) such that \(f(y)=c\).
+\end{theorem}
+
+\begin{example}
+    The map 
+    \[\begin{aligned}
+        f: [0,1) \cup (1,2] &\to \RR \\
+        x &\mapsto \begin{cases}
+            0 &x \in [0,1) \\
+            1 &x \in (1,2]
+        \end{cases}
+    \end{aligned}\]
+    is a continuous map, but its image is not an interval so, the intermediate value theorem does not hold.
+\end{example}
+
+\subsection{Connected topological spaces}
+
+\begin{definition}
+    A topological space \((X,\tau)\) is \textbf{disconnected} if there exists subsets \(\mathcal{U},\mathcal{V} \subseteq X\) such that 
+    \begin{itemize}
+        \item \(\mathcal{U}\) and \(\mathcal{V}\) are \(\tau\)-open.
+        \item \(\mathcal{U} \neq \varnothing\) and \(\mathcal{V}\neq \varnothing\);
+        \item \(\mathcal{U} \cap \mathcal{V} = \varnothing\);
+        \item \(\mathcal{U} \cup \mathcal{V} = X\).
+    \end{itemize}
+    We say that \(\mathcal{U}\) and \(\mathcal{V}\) disconnect \(X\). 
+\end{definition}
+
+\begin{mdremark}
+    This definition still holds if \(\mathcal{U}\) and \(\mathcal{V}\) are \(\tau\)-closed.
+\end{mdremark}
+
+\begin{definition}
+    We say \(X\) is \textbf{connected} if it is not connected.
+\end{definition}
+
+\begin{mdthm}
+    In a topological space \((X,\tau)\), the following are equivalent:
+    \begin{enumerate}
+        \item \(X\) is connected;
+        \item \(f : X \to \RR\) is continuous \(\then\) \(f(X)\) is an interval;
+        \item \(f:X \to \ZZ\) is continuous \(\then\) \(f\) is constant.
+    \end{enumerate}
+\end{mdthm}
+
+\begin{mdremark}
+    For the third property it is enough to show that a continuous function \(f:X \to \{0,1\}\) is constant.
+\end{mdremark}
+
+\begin{proof}
+    We split the proof into parts.
+    \begin{itemize}
+        \item \((1 \then 2).\) \\
+        Suppose \(f\) is continuous but \(f(X)\) is \underline{not} an interval. This implies there exists \(a<b<c\) in \(\RR\) with \(a,c \in f(X)\) and \(b \not\in f(X)\). Choose \(x,z \in X\) such that \(a=f(x)\) and \(c=f(z)\). Define \(\mathcal{U}=f\inv((-\infty,b))\) and \(\mathcal{V}=f\inv((b,\infty))\) so, \(\mathcal{U}\) and \(\mathcal{V}\) are both non-empty (\(x \in \mathcal{U}\) and \(z \in \mathcal{V}\)), both are open (since, \(f\) is continuous), disjoint and \(\mathcal{U} \cup \mathcal{V} =X\) since \(b \not\in f(X)\). However, this contradicts statement \((1)\) i.e. this contradicts that \(X\) is connected.
+        \item \((2\then 3).\) \\
+        The inclusion map given by 
+        \[\begin{aligned}
+            \iota : \ZZ &\to \RR \\
+            x &\mapsto x,
+        \end{aligned}\]
+        is continuous. Thus, the composition of maps \(g=\iota \circ f :X \to \RR\) is also continuous. Then, by the assumption of \((2)\) \(g(X)\) is an interval but also \(g(X)=f(X) \subset \ZZ\) so, \(f(X)\) is both an interval and a subset of \(\ZZ\), the only possible choice is for \(f\) to be constant.
+        \item \((3 \then 1).\) \\
+        Suppose, for the sake of contradiction, that \(\mathcal{U}\) and \(\mathcal{V}\) disconnect \(X\). Define 
+        \[\begin{aligned}
+            \chi_V : X &\to \ZZ \\
+            x &\mapsto \begin{cases}
+                0 &x \in \mathcal{U} \\
+                1 &x \in \mathcal{V}.
+            \end{cases}
+        \end{aligned}\]
+        Then for any \(A \subset \ZZ\) we have 
+        \[\begin{aligned}
+            \chi_V\inv(A) = \begin{cases}
+                \varnothing &\text{if } 0,1 \not\in A \\
+                \mathcal{V} &\text{if } 0 \not\in A, 1 \in A \\
+                \mathcal{U} &\text{if } 0 \in A, 1\not\in A \\
+                X &\text{if } 0,1 \in A.
+            \end{cases}
+        \end{aligned}\]
+        Therefore, \(\chi_V\) is continuous but not constant as \(\mathcal{U}\) and \(\mathcal{V}\) are non-empty. We contradicted condition \((3)\) thus, \(X\) must be connected.
+    \end{itemize}
+\end{proof}
+
+\begin{definition}
+    A set \(A\) in a topological space is \textbf{clopen} if it is both \(\tau\)-open and \(\tau\)-closed.
+\end{definition}
+
+\begin{example}
+    Some examples of clopen sets:
+    \begin{enumerate}
+        \item \(\varnothing,X\);
+        \item \(A \subseteq X\) in \((X,\tau)\) where \(\tau\) is induced by the discrete metric.
+    \end{enumerate}
+\end{example}
+
+% \begin{lemma}
+%     Suppose that \((X,\tau)\) admits a non-trivial clopen set \(A \subseteq X\). Then \(X\) is disconnected.
+% \end{lemma}
+
+\begin{mdlemma}
+    Let \((X,\tau)\) be a topological space. Suppose that there exists a non-trivial clopen set \(A \subseteq X\). Then, \(X\) is disconnected.
+\end{mdlemma}
+
+\begin{mdnote}
+    If \((X,\tau)\) has a clopen subset \(A\) which is not \(\varnothing\) or \(X\) then, \(X\) is disconnected. 
+\end{mdnote}
+
+\begin{mdremark}
+    The contrapositive of this lemma: \\
+    If \(\varnothing\) and \(X\) are the only clopen subsets of \(X\) then, \(X\) is connected.
+\end{mdremark}
+
+\begin{proof}
+    We consider \(\mathcal{U}=A\) and \(\mathcal{V}=X \backslash A\). We have \(\mathcal{U}, \mathcal{V}\) are non-empty and disjoint. Furthermore, we have that \(\mathcal{U}\) is open, and  since \(A\) is closed the complement \(V\) is open. Thus, \(\mathcal{U}, \mathcal{V}\) disconnect \(X\) thus, the space is disconnected.
+\end{proof}
+
+\begin{mdlemma}
+    Let \(Y\) be a subspace of a topological space \((X,\tau)\). Then \(Y\) is disconnected \(\iff\) there exists \(\tau\)-open subsets \(\mathcal{U},\mathcal{V} \subset X\) such that 
+    \begin{itemize}
+        \item \(\mathcal{U} \cap Y \neq \varnothing\);
+        \item \(\mathcal{V} \cap Y \neq \varnothing\);
+        \item \(\mathcal{U} \cap \mathcal{V} \cap Y=\varnothing\);
+        \item \(Y \subset \mathcal{U} \cup \mathcal{V}\).
+    \end{itemize}
+\end{mdlemma}
+
+\begin{proof}
+    We split the proof into two parts.
+    \begin{itemize}
+        \item Proof of \((\Leftarrow).\) \\
+        Suppose there exists \(\mathcal{U}\) and \(\mathcal{V}\) which are \(\tau\)-open with the properties from the RHS. Set \(\wt{\mathcal{U}}=\mathcal{U}\cap Y\) and \(\wt{\mathcal{V}}=\mathcal{V} \cap Y\). These sets satisfy the following:
+        \begin{itemize}
+            \item \(\wt{\mathcal{U}},\wt{\mathcal{V}} \neq \varnothing\);
+            \item \(\wt{\mathcal{U}}\cap \wt{\mathcal{V}} = \varnothing\);
+            \item \(Y= \wt{\mathcal{U}}\cup \wt{\mathcal{V}}\).
+        \end{itemize}
+        Therefore, \(\wt{\mathcal{U}}\) and \(\wt{\mathcal{V}}\) disconnect \(Y\).
+        \item Proof of \((\then).\) \\
+        The set \(Y\) is disconnected, by definition there exists \(\wt{\mathcal{U}}\) and \(\wt{\mathcal{V}}\) which are open subsets of \((Y,\tau_{Y})\) (the subspace topology). Recall \(\tau_Y = \{S \cap Y : S \in \tau\}\) so, if \(\wt{\mathcal{U}},\wt{\mathcal{V}} \in \tau_Y\) then there exists \(\mathcal{U},\mathcal{V} \in \tau\) such that \(\wt{\mathcal{U}} = \mathcal{U} \cap Y\) and \(\wt{\mathcal{V}}=\mathcal{V} \cap Y\). Then, 
+        \begin{itemize}
+            \item \(\mathcal{U} \cap Y =\wt{\mathcal{U}} \neq \varnothing\);
+            \item \(\mathcal{V} \cap Y = \wt{\mathcal{V}} \neq \varnothing\);
+            \item \(\mathcal{U} \cap \mathcal{V} \cap Y = \wt{\mathcal{U}} \cap \wt{\mathcal{V}}= \varnothing\);
+            \item \(Y = \wt{\mathcal{U}} \cup \wt{\mathcal{V}} \subset \mathcal{U} \cup \mathcal{V}\).
+        \end{itemize}
+    \end{itemize}
+\end{proof}
+
+\begin{example}
+    Consider the set 
+    \[Y = \left\{(x,y) : y=0 \text{ or } \frac{y}{x} \in \QQ \right\} \backslash \{(0,0)\}\] 
+    where \(X = \RR^2\). The set \(Y\) is disconnected by the sets 
+    \[\mathcal{U} = \left\{ (x,y) : \frac{y}{x}>\pi \right\} \quad \text{and} \quad \mathcal{V} = \left\{ (x,y) : \frac{y}{x}<\pi \right\}.\]
+\end{example}
+
+\begin{mdthm}
+    Let \(X \subseteq \RR\) be equipped with the usual topology. Then \(X\) is connected \(\iff\) \(X\) is an interval.
+\end{mdthm}
+
+\begin{proof}
+    We split the proof into parts.
+    \begin{itemize}
+        \item Proof of \((\then).\) \\
+        If \(X\) is connected and an interval the proof is trivial. Suppose \(X\) is connected but not an interval. Then there exists \(x<y<z\) in \(\RR\) with \(x,z \in X\) and \(y \not\in X\). It follows that \(\mathcal{U} = (-\infty,y) \cap X\) and \(\mathcal{V} = (y,\infty) \cap X\) disconnect \(X\). Thus, this contradicts the fact that \(X\) is connected.
+        \item Proof of \((\Leftarrow).\) \\
+        Suppose \(x\) is an interval but \(X\) is disconnected by \(\mathcal{U}\) and \(\mathcal{V}\). Fix \(x \in \mathcal{U}\) and \(y \in \mathcal{V}\) and assume without loss of generality that \(x<y\). Since, \(x,y \in X\) and \(X\) is an interval we have that \([x,y] \subseteq X\). Now \(\mathcal{U} = X \backslash \mathcal{V}\) and \(\mathcal{V} = X \backslash \mathcal{U}\) so, \(\mathcal{U}\) and \(\mathcal{V}\) are also closed in \(X\). Thus, by Exercise \(4.38\) in the lecture notes \(\mathcal{U} \cap [x,y]\) and \(\mathcal{V} \cap [x,y]\) are closed in \(\RR\). Let \(z = \sup(\mathcal{U} \cap [x,y])\) then, \(z \in \mathcal{U} \cap [x,y]\) since \(\mathcal{U} \cap [x,y]\) is closed. It follows that \(z<y\) since \(y \in \mathcal{V} \cap [x,y]\) and \((\mathcal{U} \cap [x,y]) \cap (\mathcal{V}\cap [x,y]) = \varnothing\).
+        However, \(\mathcal{U} \cap [x,y]\) is also open \([x,y]\). Furthermore, we must be able to inscribe a ball about \(z\) that stays in the set i.e. there exists \(\delta>0\) such that \(B_{\delta}(z)\cap [x,y]= (z-\delta,z+\delta) \cap [x,y] \subset \mathcal{U} \cap [x,y]\). Since, \(x<y\) there exists points in \((z,z+\delta)\cap[x,y]\) greater than \(z\) and such points lie in \(\mathcal{U} \cap [x,y]\), contradicting the choice of \(z\).
+    \end{itemize}
+\end{proof}
+
+\subsection{Connectedness as topological invariant}
+
+\begin{mdthm}[Image of set is connected]
+    Let \(X\) and \(Y\) be topological spaces and let \(f:X \to Y\) be continuous. If \(X\) is connected then \(f(X)\) is connected.
+\end{mdthm}
+
+\begin{proof}
+    For the sake of contraction, assume \(f(X)\) is disconnected by open sets \(\mathcal{U}\) and \(\mathcal{V}\). Then, \(f\inv(\mathcal{U})\) and \(f\inv(\mathcal{V})\) are also open in \(X\) since \(f\) is continuous. Note that 
+    \begin{itemize}
+        \item \(f\inv(\mathcal{U})\neq \varnothing\),
+        \item \(f\inv(\mathcal{V}) \neq \varnothing\),
+        \item \(\mathcal{U} \cap f(X)\neq\varnothing\).
+    \end{itemize}
+    If \(x \in f\inv(\mathcal{U}) \cap f\inv(\mathcal{V})\) then \(f(x) \in \mathcal{U} \cap \mathcal{V} \cap f(X) = \varnothing\) thus, we can only have \(f\inv(\mathcal{U}) \cap f\inv(\mathcal{V})=\varnothing\). Finally, \(f\inv(\mathcal{U}) \cup f\inv(\mathcal{V}) = f\inv(\mathcal{U} \cup \mathcal{V}) = X\) since \(f(X) \subset \mathcal{U} \cup \mathcal{V}\). Thus, we have shown that \(f\inv(\mathcal{U})\) and \(f\inv(\mathcal{V})\) disconnect \(X\), contradicting the assumption that \(X\) is connected.
+\end{proof}
+
+\begin{mdexample}
+    \(\RR \not\equiv (0,1) \cup (1,2)\) since \((0,1) \cup (1,2)\) is not connected.
+\end{mdexample}
+
+\subsection{Path-connectedness}
+
+\begin{definition}
+    Given two points \(x,y\) of a topological space \(X\), a \textbf{path} from \(x\) to \(y\) in \(X\) is a continuous function \(\gamma :[0,1] \to X\) such that \(\gamma(0)=x\) and \(\gamma(1)=y\).
+\end{definition}
+
+\begin{definition}
+    We say that \(X\) is \textbf{path-connected} if for all \(x,y \in X\) there is a path from \(x\) to \(y\) in \(X\).
+\end{definition}
+
+\begin{example}
+    In \(\RR^2\) the subset \(B_1((-1,0)) \cup B_1[(1,0)]\) is clearly path connected.
+\end{example}
+
+\begin{mdthm}
+    If a set is path-connected then it is connected.
+\end{mdthm}
+
+\begin{mdremark}
+    The converse does not hold: consider the topologist's sine curve
+    \[\left\{ \left( x,\sin\frac{1}{x} \right) : x \in (0,1] \right\} \cup \{(0,0)\} \subset \RR^2,\]
+    the point \((0,0)\) cannot be reached by a non-constant path lying in this set.
+\end{mdremark}
+
+\begin{proof}
+    Suppose that \(X\) is path-connected but is disconnected by \(\mathcal{U}\) and \(\mathcal{V}\). Choose \(x \in \mathcal{U}\) and \(y \in \mathcal{V}\) and let \(\gamma\) be a path from \(x\) to \(y\) in \(X\). Since \(\gamma\) is continuous, the pre-images \(\gamma\inv(\mathcal{U})\) and \(\gamma\inv(\mathcal{V})\) are open subsets of \([0,1]\). Clearly, these subsets are non-empty and moreover 
+    \[\gamma\inv(\mathcal{U}) \cap \gamma\inv(\mathcal{V}) =\varnothing \quad \text{and} \quad \gamma\inv(\mathcal{U}) \cup \gamma\inv(\mathcal{V})=[0,1],\]
+    that is \(\gamma\inv(\mathcal{U})\) and \(\gamma\inv(\mathcal{V})\) disconnect \([0,1]\), which is a contradiction as \([0,1]\) is connected.
+\end{proof}
+
+\begin{mdexample}
+    We have
+    \begin{itemize}
+        \item \(\RR \backslash \{0\}\) is not path-connected and,
+        \item \(\RR^2 \backslash \{(0,0)\}\) is path-connected.
+    \end{itemize}
+    We have that \(\RR \not\equiv \RR^2\). We prove this.
+    \begin{proof}
+        Suppose there exists a surjective homeomorphism \(f : \RR^2 \to \RR\). Let \(\alpha = f((0,0))\) and consider the restricted map \(f: \RR^2 \backslash \{(0,0)\} \to \RR \backslash \{\alpha\}\). This map is also continuous and, \(\RR^2 \backslash \{(0,0)\}\) is connected, which implies \(\RR \backslash \{\alpha\}\) is also connected BUT it is not as shown above. Therefore, there is no such homeomorphism.
+    \end{proof}
+\end{mdexample}
+
+\begin{example}
+    The set
+    \[Y = \left\{ (x,y): x=0 \text{ or } \frac{y}{x} \in \QQ \right\}\]
+    is a path-connected subset of \(\RR^2\) hence, it is connected.
+\end{example}
+
+\pagebreak
+
+\section{Compactness}
+
+\subsection{Compactness in a topological space}
+
+\begin{mdexample}[Motivating example]
+    Recall the Extreme Value Theorem: let \(f:[0,1] \to \RR\) be a continuous function then, \(f([0,1])\) is bounded and \(f\) attains its bounds.
+
+    We want to extend this idea to topological spaces. Let \((X,\tau)\) be a topological space and let \(f:X \to \RR\) be a continuous function. Fix \(x \in X\) and define \(V_x=(f(x)-1,f(x)+1) = B_1(f(x))\) so, \(V_x\) is an open set. Let \(\mathcal{U}_x = f\inv(V_x)\), this is also open in \(X\) since \(f\) is continuous. Furthermore, for every \(y \in \mathcal{U}_x\) we have 
+    \[\begin{aligned}
+        \abs{f(y)} &= \abs{f(y)-f(x)+f(x)} \\
+        &\leq \abs{f(y)-f(x)}+\abs{f(x)} \\
+        &\leq 1+\abs{f(x)}.
+    \end{aligned}\]
+    So, \(X = \bigcup_{x \in X} \mathcal{U}_x\) and \(f\) is bounded on each \(\mathcal{U}_x\). If there exists a finite set \(F \subset X\) such that \(X = \bigcup_{x \in F} \mathcal{U}_x\) then, we can conclude that \(f\) is bounded.
+\end{mdexample}
+
+\begin{definition}
+    Let \((X,\tau)\) be a topological space. An \textbf{open cover} for \(X\) is a family \(F\) of \(\tau\)-open subsets of \(X\) such that \(X = \bigcup_{\mathcal{U} \in F} \mathcal{U}\).
+\end{definition}
+
+\begin{definition}
+    A \textbf{subcover} of an open cover of \(X\) is a subfamily \(\mathcal{V} \subset F\) such that \(X = \bigcup_{\mathcal{U} \in \mathcal{V}} \mathcal{U}\). If \(\mathcal{V}\) is finite then, we call this a \textbf{finite subcover} of \(F\).
+\end{definition}
+
+\begin{example}
+    Let \(X = \{(-x,x) : x \in \RR\}\) is an open cover for \(\RR\). Then, \(\mathcal{V} = \{(-2n,2n) : n \in \NN\}\) is a subcover of \(F\).
+\end{example}
+
+\begin{definition}
+    A topological space, \((X,\tau)\), is said to be \textbf{compact} if every open cover for \(X\) has a finite subcover. That is, for every open cover \(F\) of \(X\) such that \(X = \bigcup_{\mathcal{U} \in F} \mathcal{U}\), there exists a \textbf{finite subfamily} \(\mathcal{V} \subset F\) such that \(X = \bigcup_{\mathcal{U} \in \mathcal{V}} \mathcal{U}\).
+\end{definition}
+
+\begin{mdremark}
+    Since this subfamily is finite, we often write it as \(X=\bigcup_{i=1}^n \mathcal{U}_i\).
+\end{mdremark}
+
+\begin{example}
+    Let \(X = (0,1)\) with an arbitrary topology be a topological space. We have that \(F= \left\{ \left( \frac{1}{n},1 \right) : n\in \NN \right\}\) is an open cover of \(X\) as, \(X= \bigcup_{\mathcal{U} \in F} \mathcal{U}=\bigcup_{n\in \NN} \left( \frac{1}{n},1 \right)\). The topological space \(X\) is not compact because there exists no finite subcover. For example, let \(\mathcal{V} \subset F\) be a finite set defined by \(\mathcal{V} = \left\{ \left( \frac{1}{n_1},1 \right), \cdots, \left( \frac{1}{n_k},1 \right)\right\}\) and, let \(N=\max\{n_1,\ldots,n_k\}\). Then,
+    \[\begin{aligned}
+        \bigcup_{\mathcal{U} \in \mathcal{V}} \mathcal{U} &= \left( \frac{1}{n_1},1 \right) \cup \cdots \cup \left( \frac{1}{n_k},1 \right)  \\
+        &= \left( \frac{1}{N},1 \right).
+    \end{aligned}\]
+    Clearly, this does not cover \(X\).
+\end{example}
+
+\begin{mdthm}
+    Let \(X\) be compact topological space and \(f :X \to \RR\) a continuous function. Then, \(f\) is bounded and \(f\) attains its bounds.
+\end{mdthm}
+
+\begin{proof}
+    Let \(U_n = \{x \in X : \abs{f(x)}<n\}\) for \(n \in \NN\). Then \(U_n = f\inv((-n,n))\) is open in \(X\). For every \(x \in X\) there exists \(n \in \NN\) such that \(\abs{f(x)}<n\) thus, \(X = \bigcup_{n\in \NN} U_n\). Since, \(X\) is compact, there exists a finite set \(F \subset \NN\) such that \(X = \bigcup_{n \in F} U_n =U_N\) where \(N =\max(F)\). Hence, \(f\) is bounded by \(N\).
+    
+    Next, let \(m=\inf_X(f)\). Assume there is no \(y \in X\) with \(f(y)=m\). Then, for every \(y \in X\) we have \(f(y)>m\). Pick \(y \in X\) and choose \(\alpha_y \in \RR\) with \(m<\alpha_y<f(y)\) and set \(U_y=f\inv((\alpha_y,\infty))\). Then, \(U_y\) is open, it contains \(y\) and \(f\) is bounded below by \(\alpha_y\) on \(U_y\). In particular, \(\{U_y : y\in X\}\) is an open cover for \(X\). Since \(X\) is compact, there exists a finite set \(F \subset X\) such that \(X = \bigcup_{y \in F} U_y\). Let \(\alpha =\min\{\alpha_y :y \in F\}\) then, \(\alpha>m\) and \(f\) must be bounded below by \(\alpha\) on \(X\). This contradicts the definition of \(m = \inf_X(f)\).
+\end{proof}
+
+\begin{mdexample}
+    Some examples of sets which are and are not compact.
+    \begin{enumerate}
+        \item The set \((0,1]\) is not compact.
+        \item The set \(\NN\) with the discrete topology is not compact: consider \(\mathcal{U}=\{\{x\} : x \in \NN\}\), there is no finite subcover.
+        \item An infinite set \(X\) with the discrete topology is not compact.
+        \item The set \(X\) with the cofinite topology is compact: take \(\mathcal{U}\) an open cover of \(X\) and fix \(V \in \mathcal{U}\). Then \(X \backslash V\) is finite and for each point \(y \in X\backslash V\) fix \(\mathcal{U}_x \in \mathcal{U}\) such that \(x \in \mathcal{U}_x\). Then, \(\{\mathcal{U}_x : x \in X\backslash V\}\) is a finite cover of \(X \backslash V\) and so \(\{V\}\cup \{\mathcal{U}_x : x \in X \backslash V\}\) is a finite subcover of \(U\).
+    \end{enumerate}
+\end{mdexample}
+
+\subsection{Properties of compact spaces}
+
+\begin{mdlemma}
+    Let \(Y\) be a subspace of \((X,\tau)\). Then \(Y\) is compact \(\iff\) for any family \(F\) of open subsets of \(X\) satisfying \(Y \subset \bigcup_{U \in F} U\) there is a finite subfamily \(\mathcal{V} \subset F\) such that \(Y \subset \bigcup_{U \in \mathcal{V}} U\).
+\end{mdlemma}
+
+\begin{proof}
+    We prove each direction in turn.
+    \begin{itemize}
+        \item Proof of \((\then)\). \\
+        Let \(F\) be a family of open subsets of \(X\) satisfying \(Y \subset \bigcup_{U \in F} U\). Then, \(\{U\cap Y: U \in F\}\) is an open cover for \(Y\). Since \(Y\) is compact, there exists a finite subcover \(\mathcal{V} \subset F\) such that \(Y = \bigcup_{U \in \mathcal{V}} U\cap Y\) and so, \(Y \subset \bigcup_{U \in \mathcal{V}} U\).
+        \item Proof of \((\Leftarrow)\). \\
+        Let \(\mathcal{W}\) be an open cover for \(Y\) i.e. \(Y =\bigcup_{W \in \mathcal{W}} W\). For each \(W \in \mathcal{W}\) we can write it as \(W =Z_W \cap Y\) where \(Z_W\) is an open set in \(X\). Then \(F = \{Z_W : W\in \mathcal{W}\}\) is a family of open subsets of \(X\) satisfying \(Y \subset \bigcup_{U \in F} U\). By assumption, there is a finite subfamily \(\mathcal{V} \subset \mathcal{W}\) such that \(Y \subset \bigcup_{W \in \mathcal{V}} Z_W\). It follows that \(\bigcup_{W \in \mathcal{V}} W =Y\), i.e. \(\mathcal{V}\) is a finite subcover of \(\mathcal{W}\).
+    \end{itemize}
+\end{proof}
+
+\begin{definition}
+    A subset \(K\) of a metric space \((X,d)\) is \textbf{bounded} if for some \(x \in X\) there exists \(M \geq 0\) such that \(K \subset B_M^d(x)\).
+\end{definition}
+
+\begin{example}
+    If \(K \subset \RR\) with the usual metric then, we see that \(K\) is bounded if there exists \(M\geq 0\) such that \(\abs{x}\leq M\) for all \(x \in K\).
+\end{example}
+
+\begin{theorem}
+    Any compact subset \(K\) of a metric space \((X,d)\) is bounded.
+\end{theorem}
+
+\begin{proof}
+    Pick \(x_0 \in X\) then, for any \(y \in K\) pick \(n \in \NN\) such that \(d(x_0,y)<n\) i.e. \(y \in B_n^d(x_0)\) which implies \(\{B_n(x_0):n \in \NN\}\) is an open cover for \(K\). By compactness there exists a finite subcover \(\{B_{n_1}(x_0),\ldots, B_{n_k}(x_0)\}\) but, \(\bigcup_{i=1}^n B_{n_i}(x_0)=B_N(x_0)\) with \(N =\max\{n_1,\ldots,n_k\}\) which implies \(K \subseteq B_N(x_0)\).
+\end{proof}
+
+\begin{mdprop}
+    If \(X\) is compact and \(C\) is a closed subset of \(X\) then, \(C\) is compact.
+\end{mdprop}
+
+\begin{proof}
+    Let \(\mathcal{U}\) be a family of open subsets of \(X\) covering \(C\). Then \(\mathcal{U} \cup \{X \backslash C\}\) is an open cover \(X\) (since \(C\) is closed we have that \(X \backslash C\)) is open. Since \(X\)  is compact, it must have a finite subfamily \(\mathcal{V} \subseteq \mathcal{U}\) such that \(\mathcal{V} \cup \{X \backslash C\}\) is a cover for \(X\). Clearly, we must have \(\mathcal{V}\) a finite cover for \(C\).
+\end{proof}
+
+\begin{mdthm}
+    If \(X\) is Hausdorff and \(C\) is a compact subset of \(X\) then, \(C\) is closed in \(X\).
+\end{mdthm}
+
+\begin{proof}
+    To prove \(C\) is closed in \(X\) we prove that \(X\backslash C\) is open in \(X\). Fix \(x \in X \backslash C\). For each \(y \in C\), since \(x\neq y\), there exists open sets \(U_y,V_y\) in \(X\) such that \(x \in U_y, y\in V_y\) and \(U_y \cap V_y =\varnothing\) (by the assumption that \(X\) is Hausdorff). We have \(\{V_y : y\in C\}\) is a family of open sets in \(X\) covering \(C\). Since \(C\) is compact, there exists a finite set, say \(F = \{y_1,\ldots,y_n\} \subset C\), such that \(C \subset \bigcup_{i=1}^{n} V_{y_i}\). 
+
+    Define \(W = \bigcap_{i=1}^n U_{y_i}\) and notice that \(x \in W\) and \(W\) is open in \(X\). Furthermore, since each \(U_{y_i} \cap V_{y_i} = \varnothing\) we must have 
+    \[\begin{aligned}
+        W \cap C &\subset W \cap (V_{y_1} \cup \cdots \cup V_{y_n}) \\
+        &= \bigcup_{i=1}^n (W \cap V_{y_i}) \\
+        &= \varnothing.
+    \end{aligned}\]
+    This implies that, \(W \subset X \backslash C\). Since \(x\) was an arbitrary choice we see that \(X \backslash C\) is open in \(X\) hence, \(C\) is closed.
+\end{proof}
+
+\begin{theorem}
+    The unit interval \([0,1]\) is compact.
+\end{theorem}
+
+\begin{proof}
+    Let \(\mathcal{U}\) be a family of open subsets of \(\RR\) such that \([0,1] \subset \bigcup_{U\in \mathcal{U}} U\). For \(I \subset [0,1]\), we say that \underline{\(\mathcal{U}\) finitely covers \(I\)} if there exists a finite subfamily \(\mathcal{V} \subset \mathcal{U}\) such that \(I \subset \bigcup_{U \in \mathcal{V}} U\). 
+    
+    Next, we observe the following. Suppose that \(I = J \cup K\) for subsets \(I,J,K\) of \([0,1]\). If \(\mathcal{U}\) finitely covers \(J\) and \(K\) then, \(\mathcal{U}\) finitely covers \(I\). We will apply the contrapositive of this observation.
+    
+    For the sake of contraction, assume that \(\mathcal{U}\) does not finitely cover \([0,1]\). Then at least one of the intervals \(\left[ 0,\half \right]\) and \(\left[ \half,1 \right]\) cannot be finitely covered by \(\mathcal{U}\). Call that interval \([a_1,b_1]\), it follows that putting \(c = \half (a_1+b_1)\), at least one of the intervals \([a_1,c]\) and \([c,b_1]\) cannot be finitely covered by \(\mathcal{U}\). Call that interval \([a_2,b_2]\). Continue inductively to obtain a nested sequence 
+    \[\cdots \subset [a_2,b_2] \subset [a_1,b_1] \subset[0,1]\]
+    such that for each \(n \in \NN\) the interval \([a_n,b_n]\) cannot be finitely covered by \(\mathcal{U}\) and 
+    \[b_n-a_n = \frac{1}{2^n}.\]
+    
+    Note that, \(a_n\) is an increasing sequence that is bounded above so, it converges to some \(x \in [0,1]\). Similarly, \(b_n = a_n + \frac{1}{2^n} \to x\) also.
+    Since \([0,1] \subset \bigcup_{U \in \mathcal{U}}U\) there exists \(U \in \mathcal{U}\) such that \(x \in U\). Since this \(U\) is open, there exists \(\eps>0\) such that \((x-\eps,x+\eps)\subset U\). Furthermore, since \(a_n,b_n \to x\) there exists an \(n \in \NN\) with \(a_n, b_n \in (x-\eps,x+\eps)\) thus, it follows that \([a_n,b_n] \subset (x-\eps,x+\eps) \subset U\), contradicting that \([a_n,b_n]\) cannot be finitely covered by \(\mathcal{U}\). So, \([0,1]\) can be finitely covered by \(\mathcal{U}\) and is thus compact by Lemma \(8.1\).
+\end{proof}
+
+\begin{mdthm}[Heine-Borel in \(1\) dimension]
+    A subset \(K \subset \RR\) is compact \(\iff\) it is closed and bounded.
+\end{mdthm}
+
+\begin{proof}
+    We prove each direction in turn.
+    \begin{itemize}
+        \item Proof of \((\then)\). \\
+        Suppose \(K\) is compact and consider the function 
+        \[\begin{aligned}
+            f: \RR &\to \RR \\
+            x &\mapsto \abs{x}.
+        \end{aligned}\]
+        This is a continuous function and by Theorem \(8.1\) the image of the compact set \(K\) is bounded i.e. the set \(\{\abs{x} : x \in K\}\) is bounded. Since, \(K\)  is a compact subset of the Hausdorff space \(\RR\) we have that \(K\) is closed in \(\RR\) by Theorem \(8.2\).
+        \item Proof of \((\Leftarrow)\). \\
+        Suppose \(K\) is closed in \(\RR\) and bounded, Fix \(M \geq 0\) such that \(\abs{x}\leq M\) for all \(x \in K\). Thus, \(K \subset [-M,M]\) and so \(K\) is closed in \([-M,M]\) (by Exercise \(4.38\) of the lecture notes). Also, \([-M,M]\) is compact by the same proof of Theorem \(8.1\). Thus, \(K\) is a closed subset of a compact space which implies \(K\) is compact (by Proposition \(8.1\)).
+    \end{itemize}
+\end{proof}
+
+\begin{mdremark}
+    This theorem is only true for the topological space \((\RR,\text{usual topology})\).
+\end{mdremark}
+
+\begin{mdexample}
+    Let \(X = \{0,1,2\}\) be equipped with the topology \(\tau = \{\varnothing,X\}\). Clearly, \(\varnothing\) and \(X\) are the only closed sets in \((X,\tau)\). Consider \(A= \{1,2\}\) this is indeed a compact set as \(A\) can be covered by a finite amount of sets, namely by \(X\), but \(A\) is not a closed set!
+\end{mdexample}
+
+\subsection{Compactness and continuous functions}
+
+\begin{mdthm}
+    If \(X\) and \(Y\) are topological spaces and \(f:X\to Y\) is continuous and \(X\) is compact then \(f(X)\) is compact.
+\end{mdthm}
+
+\begin{mdnote}
+    That is, if \(f\) is a continuous function between two topological spaces the image of \(f\) is also a compact space.
+\end{mdnote}
+
+\begin{proof}
+    Let \(\mathcal{U}=\{U_i : i \in I\}\) be an open cover of \(f(X)\) and set \(V_i=f\inv(U_i)\). Since each \(U_i\) is open in \(Y\) and \(f\) is continuous we see that each \(V_i\) is open in \(X\). Moreover, \(f(X) \subseteq \bigcup_{i \in I} U_i\) implies that \(X \subset \bigcup_{i \in I} V_i\), which means that \(\{V_i: i\in I\}\) are an open cover of \(X\). Since, \(X\) is compact we have \(X \subseteq \bigcup_{i=1}^n V_i\) which means \(f(X) \subset \bigcup_{i=1}^n U_i\) i.e. \(\mathcal{U}\) admits a finite subcover. Therefore, \(f(X)\) is compact.
+\end{proof}
+
+\begin{corollary}
+    \(\RR \not\equiv [0,1]\).
+\end{corollary}
+
+\begin{proof}
+    The set \([0,1]\) is compact, but \(\RR\) is not.
+\end{proof}
+
+\begin{mdthm}
+    Let \(X\) be a compact topological space and \(Y\) be a Hausdorff space. Suppose that \(f:X\to Y\) is a continuous bijection. Then, \(f\) is a homeomorphism.
+\end{mdthm}
+
+\begin{proof}
+    Since \(f\) is bijective, the inverse function \(f\inv : Y \to X\) is defined, and by recalling the definition of a homeomorphism, we only need to show that \(f\inv\) is continuous. Let \(B\) be closed in \(X\). (By Exercise \(5.12\) it is sufficient to prove that the pre-image of \(B\) under the inverse map \(f\inv\) is closed). By bijectivity we have \((f\inv)\inv(B)=f(B)\). If \(B\) is closed in \(X\) then, it is compact (by Proposition \(8.1\)). Since \(f\) is continuous we have \(f(B)\) is also compact (by Theorem \(8.6\)). But \(f(B)\) is a compact subspace of the Hausdorff space \(Y\) which implies \(f(B)\) is closed (by Theorem \(8.3\)) hence, \(f\inv\) is continuous.
+\end{proof}
+
+\begin{mdexample}
+    We present two examples:
+    \begin{enumerate}
+        \item Let \((X=[0,1],\tau=\text{usual})\) and \((Y=[0,1],\sigma=\{\varnothing,Y\})\) with \(f=\id :X \to Y\) a continuous bijection. Clearly, \(X\) is compact however, \(Y\) is not Hausdorff: pick \(x =0\) and \(y=1\) clearly, \(x\neq y\) and \(x,y\in Y\) so, \(Y \cap Y=\varnothing\). Lastly, the function \(\id\) is not a homeomorphism because the inverse function \(\id\inv:Y \to X\) is not continuous: consider \(\mathcal{U}=\left( \half,\frac{2}{3} \right) \in \tau\) but \((\id\inv)\inv(\mathcal{U})=\mathcal{U} = \left( \half,\frac{2}{3} \right) \not\in \sigma\).
+        \item Let \((X=\RR,\tau=\mathcal{P}(x))\) and \((Y=\RR,\sigma=\text{usual})\) with \(f=\id:X\to Y\) a continuous bijection. Clearly, \(Y\) is Hausdorff; we have that \(X\) is not compact, consider \(\{\{x\} :x \in \RR\}\), this is an open cover for \(\RR\), but there cannot exist a finite subcover since \(\RR\) is infinite. Lastly, the function \(\id\) is not a homeomorphism because the inverse map \(\id\inv:Y \to X\) is not continuous: consider \(\mathcal{U}=[0,1] \in \tau\) but \((\id\inv)\inv(\mathcal{U})=\mathcal{U} =[0,1] \not\in \sigma\).
+    \end{enumerate}
+\end{mdexample}
+
+\begin{definition}
+    Suppose \((X,d)\) and \((Y,\rho)\) are metric spaces. We say a function \(f:X \to Y\) is \textbf{uniformly continuous} if 
+    \[\forall \eps>0 \, \exists \delta>0 \text{ such that } d(x,y)<\delta \then \rho(f(x),f(y))<\eps.\]
+\end{definition}
+
+\begin{mdthm}
+    Suppose \((X,d)\) is a compact metric space then, any continuous function \(f:(X,d) \to (Y,\rho)\) is uniformly continuous.
+\end{mdthm}
+
+\begin{mdremark}
+    To check if \((X,d)\) is compact, use the metric to induce a topology on \(X\) and check if the topological space is compact.
+\end{mdremark}
+
+\begin{proof}
+    Let \(\eps>0\). Suppose \(f\) is continuous then, for every point \(x \in X\) there exists \(\delta_x >0\) such that 
+    \[d(x,y)<\delta_x \then \rho(f(y),f(x))<\frac{\eps}{2}.\]
+    Consider \(B_x = B_{\frac{\delta_x}{2}}(x)\) for \(x \in X\). Since \(x \in B_x\) we have \(\{B_x : x \in X\}\) is an open cover for \(X\). Since \(X\) is compact, it has a finite subcover, \(\left\{ B_{x_1},B_{x_2},\ldots,B_{x_n} \right\}\) such that \(X = \bigcup_{i=1}^n B_{x_i}\). Let \(\delta = \half \min\{\delta_{x_1},\ldots, \delta_{x_k}\}\). Since the number of points \(x_n\) is finite, we have \(\delta>0\).
+    Let \(x,y \in X\) with \(d(x,y)<\delta\). Since \(X =\bigcup_{i=1}^n B_{x_i}\) there exists \(N\) such that \(x \in B_N = B_{\frac{\delta_{x_N}}{2}}^d(x_N)\), that is 
+    \[d(x,x_n)<\frac{\delta_{x_N}}{2}.\]
+    By the triangle inequality,
+    \[\begin{aligned}
+        d(y,x_N) &\leq d(y,x)+d(x,x_N) \\
+        &< \delta + \frac{\delta_{x_N}}{2} \\
+        &\leq \delta_{x_N}
+    \end{aligned}\]
+    thus, we have 
+    \[\begin{aligned}
+        \rho(f(x),f(y)) &\leq \rho(f(x),f(x_N))+\rho(f(x_N),f(y)) \\
+        &< \frac{\eps}{2}+\frac{\eps}{2} \\
+        &= \eps.
+    \end{aligned}\]
+    In conclusion, we have proved that for any \(\eps>0\) there exists \(\delta>0\) such that \(d(x,y)<\delta\) implies \(\rho(f(x),f(y))<\eps\).
+\end{proof}
+
+\subsection{Sequential compactness}
+
+\textbf{Recall} the Bolzano-Weierstrass theorem: any bounded sequence of real numbers has a convergent subsequence. This motivates our next definition.
+
+\begin{definition}
+    A subset \(K\) of a metric space \((X,d)\) is said to be \textbf{sequentially compact} if every sequence in \(K\) has a subsequence which converges to a limit in \(K\).
+\end{definition}
+
+\begin{example}
+    We present a few examples:
+    \begin{enumerate}
+        \item the set \([0,1]\) is sequentially compact;
+        \item the set \((0,1)\) is not sequentially compact in \(\RR\) with the usual metric, as the sequence \(x_n = \frac{1}{n}\) has subsequence that converges to a limit in \((0,1)\).
+        \item the set \(\RR\) is not sequentially compact, as the sequence \(x_n =n\) has no limit in \(\RR\).
+    \end{enumerate}
+\end{example}
+
+\begin{lemma}
+    Every closed and bounded subset of \(\RR\) is sequentially compact.
+\end{lemma}
+
+\begin{proof}
+    Let \((x_n)\) be any sequence in a closed and bounded set \(L\). By the Bolzano-Weierstrass theorem, there exists a convergent subsequence \(x_{n_k} \to x\) and since \(K\) is closed we must have \(x \in K\).
+\end{proof}
+
+\begin{mdthm}[Stocktaking]
+    Compactness.
+    \begin{itemize}
+        \item For \(K \subset \RR\): \(K\) is compact \(\iff\) \(K\) is closed and bounded \(\iff\) \(K\) is sequentially compact.
+        \item For \(K \subset (X,d)\): \(K\) is compact \(\then\) \(K\) is closed and bounded 
+    \end{itemize}
+\end{mdthm}
+
+\begin{mdexample}
+    Let \(X = \ZZ\) equipped with the discrete metric which induces the topology \(\tau = \mathcal{P}(\ZZ)\). The set \(K=X\) is closed and bounded as \(X = B_2^d(1)\) however, \(K\) is not compact. Consider the set \(\left\{B_{\frac{1}{2}}^d(n): n \in \NN\right\} = \{\{n\} : n \in \NN\}\), clearly there exists no finite subcover since \(\ZZ\) is uncountable.
+
+    This space is also complete: \(d(x_m,x_n)<\eps \then x_m=x_n\) \(\forall m,n \geq N_{\eps}\) thus, Cauchy sequences in this space are eventually constant.
+\end{mdexample}
+
+\begin{definition}
+    A metric space \((X,d)\) is \textbf{totally bounded} if for every \(\eps>0\) there exists a finite collection of points \(\{x_1,\ldots,x_n\} \subset X\) such that \(X = \bigcup_{i=1}^n B_{\eps}(x_i)\).
+\end{definition}
+
+\begin{mdremark}
+    This collection \(\mathcal{N}=\{x_1,\ldots,x_n\}\) is often called a finite \(\eps\)-net. The ``net'' means that for every \(y \in X\) there exists an \(x_j \in \mathcal{N}\) such that \(d(y,x_j)<\eps\).
+\end{mdremark}
+
+\begin{example}
+    Given \(\eps>0\) find a finite \(\eps\)-net for \(X=(0,1)\) equipped with the usual metric.
+    \begin{solution}
+        Pick \(N > \frac{1}{\eps}\) then, \(\mathcal{N} = \left\{ \frac{1}{N}, \frac{2}{N}, \ldots, \frac{N-1}{N} \right\}\) so, we can write 
+        \[(0,1)= \bigcup_{x \in \mathcal{N}} B_{\eps}(x)\]
+        therefore, \((0,1)\) is totally bounded.
+    \end{solution}
+\end{example}
+
+\begin{mdexample}
+    Negating the statement above, so that \(X\) fails to be totally bounded if it contains an infinite set of points with all pointwise greater \(\eps_0\) for some \(\eps_0>0\). 
+    
+    Consider \(X = \ZZ\) equipped with the discrete metric. If \(\eps_0 = \half\) then, \(B_{\eps}(n)=\{n\}\) for \(n \in \ZZ\) therefore,
+    \[\ZZ \neq \bigcup_{n \in \substack{\text{ finite} \\ \text{ set}}} B_{\eps_0}(x).\]
+\end{mdexample}
+
+\begin{mdthm}
+    Let \((X,d)\) be a metric space. The following statements are equivalent:
+    \begin{enumerate}
+        \item \(X\) is compact;
+        \item \(X\) is sequentially compact;
+        \item \(X\) is complete and totally bounded.
+    \end{enumerate}
+\end{mdthm}
+
+\begin{proof}
+    We split the proofs into parts.
+    \begin{itemize}
+        \item Proof of \((1) \then (2)\). \\
+        Suppose \(X\) is compact but not sequentially compact: (i.e.) there exists \((x_n) \subset X\) with \ul{\textbf{NO}} convergent subsequence. Thus, \((x_n)\) must contain an infinite number of distinct points (otherwise if there were a finite number of distinct points then we could find a convergent subsequence).
+
+        Next fix \(x \in X\) and suppose that for every \(\eps >0\), the ball \(B_{\eps}(x)\) contains a point of the sequence \((x_n)\) distinct from \(x\). Then, \(x\) would be the limit point of some subsequence of \((x_n)\). Hence, there exists \(\eps_x>0\) such that \(B_{\eps_x}(x)\) contains no points from \((x_n)\) except possibly the value of \(x\).
+
+        Note that, \(\{B_{\eps_x}(x) : x\in X\}\) is an open cover for \(X\). By compactness, this must admit a finite subcover. However, the union of a finite number of the \(B_{\eps_x}(x)\) contains at most \(n\) terms in the sequence. Because our sequence contains an infinite number of distinct points, it is not possible for the finite subcover to cover the terms of the sequence \((x_n)\) and thus, it is not possible for the finite subcover to cover \(X\). This is a contradiction of the hypothesis \((1)\) hence, \(X\) must be sequentially compact.
+        \item Proof of \((2) \then (3)\). \\
+        Suppose that \(X\) is sequentially compact. We first show that \(X\) is complete. Let \((x_n)\) be a Cauchy sequence in a sequentially compact space \(X\). Since some subsequence converges to a limit in \(X\) then, \((x_n)\) must be convergent to the same limit in \(X\).
+
+        We now prove that \(X\) is totally bounded. For the sake of contradiction suppose that \(X\) is not totally bounded. Then there exists \(\eps>0\) such that given any finite collection of points \(\{x_1,\ldots,x_n\} \subset X\) we can find a point \(x \in X\) such that \(d(x,x_i)\geq \eps\) for \(i \in \{1,\ldots,n\}\). This means that we can construct a sequence \((x_n) \subseteq X\) such that \(d(x_m,x_n) \geq \eps\) for every \(m,n \in \NN\). Such a sequence has no convergent subsequence, which contradicts the fact that \(X\) is sequentially compact. Therefore, \(X\) must be totally bounded.
+        \item Proof of \((3) \then (1)\). \\
+        Omitted.
+    \end{itemize}
+\end{proof}
+
+\section{Products and quotients of topological spaces}
+
+\subsection{The product topology}
+
+\begin{definition}
+    Let \((X,\tau_X)\) and \((Y,\tau_Y)\) be topological spaces. We define the \textbf{product topology}, \(\sigma\) on \(X \times Y\) by 
+    \[U \in \sigma \iff \forall (x,y) \in U \; \exists V \in \tau_X \text{ and } \exists W \in \tau_Y \text{ such that } (x,y) \in V \times W \subseteq U.\]
+\end{definition}
+
+\begin{proposition}
+    The product topology is a topology on \(X \times Y\).
+\end{proposition}
+
+\begin{proof}
+    Let \(\sigma\) denote the product topology. We prove the conditions to be a topology.
+    \begin{itemize}
+        \item \(\varnothing, X \times Y \in \sigma\):
+        By definition, \(\varnothing \in \sigma\) and since \(X\) is open in \(X\) and \(Y\) is open in \(Y\), we see that \(X \times Y \in \sigma\).
+        \item \(\bigcup_{i \in I} U_i \in \sigma\):
+        Suppose \(U_i \in \sigma\) for \(i \in I\) and \((x,y) \in \bigcup_{i \in I} U_i\) then, \((x,y) \in U_i\) for some \(i \in I\) and so, there exists \(V \in \tau_X\) and \(W \in \tau_Y\) such that 
+        \[(x,y) \in V \times W \subseteq U_i \subseteq \bigcup_{i \in I} U_i.\]
+        We conclude that \(\bigcup_{i \in I} U_i \in \sigma\).
+        \item \(U_1 \cap U_2 \in \sigma\):
+        Suppose \(U_1, U_2 \in \sigma\) and \((x,y) \in U_1 \cap U_2\). Since \((x,y) \in U_1\) there exist \(V_1 \in \tau_X\) and \(W_1 \in \tau_Y\) such that \((x,y) \in V_1 \times W_1 \subseteq U_1\). By a similar argument, there exist \(V_2 \in \tau_X\) and \(W_2 \in \tau_Y\) such that \((x,y) \in V_2 \times W_2 \subseteq U_2\). Let \(V=V_1 \cap V_2 \in \tau_X\) and let \(W = W_1 \cap W_2 \in \tau_Y\). Therefore, we have \((x,y) \in V \times W \subseteq U_1 \cap U_2\) and \(U_1 \cap U_2 \in \sigma\).
+    \end{itemize} 
+\end{proof}
+
+\begin{mdremark}
+    In general, it is \textbf{not true} that every open set \(X \times Y\) is of the form \(V \times W\) where \(V\) is open in \(X\) and \(W\) is open in \(Y\).
+\end{mdremark}
+
+\begin{definition}
+    We define the \textbf{projection maps}, \(\pi_X\) and \(\pi_Y\), by 
+    \[\begin{aligned}
+        \pi_X : X \times Y &\to X \quad \text{and} \quad \pi_Y : &X \times Y \to Y \\
+        (x,y) &\mapsto x &(x,y) \mapsto y.
+    \end{aligned}\]
+\end{definition}
+
+\begin{mdthm}
+    Let \(X\) and \(Y\) be topological spaces. If we endow the set \(X \times Y\) with the product topology then, \(\pi_X\) and \(\pi_Y\) are continuous.
+\end{mdthm}
+
+\begin{proof}
+    We have that 
+    \[\pi_X : (X \times Y, \text{product topology}) \to (X,\tau_X).\]
+    Let \(U \in \tau_X\) then 
+    \[\begin{aligned}
+        \pi_X\inv(U) &= \{(x,y) \in X \times Y : \pi_X((x,y)) \in U\} \\
+        &= \{(x,y) \in X \times Y : x \in U\} \\
+        &= U \times Y,
+    \end{aligned}\]
+    which is clearly open in the product topology. Hence, \(\pi_X\) is continuous. A similar argument for \(\pi_Y\).
+\end{proof}
+
+\begin{mdremark}
+    The product topology is the smallest topology on \(X \times Y\) making \(\pi_X\) and \(\pi_Y\) continuous.
+\end{mdremark}
+
+\begin{mdthm}
+    If \(X\) and \(Y\) are Hausdorff spaces then, \(X \times Y\) is a Hausdorff space.
+\end{mdthm}
+
+\begin{proof}
+    Let \((x_1,y_1)\) and \((x_2,y_2)\) be distinct points in \(X \times Y\). Suppose that \(x_1 \neq x_2\) then, since \(X\) is Hausdorff, there exist disjoint open sets \(V_1\) and \(V_2\) such that \(x_1 \in V_1\) and \(x_2 \in V_2\). Set \(U_1 = V_1 \times Y\) and \(U_2 = V_2 \times Y\) these are both open in the product topology and disjoint (\(V_1 \cap V_2 = \varnothing\)). Furthermore, we have \((x_1,y_2) \in U_1\) and \((x_2,y_2) \in U_2\) which implies separated points by disjoint open sets. If \(x_1=x_2\) then \(y_1 \neq y_2\) repeat the same argument. We conclude, \(X \times Y\) is Hausdorff.
+\end{proof}
+
+\begin{mdthm}
+    Let \((X,d_X)\) and \((Y,d_Y)\) be metric spaces and define the metric 
+    \[\sigma((x_1,y_1),(x_2,y_2)) = \max\{d_X(x_1,x_2),d_Y(y_1,y_2)\}\]
+    on \(X \times Y\). Then the topology \(\tau_{\sigma}\) is induced by \(\sigma\) and is equal to the product topology \(\tau\) on \(X \times Y\).
+\end{mdthm}
+
+\begin{proof}
+    Let \(U \in \tau_{\sigma}\) and suppose that \((x,y) \in U\). Then there exists \(\eps>0\) such that \(B_{\eps}^{X \times Y}((x,y)) \subseteq U\). Clearly, \(B_{\eps}^{X \times Y}((x,y))=B_{\eps}^X(x) \times B_{\eps}^Y(y)\) and since \(B_{\eps}^X(x)\) is open in \(X\) and \(B_{\eps}^Y(y)\) is open in \(Y\) we see that \(U \in \tau\). 
+
+    Conversely, if \(U \in \tau\) and \((x,y) \in U\) then \((x,y) \in V \times W \subseteq U\) for some \(V\) open in \(X\) and \(W\) open in \(Y\). Now, there exists \(\eps_1,\eps_2>0\) such that \(B_{\eps_1}^X(x) \subseteq V\) and \(B_{\eps_2}^Y(y) \subseteq W\), and we define \(\eps=\min\{\eps_1,\eps_2\}\). Then
+    \[\begin{aligned}
+        B_{\eps}^{X\times Y}((x,y)) &= B_{\eps}^X(x) \times B_{\eps}^Y(y) \\
+        &\subseteq B_{\eps_1}^X(x) \times B_{\eps_2}^Y(y) \\
+        &\subseteq V \times W \\
+        &\subseteq U
+    \end{aligned}\]
+    hence, \(U \in \tau_\sigma\).
+\end{proof}
+
+\begin{corollary}
+    Let \((X,d_x)\) and \((Y,d_Y)\) be metric spaces, and suppose that \((x_n,y_n)\) is a sequence in \(X \times Y\) and \((x,y) \in X \times Y\). Then, 
+    \[(x_n,y_n) \to (x,y) \text{ in } X \times Y \iff x_n \xrightarrow{d_X} x \text{ and } y_n \xrightarrow{d_Y} y.\]
+\end{corollary}
+
+\begin{proof}
+    \[\max\{d_X(x_n,x),d_Y(y_n,y)\}\to 0 \iff d_X(x_n,x) \to 0 \text{ and } d_Y(y_n,y) \to 0.\]
+\end{proof}
+
+\begin{mdthm}
+    If \(X\) and \(Y\) are connected topological spaces then \(X \times Y\) is connected.
+\end{mdthm}
+
+\begin{theorem}
+    Let \(X,Y\) and \(T\) be topological spaces, Let \(g : T \to X \times Y\) then, \(g\) is continuous if and only if \(\pi_X \circ g : T \to X\) and \(\pi_Y \circ g : T \to Y\) are continuous.
+\end{theorem}
+
+\begin{proof}
+    We prove each direction in turn.
+    \begin{itemize}
+        \item Proof of \((\then)\).
+        Since \(g\) is continuous and \(\pi_X\) and \(\pi_Y\) are continuous then, by composition of maps the proof is clear.
+        \item Proof of \((\Leftarrow)\).
+        Suppose that \(\pi_X \circ g\) and \(\pi_Y \circ g\) are continuous and suppose that \(U\) is open in \(X \times Y\) and \(t \in g\inv(U)\). Then there exist \(V\) open in \(X\) and \(W\) open in \(Y\) such that \(g(t) \in V \times W \subseteq U\). This implies that \(\pi_X \circ g(t) \in V\) and so \(t \in (\pi_X \circ g)\inv(V)\) which is open in \(T\), Similarly, \(t \in (\pi_Y \circ g)\inv(W)\) which is open in \(T\). We define \(U' = (\pi_X \circ g)\inv(V) \cap (\pi_Y \circ g)\inv(W)\) which is also open in \(T\) and contains \(t\). If \(s \in U'\) then, \(\pi_X \circ g(s) \in V\) and \(\pi_Y \circ g(s) \in W\) thus, \(g(s) \in V \times W \subseteq U\). We have shown \(t \in U' \subseteq g\inv(U)\) where \(U'\) is open in \(T\). Since \(t\) was an arbitrary choice we see that \(g\inv(U)\) is open in \(T\) and so \(g\) is continuous.
+    \end{itemize}
+\end{proof}
+
+\subsection{Quotient spaces}
+
+\begin{definition}
+    A binary relation, \(\sim\), on a set \(X\) is called an \textbf{equivalence relation} if and only if it satisfies the following: for all \(x,y,z \in X\)
+    \begin{itemize}
+        \item \(x \sim x\) (reflexivity);
+        \item \(x\sim y \then y \sim x\) (symmetric);
+        \item \(x \sim y\) and \(y \sim z \then x \sim z\) (transitivity).
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+   For \(x \in X\) the set 
+   \[[x] = \{y \in X : y \sim x\}\] 
+   denotes the \textbf{equivalence classes} of \(x\).
+\end{definition}
+
+\begin{definition}
+    Let \((X,\tau)\) be a topological space and \(\sim\) an equivalence relation on \(X\). We call 
+    \[(X/\sim) = \{[x] : x \in X\}\]
+    the \textbf{quotient} of \(X\) by \(\sim\). Define the map 
+    \[\begin{aligned}
+        q : X &\to X/ \sim \\
+        x &\mapsto [x].
+    \end{aligned}\]
+    We define the \textbf{quotient topology} \(\tau_q\) on \(X /\sim\) to be 
+    \[\begin{aligned}
+        \tau_q &= \{V \subset X / \sim : q\inv(V) \text{ is open in } X\} \\
+        &= \{V \subset X / \sim : q\inv(V) \in \tau\}.
+    \end{aligned}\]
+    We call \((X/\sim,\tau_q)\) the \textbf{quotient space}.
+\end{definition}
+
+\begin{mdremark}
+    If \(V \in \tau_q\) then, by definition \(q\inv(V)\) is open in \(X\) and so, \(q : (X,\tau) \to (X/\sim, \tau_q)\) is continuous.
+\end{mdremark}
+
+\begin{lemma}
+    The quotient topology, \(\tau_q\), is a topology on \(X \backslash \sim\).
+\end{lemma}
+
+\begin{proof}
+    We prove each condition to be a topology.
+    \begin{enumerate}
+        \item \(q\inv(\varnothing) =\varnothing\) and \(q\inv(X /\sim)=X\) so both \(\varnothing, X/\sim \in \tau_q\).
+        \item \(q\inv\left( \bigcup_{i \in I} V_i \right) = \bigcup_{i \in I} q\inv(V_i)\) which is in \(\tau\) since each \(q\inv(V_)\in\tau\) thus, \(\bigcup_{i \in I} V_i \in \tau_q\).
+        \item \(q\inv( U \cap V) = q\inv(U) \cap q\inv(V)\) is in \(\tau\) and so \(U\cap V \in \tau_q\).
+    \end{enumerate}
+\end{proof}
+
+\begin{mdprop}
+    If a space is compact then, all its quotient spaces are compact. \\
+    If a space is connected then, all its quotient spaces are connected.
+\end{mdprop}
+
+\begin{proof}
+    Since the quotient map \(q : X \to X/\sim\) is continuous and surjective, apply Theorems \(7.3\) and \(8.1\) (if \(f\) is a continuous function then image of \(f\) is connected/compact).
+\end{proof}
+
+\begin{definition}
+    Let \(X\) and \(Y\) be topological spaces. A map \(f : X \to Y\) is a \textbf{quotient map} if it is \underline{surjective} and \(V \subset Y\) is open in \(Y \iff f\inv(V)\) is open in \(X\).
+\end{definition}
+
+\begin{mdremark}
+    Quotient maps are continuous.
+\end{mdremark}
+
+\begin{mdprop}
+    Suppose that \(f : X \to Y\) is a quotient map and \(g :Y \to X \times Y\) is any map to another space \(X \times Y\). Then, \(g\) is continuous \(\iff\) \(g \circ f : X \to X \times Y\) is continuous.
+\end{mdprop}
+
+\begin{proof}
+    We prove each implication in turn.
+    \begin{itemize}
+        \item Proof of \((\then)\). \\
+        If \(g\) is continuous and \(f\) is a quotient map hence, continuous then, \(g \circ f\) is clearly continuous (by rules of continuous functions).
+        \item Proof of \((\Leftarrow)\). \\
+        Suppose \(g \circ f\) is continuous and \(U\) is open in \(X \times Y\). Then \((g \circ f)\inv(U) = f\inv(g\inv(U))\) which is open in \(X\). By definition of \(X\) being a quotient map we have that \(g\inv(U)\) is open in \(Y\) thus, \(g\) is continuous.
+    \end{itemize}
+\end{proof}
+
+\begin{mdexample}
+    Consider the function 
+    \[\begin{aligned}
+        f:[0,2\pi] &\to \mathbb{S}^1 \\
+        t &\mapsto (\cos t,\sin t),
+    \end{aligned}\]
+    this function is clearly continuous and surjective on \([0,2\pi]\). Define an equivalence relation such that \(0\sim 2\pi\) otherwise nothing. Thus, \(f\) induces a bijection 
+    \[\begin{aligned}
+        g : [0,2\pi] /\sim &\to \mathbb{S}^1 \\
+        [t] &\mapsto (\cos t, \sin t).
+    \end{aligned}\]
+    Define, the quotient map \(q:[0,2\pi] \to [0,2\pi]/\sim\), by the above proposition we have that \(f = g \circ f\) implies that \(g\) is continuous. Since \([0,2\pi]/\sim\) is compact and \(\mathbb{S}^1\) is Hausdorff (since it is a metric subspace of \(\RR^2\)), we conclude \(g\) is a homeomorphism.
+\end{mdexample}
+
+\end{document}
