@@ -497,6 +497,11 @@ ninja.data = [{
           description: "My postgraduate maths notes from Imperial College London",
           section: "Projects",handler: () => {
               window.location.href = "/projects/msc-pure-mathematics-notes-imperial/";
+            },},{id: "projects-msc-thesis",
+          title: 'MSc Thesis',
+          description: "Towards a Formalisation of the Kakeya Conjecture in ℝ²",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/msc-thesis/";
             },},{
         id: 'social-email',
         title: 'email',
