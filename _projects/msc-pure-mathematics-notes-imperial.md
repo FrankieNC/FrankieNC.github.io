@@ -3,7 +3,7 @@ layout: page
 title: MSc Pure Mathematics Notes (Imperial College London)
 description: My postgraduate maths notes from Imperial College London
 img: /assets/img/Imperial_College.jpg # Replace with a suitable background image
-importance: 1
+importance: 2
 category: academic
 ---
 
