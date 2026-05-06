@@ -492,6 +492,11 @@ ninja.data = [{
           description: "My undergraduate maths notes from King&#39;s College London",
           section: "Projects",handler: () => {
               window.location.href = "/projects/bsc-mathematics-notes-kcl/";
+            },},{id: "projects-bsc-thesis",
+          title: 'BSc Thesis',
+          description: "Algorithmic Problems in Group Theory",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/bsc-thesis/";
             },},{id: "projects-msc-pure-mathematics-notes-imperial-college-london",
           title: 'MSc Pure Mathematics Notes (Imperial College London)',
           description: "My postgraduate maths notes from Imperial College London",
