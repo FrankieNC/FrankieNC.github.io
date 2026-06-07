@@ -1,0 +1,41 @@
+version: 2
+updates:
+  # Group all npm updates into one PR
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      all-npm:
+        patterns:
+          - "*"
+
+  # Group all Ruby/Bundler updates into one PR
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      all-gems:
+        patterns:
+          - "*"
+
+  # Group all pip updates into one PR
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      all-python:
+        patterns:
+          - "*"
+
+  # Group all GitHub Actions updates into one PR
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      all-actions:
+        patterns:
+          - "*"
