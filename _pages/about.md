@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='https://www.imperial.ac.uk/mathematics/'>Imperial College London</a>. Domine Dirige Nos.
+subtitle: Incoming PhD student, <a href='https://www.maths.cam.ac.uk/'>University of Cambridge</a>.
 profile:
   align: right
   image: PFP.png
@@ -28,7 +28,9 @@ latest_posts:
 
 Welcome to my website!
 
-I recently graduated with an MSc in Pure Mathematics from Imperial College London. I'm a mathematics enthusiast with a particular interest in formalisation using Lean 4.
+I am an incoming PhD student in Pure Mathematics at the [University of Cambridge](https://www.maths.cam.ac.uk/), where I will be joining [Professor Timothy Gowers'](https://www.dpmms.cam.ac.uk/~wtg10/) group. My research will focus on **human-oriented automatic theorem proving** — building systems that produce proofs that are not merely correct, but _motivated_: proofs where every step is accompanied by a clear reason for taking it, in the spirit of [Professor Gowers' programme](https://gowers.wordpress.com/2025/09/22/creating-a-database-of-motivated-proofs/) for creating a database of motivated proofs.
+
+I hold an MSc in Pure Mathematics from Imperial College London and a BSc in Mathematics from King's College London. My broader interests lie at the intersection of mathematical logic, formalisation, and the foundations of automated reasoning.
 
 ---
 

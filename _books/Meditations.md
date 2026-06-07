@@ -6,7 +6,13 @@ cover: assets/img/book_covers/Meditations.jpeg
 olid:
 isbn:
 categories: classics historical-fiction novels
-tags: Marcus Aurelius, meditations, Roman literature, philosophy, spiritual-growth, stoic
+tags:
+  - Marcus Aurelius
+  - meditations
+  - Roman literature
+  - philosophy
+  - spiritual-growth
+  - stoic
 buy_link: https://shop.penguin.co.uk/products/meditations-by-marcus-aurelius?srsltid=AfmBOooaP2elseWAVK63M2oj1F-w5cPAHPe91W3bAPKr3r7w3D-400zW
 released: 1558
 stars: 5
