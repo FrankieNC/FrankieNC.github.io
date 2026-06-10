@@ -497,6 +497,11 @@ ninja.data = [{
           description: "Algorithmic Problems in Group Theory",
           section: "Projects",handler: () => {
               window.location.href = "/projects/bsc-thesis/";
+            },},{id: "projects-mathlib-contributor",
+          title: 'Mathlib Contributor',
+          description: "Contributing to Lean 4&#39;s official community mathematics library.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/mathlib-contributor/";
             },},{id: "projects-msc-pure-mathematics-notes-imperial-college-london",
           title: 'MSc Pure Mathematics Notes (Imperial College London)',
           description: "My postgraduate maths notes from Imperial College London",
