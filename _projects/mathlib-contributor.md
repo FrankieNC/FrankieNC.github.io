@@ -12,4 +12,4 @@ I contribute to [Mathlib](https://github.com/leanprover-community/mathlib4), the
 
 My contributions are in topology, measure theory and related areas — part of the broader goal of building a comprehensive, machine-verified library covering undergraduate and graduate mathematics.
 
-Click [here](https://github.com/leanprover-community/mathlib4/pulls?q=is%3Apr+author%3AFrankieNC+is%3Amerged) to see my most recent pull requests.
+Click [here](https://github.com/leanprover-community/mathlib4/pulls?q=is%3Apr+author%3AFrankieNC) to see my most recent pull requests.
