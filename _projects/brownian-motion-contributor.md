@@ -11,7 +11,7 @@ related_publications: false
 
 I contribute to [**Brownian Motion in Lean**](https://github.com/RemyDegenne/brownian-motion), an open, collaborative project led by [Rémy Degenne](https://remydegenne.github.io/) to formalise stochastic processes and stochastic integration in [Lean 4](https://lean-lang.org).
 
-The construction of Brownian motion is described in a preprint, [_Formalization of Brownian motion in Lean_](https://arxiv.org/abs/2511.20118) (Degenne, Ledvinka, Marion, Pfaffelhuber, 2025).
+The construction of Brownian motion is described in a preprint, [Formalization of Brownian motion in Lean](https://arxiv.org/abs/2511.20118) (Degenne, Ledvinka, Marion, Pfaffelhuber, 2025).
 
 Project resources:
 
