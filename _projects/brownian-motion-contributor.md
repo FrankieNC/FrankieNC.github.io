@@ -3,8 +3,9 @@ layout: page
 title: Brownian Motion in Lean
 description: Formalising Brownian motion and stochastic integration in Lean 4.
 img: assets/img/brownian_motion_paths.png
-importance: 1
 category: academic
+subcategory: Research & Contributions
+importance: 1
 related_publications: false
 ---
 

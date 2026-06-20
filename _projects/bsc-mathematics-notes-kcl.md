@@ -3,8 +3,9 @@ layout: page
 title: Undergraduate Mathematics Notes (King's College London)
 description: My undergraduate maths notes from King's College London
 img: assets/img/KCL_background.jpeg # Replace with a suitable background image
-importance: 4
 category: academic
+subcategory: Notes
+importance: 5
 ---
 
 This project contains notes from my undergraduate mathematics degree, organised by academic year and module. Each module is hyperlinked to a standalone PDF for convenient access.

@@ -3,8 +3,9 @@ layout: page
 title: Mathlib Contributor
 description: Contributing to Lean 4's official community mathematics library.
 img: assets/img/LEAN-Theorem-Prover.png
-importance: 1
 category: academic
+subcategory: Research & Contributions
+importance: 1
 related_publications: false
 ---
 
