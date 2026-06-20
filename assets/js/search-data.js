@@ -487,6 +487,11 @@ ninja.data = [{
           description: "another project with an image 🎉",
           section: "Projects",handler: () => {
               window.location.href = "/projects/9_project/";
+            },},{id: "projects-brownian-motion-in-lean",
+          title: 'Brownian Motion in Lean',
+          description: "Formalising Brownian motion and stochastic integration in Lean 4.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/brownian-motion-contributor/";
             },},{id: "projects-undergraduate-mathematics-notes-king-39-s-college-london",
           title: 'Undergraduate Mathematics Notes (King&amp;#39;s College London)',
           description: "My undergraduate maths notes from King&#39;s College London",
