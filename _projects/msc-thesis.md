@@ -3,8 +3,9 @@ layout: page
 title: MSc Thesis
 description: Towards a Formalisation of the Kakeya Conjecture in ℝ²
 img: assets/img/msc-thesis.gif
-importance: 1
 category: academic
+subcategory: Theses
+importance: 2
 ---
 
 ## Towards a Formalisation of the Kakeya Conjecture in ℝ²

@@ -3,8 +3,9 @@ layout: page
 title: MSc Pure Mathematics Notes (Imperial College London)
 description: My postgraduate maths notes from Imperial College London
 img: /assets/img/Imperial_College.jpg # Replace with a suitable background image
-importance: 2
 category: academic
+subcategory: Notes
+importance: 4
 ---
 
 This project contains notes from my MSc degree. Each module is hyperlinked to a standalone PDF for convenient access.

@@ -3,8 +3,9 @@ layout: page
 title: BSc Thesis
 description: Algorithmic Problems in Group Theory
 img: assets/img/bsc-thesis.png
-importance: 3
 category: academic
+subcategory: Theses
+importance: 3
 ---
 
 ## Algorithmic Problems in Group Theory
