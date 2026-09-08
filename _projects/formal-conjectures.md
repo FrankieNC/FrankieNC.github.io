@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 
+title:
 description: Contributing to Google DeepMind's Formal Conjectures repository in Lean 4.
 img: assets/img/formal_conjectures_logo.svg
 category: academic
