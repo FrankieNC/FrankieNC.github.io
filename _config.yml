@@ -7,7 +7,7 @@ first_name: Francesco
 middle_name: N.
 last_name: Chotuck
 contact_note: >
-  The best way to reach me is via LinkedIn.
+  The best way to reach me is via e-mail.
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 footer_text: >
@@ -180,6 +180,7 @@ exclude:
   - _pages/teaching.md
   - _pages/blog.md
   - _pages/posts/
+  - _pages/books.md
   - bin/
   - CONTRIBUTING.md
   - CUSTOMIZE.md
