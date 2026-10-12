@@ -502,6 +502,11 @@ ninja.data = [{
           description: "Algorithmic Problems in Group Theory",
           section: "Projects",handler: () => {
               window.location.href = "/projects/bsc-thesis/";
+            },},{id: "projects-formal-conjectures",
+          title: 'Formal Conjectures',
+          description: "Contributing to Google DeepMind&#39;s Formal Conjectures repository in Lean 4.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/formal-conjectures/";
             },},{id: "projects-mathlib-contributor",
           title: 'Mathlib Contributor',
           description: "Contributing to Lean 4&#39;s official community mathematics library.",
