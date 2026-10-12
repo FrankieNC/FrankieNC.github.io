@@ -16,13 +16,6 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
-        },{id: "nav-bookshelf",
-          title: "bookshelf",
-          description: "",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/books/";
-          },
         },{id: "dropdown-bookshelf",
               title: "bookshelf",
               description: "",
@@ -411,27 +404,7 @@ ninja.data = [{
             window.location.href = "/blog/2015/formatting-and-links/";
           
         },
-      },{id: "books-inferno",
-          title: 'Inferno',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/Inferno/";
-            },},{id: "books-meditations",
-          title: 'Meditations',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/Meditations/";
-            },},{id: "books-paradiso",
-          title: 'Paradiso',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/paradiso/";
-            },},{id: "books-purgatorio",
-          title: 'Purgatorio',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/purgatorio/";
-            },},{id: "news-a-simple-inline-announcement",
+      },{id: "news-a-simple-inline-announcement",
           title: 'A simple inline announcement.',
           description: "",
           section: "News",},{id: "news-a-long-announcement-with-details",
@@ -523,6 +496,13 @@ ninja.data = [{
           section: "Projects",handler: () => {
               window.location.href = "/projects/msc-thesis/";
             },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%66%6E%63%32%34@%63%61%6D.%61%63.%75%6B", "_blank");
+        },
+      },{
         id: 'social-linkedin',
         title: 'LinkedIn',
         section: 'Socials',
