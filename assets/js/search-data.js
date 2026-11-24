@@ -495,6 +495,11 @@ ninja.data = [{
           description: "Towards a Formalisation of the Kakeya Conjecture in ℝ²",
           section: "Projects",handler: () => {
               window.location.href = "/projects/msc-thesis/";
+            },},{id: "projects-rockstar-games-gta-vi",
+          title: 'Rockstar Games — GTA VI',
+          description: "Data Scientist intern in Player Insights &amp; Analytics at Rockstar London, credited in Grand Theft Auto VI.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/rockstar-games-gta-vi/";
             },},{
         id: 'social-email',
         title: 'email',
