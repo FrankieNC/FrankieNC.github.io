@@ -32,6 +32,8 @@ I am a PhD student in the [Department of Pure Mathematics and Mathematical Stati
 
 My research is on the theory of automatic theorem proving. With recent advances in AI, the way mathematics is done is changing rapidly. My current work focuses on deterministic approaches, as part of Professor Gowers' [programme on motivated proofs](https://gowers.wordpress.com/2025/09/22/creating-a-database-of-motivated-proofs/).
 
+**Fun fact:** before starting my PhD, I interned as a data scientist at Rockstar Games, so you'll find my name in the credits of [Grand Theft Auto VI](/projects/rockstar-games-gta-vi/).
+
 ---
 
 ### Lecture Notes
